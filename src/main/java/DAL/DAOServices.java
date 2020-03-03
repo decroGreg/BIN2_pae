@@ -5,12 +5,12 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
-public class DAO_Services {
+public class DAOServices {
 
   private String url = "jdbc:postgresql://172.24.2.6:5432/dbmariabouraga";
   private Connection conn = null;
 
-  public DAO_Services() {
+  public DAOServices() {
 
 
     try {

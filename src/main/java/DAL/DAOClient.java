@@ -2,13 +2,13 @@ package DAL;
 
 import java.sql.PreparedStatement;
 
-public class DAO_Client {
+public class DAOClient {
 
   private PreparedStatement trouverUtilisateurParEmail;
-  private DAO_Services services;
+  private DAOServices services;
 
-  public DAO_Client() {
-    this.services = new DAO_Services();
+  public DAOClient() {
+    this.services = new DAOServices();
   }
 
   public PreparedStatement getPreparedStatement(PreparedStatement ps) {
