@@ -2,8 +2,8 @@ package Biz;
 
 public interface User extends UserDTO {
 
-  public boolean checkEmail(String password);
+  public UserDTO checkEmail(String motDePasse);
 
-  public boolean checkMotDePasse(String password);
+  public boolean checkMotDePasse(String motDePasseAVerifier, String motDePasse);
 
 }
