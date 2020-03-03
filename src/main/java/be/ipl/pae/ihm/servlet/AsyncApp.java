@@ -6,7 +6,7 @@ import org.eclipse.jetty.servlet.ServletHolder;
 import org.eclipse.jetty.webapp.WebAppContext;
 
 public class AsyncApp {
-  public static void main(String args) throws Exception {
+  public static void main(String[] args) throws Exception {
     Server server = new Server(8080);
     WebAppContext context = new WebAppContext();
 
@@ -20,13 +20,12 @@ public class AsyncApp {
     context.setInitParameter("cacheControl", "no-store,no-cache,must-revalidate");
 
 
-
     HttpServlet serv = new LoginServlet();
     context.addServlet(new ServletHolder(serv), "/login");
 
 
 
-    context.setResourceBase("projet-ae-groupe-05");
+    context.setResourceBase("view");
 
     server.setHandler(context);
     server.start();
