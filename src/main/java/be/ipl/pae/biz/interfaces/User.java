@@ -4,8 +4,10 @@ import be.ipl.pae.biz.dto.UserDTO;
 
 public interface User extends UserDTO {
 
-  public boolean checkEmail(String password);
+  boolean checkEmail();
 
-  public boolean checkMotDePasse(String password);
+  boolean checkMotDePasse(String password);
+
+  boolean encryptMotDePasse();
 
 }

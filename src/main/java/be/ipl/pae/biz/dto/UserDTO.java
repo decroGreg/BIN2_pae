@@ -1,13 +1,38 @@
 package be.ipl.pae.biz.dto;
 
+import java.sql.Timestamp;
+
+
 public interface UserDTO {
 
-  public String getEmail();
+  String getPseudo();
 
-  public String getMotDePasse();
+  void setPseudo(String pseudo);
 
-  public void setEmail(String email);
+  String getNom();
 
-  public void setMotDePasse(String motDePasse);
+  void setNom(String nom);
+
+  String getPrenom();
+
+  void setPrenom(String prenom);
+
+  String getVille();
+
+  void setVille(String ville);
+
+  String getEmail();
+
+  void setEmail(String email);
+
+  String getMotDePasse();
+
+  void setMotDePasse(String motDePasse);
+
+  char getStatut();
+
+  void setStatut(char statut);
+
+  Timestamp getDateInscription();
 
 }

@@ -1,9 +1,13 @@
 package be.ipl.pae.biz.impl;
 
 import java.sql.Timestamp;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+import org.mindrot.bcrypt.BCrypt;
+import be.ipl.pae.biz.dto.UserDTO;
 import be.ipl.pae.biz.interfaces.User;
 
-public class UserImpl implements User {
+public class UserImpl implements User, UserDTO {
 
   private String pseudo;
   private String nom;
@@ -37,77 +41,109 @@ public class UserImpl implements User {
     super();
   }
 
+  @Override
   public String getPseudo() {
     return pseudo;
   }
 
+  @Override
   public void setPseudo(String pseudo) {
     this.pseudo = pseudo;
   }
 
+  @Override
   public String getNom() {
     return nom;
   }
 
+  @Override
   public void setNom(String nom) {
     this.nom = nom;
   }
 
+  @Override
   public String getPrenom() {
     return prenom;
   }
 
+  @Override
   public void setPrenom(String prenom) {
     this.prenom = prenom;
   }
 
+  @Override
   public String getVille() {
     return ville;
   }
 
+  @Override
   public void setVille(String ville) {
     this.ville = ville;
   }
 
+  @Override
   public String getEmail() {
     return email;
   }
 
+  @Override
   public void setEmail(String email) {
     this.email = email;
   }
 
+  @Override
   public String getMotDePasse() {
     return motDePasse;
   }
 
+  @Override
   public void setMotDePasse(String motDePasse) {
     this.motDePasse = motDePasse;
   }
 
+  @Override
   public char getStatut() {
     return statut;
   }
 
+  @Override
   public void setStatut(char statut) {
     this.statut = statut;
   }
 
+  @Override
   public Timestamp getDateInscription() {
     return dateInscription;
   }
 
-  public boolean checkEmail(String email) {
-    // return DAO_client.checkEmail(email);
+  public boolean checkUser() {
+    if (this == null || this.getEmail() == null || this.getMotDePasse() == null) {
+      return false;
+    }
+    return true;
+  }
+
+  public boolean checkEmail() {
+    Pattern pattern =
+        Pattern.compile("^[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,6}$", Pattern.CASE_INSENSITIVE);
+    Matcher matcher = pattern.matcher(email);
+    return matcher.matches();
+  }
+
+  public boolean checkMotDePasse(String motDePasseDb) {
+    if (BCrypt.checkpw(this.getMotDePasse(), motDePasseDb)) {
+      return true;
+    }
     return false;
   }
 
-  public boolean checkMotDePasse(String motDePasse) {
-    /*
-     * String salt = BCrypt.gensalt(); String mdpHache = BCrypt.hashpw(motDePasseConnexion, salt);
-     */
-    // String password = DAO.getPassword();
-    // return BCrypt.checkpw(motDePasse, );
+  public boolean encryptMotDePasse() {
+    String salt = BCrypt.gensalt();
+    String hashMotDePasse = BCrypt.hashpw(motDePasse, salt);
+    if (hashMotDePasse != null) {
+      setMotDePasse(hashMotDePasse);
+      return true;
+    }
     return false;
   }
 }
