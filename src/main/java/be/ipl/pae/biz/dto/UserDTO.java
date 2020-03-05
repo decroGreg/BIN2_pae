@@ -1,10 +1,10 @@
-package Biz;
+package be.ipl.pae.biz.dto;
 
 public interface UserDTO {
 
   public String getEmail();
 
-  public String getMotDepasse();
+  public String getMotDePasse();
 
   public void setEmail(String email);
 

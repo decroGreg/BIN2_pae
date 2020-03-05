@@ -3,8 +3,8 @@ package DAL;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import Biz.UserDTO;
-import Biz.UserFactory;
+import be.ipl.pae.biz.dto.UserDTO;
+import be.ipl.pae.biz.interfaces.UserFactory;
 
 public class DAOClient {
 
