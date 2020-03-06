@@ -36,7 +36,7 @@ public class UserDAO {
           eMail = rs.getString(5);
           motDePasse = rs.getString(6);
         }
-        userD = factory.getUserDTO(pseudo, nom, prenom, ville, eMail, motDePasse);
+        userD = factory.getUserDTO();
       }
     } catch (SQLException e) {
       e.printStackTrace();
