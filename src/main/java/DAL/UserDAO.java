@@ -6,7 +6,7 @@ import java.sql.SQLException;
 import be.ipl.pae.biz.dto.UserDTO;
 import be.ipl.pae.biz.interfaces.UserFactory;
 
-public class DAOClient {
+public class UserDAO {
 
   private PreparedStatement trouverUtilisateurParEmail;
   private DAOServices services;
@@ -18,7 +18,7 @@ public class DAOClient {
   private String motDePasse;
   private UserFactory factory;
 
-  public DAOClient() {
+  public UserDAO() {
     this.services = new DAOServices();
   }
 

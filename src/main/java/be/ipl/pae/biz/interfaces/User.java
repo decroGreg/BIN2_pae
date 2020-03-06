@@ -10,4 +10,6 @@ public interface User extends UserDTO {
 
   boolean encryptMotDePasse();
 
+  boolean checkUser();
+
 }
