@@ -8,6 +8,8 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import com.auth0.jwt.JWT;
+import com.auth0.jwt.algorithms.Algorithm;
 import com.owlike.genson.Genson;
 
 public class LoginServlet extends HttpServlet {
@@ -24,20 +26,41 @@ public class LoginServlet extends HttpServlet {
   protected void doPost(HttpServletRequest req, HttpServletResponse resp)
       throws ServletException, IOException {
     // TODO Auto-generated method stub
-    Genson genson = new Genson();
-    Map<String, Object> data = genson.deserialize(req.getReader(), Map.class);
-    String mail = data.get("pseudo").toString();
-    String mdp = data.get("mdp").toString();
-    if (true) {// verification du pseudo
-      if (true) {// verification du mdp
-        Map<String, Object> claims = new HashMap<String, Object>();
-        claims.put("id", UUID.randomUUID().toString());
-        claims.put("ip", req.getRemoteAddr());
-        // String ltoken = new JWTSigner(JWTSECRET).sign(claims);
+    try {
+      Genson genson = new Genson();
+      Map<String, Object> data = genson.deserialize(req.getReader(), Map.class);
+
+      String mail = data.get("mail").toString();
+      String mdp = data.get("mdp").toString();
+      if (true) {// verification du pseudo
+        if (true) {// verification du mdp
+
+          Map<String, Object> claims = new HashMap<String, Object>();
+          claims.put("id", UUID.randomUUID().toString());
+          claims.put("ip", req.getRemoteAddr());
+          Algorithm algorithm = Algorithm.HMAC256(JWTSECRET);
+          String ltoken = JWT.create().withIssuer("auth0").sign(algorithm);
+          String json = "{\"success\":\"true\", \"token\":\"" + ltoken + "\"}";
+          System.out.println("JSON generated :" + json);
+          resp.setContentType("application/json");
+
+          resp.setCharacterEncoding("UTF-8");
+
+          resp.setStatus(HttpServletResponse.SC_OK);;
+          resp.getWriter().write(json);
+
+        }
       }
+    } catch (Exception e) {
+      e.printStackTrace();
+      String json = "{\"success\":\"false\"}";
+      resp.setContentType("application/json");
+      resp.setCharacterEncoding("UTF-8");
+      resp.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+      resp.getWriter().write(json);
     }
 
-    System.out.println("test");
+
   }
 
   @Override

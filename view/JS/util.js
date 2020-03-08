@@ -1,6 +1,5 @@
-function postData(url="",data,token,onPost,onError){
+function postData(url="",data={},token,onSuccess,onError){
     let headers;
-    console.log("OK");
     console.log("Bearer " +token);
       if (token)
         headers = {
@@ -12,17 +11,18 @@ function postData(url="",data,token,onPost,onError){
           "Content-Type": "application/json"//faire des recherches sur l'utilités
     };
     
-    console.log("passe condition");
+   
     $.ajax({
         type: "post",
         contentType:"json",
         url: url,
-        data: data,
-        dataType: "dataType",
-        success: onPost,
+        headers:headers,
+        data: JSON.stringify(data),
+        dataType: "json",
+        success: onSuccess,
         error:onError
     });
-    console.log("reponse");
+    
 }
 function getData(){
 
