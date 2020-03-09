@@ -9,9 +9,9 @@ public class UserUCC {
   private UserDAO userDAO;
   private UserFactory userFactory;
 
-  public UserUCC(UserDAO userDAO, UserFactory userFactory) {
+  public UserUCC(UserFactory userFactory) {
     super();
-    this.userDAO = userDAO;
+    this.userDAO = new UserDAO(); // this.userDAO = userDAO;
     this.userFactory = userFactory;
   }
 
