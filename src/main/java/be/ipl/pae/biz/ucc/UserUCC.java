@@ -11,7 +11,8 @@ public class UserUCC {
 
   public UserUCC(UserFactory userFactory) {
     super();
-    this.userDAO = new UserDAO(); // this.userDAO = userDAO;
+    this.userDAO = new UserDAO(); 
+    // this.userDAO = userDAO;
     this.userFactory = userFactory;
   }
 
