@@ -62,7 +62,5 @@ function onPost(response){
 }
 
 function onError(response){
-        allHide();
-        let error=document.createElement("p");
-        error.value="erreur";// set message
+
 }
