@@ -15,7 +15,6 @@ public class AsyncApp {
     System.out.println(context.getContextPath());
     context.setContextPath("/");
 
-    System.out.println("test");
     // regarder à quoi ça sert vraimant
     context.setInitParameter("cacheControl", "no-store,no-cache,must-revalidate");
 
