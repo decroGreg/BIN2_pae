@@ -36,7 +36,7 @@ function getData(url="",token,onSuccess,onError){
   }
   $.ajax({
     url:url,
-    type="get",
+    type:"get",
     headers:headers,
     dataType:"json",
     success:onSuccess,
