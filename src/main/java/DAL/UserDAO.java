@@ -3,10 +3,11 @@ package DAL;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import Biz.UserDTO;
-import Biz.UserFactory;
+import be.ipl.pae.biz.dto.UserDTO;
+import be.ipl.pae.biz.factory.UserFactoryImpl;
+import be.ipl.pae.biz.interfaces.UserFactory;
 
-public class DAOClient {
+public class UserDAO {
 
   private PreparedStatement trouverUtilisateurParEmail;
   private DAOServices services;
@@ -18,13 +19,14 @@ public class DAOClient {
   private String motDePasse;
   private UserFactory factory;
 
-  public DAOClient() {
+  public UserDAO() {
     this.services = new DAOServices();
+    factory = new UserFactoryImpl();
   }
 
   public UserDTO getPreparedStatementConnexion(String email) {
     UserDTO userD = null;
-    services.tryPreparedSatement(trouverUtilisateurParEmail);
+    trouverUtilisateurParEmail = services.tryPreparedSatement(trouverUtilisateurParEmail);
     try {
       trouverUtilisateurParEmail.setString(1, email);
       try (ResultSet rs = trouverUtilisateurParEmail.executeQuery()) {
@@ -36,7 +38,7 @@ public class DAOClient {
           eMail = rs.getString(5);
           motDePasse = rs.getString(6);
         }
-        userD = factory.getUserDTO(pseudo, nom, prenom, ville, eMail, motDePasse);
+        userD = factory.getUserDTO();
       }
     } catch (SQLException e) {
       e.printStackTrace();
