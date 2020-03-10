@@ -2,9 +2,9 @@ package be.ipl.pae.biz.factory;
 
 import be.ipl.pae.biz.dto.UserDTO;
 import be.ipl.pae.biz.impl.UserImpl;
-import be.ipl.pae.biz.interfaces.UserFactory;
+import be.ipl.pae.biz.interfaces.Factory;
 
-public class UserFactoryImpl implements UserFactory {
+public class UserFactoryImpl implements Factory {
 
   @Override
   public UserDTO getUserDTO() {

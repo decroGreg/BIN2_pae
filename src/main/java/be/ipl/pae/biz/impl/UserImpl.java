@@ -4,10 +4,9 @@ import java.sql.Timestamp;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import org.mindrot.bcrypt.BCrypt;
-import be.ipl.pae.biz.dto.UserDTO;
 import be.ipl.pae.biz.interfaces.User;
 
-public class UserImpl implements User, UserDTO {
+public class UserImpl implements User {
 
   private String pseudo;
   private String nom;

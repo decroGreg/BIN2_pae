@@ -5,7 +5,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import be.ipl.pae.biz.dto.UserDTO;
 import be.ipl.pae.biz.factory.UserFactoryImpl;
-import be.ipl.pae.biz.interfaces.UserFactory;
+import be.ipl.pae.biz.interfaces.Factory;
 
 public class UserDAO {
 
@@ -17,7 +17,7 @@ public class UserDAO {
   private String ville;
   private String eMail;
   private String motDePasse;
-  private UserFactory factory;
+  private Factory factory;
 
   public UserDAO() {
     this.services = new DAOServices();

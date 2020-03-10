@@ -2,22 +2,24 @@ package be.ipl.pae.biz.ucc;
 
 import DAL.UserDAO;
 import be.ipl.pae.biz.dto.UserDTO;
+import be.ipl.pae.biz.impl.UserImpl;
 import be.ipl.pae.biz.interfaces.User;
-import be.ipl.pae.biz.interfaces.UserFactory;
+import be.ipl.pae.biz.interfaces.Factory;
+import be.ipl.pae.biz.interfaces.UserUCC;
 
-public class UserUCC {
+public class UserUCCImpl implements UserUCC {
   private UserDAO userDAO;
-  private UserFactory userFactory;
+  private Factory userFactory;
 
-  public UserUCC(UserFactory userFactory) {
+  public UserUCCImpl(Factory userFactory, UserDAO userDAO) {
     super();
-    this.userDAO = new UserDAO();
-    // this.userDAO = userDAO;
+    this.userDAO = userDAO;
     this.userFactory = userFactory;
   }
 
+  @Override
   public UserDTO login(String email, String motDePasse) {
-    User user = (User) userFactory.getUserDTO();
+    User user = new UserImpl();
     user.setEmail(email);
     user.setMotDePasse(motDePasse);
     if (user.checkUser()) {

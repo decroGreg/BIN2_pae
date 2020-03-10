@@ -13,7 +13,6 @@ import com.auth0.jwt.algorithms.Algorithm;
 import com.owlike.genson.Genson;
 import be.ipl.pae.biz.dto.UserDTO;
 import be.ipl.pae.biz.factory.UserFactoryImpl;
-import be.ipl.pae.biz.ucc.UserUCC;
 
 public class LoginServlet extends HttpServlet {
   private static final String JWTSECRET = "mybigsecrete123";
@@ -38,12 +37,12 @@ public class LoginServlet extends HttpServlet {
       System.out.println("test1");
       UserFactoryImpl factory = new UserFactoryImpl();
       UserDTO test = factory.getUserDTO();
-      UserUCC user = new UserUCC(factory);
+      // UserUCC user = new UserUCCImpl(factory);
 
 
       System.out.println("test");
       try {
-        test = user.login(mail, mdp);
+        // test = user.login(mail, mdp);
       } catch (Exception e) {
         // TODO: handle exception
         System.out.println("mdp incorrect");
