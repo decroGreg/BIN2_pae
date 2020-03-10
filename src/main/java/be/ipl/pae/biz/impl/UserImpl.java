@@ -130,7 +130,8 @@ public class UserImpl implements User {
   }
 
   public boolean checkMotDePasse(String motDePasseDb) {
-    if (BCrypt.checkpw(this.getMotDePasse(), motDePasseDb)) {
+    if (this.getMotDePasse().equals(motDePasseDb)) {
+      // if (BCrypt.checkpw(this.getMotDePasse(), motDePasseDb)) {
       return true;
     }
     return false;

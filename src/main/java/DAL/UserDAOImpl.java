@@ -29,26 +29,28 @@ public class UserDAOImpl implements UserDAO {
   @Override
   public UserDTO getPreparedStatementConnexion(String email) {
     UserDTO userD = factory.getUserDTO();
-    String requeteSQL =
-        "SELECT * FROM init.utilisateurs WHERE email = 'maria.bouraga@student.vinci.be'";
+    String requeteSQL = "SELECT * FROM init.utilisateurs WHERE email = ?";
     trouverUtilisateurParEmail = services.tryPreparedSatement(requeteSQL);
     try {
-      // trouverUtilisateurParEmail.setString(1, email);
+      trouverUtilisateurParEmail.setString(1, email);
       try (ResultSet rs = trouverUtilisateurParEmail.executeQuery()) {
         while (rs.next()) {
-          pseudo = rs.getString(1);
-          nom = rs.getString(2);
-          prenom = rs.getString(3);
-          ville = rs.getString(4);
-          eMail = rs.getString(5);
-          motDePasse = rs.getString(7);
+          pseudo = rs.getString(2);
+          nom = rs.getString(3);
+          prenom = rs.getString(4);
+          ville = rs.getString(5);
+          eMail = rs.getString(6);
+          motDePasse = rs.getString(8);
         }
         userD.setPseudo(pseudo);
+        System.out.println(pseudo);
         userD.setNom(nom);
         userD.setPrenom(prenom);
         userD.setVille(ville);
         userD.setEmail(eMail);
         userD.setMotDePasse(motDePasse);
+      } catch (SQLException e) {
+        e.printStackTrace();
       }
     } catch (SQLException e) {
       e.printStackTrace();
