@@ -61,18 +61,19 @@ public class LoginServlet extends HttpServlet {
       Map<String, Object> claims = new HashMap<String, Object>();
       claims.put("id", UUID.randomUUID().toString());
       claims.put("ip", req.getRemoteAddr());
-      Algorithm algorithm = Algorithm.HMAC256(JWTSECRET);
-      String ltoken = JWT.create().withIssuer("auth0").sign(algorithm);
-      String json = "{\"success\":\"true\", \"token\":\"" + ltoken + "\"}";
-      System.out.println("JSON generated :" + json);
-      resp.setContentType("application/json");
+      if (test != null) {
+        Algorithm algorithm = Algorithm.HMAC256(JWTSECRET);
+        String ltoken = JWT.create().withIssuer("auth0").sign(algorithm);
+        String json = "{\"success\":\"true\", \"token\":\"" + ltoken + "\"}";
+        System.out.println("JSON generated :" + json);
+        resp.setContentType("application/json");
 
-      resp.setCharacterEncoding("UTF-8");
+        resp.setCharacterEncoding("UTF-8");
 
-      resp.setStatus(HttpServletResponse.SC_OK);;
-      resp.getWriter().write(json);
+        resp.setStatus(HttpServletResponse.SC_OK);;
+        resp.getWriter().write(json);
 
-
+      }
     } catch (Exception e) {
       e.printStackTrace();
       String json = "{\"error\":\"false\"}";
