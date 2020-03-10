@@ -12,10 +12,19 @@ import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.owlike.genson.Genson;
 import be.ipl.pae.biz.dto.UserDTO;
-import be.ipl.pae.biz.factory.UserFactoryImpl;
+import be.ipl.pae.biz.interfaces.UserUCC;
 
 public class LoginServlet extends HttpServlet {
   private static final String JWTSECRET = "mybigsecrete123";
+  private UserUCC userUcc;
+  private UserDTO userDto;
+
+
+  public LoginServlet(UserUCC userUcc, UserDTO userDto) {
+    super();
+    this.userUcc = userUcc;
+    this.userDto = userDto;
+  }
 
   @Override
   protected void doGet(HttpServletRequest req, HttpServletResponse resp)
@@ -35,14 +44,12 @@ public class LoginServlet extends HttpServlet {
       String mail = data.get("mail").toString();
       String mdp = data.get("mdp").toString();
       System.out.println("test1");
-      UserFactoryImpl factory = new UserFactoryImpl();
-      UserDTO test = factory.getUserDTO();
-      // UserUCC user = new UserUCCImpl(factory);
+
 
 
       System.out.println("test");
       try {
-        // test = user.login(mail, mdp);
+        userDto = userUcc.login(mail, mdp);
       } catch (Exception e) {
         // TODO: handle exception
         System.out.println("mdp incorrect");

@@ -4,13 +4,15 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import be.ipl.pae.biz.interfaces.DAOServices;
 
-public class DAOServices {
+public class DAOServicesImpl implements DAOServices {
 
-  private String url = "jdbc:postgresql://127.0.0.1/Projet";// "jdbc:postgresql://172.24.2.6:5432/dbmariabouraga";
+  // private String url = "jdbc:postgresql://127.0.0.1/Projet";
+  private String url = "jdbc:postgresql://172.24.2.6:5432/dbmariabouraga";
   private Connection conn = null;
 
-  public DAOServices() {
+  public DAOServicesImpl() {
 
 
     try {
@@ -20,8 +22,8 @@ public class DAOServices {
       System.exit(1);
     }
     try {
-      conn = DriverManager.getConnection(url, "postgres", "Greg171598"); // (url, "mariabouraga",
-                                                                         // "S3CIMX1NU")
+      // conn = DriverManager.getConnection(url, "postgres", "Greg171598");
+      conn = DriverManager.getConnection(url, "mariabouraga", "S3CIMX1NU");
     } catch (SQLException e) {
       System.out.println("Impossible de joindre le server !");
       System.exit(1);
@@ -29,9 +31,11 @@ public class DAOServices {
 
   }
 
-  public PreparedStatement tryPreparedSatement(PreparedStatement ps) {
+  @Override
+  public PreparedStatement tryPreparedSatement(String requeteSQL) {
+    PreparedStatement ps = null;
     try {
-      ps = conn.prepareStatement("SELECT * FROM init.utilisateurs WHERE email = ?");
+      ps = conn.prepareStatement(requeteSQL);
     } catch (SQLException e) {
       // TODO Auto-generated catch block
       e.printStackTrace();

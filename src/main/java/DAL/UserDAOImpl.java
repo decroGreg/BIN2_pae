@@ -4,10 +4,12 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import be.ipl.pae.biz.dto.UserDTO;
-import be.ipl.pae.biz.factory.UserFactoryImpl;
+import be.ipl.pae.biz.factory.FactoryImpl;
+import be.ipl.pae.biz.interfaces.DAOServices;
 import be.ipl.pae.biz.interfaces.Factory;
+import be.ipl.pae.biz.interfaces.UserDAO;
 
-public class UserDAO {
+public class UserDAOImpl implements UserDAO {
 
   private PreparedStatement trouverUtilisateurParEmail;
   private DAOServices services;
@@ -19,16 +21,19 @@ public class UserDAO {
   private String motDePasse;
   private Factory factory;
 
-  public UserDAO() {
-    this.services = new DAOServices();
-    factory = new UserFactoryImpl();
+  public UserDAOImpl() {
+    this.services = new DAOServicesImpl();
+    factory = new FactoryImpl();
   }
 
+  @Override
   public UserDTO getPreparedStatementConnexion(String email) {
-    UserDTO userD = null;
-    trouverUtilisateurParEmail = services.tryPreparedSatement(trouverUtilisateurParEmail);
+    UserDTO userD = factory.getUserDTO();
+    String requeteSQL =
+        "SELECT * FROM init.utilisateurs WHERE email = 'maria.bouraga@student.vinci.be'";
+    trouverUtilisateurParEmail = services.tryPreparedSatement(requeteSQL);
     try {
-      trouverUtilisateurParEmail.setString(1, email);
+      // trouverUtilisateurParEmail.setString(1, email);
       try (ResultSet rs = trouverUtilisateurParEmail.executeQuery()) {
         while (rs.next()) {
           pseudo = rs.getString(1);
@@ -36,12 +41,18 @@ public class UserDAO {
           prenom = rs.getString(3);
           ville = rs.getString(4);
           eMail = rs.getString(5);
-          motDePasse = rs.getString(6);
+          motDePasse = rs.getString(7);
         }
-        userD = factory.getUserDTO();
+        userD.setPseudo(pseudo);
+        userD.setNom(nom);
+        userD.setPrenom(prenom);
+        userD.setVille(ville);
+        userD.setEmail(eMail);
+        userD.setMotDePasse(motDePasse);
       }
     } catch (SQLException e) {
       e.printStackTrace();
+      System.exit(1);
     }
     return userD;
   }

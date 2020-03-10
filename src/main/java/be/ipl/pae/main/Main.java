@@ -4,10 +4,26 @@ import javax.servlet.http.HttpServlet;
 import org.eclipse.jetty.server.Server;
 import org.eclipse.jetty.servlet.ServletHolder;
 import org.eclipse.jetty.webapp.WebAppContext;
+import DAL.DAOServicesImpl;
+import DAL.UserDAOImpl;
+import be.ipl.pae.biz.dto.UserDTO;
+import be.ipl.pae.biz.factory.FactoryImpl;
+import be.ipl.pae.biz.interfaces.DAOServices;
+import be.ipl.pae.biz.interfaces.Factory;
+import be.ipl.pae.biz.interfaces.UserDAO;
+import be.ipl.pae.biz.interfaces.UserUCC;
+import be.ipl.pae.biz.ucc.UserUCCImpl;
 import be.ipl.pae.ihm.servlet.LoginServlet;
 
 public class Main {
   public static void main(String[] args) throws Exception {
+
+    Factory factory = new FactoryImpl();
+    DAOServices daoService = new DAOServicesImpl();
+    UserDAO userDao = new UserDAOImpl();
+    UserUCC userUcc = new UserUCCImpl(factory, userDao);
+    UserDTO userDto = factory.getUserDTO();
+
     Server server = new Server(8080);
     WebAppContext context = new WebAppContext();
 
@@ -21,11 +37,8 @@ public class Main {
     context.setInitParameter("cacheControl", "no-store,no-cache,must-revalidate");
 
 
-    HttpServlet serv = new LoginServlet();
+    HttpServlet serv = new LoginServlet(userUcc, userDto);
     context.addServlet(new ServletHolder(serv), "/login");
-
-
-
     context.setResourceBase("view");
 
     server.setHandler(context);
