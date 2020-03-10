@@ -131,7 +131,8 @@ public class UserImpl implements User, UserDTO {
   }
 
   public boolean checkMotDePasse(String motDePasseDb) {
-    if (BCrypt.checkpw(this.getMotDePasse(), motDePasseDb)) {
+    if (this.getMotDePasse().equals(motDePasseDb)) {// BCrypt.checkpw(this.getMotDePasse(),
+                                                    // motDePasseDb)
       return true;
     }
     return false;

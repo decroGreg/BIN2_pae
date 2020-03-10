@@ -24,13 +24,69 @@ function postData(url="",data={},token,onSuccess,onError){
     });
     
 }
-function getData(){
+function getData(url="",token,onSuccess,onError){
+  let headers;
+  if(token){
+    headers={
+      "Content-Type": "application/json",
+      Authorization: "Bearer"+token
+    };
+  }else{
+    headers={"Content-Type":"application/json"};
+  }
+  $.ajax({
+    url:url,
+    type="get",
+    headers:headers,
+    dataType:"json",
+    success:onSuccess,
+    error:onError
+  });
 
 }
-function deleteData(){
+function deleteData(url="",token,data={},onGet,onError){
+  let headers;
+  
+  if(token)
+    headers ={
+        "Content-Type": "application/json",
+        Authorization:"Bearer " +token};
 
+  else
+    headers={
+      "Content-Type": "application/json",
+    };
+    $.ajax({
+      contentType:"json",
+      type:"delete",
+      url:url,
+      headers:headers,
+      data:JSON.stringify(data),
+      dataType:"json",
+      succes:onGet,
+      error:onError
+    });
 }
-function putData(){
-
+function putData(url="",token,data={},onGet,onError){
+  let headers;
+  if(token)
+      headers ={
+        "Content-Type": "application/json",
+        Authorization:token
+      };
+      else headers={
+        "Content-Type": "application/json"
+      };
+      $.ajax({
+        contentType:"json",
+        type:"put",
+        url:url,
+        headers:headers,
+        data:JSON.stringify(data),
+        dataType:"json",
+        succes:onGet,
+        error:onError
+      });
+      
 }
 export{postData,getData,deleteData,putData};

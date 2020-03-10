@@ -4,6 +4,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import be.ipl.pae.biz.dto.UserDTO;
+import be.ipl.pae.biz.factory.UserFactoryImpl;
 import be.ipl.pae.biz.interfaces.UserFactory;
 
 public class UserDAO {
@@ -20,11 +21,12 @@ public class UserDAO {
 
   public UserDAO() {
     this.services = new DAOServices();
+    factory = new UserFactoryImpl();
   }
 
   public UserDTO getPreparedStatementConnexion(String email) {
     UserDTO userD = null;
-    services.tryPreparedSatement(trouverUtilisateurParEmail);
+    trouverUtilisateurParEmail = services.tryPreparedSatement(trouverUtilisateurParEmail);
     try {
       trouverUtilisateurParEmail.setString(1, email);
       try (ResultSet rs = trouverUtilisateurParEmail.executeQuery()) {
