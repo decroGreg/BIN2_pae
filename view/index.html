@@ -1,47 +1,162 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
-    <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-    <title>Document</title>
-</head>
-<body>
-        <div id="login">
-                <h3 class="text-center text-white pt-5">Login form</h3>
-                <div class="container">
-                    <div id="login-row" class="row justify-content-center align-items-center">
-                        <div id="login-column" class="col-md-6">
-                            <div id="login-box" class="col-md-12">
-                                <form id="login-form" class="form" action="" method="post">
-                                    <h3 class="text-center text-info">Login</h3>
-                                    <div class="form-group">
-                                        <label for="email" class="text-info">Email:</label><br>
-                                        <input type="email" name="email" id="email" class="form-control">
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="password" class="text-info">Password:</label><br>
-                                        <input type="password" name="password" id="password" class="form-control">
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="remember-me" class="text-info"><span>Remember me</span> <span><input id="remember-me" name="remember-me" type="checkbox"></span></label><br>
-                                        <input type="button" id="btn-connexion" name="submit" class="btn btn-info btn-md" value="submit">
-                                    </div>
-                                    <div id="register-link" class="text-right">
-                                        <a href="#" class="text-info">Register here</a>
-                                    </div>
-                                </form>
-                            </div>
-                        </div>
-                    </div>
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+        <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+        <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+      <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+        <link rel="stylesheet" type="text/css" href="./css/index.css">
+        <title>Document</title>
+        
+    </head>
+    <body>
+      
+      <!------------------------------------navigation non static----------------------------------->
+      <nav class="nav" id="menu">
+        <img src="./img/roses_lilas.gif"></br>
+      </br>
+      </nav>
+      <!------------------------------------navigation non static----------------------------------->
+        <nav class="nav fixed-top" id="navigation_bar">
+          <form class="form-inline">
+            <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+            <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+          </form>
+           <ul>
+                <li>
+                    <a href="#">HOME
+                    </a>
+                    <a href="#">Catégorie</a>
+                </li>
+                <a href="#" id="connexion">Connexion</a>
+           </ul>
+          
+        </nav>
+      
+    <!---------------------------------------Connexion/inscription-------------------------------------------------------------->
+    <div class="container login-container" id="login-form">
+      <div class="row">
+          <div class="col-md-6 login-form-1">
+              <h3>Login for Form</h3>
+              <form>
+                  <div class="form-group">
+                      <input id="login-email" type="email" class="form-control" placeholder="Your Email *"  />
+                  </div>
+                  <div class="form-group">
+                      <input id="login-pwd" type="password" class="form-control" placeholder="Your Password *" />
+                  </div>
+                  <div class="form-group">
+                      <button id="btn-connexion" class="btnSubmit" value="Login" >log in</button>
+                  </div>
+                  <div class="form-group">
+                      <a href="#" class="ForgetPwd">Forget Password?</a>
+                  </div>
+              </form>
+          </div>
+          <div class="col-md-6 login-form-2">
+              <h3>Register for Form</h3>
+              <form>
+                  <div class="form-group">
+                    <input id="Register-lastname" type="text" class="form-control" placeholder="lastname *" value="" />
                 </div>
-            </div>
-
+                  <div class="form-group">
+                      <input id="Register-firstname" type="text" class="form-control" placeholder="firstname *" value="" />
+                  </div>
+                  <div class="form-group">
+                    <input id="Register-email" type="email" class="form-control" placeholder="Your Email *" value="" />
+                  </div>
+                  <div class="form-group">
+                      <input id="Register-pwd" type="password" class="form-control" placeholder="Your Password *" value="" />
+                  </div>
+                  <div class="form-group">
+                    <input id="Register-city" type="text" class="form-control" placeholder="ville *" value="" />
+                </div>
+                  <div class="form-group">
+                      <input id="btn-register" type="submit" class="btnSubmit" value="Register" />
+                  </div>
+                  <div class="form-group">
+                      <a href="#" class="ForgetPwd" value="Login">Forget Password?</a>
+                  </div>
+              </form>
+          </div>
+      </div>
+    </div>
+    
+        
+    <!---------------------------------------Carousel-------------------------------------------------------------->
+        <section id="carousel">
+            <div id="myCarousel" class="carousel slide" data-ride="carousel">
+                <!-- Indicators -->
+                <ol class="carousel-indicators">
+                  <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+                  <li data-target="#myCarousel" data-slide-to="1"></li>
+                  <li data-target="#myCarousel" data-slide-to="2"></li>
+                </ol>
+            
+                <!-- Wrapper for slides -->
+                <div class="carousel-inner">
+                  <div class="item active">
+                    <img src="./img/jardin01.jpg" alt="Los Angeles">
+                  </div>
+            
+                  <div class="item">
+                    <img src="./img/jardin02.jpg" alt="Chicago">
+                  </div>
+                
+                  <div class="item">
+                    <img src="./img/jardin03.jpg" alt="New york">
+                  </div>
+                </div>
+            
+                <!-- Left and right controls -->
+                <a id= "left" class="left carousel-control" href="#myCarousel" data-slide="prev">
+                  <span class="glyphicon glyphicon-chevron-left"></span>
+                  <span class="sr-only">Previous</span>
+                </a>
+                <a id="right" class="right carousel-control" href="#myCarousel" data-slide="next">
+                  <span class="glyphicon glyphicon-chevron-right"></span>
+                  <span class="sr-only">Next</span>
+                </a>
+              </div>
+    
+    
+        </section>
+        <h1>TEST 1</h1>
+        <h1>TEST</h1>
+        <h1>TEST</h1>
+        <h1>TEST</h1>
+        <h1>TEST</h1>
+        <h1>TEST</h1>
+        <h1>TEST</h1>
+        <h1>TEST</h1>
+        <h1>TEST</h1>
+        <h1>TEST</h1>
+        <h1>TEST</h1>
+        <h1>TEST</h1>
+        <h1>TEST</h1>
+        <h1>TEST</h1>
+        <h1>TEST</h1>
+        <h1>TEST</h1>
+        <h1>TEST</h1>
+        <h1>TEST</h1>
+        <h1>TEST</h1>
+        <h1>TEST</h1>
+        <h1>TEST</h1>
+    
+    <footer>
+      <p style="text-align: center; background-color: gray; height: 100px;">footer</p>
+    </footer>
+    
     <button id="btn-deconnexion"> deconnexion</button>
     <script src="./JS/index.js" type="module"></script>
+<!--------------------------------------------------------------ACCEUILLE----------------------------------------------------------------------------------------->
+
+
 </body>
-</html>
+
+</html> 

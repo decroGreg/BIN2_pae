@@ -1,22 +1,56 @@
-"use-strict"
+"use-strict";
 import {postData,getData,deleteData,putData} from "./util.js" ;
 let token=undefined;
+$('#navigation_bar').hide();
+$('#login-form').hide();
+
 
 $(document).ready(e=>{
+        
+        
         token=localStorage.getItem("token");
-
         authentificationToken(token);
+        $("#connexion").click(function (e) { 
+                $("#carousel").hide();
+                $('#login-form').show();
+        });
+                
+        $(window).bind('scroll', function() {
+
+        var navHeight = $( window ).height() - 70;
+
+                if ($(window).scrollTop() <= $("#carousel").height()/2) {
+                $('#navigation_bar').hide();
+                }
+                else {
+                console.log("test");
+                $('#navigation_bar').show();
+                }
+                });
+
     $("#btn-connexion").click(e=>{
-            let a=e.target.parentNode.parentNode;
-            console.log(a);
+            console.log($("#login-email").val());
             let data={};
-            data.mail=a.email.value;
-            data.mdp=a.password.value;
+            data.mail=$("#login-email").val();
+            data.mdp=$("#login-pwd").val();
             postData("/login",data,token,onPost,onError);
             
     });
+    $("#btn-register").click(e=>{
+        console.log($("#Register-email").val());
+        console.log($("#Register-city").val());
+        let data={};
+        data.firstname=$("#Register-firstname").val();
+        data.lastname=$("#Register-lastname").val();
+        data.mail=$("#Register-email").val();
+        data.mdp=$("#Register-pwd").val();
+        data.city=$("#Register-city").val();
+        //postData("/login",data,token,onPost,onError);
+        
+    });
 
     $("#btn-deconnexion").click(e=>{
+        e.preventDefault()
         token=undefined;
         localStorage.removeItem("token");
         console.log(token);
@@ -25,6 +59,7 @@ $(document).ready(e=>{
 
     });
 });
+
 function allHide(){
         $("#login").hide();
         $("#btn-deconnexion").hide();

@@ -27,13 +27,6 @@ public class LoginServlet extends HttpServlet {
   }
 
   @Override
-  protected void doGet(HttpServletRequest req, HttpServletResponse resp)
-      throws ServletException, IOException {
-    // TODO Auto-generated method stub
-    super.doGet(req, resp);
-  }
-
-  @Override
   protected void doPost(HttpServletRequest req, HttpServletResponse resp)
       throws ServletException, IOException {
     // TODO Auto-generated method stub
@@ -63,21 +56,22 @@ public class LoginServlet extends HttpServlet {
       }
       // verification du pseudo
       // verification du mdp
-      System.out.println("test2");
-      Map<String, Object> claims = new HashMap<String, Object>();
-      claims.put("id", UUID.randomUUID().toString());
-      claims.put("ip", req.getRemoteAddr());
-      Algorithm algorithm = Algorithm.HMAC256(JWTSECRET);
-      String ltoken = JWT.create().withIssuer("auth0").sign(algorithm);
-      String json = "{\"success\":\"true\", \"token\":\"" + ltoken + "\"}";
-      System.out.println("JSON generated :" + json);
-      resp.setContentType("application/json");
+      if (userDto != null) {
+        System.out.println("test2");
+        Map<String, Object> claims = new HashMap<String, Object>();
+        claims.put("id", UUID.randomUUID().toString());
+        claims.put("ip", req.getRemoteAddr());
+        Algorithm algorithm = Algorithm.HMAC256(JWTSECRET);
+        String ltoken = JWT.create().withIssuer("auth0").sign(algorithm);
+        String json = "{\"success\":\"true\", \"token\":\"" + ltoken + "\"}";
+        System.out.println("JSON generated :" + json);
+        resp.setContentType("application/json");
 
-      resp.setCharacterEncoding("UTF-8");
+        resp.setCharacterEncoding("UTF-8");
 
-      resp.setStatus(HttpServletResponse.SC_OK);;
-      resp.getWriter().write(json);
-
+        resp.setStatus(HttpServletResponse.SC_OK);;
+        resp.getWriter().write(json);
+      }
 
     } catch (Exception e) {
       e.printStackTrace();
@@ -89,20 +83,6 @@ public class LoginServlet extends HttpServlet {
     }
 
 
-  }
-
-  @Override
-  protected void doPut(HttpServletRequest req, HttpServletResponse resp)
-      throws ServletException, IOException {
-    // TODO Auto-generated method stub
-    super.doPut(req, resp);
-  }
-
-  @Override
-  protected void doDelete(HttpServletRequest req, HttpServletResponse resp)
-      throws ServletException, IOException {
-    // TODO Auto-generated method stub
-    super.doDelete(req, resp);
   }
 
 }

@@ -14,6 +14,7 @@ import be.ipl.pae.biz.interfaces.UserDAO;
 import be.ipl.pae.biz.interfaces.UserUCC;
 import be.ipl.pae.biz.ucc.UserUCCImpl;
 import be.ipl.pae.ihm.servlet.LoginServlet;
+import be.ipl.pae.ihm.servlet.RegisterServlet;
 
 public class Main {
   public static void main(String[] args) throws Exception {
@@ -39,8 +40,11 @@ public class Main {
 
     HttpServlet serv = new LoginServlet(userUcc, userDto);
     context.addServlet(new ServletHolder(serv), "/login");
-    context.setResourceBase("view");
 
+    HttpServlet registerServlet = new RegisterServlet(userUcc, userDto);
+    context.addServlet(new ServletHolder(registerServlet), "/register");
+
+    context.setResourceBase("view");
     server.setHandler(context);
     server.start();
 
