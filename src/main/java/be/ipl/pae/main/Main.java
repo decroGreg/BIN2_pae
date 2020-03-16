@@ -1,5 +1,9 @@
 package be.ipl.pae.main;
 
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.util.Properties;
+
 import javax.servlet.http.HttpServlet;
 import org.eclipse.jetty.server.Server;
 import org.eclipse.jetty.servlet.ServletHolder;
@@ -19,6 +23,24 @@ import be.ipl.pae.ihm.servlet.RegisterServlet;
 public class Main {
   public static void main(String[] args) throws Exception {
 
+	/*//Lecture du fichier properties
+	Properties props = new Properties();
+	try {
+		props.load(new FileInputStream("./dependencies.properties"));
+	}catch(IOException e) {
+		e.printStackTrace();
+	}
+	
+	//Creation de la dépendance
+	Factory factory;
+	try {
+		String property = props.getProperty("factory.Factory");
+		Class<?> cls = Class.forName(property);
+		factory = (Factory)cls.getDeclaredConstructor().newInstance();
+	}catch(Exception e) {
+		throw new InternalError();
+	}*/
+	
     Factory factory = new FactoryImpl();
     DAOServices daoService = new DAOServicesImpl();
     UserDAO userDao = new UserDAOImpl();
@@ -47,7 +69,6 @@ public class Main {
     context.setResourceBase("view");
     server.setHandler(context);
     server.start();
-
   }
 
 }
