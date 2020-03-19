@@ -1,4 +1,4 @@
-package be.ipl.pae.biz.interfaces;
+package DAL;
 
 import java.sql.PreparedStatement;
 

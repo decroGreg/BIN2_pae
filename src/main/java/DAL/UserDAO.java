@@ -1,4 +1,4 @@
-package be.ipl.pae.biz.interfaces;
+package DAL;
 
 import be.ipl.pae.biz.dto.UserDTO;
 

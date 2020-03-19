@@ -4,7 +4,6 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
-import be.ipl.pae.biz.interfaces.DAOServices;
 
 public class DAOServicesImpl implements DAOServices {
 

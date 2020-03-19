@@ -5,9 +5,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import be.ipl.pae.biz.dto.UserDTO;
 import be.ipl.pae.biz.factory.FactoryImpl;
-import be.ipl.pae.biz.interfaces.DAOServices;
 import be.ipl.pae.biz.interfaces.Factory;
-import be.ipl.pae.biz.interfaces.UserDAO;
 
 public class UserDAOImpl implements UserDAO {
 
