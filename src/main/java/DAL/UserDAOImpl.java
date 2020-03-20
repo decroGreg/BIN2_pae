@@ -20,6 +20,7 @@ public class UserDAOImpl implements UserDAO {
   private String eMail;
   private String motDePasse;
   private Factory factory;
+  private int id;
 
   public UserDAOImpl() {
     this.services = new DAOServicesImpl();
@@ -35,6 +36,7 @@ public class UserDAOImpl implements UserDAO {
       trouverUtilisateurParEmail.setString(1, email);
       try (ResultSet rs = trouverUtilisateurParEmail.executeQuery()) {
         while (rs.next()) {
+          // id = rs.getInt(1);
           pseudo = rs.getString(2);
           nom = rs.getString(3);
           prenom = rs.getString(4);

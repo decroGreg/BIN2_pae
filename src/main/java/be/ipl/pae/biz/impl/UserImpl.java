@@ -16,11 +16,12 @@ public class UserImpl implements User {
   private Timestamp dateInscription;
   private String motDePasse;
   private char statut;
+
   // private DAOClient DAO;
 
 
   public UserImpl(String pseudo, String nom, String prenom, String ville, String email,
-      String motDePasse, char statut) {
+      String motDePasse, char statut, int id) {
     super();
     this.pseudo = pseudo;
     this.nom = nom;
@@ -29,11 +30,12 @@ public class UserImpl implements User {
     this.email = email;
     this.motDePasse = motDePasse;
     this.statut = statut;
+
   }
 
   public UserImpl(String pseudo, String nom, String prenom, String ville, String email,
-      String motDePasse) {
-    this(pseudo, nom, prenom, ville, email, motDePasse, ' ');
+      String motDePasse, int id) {
+    this(pseudo, nom, prenom, ville, email, motDePasse, ' ', id);
   }
 
   public UserImpl() {
@@ -146,4 +148,6 @@ public class UserImpl implements User {
     }
     return false;
   }
+
+
 }

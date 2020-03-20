@@ -2,17 +2,15 @@
 import {postData,getData,deleteData,putData} from "./util.js" ;
 let token=undefined;
 $('#navigation_bar').hide();
-$('#login-form').hide();
+
 
 
 $(document).ready(e=>{
-        
-        
+       
         token=localStorage.getItem("token");
         authentificationToken(token);
         $("#connexion").click(function (e) { 
-                $("#carousel").hide();
-                $('#login-form').show();
+               viewLogin();
         });
                 
         $(window).bind('scroll', function() {
@@ -48,6 +46,10 @@ $(document).ready(e=>{
         //postData("/login",data,token,onPost,onError);
         
     });
+    $("#Register-confirmation-link").click(e=>{
+            allHide();
+            
+    });
 
     $("#btn-deconnexion").click(e=>{
         e.preventDefault()
@@ -64,24 +66,35 @@ function allHide(){
         $("#login").hide();
         $("#btn-deconnexion").hide();
         $("#wrong_passwd").hide();
+        $("#test").hide();
+        $("#carousel").hide();
 }
 function viewLogin(){
-        $("#login").show();
+        $("#login-form").show();
         $("#btn-deconnexion").hide();
         $("#wrong_passwd").hide();
+        $("#carousel").hide();
 
 }
+function viewHomePage(){
+        $("#login-form").hide();
+        $("#btn-deconnexion").hide();
+        $("#wrong_passwd").hide();
+        $("#carousel").show();
+}
 function viewAuthentification(){
-        $("#login").hide();
+        $('#navigation_bar').hide();
+        $("#login-form").hide();
         $("#btn-deconnexion").show();
 }
+
 function authentificationToken(token){
         console.log("test"+token)
         if(token){              
                 viewAuthentification();
         }
         else{
-                viewLogin();
+                viewHomePage();
         }
 }
 function onPost(response){

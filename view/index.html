@@ -11,6 +11,7 @@
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
       <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
         <link rel="stylesheet" type="text/css" href="./css/index.css">
+        
         <title>Document</title>
         
     </head>
@@ -32,10 +33,14 @@
                     <a href="#">HOME
                     </a>
                     <a href="#">Catégorie</a>
+                    <a href="#" id="Register-confirmation-link">Confirmer inscription</a>
                 </li>
-                <a href="#" id="connexion">Connexion</a>
+                <li>
+                    <a href="#" id="connexion">Connexion</a>
+                </li>
+                
            </ul>
-          
+           
         </nav>
       
     <!---------------------------------------Connexion/inscription-------------------------------------------------------------->
@@ -126,6 +131,37 @@
     
     
         </section>
+        <section id="Register-confirmation">
+          <table id="Register-confirmation" class="table table-bordered" >
+            <thead>
+              <tr>
+                <th scope="col">prénom</th>
+                <th scope="col">nom</th>
+                <th scope="col">status</th>
+                <th scope="col">lier client</th>
+                <th scope="col">Confirmer</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <th>Grégoire</th>
+                <th>de Crombrugghe</th>
+                <th><div class="btn-group">
+                  <button type="button" class="btn btn-danger dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    fonction
+                  </button>
+                  <div class="dropdown-menu">
+                    <a class="dropdown-item" href="#">Client</a>
+                    <a class="dropdown-item" href="#">Ouvrier</a>
+                  </div>
+                </div></th>
+                <th></th>
+                <th><button class="btn btn-info"> Confirmer</button></th>
+              </tr>
+            </tbody>
+
+        </section>
+        <section id="test">
         <h1>TEST 1</h1>
         <h1>TEST</h1>
         <h1>TEST</h1>
@@ -147,16 +183,14 @@
         <h1>TEST</h1>
         <h1>TEST</h1>
         <h1>TEST</h1>
-    
-    <footer>
-      <p style="text-align: center; background-color: gray; height: 100px;">footer</p>
-    </footer>
-    
+        </section>
     <button id="btn-deconnexion"> deconnexion</button>
     <script src="./JS/index.js" type="module"></script>
 <!--------------------------------------------------------------ACCEUILLE----------------------------------------------------------------------------------------->
 
 
 </body>
-
+<footer style="bottom: 0%;">
+    <p style="text-align: center; background-color: gray; height: 100px;">footer</p>
+  </footer>
 </html> 

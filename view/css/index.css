@@ -22,14 +22,14 @@ body{
   
   ul {
       list-style-type: none;
-      padding-left: 25%;
+      margin-left: 25%;
       background-color: #51df4c;
     }
     nav{
         background-color: #51df4c;   
     }
-    ul a{
-      margin-right:0%;
+    #connexion{
+        right: 1%;
     }
     li {
       display: inline-block;
@@ -39,7 +39,9 @@ body{
       color: darkgreen;
       text-align: left;
       text-decoration: none;
-      padding: 14px 16px;
+      padding: 8% 0%;
+      padding-left: 16px;
+      margin-right: auto;
   
     }
     li a:any-link{
@@ -125,9 +127,7 @@ body{
       background-size: cover;
     }
     
-  
-  
-  
+    /*************************************table confirmation css***************************************************/
   
     
   

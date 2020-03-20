@@ -28,10 +28,31 @@ public class RegisterServlet extends HttpServlet {
     try {
       Genson genson = new Genson();
       Map<String, String> data = genson.deserialize(req.getReader(), Map.class);
+      this.userDto.setEmail(data.get("mail"));
+      this.userDto.setMotDePasse(data.get("mdp"));
+      this.userDto.setPrenom(data.get("firstname"));
+      this.userDto.setNom(data.get("lastname"));
+      this.userDto.setVille(data.get("city"));
+      int i = 0;
+      if (i < 3) {// vérification
+
+      } else {
+        String json = "{\"success\":\false\"}";
+        resp.setContentType("application/json");
+        resp.setCharacterEncoding("UTF-8");
+        resp.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+        resp.getWriter().write(json);
+
+      }
 
 
     } catch (Exception e) {
-
+      e.printStackTrace();
+      String json = "{\"error\":\false\"}";
+      resp.setContentType("application/json");
+      resp.setCharacterEncoding("UTF-8");
+      resp.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+      resp.getWriter().write(json);
     }
   }
 
