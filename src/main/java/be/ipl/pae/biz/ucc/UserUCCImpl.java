@@ -2,9 +2,9 @@ package be.ipl.pae.biz.ucc;
 
 import be.ipl.pae.biz.dto.UserDTO;
 import be.ipl.pae.biz.impl.UserImpl;
+import be.ipl.pae.biz.interfaces.Factory;
 import be.ipl.pae.biz.interfaces.User;
 import be.ipl.pae.biz.interfaces.UserDAO;
-import be.ipl.pae.biz.interfaces.Factory;
 import be.ipl.pae.biz.interfaces.UserUCC;
 
 public class UserUCCImpl implements UserUCC {

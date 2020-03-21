@@ -17,9 +17,11 @@
     </head>
     <body>
       
-      <!------------------------------------navigation non static----------------------------------->
+      <!------------------------------------navigation static----------------------------------->
       <nav class="nav" id="menu">
-        <img src="./img/roses_lilas.gif"></br>
+        
+            <img src="./img/roses_lilas.gif"></br>
+        
       </br>
       </nav>
       <!------------------------------------navigation non static----------------------------------->
@@ -30,13 +32,11 @@
           </form>
            <ul>
                 <li>
-                    <a href="#">HOME
-                    </a>
-                    <a href="#">Catégorie</a>
-                    <a href="#" id="Register-confirmation-link">Confirmer inscription</a>
-                </li>
-                <li>
-                    <a href="#" id="connexion">Connexion</a>
+                    <a href="#">HOME</a></li>
+                <li><a href="#">Catégorie</a></li>
+                <li id="list-confirmation-link"><a href="#"  class="Register-confirmation-link">Confirmer inscription</a></li>
+                <li id="connexion">
+                    <a href="#" class="nav-item" id="connexion">Connexion</a>
                 </li>
                 
            </ul>
@@ -84,9 +84,6 @@
                   <div class="form-group">
                       <input id="btn-register" type="submit" class="btnSubmit" value="Register" />
                   </div>
-                  <div class="form-group">
-                      <a href="#" class="ForgetPwd" value="Login">Forget Password?</a>
-                  </div>
               </form>
           </div>
       </div>
@@ -131,6 +128,7 @@
     
     
         </section>
+
         <section id="Register-confirmation">
           <table id="Register-confirmation" class="table table-bordered" >
             <thead>
@@ -156,12 +154,13 @@
                   </div>
                 </div></th>
                 <th></th>
-                <th><button class="btn btn-info"> Confirmer</button></th>
+                <th><button id="bnt-Register-confirmation" class="btn btn-info"> Confirmer</button></th>
               </tr>
             </tbody>
-
+            </table>
         </section>
-        <section id="test">
+
+        <section id="test1">
         <h1>TEST 1</h1>
         <h1>TEST</h1>
         <h1>TEST</h1>
@@ -190,7 +189,7 @@
 
 
 </body>
-<footer style="bottom: 0%;">
+<footer>
     <p style="text-align: center; background-color: gray; height: 100px;">footer</p>
   </footer>
 </html> 

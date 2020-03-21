@@ -16,6 +16,7 @@ public class UserImpl implements User {
   private Timestamp dateInscription;
   private String motDePasse;
   private char statut;
+  private int id;
 
   // private DAOClient DAO;
 
@@ -30,6 +31,7 @@ public class UserImpl implements User {
     this.email = email;
     this.motDePasse = motDePasse;
     this.statut = statut;
+    this.id = id;
 
   }
 
@@ -147,6 +149,14 @@ public class UserImpl implements User {
       return true;
     }
     return false;
+  }
+
+  public int getID() {
+    return this.id;
+  }
+
+  public void setID(int id) {
+    this.id = id;
   }
 
 

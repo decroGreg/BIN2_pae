@@ -36,7 +36,8 @@ public class UserDAOImpl implements UserDAO {
       trouverUtilisateurParEmail.setString(1, email);
       try (ResultSet rs = trouverUtilisateurParEmail.executeQuery()) {
         while (rs.next()) {
-          // id = rs.getInt(1);
+          id = rs.getInt(1);
+          System.out.println(id);
           pseudo = rs.getString(2);
           nom = rs.getString(3);
           prenom = rs.getString(4);
@@ -51,6 +52,7 @@ public class UserDAOImpl implements UserDAO {
         userD.setVille(ville);
         userD.setEmail(eMail);
         userD.setMotDePasse(motDePasse);
+        userD.setID(id);
       } catch (SQLException e) {
         e.printStackTrace();
       }

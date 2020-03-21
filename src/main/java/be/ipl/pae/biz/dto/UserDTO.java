@@ -35,4 +35,8 @@ public interface UserDTO {
 
   Timestamp getDateInscription();
 
+  int getID();
+
+  void setID(int id);
+
 }

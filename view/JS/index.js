@@ -1,6 +1,9 @@
 "use-strict";
 import {postData,getData,deleteData,putData} from "./util.js" ;
+const OUVRIER="o";
+const CLIENT="client";
 let token=undefined;
+let user;
 $('#navigation_bar').hide();
 
 
@@ -31,7 +34,7 @@ $(document).ready(e=>{
             let data={};
             data.mail=$("#login-email").val();
             data.mdp=$("#login-pwd").val();
-            postData("/login",data,token,onPost,onError);
+            postData("/login",data,token,onPostLogin,onError);
             
     });
     $("#btn-register").click(e=>{
@@ -46,9 +49,13 @@ $(document).ready(e=>{
         //postData("/login",data,token,onPost,onError);
         
     });
-    $("#Register-confirmation-link").click(e=>{
+    $(".Register-confirmation-link").click(e=>{
             allHide();
+            $("#Register-confirmation").show();
             
+    });
+    $("#bnt-Register-confirmation").click(e=>{
+                alert();
     });
 
     $("#btn-deconnexion").click(e=>{
@@ -66,7 +73,7 @@ function allHide(){
         $("#login").hide();
         $("#btn-deconnexion").hide();
         $("#wrong_passwd").hide();
-        $("#test").hide();
+        $("#test1").hide();
         $("#carousel").hide();
 }
 function viewLogin(){
@@ -76,35 +83,55 @@ function viewLogin(){
         $("#carousel").hide();
 
 }
+//Home page non-connecté
 function viewHomePage(){
         $("#login-form").hide();
         $("#btn-deconnexion").hide();
         $("#wrong_passwd").hide();
         $("#carousel").show();
+        $("#Register-confirmation").hide();
+        $("#list-confirmation-link").hide(); 
 }
+
+//vue après authentification
 function viewAuthentification(){
+       
+        if(user &&user.statut===OUVRIER){
+                console.log("passage");
+                $("#list-confirmation-link").show(); 
+        }
+        $("#connexion").hide();
         $('#navigation_bar').hide();
         $("#login-form").hide();
         $("#btn-deconnexion").show();
+        $("#Register-confirmation").hide();
+         
 }
 
 function authentificationToken(token){
         console.log("test"+token)
-        if(token){              
+        if(token){
+                if(user==undefined){
+                      //  getData("/login",token,onPostLogin,onError);
+                      alert();
+                }    
                 viewAuthentification();
         }
         else{
                 viewHomePage();
         }
 }
-function onPost(response){
+//Authentificaiton réussis
+function onPostLogin(response){
         if(response.success==="true"){
+                console.log("data: "+response.userData.prenom);
+                user=response.userData;
                 token=response.token;
                 localStorage.setItem("token",token);
                 console.log(localStorage.getItem("token"));
                 viewAuthentification();
         }else{
-                console.log("merreur");
+                console.log("erreur");
                 $("#wrong_passwd").show();
         }
 }
