@@ -3,7 +3,6 @@ package be.ipl.pae.ihm.servlet;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Properties;
 import java.util.UUID;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -12,13 +11,12 @@ import javax.servlet.http.HttpServletResponse;
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.owlike.genson.Genson;
-
 import be.ipl.pae.biz.config.Config;
 import be.ipl.pae.biz.dto.UserDTO;
 import be.ipl.pae.biz.interfaces.UserUCC;
 
 public class LoginServlet extends HttpServlet {
-	
+
 
   private static final String JWTSECRET = new Config().getConfigPropertyAttribute("jwt.secret");
   private UserUCC userUcc;
