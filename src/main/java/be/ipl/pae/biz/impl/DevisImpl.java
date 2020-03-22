@@ -21,6 +21,16 @@ public class DevisImpl implements Devis {
     I, DDI, ANP, DC, A, EC, FM, T, FF, V
   }
 
+  /**
+   * Cree un objet DevisImpl
+   * 
+   * @param idDevis l'id du devis.
+   * @param idClient l'id du client.
+   * @param date la date du devis.
+   * @param montant le montant du devis.
+   * @param dureeTravaux la duree des travaux du devis.
+   * @param etat l'etat du devis.
+   */
   public DevisImpl(int idDevis, int idClient, Timestamp date, double montant, String dureeTravaux,
       Etat etat) {
     super();

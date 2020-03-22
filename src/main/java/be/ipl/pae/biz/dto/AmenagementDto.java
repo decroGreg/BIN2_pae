@@ -1,6 +1,6 @@
 package be.ipl.pae.biz.dto;
 
-public interface AmenagementDTO {
+public interface AmenagementDto {
 
   int getIdTypeAmenagement();
 

@@ -1,6 +1,6 @@
 package be.ipl.pae.biz.dto;
 
-public interface PhotoDTO {
+public interface PhotoDto {
 
   int getIdAmenagement();
 

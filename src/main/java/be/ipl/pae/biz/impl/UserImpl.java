@@ -21,7 +21,18 @@ public class UserImpl implements User {
   private char statut;
   // private DAOClient DAO;
 
-
+  /**
+   * Cree un objet UserImpl
+   * 
+   * @param idUser l'id du user.
+   * @param pseudo le pseudo du user.
+   * @param nom le nom du user.
+   * @param prenom le prenom du user.
+   * @param ville la ville du user.
+   * @param email l'email du user.
+   * @param motDePasse le mot de passe du user.
+   * @param statut le statut du user.
+   */
   public UserImpl(int idUser, String pseudo, String nom, String prenom, String ville, String email,
       String motDePasse, char statut) {
     super();
@@ -127,6 +138,7 @@ public class UserImpl implements User {
     return dateInscription;
   }
 
+  @Override
   public boolean checkUser() {
     if (this == null || this.getEmail() == null || this.getMotDePasse() == null) {
       return false;
@@ -134,6 +146,7 @@ public class UserImpl implements User {
     return true;
   }
 
+  @Override
   public boolean checkEmail() {
     Pattern pattern =
         Pattern.compile("^[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,6}$", Pattern.CASE_INSENSITIVE);
@@ -141,6 +154,7 @@ public class UserImpl implements User {
     return matcher.matches();
   }
 
+  @Override
   public boolean checkMotDePasse(String motDePasseDb) {
     if (this.getMotDePasse().equals(motDePasseDb)) {
       // if (BCrypt.checkpw(this.getMotDePasse(), motDePasseDb)) {
@@ -149,6 +163,7 @@ public class UserImpl implements User {
     return false;
   }
 
+  @Override
   public boolean encryptMotDePasse() {
     String salt = BCrypt.gensalt();
     String hashMotDePasse = BCrypt.hashpw(motDePasse, salt);

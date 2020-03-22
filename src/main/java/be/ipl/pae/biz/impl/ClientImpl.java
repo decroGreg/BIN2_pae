@@ -14,6 +14,18 @@ public class ClientImpl implements Client {
   private String motDePasse;
   private String statut;
 
+  /**
+   * Cree un objet ClientImpl
+   * 
+   * @param idClient l'id du client.
+   * @param pseudo le pseudo du client.
+   * @param nom le nom du client.
+   * @param prenom le prenom du client.
+   * @param ville la ville du client.
+   * @param email l'email du client.
+   * @param motDePasse le mot de passe du client.
+   * @param statut le statut du client.
+   */
   public ClientImpl(int idClient, String pseudo, String nom, String prenom, String ville,
       String email, String motDePasse, String statut) {
     super();
@@ -84,11 +96,6 @@ public class ClientImpl implements Client {
   @Override
   public String getDateInscription() {
     return dateInscription;
-  }
-
-  @Override
-  public void setDateInscription(String dateInscription) {
-    this.dateInscription = dateInscription;
   }
 
   @Override

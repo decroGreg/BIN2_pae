@@ -1,7 +1,7 @@
 package be.ipl.pae.biz.interfaces;
 
-import be.ipl.pae.biz.dto.ClientDTO;
+import be.ipl.pae.biz.dto.ClientDto;
 
-public interface Client extends ClientDTO {
+public interface Client extends ClientDto {
 
 }

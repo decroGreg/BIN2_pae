@@ -1,10 +1,10 @@
 package DAL;
 
-import be.ipl.pae.biz.dto.UserDTO;
+import be.ipl.pae.biz.dto.UserDto;
 
 
 public interface UserDAO {
 
-  UserDTO getPreparedStatementConnexion(String email);
+  UserDto getPreparedStatementConnexion(String email);
 
 }

@@ -2,7 +2,7 @@ package be.ipl.pae.biz.dto;
 
 
 
-public interface TypeDAmenagementDTO {
+public interface TypeDAmenagementDto {
 
   String getDescription();
 

@@ -1,28 +1,10 @@
 package be.ipl.pae.main;
 
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.util.Properties;
-
-import javax.servlet.http.HttpServlet;
-import org.eclipse.jetty.server.Server;
-import org.eclipse.jetty.servlet.ServletHolder;
-import org.eclipse.jetty.webapp.WebAppContext;
-import DAL.DAOServices;
-import DAL.DAOServicesImpl;
-import DAL.UserDAO;
-import DAL.UserDAOImpl;
-
 import be.ipl.pae.biz.config.Config;
-import be.ipl.pae.biz.dto.UserDTO;
-
-import be.ipl.pae.biz.factory.FactoryImpl;
-
-import DAL.DAOServices;
-
+import be.ipl.pae.biz.dto.UserDto;
 import be.ipl.pae.biz.interfaces.Factory;
-import be.ipl.pae.biz.interfaces.UserUCC;
-import be.ipl.pae.biz.ucc.UserUCCImpl;
+import be.ipl.pae.biz.interfaces.UserUcc;
+import be.ipl.pae.biz.ucc.UserUccImpl;
 import be.ipl.pae.ihm.servlet.LoginServlet;
 import be.ipl.pae.ihm.servlet.RegisterServlet;
 
@@ -32,7 +14,9 @@ import org.eclipse.jetty.webapp.WebAppContext;
 
 import javax.servlet.http.HttpServlet;
 
+import DAL.DAOServices;
 import DAL.DAOServicesImpl;
+import DAL.UserDAO;
 import DAL.UserDAOImpl;
 
 public class Main {
@@ -46,8 +30,8 @@ public class Main {
 
     DAOServices daoService = new DAOServicesImpl();
     UserDAO userDao = new UserDAOImpl();
-    UserUCC userUcc = new UserUCCImpl(factory, userDao);
-    UserDTO userDto = factory.getUserDTO();
+    UserUcc userUcc = new UserUccImpl(factory, userDao);
+    UserDto userDto = factory.getUserDto();
 
     Server server = new Server(8080);
     WebAppContext context = new WebAppContext();

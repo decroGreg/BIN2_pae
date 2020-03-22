@@ -1,24 +1,24 @@
 package be.ipl.pae.biz.interfaces;
 
-import be.ipl.pae.biz.dto.AmenagementDTO;
-import be.ipl.pae.biz.dto.ClientDTO;
-import be.ipl.pae.biz.dto.DevisDTO;
-import be.ipl.pae.biz.dto.PhotoDTO;
-import be.ipl.pae.biz.dto.TypeDAmenagementDTO;
-import be.ipl.pae.biz.dto.UserDTO;
+import be.ipl.pae.biz.dto.AmenagementDto;
+import be.ipl.pae.biz.dto.ClientDto;
+import be.ipl.pae.biz.dto.DevisDto;
+import be.ipl.pae.biz.dto.PhotoDto;
+import be.ipl.pae.biz.dto.TypeDAmenagementDto;
+import be.ipl.pae.biz.dto.UserDto;
 
 public interface Factory {
 
-  UserDTO getUserDTO();
+  UserDto getUserDto();
 
-  DevisDTO getDevisDTO();
+  DevisDto getDevisDto();
 
-  AmenagementDTO getAmenagementDTO();
+  AmenagementDto getAmenagementDto();
 
-  ClientDTO getClientDTO();
+  ClientDto getClientDto();
 
-  PhotoDTO getPhotoDTO();
+  PhotoDto getPhotoDto();
 
-  TypeDAmenagementDTO getTypeDAmenagementDTO();
+  TypeDAmenagementDto getTypeDAmenagementDto();
 
 }

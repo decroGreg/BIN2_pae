@@ -1,8 +1,8 @@
 package be.ipl.pae.biz.interfaces;
 
-import be.ipl.pae.biz.dto.UserDTO;
+import be.ipl.pae.biz.dto.UserDto;
 
-public interface User extends UserDTO {
+public interface User extends UserDto {
 
   boolean checkEmail();
 

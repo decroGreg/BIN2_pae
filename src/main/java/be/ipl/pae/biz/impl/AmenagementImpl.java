@@ -7,6 +7,13 @@ public class AmenagementImpl implements Amenagement {
   private int idTypeAmenagement;
   private int idDevis;
 
+  /**
+   * Cree un objet AmenagementImpl.
+   * 
+   * @param idAmenagement l'id de l'amenagement.
+   * @param idTypeAmenagement l'id du type d'amenagement.
+   * @param idDevis l'id du devis.
+   */
   public AmenagementImpl(int idAmenagement, int idTypeAmenagement, int idDevis) {
     super();
     this.idAmenagement = idAmenagement;

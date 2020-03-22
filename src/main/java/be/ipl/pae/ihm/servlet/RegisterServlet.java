@@ -1,7 +1,7 @@
 package be.ipl.pae.ihm.servlet;
 
-import be.ipl.pae.biz.dto.UserDTO;
-import be.ipl.pae.biz.interfaces.UserUCC;
+import be.ipl.pae.biz.dto.UserDto;
+import be.ipl.pae.biz.interfaces.UserUcc;
 
 import com.owlike.genson.Genson;
 
@@ -14,10 +14,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 public class RegisterServlet extends HttpServlet {
-  private UserUCC userUcc;
-  private UserDTO userDto;
+  private UserUcc userUcc;
+  private UserDto userDto;
 
-  public RegisterServlet(UserUCC userUcc, UserDTO userDto) {
+  public RegisterServlet(UserUcc userUcc, UserDto userDto) {
     super();
     this.userUcc = userUcc;
     this.userDto = userDto;

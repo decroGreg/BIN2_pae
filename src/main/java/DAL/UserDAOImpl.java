@@ -1,6 +1,6 @@
 package DAL;
 
-import be.ipl.pae.biz.dto.UserDTO;
+import be.ipl.pae.biz.dto.UserDto;
 import be.ipl.pae.biz.factory.FactoryImpl;
 import be.ipl.pae.biz.interfaces.Factory;
 
@@ -27,8 +27,8 @@ public class UserDAOImpl implements UserDAO {
   }
 
   @Override
-  public UserDTO getPreparedStatementConnexion(String email) {
-    UserDTO userD = factory.getUserDTO();
+  public UserDto getPreparedStatementConnexion(String email) {
+    UserDto userD = factory.getUserDto();
     String requeteSQL = "SELECT * FROM init.utilisateurs WHERE email = ?";
     trouverUtilisateurParEmail = services.tryPreparedSatement(requeteSQL);
     try {

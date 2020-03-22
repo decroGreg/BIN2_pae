@@ -1,8 +1,9 @@
 package be.ipl.pae.biz.dto;
 
+import java.sql.Timestamp;
 
 
-public interface ClientDTO {
+public interface UserDto {
 
   String getPseudo();
 
@@ -24,18 +25,17 @@ public interface ClientDTO {
 
   void setEmail(String email);
 
-  String getDateInscription();
-
-  void setDateInscription(String dateInscription);
-
   String getMotDePasse();
 
   void setMotDePasse(String motDePasse);
 
-  String getStatut();
+  char getStatut();
 
-  void setStatut(String statut);
+  void setStatut(char statut);
 
-  int getIdClient();
+  Timestamp getDateInscription();
 
+  int getIdUser();
+  
+  void setIdUser(int idUser);
 }

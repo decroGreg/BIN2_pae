@@ -1,7 +1,7 @@
 package be.ipl.pae.biz.interfaces;
 
-import be.ipl.pae.biz.dto.DevisDTO;
+import be.ipl.pae.biz.dto.DevisDto;
 
-public interface Devis extends DevisDTO {
+public interface Devis extends DevisDto {
 
 }

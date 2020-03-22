@@ -1,11 +1,11 @@
 package be.ipl.pae.biz.factory;
 
-import be.ipl.pae.biz.dto.AmenagementDTO;
-import be.ipl.pae.biz.dto.ClientDTO;
-import be.ipl.pae.biz.dto.DevisDTO;
-import be.ipl.pae.biz.dto.PhotoDTO;
-import be.ipl.pae.biz.dto.TypeDAmenagementDTO;
-import be.ipl.pae.biz.dto.UserDTO;
+import be.ipl.pae.biz.dto.AmenagementDto;
+import be.ipl.pae.biz.dto.ClientDto;
+import be.ipl.pae.biz.dto.DevisDto;
+import be.ipl.pae.biz.dto.PhotoDto;
+import be.ipl.pae.biz.dto.TypeDAmenagementDto;
+import be.ipl.pae.biz.dto.UserDto;
 import be.ipl.pae.biz.impl.AmenagementImpl;
 import be.ipl.pae.biz.impl.ClientImpl;
 import be.ipl.pae.biz.impl.DevisImpl;
@@ -17,36 +17,36 @@ import be.ipl.pae.biz.interfaces.Factory;
 public class FactoryImpl implements Factory {
 
   @Override
-  public UserDTO getUserDTO() {
+  public UserDto getUserDto() {
     return new UserImpl();
   }
 
   @Override
-  public DevisDTO getDevisDTO() {
+  public DevisDto getDevisDto() {
     // TODO Auto-generated method stub
     return new DevisImpl();
   }
 
   @Override
-  public AmenagementDTO getAmenagementDTO() {
+  public AmenagementDto getAmenagementDto() {
     // TODO Auto-generated method stub
     return new AmenagementImpl();
   }
 
   @Override
-  public ClientDTO getClientDTO() {
+  public ClientDto getClientDto() {
     // TODO Auto-generated method stub
     return new ClientImpl();
   }
 
   @Override
-  public PhotoDTO getPhotoDTO() {
+  public PhotoDto getPhotoDto() {
     // TODO Auto-generated method stub
     return new PhotosImpl();
   }
 
   @Override
-  public TypeDAmenagementDTO getTypeDAmenagementDTO() {
+  public TypeDAmenagementDto getTypeDAmenagementDto() {
     // TODO Auto-generated method stub
     return new TypeDAmenagementImpl();
   }
