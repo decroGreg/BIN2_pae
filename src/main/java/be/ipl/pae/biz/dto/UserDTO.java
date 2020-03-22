@@ -34,4 +34,8 @@ public interface UserDTO {
   void setStatut(char statut);
 
   Timestamp getDateInscription();
+
+  int getIdUser();
+
+  void setIdUser(int idUser);
 }

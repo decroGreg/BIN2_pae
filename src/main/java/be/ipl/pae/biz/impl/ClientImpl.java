@@ -1,9 +1,10 @@
 package be.ipl.pae.biz.impl;
 
-import be.ipl.pae.biz.dto.ClientDTO;
 import be.ipl.pae.biz.interfaces.Client;
 
-public class ClientImpl implements Client, ClientDTO {
+public class ClientImpl implements Client {
+
+  private int idClient;
   private String pseudo;
   private String nom;
   private String prenom;
@@ -13,9 +14,10 @@ public class ClientImpl implements Client, ClientDTO {
   private String motDePasse;
   private String statut;
 
-  public ClientImpl(String pseudo, String nom, String prenom, String ville, String email,
-      String motDePasse, String statut) {
+  public ClientImpl(int idClient, String pseudo, String nom, String prenom, String ville,
+      String email, String motDePasse, String statut) {
     super();
+    this.idClient = idClient;
     this.pseudo = pseudo;
     this.nom = nom;
     this.prenom = prenom;
@@ -107,5 +109,9 @@ public class ClientImpl implements Client, ClientDTO {
   @Override
   public void setStatut(String statut) {
     this.statut = statut;
+  }
+
+  public int getIdClient() {
+    return idClient;
   }
 }

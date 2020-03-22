@@ -12,6 +12,7 @@ import DAL.DAOServices;
 import DAL.DAOServicesImpl;
 import DAL.UserDAO;
 import DAL.UserDAOImpl;
+import be.ipl.pae.biz.config.Config;
 import be.ipl.pae.biz.dto.UserDTO;
 import be.ipl.pae.biz.factory.FactoryImpl;
 import be.ipl.pae.biz.interfaces.Factory;
@@ -23,26 +24,13 @@ import be.ipl.pae.ihm.servlet.RegisterServlet;
 public class Main {
   public static void main(String[] args) throws Exception {
 
-	/*//Lecture du fichier properties
-	Properties props = new Properties();
-	try {
-		props.load(new FileInputStream("./dependencies.properties"));
-	}catch(IOException e) {
-		e.printStackTrace();
-	}
+	//Lecture du fichier properties
+	Config conf = new Config();
 	
 	//Creation de la dépendance
-	Factory factory;
-	try {
-		String property = props.getProperty("factory.Factory");
-		Class<?> cls = Class.forName(property);
-		factory = (Factory)cls.getDeclaredConstructor().newInstance();
-	}catch(Exception e) {
-		throw new InternalError();
-	}*/
+	Factory factory = (Factory)conf.getConfigPropertyClass("factory.Factory");
 	
-    Factory factory = new FactoryImpl();
-    DAOServices daoService = new DAOServicesImpl();
+	DAOServices daoService = new DAOServicesImpl();
     UserDAO userDao = new UserDAOImpl();
     UserUCC userUcc = new UserUCCImpl(factory, userDao);
     UserDTO userDto = factory.getUserDTO();

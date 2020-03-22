@@ -1,17 +1,15 @@
 package be.ipl.pae.biz.dto;
 
-import be.ipl.pae.biz.interfaces.Amenagement;
-import be.ipl.pae.biz.interfaces.Devis;
-
-
 public interface PhotoDTO {
 
-  Amenagement getIdAmenagement();
+  int getIdAmenagement();
 
-  void setIdAmenagement(Amenagement idAmenagement);
+  void setIdAmenagement(int idAmenagement);
 
-  Devis getIdDevis();
+  int getIdDevis();
 
-  void setIdDevis(Devis idDevis);
+  void setIdDevis(int idDevis);
+
+  int getIdPhoto();
 
 }

@@ -1,29 +1,30 @@
 package be.ipl.pae.biz.impl;
 
 
-import be.ipl.pae.biz.interfaces.Client;
 import be.ipl.pae.biz.interfaces.Devis;
-import be.ipl.pae.biz.interfaces.Photo;
 
 import java.sql.Timestamp;
 
 
 
 public class DevisImpl implements Devis {
-  private Client idClient;
+
+  private int idDevis;
+  private int idClient;
   private Timestamp date;
   private double montant;
   private String dureeTravaux;
-  private Photo photoPreferee;
+  private int idPhotoPreferee;
   private Etat etat;
 
   public enum Etat {
     I, DDI, ANP, DC, A, EC, FM, T, FF, V
   }
 
-  public DevisImpl(Client idClient, Timestamp date, double montant, String dureeTravaux,
+  public DevisImpl(int idDevis, int idClient, Timestamp date, double montant, String dureeTravaux,
       Etat etat) {
     super();
+    this.idDevis = idDevis;
     this.idClient = idClient;
     this.date = date;
     this.montant = montant;
@@ -36,12 +37,12 @@ public class DevisImpl implements Devis {
   }
 
   @Override
-  public Client getIdClient() {
+  public int getIdClient() {
     return idClient;
   }
 
   @Override
-  public void setIdClient(Client idClient) {
+  public void setIdClient(int idClient) {
     this.idClient = idClient;
   }
 
@@ -76,16 +77,6 @@ public class DevisImpl implements Devis {
   }
 
   @Override
-  public Photo getPhotoPreferee() {
-    return photoPreferee;
-  }
-
-  @Override
-  public void setPhotoPreferee(Photo photoPreferee) {
-    this.photoPreferee = photoPreferee;
-  }
-
-  @Override
   public Etat getEtat() {
     return etat;
   }
@@ -93,5 +84,17 @@ public class DevisImpl implements Devis {
   @Override
   public void setEtat(Etat etat) {
     this.etat = etat;
+  }
+
+  public int getIdDevis() {
+    return idDevis;
+  }
+
+  public int getIdPhotoPreferee() {
+    return idPhotoPreferee;
+  }
+
+  public void setIdPhotoPreferee(int idPhotoPreferee) {
+    this.idPhotoPreferee = idPhotoPreferee;
   }
 }

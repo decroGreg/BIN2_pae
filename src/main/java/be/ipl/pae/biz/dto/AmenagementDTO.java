@@ -1,17 +1,15 @@
 package be.ipl.pae.biz.dto;
 
-import be.ipl.pae.biz.interfaces.Devis;
-import be.ipl.pae.biz.interfaces.TypeDAmenagement;
-
-
 public interface AmenagementDTO {
 
-  TypeDAmenagement getIdTypeAmenagement();
+  int getIdTypeAmenagement();
 
-  void setIdTypeAmenagement(TypeDAmenagement idTypeAmenagement);
+  void setIdTypeAmenagement(int idTypeAmenagement);
 
-  Devis getIdDevis();
+  int getIdDevis();
 
-  void setIdDevis(Devis idDevis);
+  void setIdDevis(int idDevis);
+
+  int getIdAmenagement();
 
 }

@@ -1,17 +1,15 @@
 package be.ipl.pae.biz.dto;
 
 import be.ipl.pae.biz.impl.DevisImpl.Etat;
-import be.ipl.pae.biz.interfaces.Client;
-import be.ipl.pae.biz.interfaces.Photo;
 
 import java.sql.Timestamp;
 
 
 public interface DevisDTO {
 
-  Client getIdClient();
+  int getIdClient();
 
-  void setIdClient(Client idClient);
+  void setIdClient(int idClient);
 
   Timestamp getDate();
 
@@ -25,12 +23,14 @@ public interface DevisDTO {
 
   void setDureeTravaux(String dureeTravaux);
 
-  Photo getPhotoPreferee();
+  int getIdPhotoPreferee();
 
-  void setPhotoPreferee(Photo photoPreferee);
+  void setIdPhotoPreferee(int photoPreferee);
 
   Etat getEtat();
 
   void setEtat(Etat etat);
+
+  int getIdDevis();
 
 }

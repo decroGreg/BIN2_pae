@@ -1,16 +1,16 @@
 package be.ipl.pae.biz.impl;
 
-import be.ipl.pae.biz.dto.PhotoDTO;
-import be.ipl.pae.biz.interfaces.Amenagement;
-import be.ipl.pae.biz.interfaces.Devis;
 import be.ipl.pae.biz.interfaces.Photo;
 
-public class PhotosImpl implements Photo, PhotoDTO {
-  private Amenagement idAmenagement;
-  private Devis idDevis;
+public class PhotosImpl implements Photo {
 
-  public PhotosImpl(Amenagement idAmenagement, Devis idDevis) {
+  private int idPhoto;
+  private int idAmenagement;
+  private int idDevis;
+
+  public PhotosImpl(int idPhoto, int idAmenagement, int idDevis) {
     super();
+    this.idPhoto = idPhoto;
     this.idAmenagement = idAmenagement;
     this.idDevis = idDevis;
   }
@@ -20,24 +20,26 @@ public class PhotosImpl implements Photo, PhotoDTO {
   }
 
   @Override
-  public Amenagement getIdAmenagement() {
+  public int getIdAmenagement() {
     return idAmenagement;
   }
 
   @Override
-  public void setIdAmenagement(Amenagement idAmenagement) {
+  public void setIdAmenagement(int idAmenagement) {
     this.idAmenagement = idAmenagement;
   }
 
   @Override
-  public Devis getIdDevis() {
+  public int getIdDevis() {
     return idDevis;
   }
 
   @Override
-  public void setIdDevis(Devis idDevis) {
+  public void setIdDevis(int idDevis) {
     this.idDevis = idDevis;
   }
 
-
+  public int getIdPhoto() {
+    return idPhoto;
+  }
 }

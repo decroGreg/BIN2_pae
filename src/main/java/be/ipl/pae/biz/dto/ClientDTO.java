@@ -36,4 +36,6 @@ public interface ClientDTO {
 
   void setStatut(String statut);
 
+  int getIdClient();
+
 }

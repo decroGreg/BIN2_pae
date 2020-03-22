@@ -1,13 +1,16 @@
 package be.ipl.pae.biz.impl;
 
+import be.ipl.pae.biz.interfaces.User;
+
+import org.mindrot.bcrypt.BCrypt;
+
 import java.sql.Timestamp;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-import org.mindrot.bcrypt.BCrypt;
-import be.ipl.pae.biz.interfaces.User;
 
 public class UserImpl implements User {
 
+  private int idUser;
   private String pseudo;
   private String nom;
   private String prenom;
@@ -19,9 +22,10 @@ public class UserImpl implements User {
   // private DAOClient DAO;
 
 
-  public UserImpl(String pseudo, String nom, String prenom, String ville, String email,
+  public UserImpl(int idUser, String pseudo, String nom, String prenom, String ville, String email,
       String motDePasse, char statut) {
     super();
+    this.idUser = idUser;
     this.pseudo = pseudo;
     this.nom = nom;
     this.prenom = prenom;
@@ -31,9 +35,9 @@ public class UserImpl implements User {
     this.statut = statut;
   }
 
-  public UserImpl(String pseudo, String nom, String prenom, String ville, String email,
+  public UserImpl(int idUser, String pseudo, String nom, String prenom, String ville, String email,
       String motDePasse) {
-    this(pseudo, nom, prenom, ville, email, motDePasse, ' ');
+    this(idUser, pseudo, nom, prenom, ville, email, motDePasse, ' ');
   }
 
   public UserImpl() {
@@ -113,6 +117,14 @@ public class UserImpl implements User {
   @Override
   public Timestamp getDateInscription() {
     return dateInscription;
+  }
+
+  public int getIdUser() {
+    return idUser;
+  }
+
+  public void setIdUser(int idUser) {
+    this.idUser = idUser;
   }
 
   public boolean checkUser() {

@@ -1,16 +1,15 @@
 package be.ipl.pae.biz.impl;
 
-import be.ipl.pae.biz.dto.AmenagementDTO;
 import be.ipl.pae.biz.interfaces.Amenagement;
-import be.ipl.pae.biz.interfaces.Devis;
-import be.ipl.pae.biz.interfaces.TypeDAmenagement;
 
-public class AmenagementImpl implements Amenagement, AmenagementDTO {
-  private TypeDAmenagement idTypeAmenagement;
-  private Devis idDevis;
+public class AmenagementImpl implements Amenagement {
+  private int idAmenagement;
+  private int idTypeAmenagement;
+  private int idDevis;
 
-  public AmenagementImpl(TypeDAmenagement idTypeAmenagement, Devis idDevis) {
+  public AmenagementImpl(int idAmenagement, int idTypeAmenagement, int idDevis) {
     super();
+    this.idAmenagement = idAmenagement;
     this.idTypeAmenagement = idTypeAmenagement;
     this.idDevis = idDevis;
   }
@@ -20,22 +19,26 @@ public class AmenagementImpl implements Amenagement, AmenagementDTO {
   }
 
   @Override
-  public TypeDAmenagement getIdTypeAmenagement() {
+  public int getIdTypeAmenagement() {
     return idTypeAmenagement;
   }
 
   @Override
-  public void setIdTypeAmenagement(TypeDAmenagement idTypeAmenagement) {
+  public void setIdTypeAmenagement(int idTypeAmenagement) {
     this.idTypeAmenagement = idTypeAmenagement;
   }
 
   @Override
-  public Devis getIdDevis() {
+  public int getIdDevis() {
     return idDevis;
   }
 
   @Override
-  public void setIdDevis(Devis idDevis) {
+  public void setIdDevis(int idDevis) {
     this.idDevis = idDevis;
+  }
+
+  public int getIdAmenagement() {
+    return idAmenagement;
   }
 }
