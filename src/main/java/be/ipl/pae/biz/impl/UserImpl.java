@@ -44,6 +44,14 @@ public class UserImpl implements User {
     super();
   }
 
+  public int getIdUser() {
+    return idUser;
+  }
+
+  public void setIdUser(int idUser) {
+    this.idUser = idUser;
+  }
+
   @Override
   public String getPseudo() {
     return pseudo;
@@ -117,14 +125,6 @@ public class UserImpl implements User {
   @Override
   public Timestamp getDateInscription() {
     return dateInscription;
-  }
-
-  public int getIdUser() {
-    return idUser;
-  }
-
-  public void setIdUser(int idUser) {
-    this.idUser = idUser;
   }
 
   public boolean checkUser() {

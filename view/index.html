@@ -11,31 +11,41 @@
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
       <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
         <link rel="stylesheet" type="text/css" href="./css/index.css">
+        
         <title>Document</title>
         
     </head>
     <body>
       
-      <!------------------------------------navigation non static----------------------------------->
+      <!------------------------------------navigation static----------------------------------->
       <nav class="nav" id="menu">
-        <img src="./img/roses_lilas.gif"></br>
+        
+            <img src="./img/roses_lilas.gif"></br>
+        
       </br>
       </nav>
       <!------------------------------------navigation non static----------------------------------->
         <nav class="nav fixed-top" id="navigation_bar">
           <form class="form-inline">
-            <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-            <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-          </form>
+          <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+          <select id="search-option-category" name="search_option" class="form-control form-control-lg">
+            <option value="client">Client</option>
+            <option value="utilisateur">Utilisateur</option>
+            <option value="amenagement">Aménagement</option>
+          </select>
+          <button href="#" class="btn btn-outline-success my-2 my-sm-0" type="submit" id="btn-search-category">Search</button>
+        </form>
            <ul>
                 <li>
-                    <a href="#">HOME
-                    </a>
-                    <a href="#">Catégorie</a>
+                    <a href="#">HOME</a></li>
+                <li><a href="#">Catégorie</a></li>
+                <li id="list-confirmation-link"><a href="#"  class="Register-confirmation-link">Confirmer inscription</a></li>
+                <li id="connexion">
+                    <a href="#" class="nav-item" id="connexion">Connexion</a>
                 </li>
-                <a href="#" id="connexion">Connexion</a>
+                
            </ul>
-          
+           
         </nav>
       
     <!---------------------------------------Connexion/inscription-------------------------------------------------------------->
@@ -78,9 +88,6 @@
                 </div>
                   <div class="form-group">
                       <input id="btn-register" type="submit" class="btnSubmit" value="Register" />
-                  </div>
-                  <div class="form-group">
-                      <a href="#" class="ForgetPwd" value="Login">Forget Password?</a>
                   </div>
               </form>
           </div>
@@ -126,6 +133,77 @@
     
     
         </section>
+
+        <section id="Register-confirmation">
+          <table id="Register-confirmation" class="table table-bordered" >
+            <thead>
+              <tr>
+                <th scope="col">prénom</th>
+                <th scope="col">nom</th>
+                <th scope="col">status</th>
+                <th scope="col">lier client</th>
+                <th scope="col">Confirmer</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <th>Grégoire</th>
+                <th>de Crombrugghe</th>
+                <th><div class="btn-group">
+                  <button type="button" class="btn btn-danger dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    fonction
+                  </button>
+                  <div class="dropdown-menu">
+                    <a class="dropdown-item" href="#">Client</a>
+                    <a class="dropdown-item" href="#">Ouvrier</a>
+                  </div>
+                </div></th>
+                <th></th>
+                <th><button id="bnt-Register-confirmation" class="btn btn-info"> Confirmer</button></th>
+              </tr>
+            </tbody>
+            </table>
+        </section>
+        
+<!-----------------------------------------Voir utilisateurs---------------------------------------------->
+        <section id="voir-utilisateurs">
+          <h4>Liste des utilisateurs</h4>
+          <br/>
+          <div class="search-options">
+            <form class="form-inline">
+              <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+              <select name="search_option" class="form-control form-control-lg">
+                <option value="nom">Nom</option>
+                <option value="ville">Ville</option>
+              </select>
+              <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+            </form>
+          </div>
+          <div class="" id="voir-utilisateurs">
+            <table class="table table-bordered">
+              <thead>
+                <th><span>Login</span></th>
+                <th><span>Prénom</span></th>
+                <th><span>Nom</span></th>
+                <th><span>Ville</span></th>
+                <th><span>Email</span></th>
+                <th><span>Statut</span></th>
+              </thead>
+              <tbody>
+                <tr>
+                  <td style="width: 15%;" id="login_user">mb</td>
+                  <td style="width: 15%;" id="prenom_user">Maria</td>
+                  <td style="width: 15%;" id="nom_user">Bouraga</td>
+                  <td style="width: 15%;" id="ville_user">Namur</td>
+                  <td style="width: 15%;" id="email_user">maria.bouraga@live.fr</td>
+                  <td style="width: 15%;" id="statut_user">e</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </section>
+
+        <section id="test1">
         <h1>TEST 1</h1>
         <h1>TEST</h1>
         <h1>TEST</h1>
@@ -147,16 +225,14 @@
         <h1>TEST</h1>
         <h1>TEST</h1>
         <h1>TEST</h1>
-    
-    <footer>
-      <p style="text-align: center; background-color: gray; height: 100px;">footer</p>
-    </footer>
-    
+        </section>
     <button id="btn-deconnexion"> deconnexion</button>
     <script src="./JS/index.js" type="module"></script>
 <!--------------------------------------------------------------ACCEUILLE----------------------------------------------------------------------------------------->
 
 
 </body>
-
+<footer>
+    <p style="text-align: center; background-color: gray; height: 100px;">footer</p>
+  </footer>
 </html> 
