@@ -1,11 +1,12 @@
 package DAL;
 
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
 import be.ipl.pae.biz.dto.UserDTO;
 import be.ipl.pae.biz.factory.FactoryImpl;
 import be.ipl.pae.biz.interfaces.Factory;
+
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 
 public class UserDAOImpl implements UserDAO {
 
@@ -50,7 +51,7 @@ public class UserDAOImpl implements UserDAO {
         userD.setVille(ville);
         userD.setEmail(eMail);
         userD.setMotDePasse(motDePasse);
-        userD.setID(id);
+        userD.setIdUser(id);
       } catch (SQLException e) {
         e.printStackTrace();
       }

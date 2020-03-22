@@ -63,6 +63,7 @@ public class LoginServlet extends HttpServlet {
 
   }
 
+  @SuppressWarnings("unchecked")
   @Override
   protected void doPost(HttpServletRequest req, HttpServletResponse resp)
       throws ServletException, IOException {
@@ -92,7 +93,7 @@ public class LoginServlet extends HttpServlet {
       if (userDto != null) {
         userDto.setStatut('o');
         Map<String, Object> claims = new HashMap<String, Object>();
-        claims.put("id", userDto.getID());
+        claims.put("id", userDto.getIdUser());
         claims.put("ip", req.getRemoteAddr());
 
         Algorithm algorithm = Algorithm.HMAC256(JWTSECRET);

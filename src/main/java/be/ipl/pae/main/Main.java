@@ -1,6 +1,5 @@
 package be.ipl.pae.main;
 
-<<<<<<< HEAD
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.Properties;
@@ -13,15 +12,14 @@ import DAL.DAOServices;
 import DAL.DAOServicesImpl;
 import DAL.UserDAO;
 import DAL.UserDAOImpl;
-=======
->>>>>>> branch 'master' of https://gitlab.vinci.be/6i2-cae/projet-ae-groupe-05
+
 import be.ipl.pae.biz.config.Config;
 import be.ipl.pae.biz.dto.UserDTO;
-<<<<<<< HEAD
+
 import be.ipl.pae.biz.factory.FactoryImpl;
-=======
-import be.ipl.pae.biz.interfaces.DAOServices;
->>>>>>> branch 'master' of https://gitlab.vinci.be/6i2-cae/projet-ae-groupe-05
+
+import DAL.DAOServices;
+
 import be.ipl.pae.biz.interfaces.Factory;
 import be.ipl.pae.biz.interfaces.UserUCC;
 import be.ipl.pae.biz.ucc.UserUCCImpl;

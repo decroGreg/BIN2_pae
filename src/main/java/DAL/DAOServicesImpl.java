@@ -7,12 +7,9 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
-<<<<<<< HEAD
-=======
-import be.ipl.pae.biz.config.Config;
-import be.ipl.pae.biz.interfaces.DAOServices;
 
->>>>>>> branch 'master' of https://gitlab.vinci.be/6i2-cae/projet-ae-groupe-05
+import be.ipl.pae.biz.config.Config;
+import DAL.DAOServices;
 
 public class DAOServicesImpl implements DAOServices {
 
