@@ -67,6 +67,15 @@ $(document).ready(e=>{
         
 
     });
+    
+    $("#btn-search-category").click(e=>{
+    	e.preventDefault();
+        if($("#search-option-category").val()=="utilisateur"){
+                allHide();
+                $("#voir-utilisateurs").show();
+        }
+    });
+    
 });
 
 function allHide(){
@@ -91,6 +100,7 @@ function viewHomePage(){
         $("#carousel").show();
         $("#Register-confirmation").hide();
         $("#list-confirmation-link").hide(); 
+        $("#voir-utilisateurs").hide();
 }
 
 //vue après authentification
@@ -105,6 +115,8 @@ function viewAuthentification(){
         $("#login-form").hide();
         $("#btn-deconnexion").show();
         $("#Register-confirmation").hide();
+        $("#voir-utilisateurs").hide();
+
          
 }
 
