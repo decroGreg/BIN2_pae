@@ -5,6 +5,10 @@ import be.ipl.pae.biz.dto.UserDto;
 import be.ipl.pae.biz.interfaces.Factory;
 import be.ipl.pae.biz.interfaces.UserUcc;
 import be.ipl.pae.biz.ucc.UserUccImpl;
+import be.ipl.pae.dal.impl.DAOServicesImpl;
+import be.ipl.pae.dal.impl.UserDAOImpl;
+import be.ipl.pae.dal.interfaces.DAOServices;
+import be.ipl.pae.dal.interfaces.UserDAO;
 import be.ipl.pae.ihm.servlet.LoginServlet;
 import be.ipl.pae.ihm.servlet.RegisterServlet;
 
@@ -13,11 +17,6 @@ import org.eclipse.jetty.servlet.ServletHolder;
 import org.eclipse.jetty.webapp.WebAppContext;
 
 import javax.servlet.http.HttpServlet;
-
-import DAL.DAOServices;
-import DAL.DAOServicesImpl;
-import DAL.UserDAO;
-import DAL.UserDAOImpl;
 
 public class Main {
   public static void main(String[] args) throws Exception {

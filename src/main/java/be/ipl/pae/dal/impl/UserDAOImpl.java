@@ -1,8 +1,10 @@
-package DAL;
+package be.ipl.pae.dal.impl;
 
 import be.ipl.pae.biz.dto.UserDto;
 import be.ipl.pae.biz.factory.FactoryImpl;
 import be.ipl.pae.biz.interfaces.Factory;
+import be.ipl.pae.dal.interfaces.DAOServices;
+import be.ipl.pae.dal.interfaces.UserDAO;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -10,7 +12,7 @@ import java.sql.SQLException;
 
 public class UserDAOImpl implements UserDAO {
 
-  private PreparedStatement trouverUtilisateurParEmail;
+  private PreparedStatement ps;
   private DAOServices services;
   private String pseudo;
   private String nom;
@@ -27,13 +29,13 @@ public class UserDAOImpl implements UserDAO {
   }
 
   @Override
-  public UserDto getPreparedStatementConnexion(String email) {
+  public UserDto getUserConnexion(String email) {
     UserDto userD = factory.getUserDto();
     String requeteSQL = "SELECT * FROM init.utilisateurs WHERE email = ?";
-    trouverUtilisateurParEmail = services.tryPreparedSatement(requeteSQL);
+    ps = services.getPreparedSatement(requeteSQL);
     try {
-      trouverUtilisateurParEmail.setString(1, email);
-      try (ResultSet rs = trouverUtilisateurParEmail.executeQuery()) {
+      ps.setString(1, email);
+      try (ResultSet rs = ps.executeQuery()) {
         while (rs.next()) {
           id = rs.getInt(1);
           System.out.println(id);
@@ -61,4 +63,26 @@ public class UserDAOImpl implements UserDAO {
     }
     return userD;
   }
+  
+  public boolean createInscription(UserDto user) {
+	    String requestSQL = "INSERT INTO init.utilisateurs VALUES (DEFAULT, ?, ?, ?, ?, ?, ?, ?, ?)";
+	    ps = services.getPreparedSatement(requestSQL);
+	    try {
+	      ps.setString(1, user.getPseudo());
+	      ps.setString(2, user.getNom());
+	      ps.setString(3, user.getPrenom());
+	      ps.setString(4, user.getVille());
+	      ps.setString(5, user.getVille());
+	      ps.setTimestamp(6, user.getDateInscription());
+	      ps.setString(7, user.getMotDePasse());
+	      ps.setString(8, String.valueOf(user.getStatut()));
+
+	    } catch (SQLException e) {
+	      e.printStackTrace();
+	      System.exit(500);
+	      return false;
+	    }
+	    return true;
+	  }
+
 }

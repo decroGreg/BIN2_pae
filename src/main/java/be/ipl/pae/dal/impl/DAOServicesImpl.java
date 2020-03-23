@@ -1,7 +1,8 @@
 
-package DAL;
+package be.ipl.pae.dal.impl;
 
 import be.ipl.pae.biz.config.Config;
+import be.ipl.pae.dal.interfaces.DAOServices;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -9,7 +10,6 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
 import be.ipl.pae.biz.config.Config;
-import DAL.DAOServices;
 
 public class DAOServicesImpl implements DAOServices {
 
@@ -45,7 +45,7 @@ public class DAOServicesImpl implements DAOServices {
   }
 
   @Override
-  public PreparedStatement tryPreparedSatement(String requeteSQL) {
+  public PreparedStatement getPreparedSatement(String requeteSQL) {
     PreparedStatement ps = null;
     try {
       ps = conn.prepareStatement(requeteSQL);

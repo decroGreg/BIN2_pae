@@ -4,8 +4,8 @@ import be.ipl.pae.biz.dto.UserDto;
 import be.ipl.pae.biz.impl.UserImpl;
 import be.ipl.pae.biz.interfaces.Factory;
 import be.ipl.pae.biz.interfaces.User;
-import DAL.UserDAO;
 import be.ipl.pae.biz.interfaces.UserUcc;
+import be.ipl.pae.dal.interfaces.UserDAO;
 import be.ipl.pae.exceptions.BizException;
 
 import java.util.Collections;
@@ -40,12 +40,12 @@ public class UserUccImpl implements UserUcc {
       }
       try {
         // Email deja utilise
-        if (userDao.getPreparedStatementConnexion(user.getEmail()) != null) {
+        if (userDao.getUserConnexion(user.getEmail()) != null) {
           throw new BizException("Email deja utilise");
         }
 
         // userDAO.ajouterUtilisateur(user);
-        UserDto userAjoute = userDao.getPreparedStatementConnexion(user.getEmail());
+        UserDto userAjoute = userDao.getUserConnexion(user.getEmail());
         return userAjoute;
 
       } catch (Exception exception/* DalException de */) {
@@ -64,7 +64,7 @@ public class UserUccImpl implements UserUcc {
     if (user.checkUser()) {
       UserDto userDb = null;
       try {
-        userDb = userDao.getPreparedStatementConnexion(user.getEmail());
+        userDb = userDao.getUserConnexion(user.getEmail());
       } catch (Exception exception) {
         exception.printStackTrace();
       }
