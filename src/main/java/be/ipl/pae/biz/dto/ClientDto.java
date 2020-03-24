@@ -4,10 +4,6 @@ package be.ipl.pae.biz.dto;
 
 public interface ClientDto {
 
-  String getPseudo();
-
-  void setPseudo(String pseudo);
-
   String getNom();
 
   void setNom(String nom);
@@ -15,6 +11,22 @@ public interface ClientDto {
   String getPrenom();
 
   void setPrenom(String prenom);
+
+  String getRue();
+
+  void setRue(String rue);
+
+  String getNumero();
+
+  void setNumero(String numero);
+
+  String getBoite();
+
+  void setBoite(String boite);
+
+  String getCodePostal();
+
+  void setCodePostal(String codePostal);
 
   String getVille();
 
@@ -24,15 +36,13 @@ public interface ClientDto {
 
   void setEmail(String email);
 
-  String getDateInscription();
+  String getTelephone();
 
-  String getMotDePasse();
+  void setTelephone(String telephone);
 
-  void setMotDePasse(String motDePasse);
+  int getIdUtilisateur();
 
-  String getStatut();
-
-  void setStatut(String statut);
+  void setIdUtilisateur(int idUtilisateur);
 
   int getIdClient();
 

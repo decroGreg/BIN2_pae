@@ -1,56 +1,56 @@
 package be.ipl.pae.biz.impl;
 
+import be.ipl.pae.biz.dto.ClientDto;
 import be.ipl.pae.biz.interfaces.Client;
 
-public class ClientImpl implements Client {
+public class ClientImpl implements Client, ClientDto {
 
   private int idClient;
-  private String pseudo;
   private String nom;
   private String prenom;
+  private String rue;
+  private String numero;
+  private String boite;
+  private String codePostal;
   private String ville;
   private String email;
-  private String dateInscription;
-  private String motDePasse;
-  private String statut;
+  private String telephone;
+  private int idUtilisateur;
 
-  /**
-   * Cree un objet ClientImpl
-   * 
-   * @param idClient l'id du client.
-   * @param pseudo le pseudo du client.
-   * @param nom le nom du client.
-   * @param prenom le prenom du client.
-   * @param ville la ville du client.
-   * @param email l'email du client.
-   * @param motDePasse le mot de passe du client.
-   * @param statut le statut du client.
-   */
-  public ClientImpl(int idClient, String pseudo, String nom, String prenom, String ville,
-      String email, String motDePasse, String statut) {
+  public ClientImpl(int idClient, String nom, String prenom, String rue, String numero,
+      String boite, String codePostal, String ville, String email, String telephone,
+      int idUtilisateur) {
     super();
     this.idClient = idClient;
-    this.pseudo = pseudo;
     this.nom = nom;
     this.prenom = prenom;
+    this.rue = rue;
+    this.numero = numero;
+    this.boite = boite;
+    this.codePostal = codePostal;
     this.ville = ville;
     this.email = email;
-    this.motDePasse = motDePasse;
-    this.statut = statut;
+    this.telephone = telephone;
+    this.idUtilisateur = idUtilisateur;
+  }
+
+  public ClientImpl(int idClient, String nom, String prenom, String rue, String numero,
+      String boite, String codePostal, String ville, String email, String telephone) {
+    super();
+    this.idClient = idClient;
+    this.nom = nom;
+    this.prenom = prenom;
+    this.rue = rue;
+    this.numero = numero;
+    this.boite = boite;
+    this.codePostal = codePostal;
+    this.ville = ville;
+    this.email = email;
+    this.telephone = telephone;
   }
 
   public ClientImpl() {
     super();
-  }
-
-  @Override
-  public String getPseudo() {
-    return pseudo;
-  }
-
-  @Override
-  public void setPseudo(String pseudo) {
-    this.pseudo = pseudo;
   }
 
   @Override
@@ -74,6 +74,46 @@ public class ClientImpl implements Client {
   }
 
   @Override
+  public String getRue() {
+    return rue;
+  }
+
+  @Override
+  public void setRue(String rue) {
+    this.rue = rue;
+  }
+
+  @Override
+  public String getNumero() {
+    return numero;
+  }
+
+  @Override
+  public void setNumero(String numero) {
+    this.numero = numero;
+  }
+
+  @Override
+  public String getBoite() {
+    return boite;
+  }
+
+  @Override
+  public void setBoite(String boite) {
+    this.boite = boite;
+  }
+
+  @Override
+  public String getCodePostal() {
+    return codePostal;
+  }
+
+  @Override
+  public void setCodePostal(String codePostal) {
+    this.codePostal = codePostal;
+  }
+
+  @Override
   public String getVille() {
     return ville;
   }
@@ -94,30 +134,26 @@ public class ClientImpl implements Client {
   }
 
   @Override
-  public String getDateInscription() {
-    return dateInscription;
+  public String getTelephone() {
+    return telephone;
   }
 
   @Override
-  public String getMotDePasse() {
-    return motDePasse;
+  public void setTelephone(String telephone) {
+    this.telephone = telephone;
   }
 
   @Override
-  public void setMotDePasse(String motDePasse) {
-    this.motDePasse = motDePasse;
+  public int getIdUtilisateur() {
+    return idUtilisateur;
   }
 
   @Override
-  public String getStatut() {
-    return statut;
+  public void setIdUtilisateur(int idUtilisateur) {
+    this.idUtilisateur = idUtilisateur;
   }
 
   @Override
-  public void setStatut(String statut) {
-    this.statut = statut;
-  }
-
   public int getIdClient() {
     return idClient;
   }

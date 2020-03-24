@@ -72,7 +72,7 @@ public class UserDAOImpl implements UserDAO {
       ps.setString(2, user.getNom());
       ps.setString(3, user.getPrenom());
       ps.setString(4, user.getVille());
-      ps.setString(5, user.getVille());
+      ps.setString(5, user.getEmail());
       ps.setTimestamp(6, user.getDateInscription());
       ps.setString(7, user.getMotDePasse());
       ps.setString(8, String.valueOf(user.getStatut()));

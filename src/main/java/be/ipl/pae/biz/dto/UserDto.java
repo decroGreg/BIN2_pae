@@ -36,6 +36,8 @@ public interface UserDto {
   Timestamp getDateInscription();
 
   int getIdUser();
-  
+
   void setIdUser(int idUser);
+
+  void setDateInscription(Timestamp dateInscription);
 }

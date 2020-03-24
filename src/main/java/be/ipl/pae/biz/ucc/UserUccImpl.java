@@ -8,6 +8,8 @@ import be.ipl.pae.biz.interfaces.UserUcc;
 import be.ipl.pae.dal.interfaces.UserDAO;
 import be.ipl.pae.exceptions.BizException;
 
+import java.sql.Timestamp;
+import java.time.LocalDate;
 import java.util.Collections;
 import java.util.List;
 
@@ -31,6 +33,9 @@ public class UserUccImpl implements UserUcc {
 
   public UserDto sinscrire(UserDto userDTO) {
     User user = (User) userDTO;
+    LocalDate now = LocalDate.now();
+    Timestamp timestamp = Timestamp.valueOf(now.atStartOfDay());
+    user.setDateInscription(timestamp);
     if (user.checkUser()) {
       if (!user.checkEmail()) {
         throw new BizException("Format de l'email incorrect");
@@ -40,9 +45,11 @@ public class UserUccImpl implements UserUcc {
       }
       try {
         // Email deja utilise
-        if (userDao.getUserConnexion(user.getEmail()) != null) {
-          throw new BizException("Email deja utilise");
-        }
+        UserDto userConnu = userDao.getUserConnexion(user.getEmail());
+
+        /**
+         * if (!userConnu.getEmail().equals(null)) { throw new BizException("Email deja utilise"); }
+         */
 
         userDao.createInscription(user);
         UserDto userAjoute = userDao.getUserConnexion(user.getEmail());
@@ -89,5 +96,20 @@ public class UserUccImpl implements UserUcc {
       throw new IllegalStateException(ex.getMessage());
     }
     return Collections.unmodifiableList(utilisateurs);
+  }
+
+  public void confirmerInscription(String email, char statut, String emailClient) {
+    try {
+      UserDto user = userDao.getUserConnexion(email);
+      user.setStatut(statut);
+      // userDao.modifiterUser(user);
+      if (emailClient != " ") {
+        // ClientDto client = clientDao.getClient(emailClient);
+        // client.setIdUtilisateur(user.getIdUser());
+      }
+    } catch (Exception exception/* DalException de */) {
+      exception.printStackTrace();
+      throw new IllegalArgumentException(exception.getMessage());
+    }
   }
 }

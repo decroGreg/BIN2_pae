@@ -138,6 +138,10 @@ public class UserImpl implements User {
     return dateInscription;
   }
 
+  public void setDateInscription(Timestamp dateInscription) {
+    this.dateInscription = dateInscription;
+  }
+
   @Override
   public boolean checkUser() {
     if (this == null || this.getEmail() == null || this.getMotDePasse() == null) {
