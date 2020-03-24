@@ -7,4 +7,6 @@ public interface UserDAO {
 
   UserDto getUserConnexion(String email);
 
+  boolean createInscription(UserDto userDTO);
+
 }

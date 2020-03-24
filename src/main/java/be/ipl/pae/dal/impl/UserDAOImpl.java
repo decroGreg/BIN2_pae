@@ -63,26 +63,25 @@ public class UserDAOImpl implements UserDAO {
     }
     return userD;
   }
-  
+
   public boolean createInscription(UserDto user) {
-	    String requestSQL = "INSERT INTO init.utilisateurs VALUES (DEFAULT, ?, ?, ?, ?, ?, ?, ?, ?)";
-	    ps = services.getPreparedSatement(requestSQL);
-	    try {
-	      ps.setString(1, user.getPseudo());
-	      ps.setString(2, user.getNom());
-	      ps.setString(3, user.getPrenom());
-	      ps.setString(4, user.getVille());
-	      ps.setString(5, user.getVille());
-	      ps.setTimestamp(6, user.getDateInscription());
-	      ps.setString(7, user.getMotDePasse());
-	      ps.setString(8, String.valueOf(user.getStatut()));
+    String requestSQL = "INSERT INTO init.utilisateurs VALUES (DEFAULT, ?, ?, ?, ?, ?, ?, ?, ?)";
+    ps = services.getPreparedSatement(requestSQL);
+    try {
+      ps.setString(1, user.getPseudo());
+      ps.setString(2, user.getNom());
+      ps.setString(3, user.getPrenom());
+      ps.setString(4, user.getVille());
+      ps.setString(5, user.getVille());
+      ps.setTimestamp(6, user.getDateInscription());
+      ps.setString(7, user.getMotDePasse());
+      ps.setString(8, String.valueOf(user.getStatut()));
 
-	    } catch (SQLException e) {
-	      e.printStackTrace();
-	      System.exit(500);
-	      return false;
-	    }
-	    return true;
-	  }
-
+    } catch (SQLException e) {
+      e.printStackTrace();
+      System.exit(500);
+      return false;
+    }
+    return true;
+  }
 }

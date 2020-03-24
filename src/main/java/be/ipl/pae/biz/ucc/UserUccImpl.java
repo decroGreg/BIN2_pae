@@ -44,7 +44,7 @@ public class UserUccImpl implements UserUcc {
           throw new BizException("Email deja utilise");
         }
 
-        // userDAO.ajouterUtilisateur(user);
+        userDao.createInscription(user);
         UserDto userAjoute = userDao.getUserConnexion(user.getEmail());
         return userAjoute;
 

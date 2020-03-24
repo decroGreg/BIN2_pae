@@ -156,8 +156,8 @@ public class UserImpl implements User {
 
   @Override
   public boolean checkMotDePasse(String motDePasseDb) {
-    if (this.getMotDePasse().equals(motDePasseDb)) {
-      // if (BCrypt.checkpw(this.getMotDePasse(), motDePasseDb)) {
+    // if (this.getMotDePasse().equals(motDePasseDb)) {
+    if (BCrypt.checkpw(this.getMotDePasse(), motDePasseDb)) {
       return true;
     }
     return false;
