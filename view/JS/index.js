@@ -73,6 +73,15 @@ $(document).ready(e=>{
         if($("#search-option-category").val()=="utilisateur"){
                 allHide();
                 $("#voir-utilisateurs").show();
+                $("#voir-utilisateurs tbody").append("<tr><td>DONNEES</td></tr>");
+
+                var data = getData("/listUsers",token,onGet,onError);
+                $("#voir-utilisateurs tbody").append("<tr><td>"+data+"</td></tr>");
+                data = JSON.parse(data);
+                $("#voir-utilisateurs tbody").append("<tr><td>"+data+"</td></tr>");
+                var html = "<tr>";
+                html+="<td>" + data.pseudo + "</td>\n<td>" + data.nom + "</td>\n<td>" + data.prenom + "</td>\n<td>" + data.ville + "</td>\n<td>" + data.mail + "</td>\n<td>" + data.statut + "</td></tr>;"
+                $("#voir-utilisateurs tbody").append(html);
         }
     });
     
@@ -150,4 +159,16 @@ function onPostLogin(response){
 
 function onError(response){
 
+}
+
+
+function afficherUtilisateurs(){
+	
+}
+
+function onGet(response) {
+	  if (response.success) {
+	    
+	    }
+	  } else $("#message_board").text(JSON.stringify(response.error));
 }
