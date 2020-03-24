@@ -36,6 +36,8 @@ public class RegisterServlet extends HttpServlet {
       this.userDto.setPrenom(data.get("firstname"));
       this.userDto.setNom(data.get("lastname"));
       this.userDto.setVille(data.get("city"));
+      this.userDto.setPseudo(data.get("pseudo"));
+
 
       try {// vérification
         this.userUcc.sinscrire(userDto);

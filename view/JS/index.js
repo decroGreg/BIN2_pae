@@ -25,7 +25,8 @@ $(document).ready(e=>{
        
         token=localStorage.getItem("token");
         authentificationToken(token);
-        $("#connexion").click(function (e) { 
+        $("#connexion").click(function (e) {
+               
                viewLogin();
         });
                 
@@ -59,13 +60,17 @@ $(document).ready(e=>{
         data.mail=$("#Register-email").val();
         data.mdp=$("#Register-pwd").val();
         data.city=$("#Register-city").val();
+        data.pseudo=$("#Register-pseudo").val();
         postData("/register",data,token,onPostRegister,onError);
         
+    });
+    $("#introductionQuote").click(e=>{
+        viewIntroductionQuote();
     });
     
 
     $(".Register-confirmation-link").click(e=>{
-            registerConfirmationView();
+            viewRegisterConfirmation();
             
             //getData("/register_confirmation",token,onGetRegisterConfirmation,onError);
             onGetRegisterConfirmation();
@@ -119,7 +124,15 @@ function allHide(){
         $("#carousel").hide();
         $("#Register-confirmation").hide();
 }
-function registerConfirmationView(){
+function viewIntroductionQuote(){
+        $("#login").hide();
+        $("#btn-deconnexion").hide();
+        $("#wrong_passwd").hide();
+        $("#test1").hide();
+        $("#carousel").hide();
+        $("#Register-confirmation").hide();
+}
+function viewRegisterConfirmation(){
         $("#login").hide();
         $("#btn-deconnexion").hide();
         $("#wrong_passwd").hide();
