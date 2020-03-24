@@ -5,7 +5,20 @@ const CLIENT="client";
 let token=undefined;
 let user;
 $('#navigation_bar').hide();
-
+let tempoUsersConf=[
+        {
+                "prenom":"Grégoire",
+                "nom":"deC"
+        },
+        {
+                "prenom":"Gregory",
+                "nom":"delacroix"
+        },
+        {
+                "prenom":"Gggggggggg",
+                "nom":"deCaaaaaaaaaa"
+        },
+];
 
 
 $(document).ready(e=>{
@@ -46,16 +59,27 @@ $(document).ready(e=>{
         data.mail=$("#Register-email").val();
         data.mdp=$("#Register-pwd").val();
         data.city=$("#Register-city").val();
-        //postData("/login",data,token,onPost,onError);
+        postData("/register",data,token,onPostRegister,onError);
         
     });
+    
+
     $(".Register-confirmation-link").click(e=>{
-            allHide();
-            $("#Register-confirmation").show();
+            registerConfirmationView();
             
+            //getData("/register_confirmation",token,onGetRegisterConfirmation,onError);
+            onGetRegisterConfirmation();
+    });
+    $("#btn-status").click(e=>{
+            alert();
+            console.log(e.innerHTML);
+            $("#btn-status").textSet(e.innerHTML);
     });
     $("#bnt-Register-confirmation").click(e=>{
-                alert();
+        var data={
+                
+        }
+        //postData("/register_confirmation",data,token,onError);
     });
 
     $("#btn-deconnexion").click(e=>{
@@ -84,7 +108,17 @@ function allHide(){
         $("#wrong_passwd").hide();
         $("#test1").hide();
         $("#carousel").hide();
+        $("#Register-confirmation").hide();
 }
+function registerConfirmationView(){
+        $("#login").hide();
+        $("#btn-deconnexion").hide();
+        $("#wrong_passwd").hide();
+        $("#test1").hide();
+        $("#carousel").hide();
+        $("#Register-confirmation").show();
+}
+
 function viewLogin(){
         $("#login-form").show();
         $("#btn-deconnexion").hide();
@@ -109,6 +143,7 @@ function viewAuthentification(){
         if(user &&user.statut===OUVRIER){
                 console.log("passage");
                 $("#list-confirmation-link").show(); 
+                
         }
         $("#connexion").hide();
         $('#navigation_bar').hide();
@@ -147,7 +182,56 @@ function onPostLogin(response){
                 $("#wrong_passwd").show();
         }
 }
+//affiche les demandes d'inscription dans un tableau
+function onGetRegisterConfirmation(response){
+        
+        
+        tempoUsersConf.forEach(element => {
+                console.log(element.nom);
+                var tr=document.createElement("tr");
+                var prenom=document.createElement("td");
+                prenom.innerHTML=element.prenom;
+                var nom=document.createElement("td");
+                nom.innerHTML=element.nom;
+                var btnStatus=document.createElement("td");
+                var btnConfirmation=document.createElement("td");
+                tr.appendChild(prenom);
+                tr.appendChild(nom);
+                //creation du boutton status
+                btnStatus.appendChild(creatHTMLFromString('<td><div class="btn-group">'
+                +'<button type="button" id="btn-status" class="btn btn-danger dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">'
+                +'status'
+                +'</button>'
+                +'<div class="dropdown-menu">'
+                +'<a class="dropdown-item" onClick="onClickStatusItem(this)" href="#">Client</a>'
+                +'<a class="dropdown-item" onClick="onClickStatusItem(this)" href="#">Ouvrier</a>'
+                +'</div>'
+                +'</div></td>'));
+                tr.appendChild(btnStatus);
+               
+                btnConfirmation.appendChild(creatHTMLFromString('<td><button id="bnt-Register-confirmation" class="btn btn-info"> Confirmer</button></td>'));
+                tr.appendChild(btnConfirmation);
+                $("#Register-confirmation-body").append(tr);
+        });
+}
+function onClickStatusItem(element){
+        alert(element.innerHTML);
+}
+//methode trouver sur: https://stackoverflow.com/questions/494143/creating-a-new-dom-element-from-an-html-string-using-built-in-dom-methods-or-pro
+function creatHTMLFromString(htmlString){
+        var div = document.createElement('div');
+        div.innerHTML = htmlString.trim();
+
+        // Change this to div.childNodes to support multiple top-level nodes
+        return div.firstChild; 
+}
+function onPostRegister(response){
+        if(response.success){
+                alert();
+        }
+}
 
 function onError(response){
 
 }
+/////////////////////////////////////////////////////////////////////////////////////////////test////////////////////////

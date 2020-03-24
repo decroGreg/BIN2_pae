@@ -36,17 +36,28 @@ public class RegisterServlet extends HttpServlet {
       this.userDto.setPrenom(data.get("firstname"));
       this.userDto.setNom(data.get("lastname"));
       this.userDto.setVille(data.get("city"));
-      int i = 0;
-      if (i < 3) {// vérification
 
-      } else {
+      try {// vérification
+        this.userUcc.sinscrire(userDto);
+
+      } catch (Exception e) {
+        e.printStackTrace();
         String json = "{\"success\":\false\"}";
         resp.setContentType("application/json");
         resp.setCharacterEncoding("UTF-8");
         resp.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
         resp.getWriter().write(json);
+        return;
 
       }
+      String json = "{\"success\":\"true\"}";
+      System.out.println("JSON generated :" + json);
+      resp.setContentType("application/json");
+
+      resp.setCharacterEncoding("UTF-8");
+
+      resp.setStatus(HttpServletResponse.SC_OK);;
+      resp.getWriter().write(json);
 
 
     } catch (Exception e) {

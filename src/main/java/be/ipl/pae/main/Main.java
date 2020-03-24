@@ -9,6 +9,7 @@ import be.ipl.pae.dal.impl.DAOServicesImpl;
 import be.ipl.pae.dal.impl.UserDAOImpl;
 import be.ipl.pae.dal.interfaces.DAOServices;
 import be.ipl.pae.dal.interfaces.UserDAO;
+import be.ipl.pae.ihm.servlet.ConfirmationRegisterServlet;
 import be.ipl.pae.ihm.servlet.LoginServlet;
 import be.ipl.pae.ihm.servlet.RegisterServlet;
 
@@ -43,6 +44,7 @@ public class Main {
     System.out.println("test");
     // regarder à quoi ça sert vraimant
     context.setInitParameter("cacheControl", "no-store,no-cache,must-revalidate");
+    HttpServlet confirmation = new ConfirmationRegisterServlet(userUcc, userDto);
 
 
     HttpServlet serv = new LoginServlet(userUcc, userDto);

@@ -97,12 +97,6 @@ public class LoginServlet extends HttpServlet {
         claims.put("ip", req.getRemoteAddr());
 
         Algorithm algorithm = Algorithm.HMAC256(JWTSECRET);
-        /*
-         * DecodedJWT test2 = JWT.decode(test); System.out.println("id " +
-         * test2.getClaim("claim").asMap().get("id"));
-         */
-
-
 
         String ltoken =
             JWT.create().withIssuer("auth0").withClaim("claims", claims).sign(algorithm);

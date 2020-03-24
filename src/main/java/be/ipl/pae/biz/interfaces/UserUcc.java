@@ -7,4 +7,5 @@ public interface UserUcc {
 
   UserDto login(String email, String motDePasse);
 
+  public UserDto sinscrire(UserDto userDTO);
 }
