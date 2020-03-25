@@ -75,8 +75,8 @@ public class UserDAOImpl implements UserDAO {
       ps.setString(5, user.getEmail());
       ps.setTimestamp(6, user.getDateInscription());
       ps.setString(7, user.getMotDePasse());
-      ps.setString(8, String.valueOf(user.getStatut()));
-
+      ps.setString(8, null);
+      ps.execute();
     } catch (SQLException e) {
       e.printStackTrace();
       System.exit(500);
