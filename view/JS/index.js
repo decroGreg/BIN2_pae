@@ -104,10 +104,9 @@ $(document).ready(e=>{
         if($("#search-option-category").val()=="utilisateur"){
                 allHide();
                 $("#voir-utilisateurs").show();
-                /*var data = getData("/listUsers",token,afficherUtilisateurs,onError);
-                console.log(data);
-                //afficherUtilisateurs();
-                $("#voir-utilisateurs tbody").append("<tr><td>"+data+"</td></tr>");
+                //getData("/listUsers",token,afficherUtilisateurs,onError);
+                afficherUtilisateurs();
+                /*$("#voir-utilisateurs tbody").append("<tr><td>"+data+"</td></tr>");
                 data = JSON.parse(data);
                 $("#voir-utilisateurs tbody").append("<tr><td>"+data+"</td></tr>");
                 var html = "<tr>";
@@ -262,18 +261,10 @@ function onError(response){
 
 
 function afficherUtilisateurs(response){
-	/*var data=response;
-	tempUsers.forEach(element => {
-        console.log(element.nom);
-        var tr=document.createElement("tr");
-        var prenom=document.createElement("td");
-        prenom.innerHTML=element.prenom;
-        var nom=document.createElement("td");
-        nom.innerHTML=element.nom;
-        var btnStatus=document.createElement("td");
-        var btnConfirmation=document.createElement("td");
-        tr.appendChild(prenom);
-        tr.appendChild(nom);*/
-}
+	tempUsers.forEach(data => {
+	    var html = "<tr>";
+	    html+="<td>" + data.pseudo + "</td>\n<td>" + data.nom + "</td>\n<td>" + data.prenom + "</td>\n<td>" + data.ville + "</td>\n<td>" + data.mail + "</td>\n<td>" + data.statut + "</td></tr>;"
+	    $("#voir-utilisateurs tbody").append(html);
+	});
 
 }

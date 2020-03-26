@@ -5,7 +5,6 @@ import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -32,7 +31,7 @@ public class RechercheUtilisateursServlet extends HttpServlet {
     this.utilisateursDTO = new ArrayList<>();
     // creation de 2 usersDTO dans ma liste pour tester si mon html se remplit
     user1.setPseudo("mrbrg");
-    user1.setPrenom("M");
+    user1.setPrenom("Julie");
     user1.setNom("B");
     user1.setEmail("mrbrg@live.fr");
     user1.setVille("Bruxdells");
@@ -40,7 +39,7 @@ public class RechercheUtilisateursServlet extends HttpServlet {
     user1.setDateInscription(Timestamp.valueOf(LocalDateTime.now()));
     user1.setMotDePasse("mdp");
     user2.setPseudo("jbe");
-    user2.setPrenom("Mdef");
+    user2.setPrenom("KJHOS");
     user2.setNom("Bdd");
     user2.setEmail("mrbrdddddddg@live.fr");
     user2.setVille("Brudddxdells");
@@ -60,8 +59,10 @@ public class RechercheUtilisateursServlet extends HttpServlet {
     try {
       // utilisateursDTO = userUCC.getUtilisateurs();
       Genson genson = new Genson();
-      Map<String, Object> data = genson.deserialize(req.getReader(), Map.class);
-      String token = data.get("token").toString();
+      // Map<String, Object> data = genson.deserialize(req.getReader(), Map.class);
+      // String token = data.get("token").toString();
+      String token = req.getHeader("Authorization");
+
       if (token != null) {
         // for (UserDto user : utilisateursDTO) {
         String usersData = genson.serialize(utilisateursDTO);
