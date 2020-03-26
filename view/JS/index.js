@@ -104,7 +104,7 @@ $(document).ready(e=>{
         if($("#search-option-category").val()=="utilisateur"){
                 allHide();
                 $("#voir-utilisateurs").show();
-                var data = getData("/listUsers",token,afficherUtilisateurs,onError);
+                /*var data = getData("/listUsers",token,afficherUtilisateurs,onError);
                 console.log(data);
                 //afficherUtilisateurs();
                 $("#voir-utilisateurs tbody").append("<tr><td>"+data+"</td></tr>");
@@ -112,7 +112,7 @@ $(document).ready(e=>{
                 $("#voir-utilisateurs tbody").append("<tr><td>"+data+"</td></tr>");
                 var html = "<tr>";
                 html+="<td>" + data.pseudo + "</td>\n<td>" + data.nom + "</td>\n<td>" + data.prenom + "</td>\n<td>" + data.ville + "</td>\n<td>" + data.mail + "</td>\n<td>" + data.statut + "</td></tr>;"
-                $("#voir-utilisateurs tbody").append(html);
+                $("#voir-utilisateurs tbody").append(html);*/
         }
     });
     
