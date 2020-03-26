@@ -33,6 +33,9 @@
             <option value="utilisateur">Utilisateur</option>
             <option value="amenagement">Aménagement</option>
             <option value="devis">Devis</option>
+            <option value="date">Date</option>
+            <option value="montant">Montant</option>
+            <option value="type_amenagement">Type d'aménagement</option>
           </select>
           <button href="#" class="btn btn-outline-success my-2 my-sm-0" type="submit" id="btn-search-category">Search</button>
         </form>
@@ -242,6 +245,31 @@
           </div>
         </section>
         
+<!-----------------------------------------Voir ses devis(pour client)---------------------------------------------->
+		<section id="voir-devis_client">
+          <h4>Mes devis</h4>
+          <br/>
+          <div class="" id="voir-devis-client">
+            <table class="table table-bordered">
+              <thead>
+                <th><span>Date</span></th>
+                <th><span>Montant</span></th>
+                <th><span>Durée des travaux</span></th>
+                <th><span>Photo</span></th>
+                <th><span>Etat</span></th>
+              </thead>
+              <tbody>
+                <tr>
+                  <td style="width: 15%;" id="date_devis"></td>
+                  <td style="width: 15%;" id="montant_devis"></td>
+                  <td style="width: 15%;" id="duree_travaux"></td>
+                  <td style="width: 15%;" id="photo_devis"></td>
+                  <td style="width: 15%;" id="etat_devis"></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </section>
         
         <section id="test1">
         <h1>TEST 1</h1>

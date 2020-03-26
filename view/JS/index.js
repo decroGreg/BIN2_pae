@@ -108,7 +108,7 @@ $(document).ready(e=>{
         if($("#search-option-category").val()=="utilisateur"){
                 allHide();
                 $("#voir-utilisateurs").show();
-                getData("/listUsers",token,afficherUtilisateurs,onError);
+                getData("/listeUsers",token,afficherUtilisateurs,onError);
                 //afficherUtilisateurs();
                 /*$("#voir-utilisateurs tbody").append("<tr><td>"+data+"</td></tr>");
                 data = JSON.parse(data);
@@ -120,12 +120,33 @@ $(document).ready(e=>{
         if($("#search-option-category").val()=="devis"){
         	allHide();
         	$("#voir-devis").show();
-        	getData("/listDevis",token,afficherDevis,onError);
+        	getData("/listeDevis",token,afficherDevis,onError);
         	afficherDevis();
         }
         if($("#search-option-category").val()=="client"){
         	
         }
+        
+        if($("#search-option-category").val()=="date"){
+        	allHide();
+        	$("#voir-devis-client").show();
+        	getData("/listeDevisClient",token,afficherDevisClient,onError);
+        	afficherDevisClient();
+        }
+        
+		if($("#search-option-category").val()=="montant"){
+			allHide();
+        	$("#voir-devis-client").show();
+        	getData("/listeDevisClient",token,afficherDevisClient,onError);
+        	afficherDevisClient();
+		}
+		
+		if($("#search-option-category").val()=="type_amenagement"){
+			allHide();
+        	$("#voir-devis-client").show();
+        	getData("/listeDevisClient",token,afficherDevisClient,onError);
+        	afficherDevisClient();
+		}
     });
     
 });
@@ -172,6 +193,7 @@ function viewHomePage(){
         $("#list-confirmation-link").hide(); 
         $("#voir-utilisateurs").hide();
         $("#voir-devis").hide();
+        $("#voir-devis-client").hide();
 }
 
 //vue après authentification
@@ -189,6 +211,7 @@ function viewAuthentification(){
         $("#Register-confirmation").hide();
         $("#voir-utilisateurs").hide();
         $("#voir-devis").hide();
+        $("#voir-devis-client").hide();
 
          
 }
@@ -300,5 +323,18 @@ function afficherDevis(response){
 	    	+ data.photoPreferee + "</td>\n<td>" 
 	    	+ data.etat + "</td></tr>";	    
 	    $("#voir-devis tbody").append(html);
+	});
+}
+
+function afficherDevisClient(response){
+	tempDevis.forEach(data => {
+	    var html = "<tr>";
+	    html+="<td>"
+	    	+ data.date + "</td>\n<td>" 
+	    	+ data.montant + "</td>\n<td>" 
+	    	+ data.dureeTravaux + "</td>\n<td>" 
+	    	+ data.photoPreferee + "</td>\n<td>" 
+	    	+ data.etat + "</td></tr>";	    
+	    $("#voir-devis-client tbody").append(html);
 	});
 }
