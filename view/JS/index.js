@@ -105,7 +105,7 @@ $(document).ready(e=>{
                 allHide();
                 $("#voir-utilisateurs").show();
                 //getData("/listUsers",token,afficherUtilisateurs,onError);
-                afficherUtilisateurs();
+                //afficherUtilisateurs();
                 /*$("#voir-utilisateurs tbody").append("<tr><td>"+data+"</td></tr>");
                 data = JSON.parse(data);
                 $("#voir-utilisateurs tbody").append("<tr><td>"+data+"</td></tr>");
