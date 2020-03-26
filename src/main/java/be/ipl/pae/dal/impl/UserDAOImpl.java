@@ -1,14 +1,13 @@
 package be.ipl.pae.dal.impl;
 
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import be.ipl.pae.biz.dto.UserDto;
 import be.ipl.pae.biz.factory.FactoryImpl;
 import be.ipl.pae.biz.interfaces.Factory;
 import be.ipl.pae.dal.interfaces.DAOServices;
 import be.ipl.pae.dal.interfaces.UserDAO;
-
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
 
 public class UserDAOImpl implements UserDAO {
 
@@ -61,6 +60,9 @@ public class UserDAOImpl implements UserDAO {
       e.printStackTrace();
       System.exit(1);
     }
+    if (userD.getEmail() == null) {
+      return null;
+    }
     return userD;
   }
 
@@ -84,4 +86,5 @@ public class UserDAOImpl implements UserDAO {
     }
     return true;
   }
+
 }
