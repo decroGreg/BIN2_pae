@@ -274,6 +274,6 @@ function afficherUtilisateurs(response){
         var btnConfirmation=document.createElement("td");
         tr.appendChild(prenom);
         tr.appendChild(nom);*/
-});
+}
 
 }
