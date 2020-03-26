@@ -47,9 +47,9 @@ public class UserUccImpl implements UserUcc {
         // Email deja utilise
         UserDto userConnu = userDao.getUserConnexion(user.getEmail());
 
-        /**
-         * if (!userConnu.getEmail().equals(null)) { throw new BizException("Email deja utilise"); }
-         */
+        if (!userConnu.equals(null)) {
+          throw new BizException("Email deja utilise");
+        }
 
         userDao.createInscription(user);
         UserDto userAjoute = userDao.getUserConnexion(user.getEmail());
@@ -105,6 +105,7 @@ public class UserUccImpl implements UserUcc {
       // userDao.modifiterUser(user);
       if (emailClient != " ") {
         // ClientDto client = clientDao.getClient(emailClient);
+        // if(user.getEmail().equals(client.getEmail()) {
         // client.setIdUtilisateur(user.getIdUser());
       }
     } catch (Exception exception/* DalException de */) {
