@@ -20,6 +20,8 @@ let tempoUsersConf=[
         },
 ];
 
+let tempUsers=[{"dateInscription":"2020-03-26 11:46:37.95006","email":"mrbrg@live.fr","idUser":0,"motDePasse":"mdp","nom":"B","prenom":"M","pseudo":"mrbrg","statut":"c","ville":"Bruxdells"},{"dateInscription":"2020-03-26 11:46:37.95006","email":"mrbrdddddddg@live.fr","idUser":0,"motDePasse":"fgr","nom":"Bdd","prenom":"Mdef","pseudo":"jbe","statut":"e","ville":"Brudddxdells"}];
+
 
 $(document).ready(e=>{
        
@@ -102,9 +104,8 @@ $(document).ready(e=>{
         if($("#search-option-category").val()=="utilisateur"){
                 allHide();
                 $("#voir-utilisateurs").show();
-                $("#voir-utilisateurs tbody").append("<tr><td>DONNEES</td></tr>");
-
-                var data = getData("/listUsers",token,onGet,onError);
+                var data = getData("/listUsers",token,afficherUtilisateurs,onError);
+                //afficherUtilisateurs();
                 $("#voir-utilisateurs tbody").append("<tr><td>"+data+"</td></tr>");
                 data = JSON.parse(data);
                 $("#voir-utilisateurs tbody").append("<tr><td>"+data+"</td></tr>");
@@ -259,13 +260,19 @@ function onError(response){
 /////////////////////////////////////////////////////////////////////////////////////////////test////////////////////////
 
 
-function afficherUtilisateurs(){
-	
-}
+function afficherUtilisateurs(response){
+	/*var data=response;
+	tempUsers.forEach(element => {
+        console.log(element.nom);
+        var tr=document.createElement("tr");
+        var prenom=document.createElement("td");
+        prenom.innerHTML=element.prenom;
+        var nom=document.createElement("td");
+        nom.innerHTML=element.nom;
+        var btnStatus=document.createElement("td");
+        var btnConfirmation=document.createElement("td");
+        tr.appendChild(prenom);
+        tr.appendChild(nom);*/
+});
 
-function onGet(response) {
-	  if (response.success) {
-	    
-	    }
-	   else $("#message_board").text(JSON.stringify(response.error));
 }

@@ -1,5 +1,9 @@
 package be.ipl.pae.main;
 
+import javax.servlet.http.HttpServlet;
+import org.eclipse.jetty.server.Server;
+import org.eclipse.jetty.servlet.ServletHolder;
+import org.eclipse.jetty.webapp.WebAppContext;
 import be.ipl.pae.biz.config.Config;
 import be.ipl.pae.biz.dto.UserDto;
 import be.ipl.pae.biz.interfaces.Factory;
@@ -11,13 +15,8 @@ import be.ipl.pae.dal.interfaces.DAOServices;
 import be.ipl.pae.dal.interfaces.UserDAO;
 import be.ipl.pae.ihm.servlet.ConfirmationRegisterServlet;
 import be.ipl.pae.ihm.servlet.LoginServlet;
+import be.ipl.pae.ihm.servlet.RechercheUtilisateursServlet;
 import be.ipl.pae.ihm.servlet.RegisterServlet;
-
-import org.eclipse.jetty.server.Server;
-import org.eclipse.jetty.servlet.ServletHolder;
-import org.eclipse.jetty.webapp.WebAppContext;
-
-import javax.servlet.http.HttpServlet;
 
 public class Main {
   public static void main(String[] args) throws Exception {
@@ -52,6 +51,9 @@ public class Main {
 
     HttpServlet registerServlet = new RegisterServlet(userUcc, userDto);
     context.addServlet(new ServletHolder(registerServlet), "/register");
+
+    HttpServlet listUsersServlet = new RechercheUtilisateursServlet(userUcc, userDto);
+    context.addServlet(new ServletHolder(listUsersServlet), "/listUsers");
 
     context.setResourceBase("view");
     server.setHandler(context);
