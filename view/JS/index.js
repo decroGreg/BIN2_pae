@@ -108,6 +108,7 @@ $(document).ready(e=>{
         if($("#search-option-category").val()=="utilisateur"){
                 allHide();
                 $("#voir-utilisateurs").show();
+                console.log("ICI OK");
                 getData("/listeUsers",token,afficherUtilisateurs,onError);
                 //afficherUtilisateurs();
                 /*$("#voir-utilisateurs tbody").append("<tr><td>"+data+"</td></tr>");
@@ -293,7 +294,7 @@ function onPostRegister(response){
 }
 
 function onError(response){
-
+	console.log("Erreur dans getData" + JSON.parse(response) + "   " + response.xhr + " " response.error);
 }
 /////////////////////////////////////////////////////////////////////////////////////////////test////////////////////////
 
@@ -327,7 +328,9 @@ function afficherDevis(response){
 }
 
 function afficherDevisClient(response){
-	tempDevis.forEach(data => {
+	console.log(response.data);
+	var data = response.data;
+	//tempDevis.forEach(data => {
 	    var html = "<tr>";
 	    html+="<td>"
 	    	+ data.date + "</td>\n<td>" 
@@ -336,5 +339,5 @@ function afficherDevisClient(response){
 	    	+ data.photoPreferee + "</td>\n<td>" 
 	    	+ data.etat + "</td></tr>";	    
 	    $("#voir-devis-client tbody").append(html);
-	});
+	//});
 }
