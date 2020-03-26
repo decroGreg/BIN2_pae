@@ -110,7 +110,7 @@ $(document).ready(e=>{
                 $("#voir-utilisateurs").show();
                 console.log("ICI OK");
                 getData("/listeUsers",token,afficherUtilisateurs,onError);
-                //afficherUtilisateurs();
+                afficherUtilisateurs();
                 /*$("#voir-utilisateurs tbody").append("<tr><td>"+data+"</td></tr>");
                 data = JSON.parse(data);
                 $("#voir-utilisateurs tbody").append("<tr><td>"+data+"</td></tr>");
@@ -294,12 +294,14 @@ function onPostRegister(response){
 }
 
 function onError(response){
-	console.log("Erreur dans getData" + JSON.parse(response) + "   " + response.xhr + " " response.error);
+	console.log("Erreur dans getData");
 }
 /////////////////////////////////////////////////////////////////////////////////////////////test////////////////////////
 
 
 function afficherUtilisateurs(response){
+	console.log(response.data);
+	var data = response.data;
 	tempUsers.forEach(data => {
 	    var html = "<tr>";
 	    html+="<td>" 
@@ -330,7 +332,7 @@ function afficherDevis(response){
 function afficherDevisClient(response){
 	console.log(response.data);
 	var data = response.data;
-	//tempDevis.forEach(data => {
+	tempDevis.forEach(data => {
 	    var html = "<tr>";
 	    html+="<td>"
 	    	+ data.date + "</td>\n<td>" 
@@ -339,5 +341,5 @@ function afficherDevisClient(response){
 	    	+ data.photoPreferee + "</td>\n<td>" 
 	    	+ data.etat + "</td></tr>";	    
 	    $("#voir-devis-client tbody").append(html);
-	//});
+	});
 }
