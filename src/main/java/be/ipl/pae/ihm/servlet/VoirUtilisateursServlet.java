@@ -1,8 +1,6 @@
 package be.ipl.pae.ihm.servlet;
 
 import java.io.IOException;
-import java.sql.Timestamp;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import javax.servlet.ServletException;
@@ -15,7 +13,7 @@ import be.ipl.pae.biz.factory.FactoryImpl;
 import be.ipl.pae.biz.interfaces.Factory;
 import be.ipl.pae.biz.interfaces.UserUcc;
 
-public class RechercheUtilisateursServlet extends HttpServlet {
+public class VoirUtilisateursServlet extends HttpServlet {
 
   private UserUcc userUCC;
   private List<UserDto> utilisateursDTO;
@@ -24,32 +22,11 @@ public class RechercheUtilisateursServlet extends HttpServlet {
   private UserDto user1 = f.getUserDto();
   private UserDto user2 = f.getUserDto();
 
-  public RechercheUtilisateursServlet(UserUcc userUCC, UserDto userDto) {
+  public VoirUtilisateursServlet(UserUcc userUCC, UserDto userDto) {
     super();
     this.userUCC = userUCC;
     this.userDto = userDto;
     this.utilisateursDTO = new ArrayList<>();
-    // creation de 2 usersDTO dans ma liste pour tester si mon html se remplit
-    user1.setPseudo("mrbrg");
-    user1.setPrenom("Julie");
-    user1.setNom("B");
-    user1.setEmail("mrbrg@live.fr");
-    user1.setVille("Bruxdells");
-    user1.setStatut('c');
-    user1.setDateInscription(Timestamp.valueOf(LocalDateTime.now()));
-    user1.setMotDePasse("mdp");
-    user2.setPseudo("jbe");
-    user2.setPrenom("KJHOS");
-    user2.setNom("Bdd");
-    user2.setEmail("mrbrdddddddg@live.fr");
-    user2.setVille("Brudddxdells");
-    user2.setStatut('e');
-    user2.setDateInscription(Timestamp.valueOf(LocalDateTime.now()));
-    user2.setMotDePasse("fgr");
-
-    utilisateursDTO.add(user1);
-    utilisateursDTO.add(user2);
-
   }
 
   @Override
@@ -57,30 +34,32 @@ public class RechercheUtilisateursServlet extends HttpServlet {
       throws ServletException, IOException {
 
     try {
-      // utilisateursDTO = userUCC.getUtilisateurs();
+      utilisateursDTO = userUCC.getUtilisateurs();
+      System.out.println(utilisateursDTO.toString());
       Genson genson = new Genson();
       // Map<String, Object> data = genson.deserialize(req.getReader(), Map.class);
       // String token = data.get("token").toString();
       String token = req.getHeader("Authorization");
 
       if (token != null) {
-        // for (UserDto user : utilisateursDTO) {
-        String usersData = genson.serialize(utilisateursDTO);
-        String json = "{\"success\":\"true\", \"userData\":" + usersData + "}";
-        System.out.println("JSON generated :" + json);
+        for (UserDto user : utilisateursDTO) {
+          String usersData = genson.serialize(user);
+          String json = "{\"success\":\"true\", \"userData\":" + usersData + "}";
+          System.out.println("JSON generated :" + json);
 
-        resp.setContentType("application/json");
+          resp.setContentType("application/json");
 
-        resp.setCharacterEncoding("UTF-8");
+          resp.setCharacterEncoding("UTF-8");
 
-        resp.setStatus(HttpServletResponse.SC_OK);;
-        resp.getWriter().write(json);
-        // }
+          resp.setStatus(HttpServletResponse.SC_OK);;
+          resp.getWriter().write(json);
+        }
       }
 
     } catch (Exception e) {
       e.printStackTrace();
       String json = "{\"error\":\"false\"}";
+      System.out.println(json);
       resp.setContentType("application/json");
       resp.setCharacterEncoding("UTF-8");
       resp.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);

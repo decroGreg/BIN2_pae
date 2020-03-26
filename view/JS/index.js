@@ -20,7 +20,11 @@ let tempoUsersConf=[
         },
 ];
 
-let tempUsers=[{"dateInscription":"2020-03-26 11:46:37.95006","email":"mrbrg@live.fr","idUser":0,"motDePasse":"mdp","nom":"B","prenom":"M","pseudo":"mrbrg","statut":"c","ville":"Bruxdells"},{"dateInscription":"2020-03-26 11:46:37.95006","email":"mrbrdddddddg@live.fr","idUser":0,"motDePasse":"fgr","nom":"Bdd","prenom":"Mdef","pseudo":"jbe","statut":"e","ville":"Brudddxdells"}];
+let tempUsers=[{"dateInscription":"2020-03-26 11:46:37.95006","email":"mrbrg@live.fr","idUser":0,"motDePasse":"mdp","nom":"B","prenom":"M","pseudo":"mrbrg","statut":"c","ville":"Bruxdells"},
+				{"dateInscription":"2020-03-26 11:46:37.95006","email":"mrbrdddddddg@live.fr","idUser":0,"motDePasse":"fgr","nom":"Bdd","prenom":"Mdef","pseudo":"jbe","statut":"e","ville":"Brudddxdells"}];
+
+let tempDevis=[{"date":null,"dureeTravaux":"2 mois","etat":"DDI","idClient":0,"idDevis":0,"idPhotoPreferee":0,"montant":3000.0},
+				{"date":null,"dureeTravaux":"1 mois","etat":"A","idClient":0,"idDevis":0,"idPhotoPreferee":0,"montant":400.0}];
 
 
 $(document).ready(e=>{
@@ -104,7 +108,7 @@ $(document).ready(e=>{
         if($("#search-option-category").val()=="utilisateur"){
                 allHide();
                 $("#voir-utilisateurs").show();
-                //getData("/listUsers",token,afficherUtilisateurs,onError);
+                getData("/listUsers",token,afficherUtilisateurs,onError);
                 //afficherUtilisateurs();
                 /*$("#voir-utilisateurs tbody").append("<tr><td>"+data+"</td></tr>");
                 data = JSON.parse(data);
@@ -112,6 +116,15 @@ $(document).ready(e=>{
                 var html = "<tr>";
                 html+="<td>" + data.pseudo + "</td>\n<td>" + data.nom + "</td>\n<td>" + data.prenom + "</td>\n<td>" + data.ville + "</td>\n<td>" + data.mail + "</td>\n<td>" + data.statut + "</td></tr>;"
                 $("#voir-utilisateurs tbody").append(html);*/
+        }
+        if($("#search-option-category").val()=="devis"){
+        	allHide();
+        	$("#voir-devis").show();
+        	getData("/listDevis",token,afficherDevis,onError);
+        	afficherDevis();
+        }
+        if($("#search-option-category").val()=="client"){
+        	
         }
     });
     
@@ -158,6 +171,7 @@ function viewHomePage(){
         $("#Register-confirmation").hide();
         $("#list-confirmation-link").hide(); 
         $("#voir-utilisateurs").hide();
+        $("#voir-devis").hide();
 }
 
 //vue après authentification
@@ -174,6 +188,7 @@ function viewAuthentification(){
         $("#btn-deconnexion").show();
         $("#Register-confirmation").hide();
         $("#voir-utilisateurs").hide();
+        $("#voir-devis").hide();
 
          
 }
@@ -263,8 +278,27 @@ function onError(response){
 function afficherUtilisateurs(response){
 	tempUsers.forEach(data => {
 	    var html = "<tr>";
-	    html+="<td>" + data.pseudo + "</td>\n<td>" + data.nom + "</td>\n<td>" + data.prenom + "</td>\n<td>" + data.ville + "</td>\n<td>" + data.mail + "</td>\n<td>" + data.statut + "</td></tr>;"
+	    html+="<td>" 
+	    	+ data.pseudo + "</td>\n<td>" 
+	    	+ data.nom + "</td>\n<td>" 
+	    	+ data.prenom + "</td>\n<td>" 
+	    	+ data.ville + "</td>\n<td>" 
+	    	+ data.mail + "</td>\n<td>" 
+	    	+ data.statut + "</td></tr>";
 	    $("#voir-utilisateurs tbody").append(html);
 	});
+}
 
+function afficherDevis(response){
+	tempDevis.forEach(data => {
+	    var html = "<tr>";
+	    html+="<td>"
+	    	+ data.idClient + "</td>\n<td>" 
+	    	+ data.date + "</td>\n<td>" 
+	    	+ data.montant + "</td>\n<td>" 
+	    	+ data.dureeTravaux + "</td>\n<td>" 
+	    	+ data.photoPreferee + "</td>\n<td>" 
+	    	+ data.etat + "</td></tr>";	    
+	    $("#voir-devis tbody").append(html);
+	});
 }

@@ -15,8 +15,9 @@ import be.ipl.pae.dal.interfaces.DAOServices;
 import be.ipl.pae.dal.interfaces.UserDAO;
 import be.ipl.pae.ihm.servlet.ConfirmationRegisterServlet;
 import be.ipl.pae.ihm.servlet.LoginServlet;
-import be.ipl.pae.ihm.servlet.RechercheUtilisateursServlet;
 import be.ipl.pae.ihm.servlet.RegisterServlet;
+import be.ipl.pae.ihm.servlet.VoirDevisServlet;
+import be.ipl.pae.ihm.servlet.VoirUtilisateursServlet;
 
 public class Main {
   public static void main(String[] args) throws Exception {
@@ -52,8 +53,11 @@ public class Main {
     HttpServlet registerServlet = new RegisterServlet(userUcc, userDto);
     context.addServlet(new ServletHolder(registerServlet), "/register");
 
-    HttpServlet listUsersServlet = new RechercheUtilisateursServlet(userUcc, userDto);
+    HttpServlet listUsersServlet = new VoirUtilisateursServlet(userUcc, userDto);
     context.addServlet(new ServletHolder(listUsersServlet), "/listUsers");
+
+    HttpServlet listDevisServlet = new VoirDevisServlet(userUcc, userDto);
+    context.addServlet(new ServletHolder(listDevisServlet), "/listDevis");
 
     context.setResourceBase("view");
     server.setHandler(context);
