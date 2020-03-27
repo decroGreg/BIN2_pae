@@ -129,6 +129,7 @@ $(document).ready(e=>{
                 allHide();
                 $("#voir-utilisateurs").show();
                 getData("/listeUsers",token,afficherUtilisateurs,onError);
+                $("#voir-utilisateurs tbody").append("<tr><td>"+DONNEES+"</td></tr>");
                 afficherUtilisateurs();
                 /*$("#voir-utilisateurs tbody").append("<tr><td>"+data+"</td></tr>");
                 data = JSON.parse(data);
