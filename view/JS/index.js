@@ -328,7 +328,7 @@ function onError(response){
 
 
 function afficherUtilisateurs(response){
-	console.log(response.data);
+	console.log("afficherUtilisateur"+response.usersData);
 	var data = response.data;
 	tempUsers.forEach(data => {
 	    var html = "<tr>";
