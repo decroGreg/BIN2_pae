@@ -39,7 +39,7 @@ public class VoirUtilisateursServlet extends HttpServlet {
     user1.setDateInscription(Timestamp.valueOf(LocalDateTime.now()));
     user1.setMotDePasse("mdp");
     user2.setPseudo("jbe");
-    user2.setPrenom("Mdef");
+    user2.setPrenom("Julie");
     user2.setNom("Bdd");
     user2.setEmail("mrbrdddddddg@live.fr");
     user2.setVille("Brudddxdells");
@@ -57,27 +57,27 @@ public class VoirUtilisateursServlet extends HttpServlet {
     try {
       // utilisateursDTO = userUCC.getUtilisateurs();
       // System.out.println(utilisateursDTO.toString());
+      System.out.println("passage");
       Genson genson = new Genson();
       // Map<String, Object> data = genson.deserialize(req.getReader(), Map.class);
       // String token = data.get("token").toString();
-      String token = req.getHeader("Authorization");
-      System.out.println(token);
-      System.out.println("ICI");
+      // String token = req.getHeader("Authorization");
+      String token = "t";
 
       if (token != null) {
-        for (UserDto user : utilisateursDTO) {
-          String usersData = genson.serialize(user);
-          String json = "{\"success\":\"true\", \"userData\":" + usersData + "}";
-          System.out.println("UsersData : " + usersData);
-          System.out.println("JSON generated :" + json);
+        System.out.println("test");
+        String usersData = genson.serialize(utilisateursDTO);
+        String json = "{\"success\":\"true\", \"usersData\":" + usersData + "}";
+        System.out.println("UsersData : " + usersData);
+        System.out.println("JSON generated :" + json);
 
-          resp.setContentType("application/json");
+        resp.setContentType("application/json");
 
-          resp.setCharacterEncoding("UTF-8");
+        resp.setCharacterEncoding("UTF-8");
 
-          resp.setStatus(HttpServletResponse.SC_OK);;
-          resp.getWriter().write(json);
-        }
+        resp.setStatus(HttpServletResponse.SC_OK);;
+        resp.getWriter().write(json);
+
       }
 
     } catch (Exception e) {

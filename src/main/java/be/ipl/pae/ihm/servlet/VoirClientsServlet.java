@@ -36,22 +36,19 @@ public class VoirClientsServlet extends HttpServlet {
       Genson genson = new Genson();
       // Map<String, Object> data = genson.deserialize(req.getReader(), Map.class);
       // String token = data.get("token").toString();
-      String token = req.getHeader("Authorization");
-      System.out.println(token);
+      String token = "t";
       if (token != null) {
-        for (ClientDto client : clientsDto) {
-          String clientsData = genson.serialize(client);
-          String json = "{\"success\":\"true\", \"userData\":" + clientsData + "}";
-          System.out.println("UsersData : " + clientsData);
-          System.out.println("JSON generated :" + json);
+        String clientsData = genson.serialize(clientsDto);
+        String json = "{\"success\":\"true\", \"userData\":" + clientsData + "}";
+        System.out.println("JSON generated :" + json);
 
-          resp.setContentType("application/json");
+        resp.setContentType("application/json");
 
-          resp.setCharacterEncoding("UTF-8");
+        resp.setCharacterEncoding("UTF-8");
 
-          resp.setStatus(HttpServletResponse.SC_OK);;
-          resp.getWriter().write(json);
-        }
+        resp.setStatus(HttpServletResponse.SC_OK);;
+        resp.getWriter().write(json);
+
       }
 
     } catch (Exception e) {

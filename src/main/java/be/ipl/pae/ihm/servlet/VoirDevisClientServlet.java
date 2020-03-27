@@ -33,21 +33,20 @@ public class VoirDevisClientServlet extends HttpServlet {
       Genson genson = new Genson();
       // Map<String, Object> data = genson.deserialize(req.getReader(), Map.class);
       // String token = data.get("token").toString();
-      String token = req.getHeader("Authorization");
+      String token = "t";
 
       if (token != null) {
-        for (DevisDto devis : listeDevisDto) {
-          String devisData = genson.serialize(devis);
-          String json = "{\"success\":\"true\", \"devisData\":" + devisData + "}";
-          System.out.println("JSON generated :" + json);
+        String devisData = genson.serialize(listeDevisDto);
+        String json = "{\"success\":\"true\", \"devisData\":" + devisData + "}";
+        System.out.println("JSON generated :" + json);
 
-          resp.setContentType("application/json");
+        resp.setContentType("application/json");
 
-          resp.setCharacterEncoding("UTF-8");
+        resp.setCharacterEncoding("UTF-8");
 
-          resp.setStatus(HttpServletResponse.SC_OK);;
-          resp.getWriter().write(json);
-        }
+        resp.setStatus(HttpServletResponse.SC_OK);;
+        resp.getWriter().write(json);
+
       }
 
     } catch (Exception e) {

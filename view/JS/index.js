@@ -129,20 +129,11 @@ $(document).ready(e=>{
                 allHide();
                 $("#voir-utilisateurs").show();
                 getData("/listeUsers",token,afficherUtilisateurs,onError);
-                $("#voir-utilisateurs tbody").append("<tr><td>"+DONNEES+"</td></tr>");
-                afficherUtilisateurs();
-                /*$("#voir-utilisateurs tbody").append("<tr><td>"+data+"</td></tr>");
-                data = JSON.parse(data);
-                $("#voir-utilisateurs tbody").append("<tr><td>"+data+"</td></tr>");
-                var html = "<tr>";
-                html+="<td>" + data.pseudo + "</td>\n<td>" + data.nom + "</td>\n<td>" + data.prenom + "</td>\n<td>" + data.ville + "</td>\n<td>" + data.mail + "</td>\n<td>" + data.statut + "</td></tr>;"
-                $("#voir-utilisateurs tbody").append(html);*/
         }
         if($("#search-option-category").val()=="devis"){
         	allHide();
         	$("#voir-devis").show();
         	getData("/listeDevis",token,afficherDevis,onError);
-        	afficherDevis();
         }
         if($("#search-option-category").val()=="client"){
         	allHide();
@@ -155,21 +146,18 @@ $(document).ready(e=>{
         	allHide();
         	$("#voir-devis-client").show();
         	getData("/listeDevisClient",token,afficherDevisClient,onError);
-        	afficherDevisClient();
         }
         
 		if($("#search-option-category").val()=="montant"){
 			allHide();
         	$("#voir-devis-client").show();
         	getData("/listeDevisClient",token,afficherDevisClient,onError);
-        	afficherDevisClient();
 		}
 		
 		if($("#search-option-category").val()=="type_amenagement"){
 			allHide();
         	$("#voir-devis-client").show();
         	getData("/listeDevisClient",token,afficherDevisClient,onError);
-        	afficherDevisClient();
 		}
     });
     
@@ -329,46 +317,42 @@ function onError(response){
 
 
 function afficherUtilisateurs(response){
-	console.log(response.data);
-	var data = response.data;
-	tempUsers.forEach(data => {
+	Object.keys(response.usersData).forEach(data => {
 	    var html = "<tr>";
 	    html+="<td>" 
-	    	+ data.pseudo + "</td>\n<td>" 
-	    	+ data.nom + "</td>\n<td>" 
-	    	+ data.prenom + "</td>\n<td>" 
-	    	+ data.ville + "</td>\n<td>" 
-	    	+ data.mail + "</td>\n<td>" 
-	    	+ data.statut + "</td></tr>";
+	    	+ response.usersData[data].pseudo + "</td>\n<td>" 
+	    	+ response.usersData[data].nom + "</td>\n<td>" 
+	    	+ response.usersData[data].prenom + "</td>\n<td>" 
+	    	+ response.usersData[data].ville + "</td>\n<td>" 
+	    	+ response.usersData[data].mail + "</td>\n<td>" 
+	    	+ response.usersData[data].statut + "</td></tr>";
 	    $("#voir-utilisateurs tbody").append(html);
 	});
 }
 
 function afficherDevis(response){
-	tempDevis.forEach(data => {
+	Object.keys(response.devisData).forEach(data => {
 	    var html = "<tr>";
 	    html+="<td>"
-	    	+ data.idClient + "</td>\n<td>" 
-	    	+ data.date + "</td>\n<td>" 
-	    	+ data.montant + "</td>\n<td>" 
-	    	+ data.dureeTravaux + "</td>\n<td>" 
-	    	+ data.photoPreferee + "</td>\n<td>" 
-	    	+ data.etat + "</td></tr>";	    
+	    	+ response.devisData[data].idClient + "</td>\n<td>" 
+	    	+ response.devisData[data].date + "</td>\n<td>" 
+	    	+ response.devisData[data].montant + "</td>\n<td>" 
+	    	+ response.devisData[data].dureeTravaux + "</td>\n<td>" 
+	    	+ response.devisData[data].photoPreferee + "</td>\n<td>" 
+	    	+ response.devisData[data].etat + "</td></tr>";	    
 	    $("#voir-devis tbody").append(html);
 	});
 }
 
 function afficherDevisClient(response){
-	console.log(response.data);
-	var data = response.data;
-	tempDevis.forEach(data => {
+	Object.keys(response.devisData).forEach(data => {
 	    var html = "<tr>";
 	    html+="<td>"
-	    	+ data.date + "</td>\n<td>" 
-	    	+ data.montant + "</td>\n<td>" 
-	    	+ data.dureeTravaux + "</td>\n<td>" 
-	    	+ data.photoPreferee + "</td>\n<td>" 
-	    	+ data.etat + "</td></tr>";	    
+	    	+ response.devisData[data].date + "</td>\n<td>" 
+	    	+ response.devisData[data].montant + "</td>\n<td>" 
+	    	+ response.devisData[data].dureeTravaux + "</td>\n<td>" 
+	    	+ response.devisData[data].photoPreferee + "</td>\n<td>" 
+	    	+ response.devisData[data].etat + "</td></tr>";	    
 	    $("#voir-devis-client tbody").append(html);
 	});
 }
