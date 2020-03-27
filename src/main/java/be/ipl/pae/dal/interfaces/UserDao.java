@@ -3,7 +3,7 @@ package be.ipl.pae.dal.interfaces;
 import be.ipl.pae.biz.dto.UserDto;
 
 
-public interface UserDAO {
+public interface UserDao {
 
   UserDto getUserConnexion(String email);
 

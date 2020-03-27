@@ -2,7 +2,7 @@
 package be.ipl.pae.dal.impl;
 
 import be.ipl.pae.biz.config.Config;
-import be.ipl.pae.dal.interfaces.DAOServices;
+import be.ipl.pae.dal.interfaces.DaoServices;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -11,7 +11,7 @@ import java.sql.SQLException;
 
 import be.ipl.pae.biz.config.Config;
 
-public class DAOServicesImpl implements DAOServices {
+public class DaoServicesImpl implements DaoServices {
 
   // private String url = "jdbc:postgresql://127.0.0.1/Projet";
   // private String url = "jdbc:postgresql://172.24.2.6:5432/dbmariabouraga";
@@ -24,7 +24,7 @@ public class DAOServicesImpl implements DAOServices {
   private String mdp = (String) conf.getConfigPropertyAttribute("db.mdp");
   private Connection conn = null;
 
-  public DAOServicesImpl() {
+  public DaoServicesImpl() {
 
     try {
       Class.forName("org.postgresql.Driver");

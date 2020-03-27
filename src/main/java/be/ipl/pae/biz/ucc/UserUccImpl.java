@@ -5,7 +5,7 @@ import be.ipl.pae.biz.impl.UserImpl;
 import be.ipl.pae.biz.interfaces.Factory;
 import be.ipl.pae.biz.interfaces.User;
 import be.ipl.pae.biz.interfaces.UserUcc;
-import be.ipl.pae.dal.interfaces.UserDAO;
+import be.ipl.pae.dal.interfaces.UserDao;
 import be.ipl.pae.exceptions.BizException;
 
 import java.sql.Timestamp;
@@ -16,7 +16,7 @@ import java.util.List;
 
 
 public class UserUccImpl implements UserUcc {
-  private UserDAO userDao;
+  private UserDao userDao;
   private Factory userFactory;
 
   /**
@@ -25,7 +25,7 @@ public class UserUccImpl implements UserUcc {
    * @param userFactory une userFactory.
    * @param userDao un userDao.
    */
-  public UserUccImpl(Factory userFactory, UserDAO userDao) {
+  public UserUccImpl(Factory userFactory, UserDao userDao) {
     super();
     this.userDao = userDao;
     this.userFactory = userFactory;
@@ -47,7 +47,7 @@ public class UserUccImpl implements UserUcc {
         // Email deja utilise
         UserDto userConnu = userDao.getUserConnexion(user.getEmail());
 
-        if (!userConnu.equals(null)) {
+        if (userConnu != null) {
           throw new BizException("Email deja utilise");
         }
 
@@ -81,6 +81,7 @@ public class UserUccImpl implements UserUcc {
       if (!user.checkMotDePasse(userDb.getMotDePasse())) {
         throw new BizException("Mot de passe incorrect");
       }
+      userDb.setMotDePasse(null);
       return userDb;
     } else {
       throw new BizException("Login impossible, infos manquantes");
