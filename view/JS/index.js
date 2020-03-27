@@ -324,7 +324,7 @@ function afficherUtilisateurs(response){
 	    	+ response.usersData[data].nom + "</td>\n<td>" 
 	    	+ response.usersData[data].prenom + "</td>\n<td>" 
 	    	+ response.usersData[data].ville + "</td>\n<td>" 
-	    	+ response.usersData[data].mail + "</td>\n<td>" 
+	    	+ response.usersData[data].email + "</td>\n<td>" 
 	    	+ response.usersData[data].statut + "</td></tr>";
 	    $("#voir-utilisateurs tbody").append(html);
 	});
