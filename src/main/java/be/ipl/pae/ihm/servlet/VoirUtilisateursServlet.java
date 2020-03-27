@@ -54,15 +54,16 @@ public class VoirUtilisateursServlet extends HttpServlet {
   @Override
   protected void doGet(HttpServletRequest req, HttpServletResponse resp)
       throws ServletException, IOException {
-
     try {
       // utilisateursDTO = userUCC.getUtilisateurs();
-      System.out.println(utilisateursDTO.toString());
+      // System.out.println(utilisateursDTO.toString());
       Genson genson = new Genson();
       // Map<String, Object> data = genson.deserialize(req.getReader(), Map.class);
       // String token = data.get("token").toString();
       String token = req.getHeader("Authorization");
       System.out.println(token);
+      System.out.println("ICI");
+
       if (token != null) {
         for (UserDto user : utilisateursDTO) {
           String usersData = genson.serialize(user);
@@ -76,7 +77,6 @@ public class VoirUtilisateursServlet extends HttpServlet {
 
           resp.setStatus(HttpServletResponse.SC_OK);;
           resp.getWriter().write(json);
-          resp.getWriter().flush();
         }
       }
 
