@@ -126,6 +126,8 @@ $(document).ready(e=>{
         if($("#search-option-category").val()=="client"){
         	allHide();
         	$("#voir-clients").show();
+            getData("/listeClients",token,afficherClients,onError);
+
         }
         
         if($("#search-option-category").val()=="date"){
@@ -344,4 +346,8 @@ function afficherDevisClient(response){
 	    	+ data.etat + "</td></tr>";	    
 	    $("#voir-devis-client tbody").append(html);
 	});
+}
+
+function afficherClients(response){
+	
 }
