@@ -4,13 +4,13 @@ import be.ipl.pae.biz.dto.ClientDto;
 import be.ipl.pae.biz.dto.DevisDto;
 import be.ipl.pae.biz.interfaces.ClientUcc;
 import be.ipl.pae.biz.interfaces.Factory;
-import be.ipl.pae.dal.interfaces.UserDAO;
+import be.ipl.pae.dal.interfaces.ClientDao;
 
 import java.util.Collections;
 import java.util.List;
 
 public class ClientUccImpl implements ClientUcc {
-  private UserDAO userDao;
+  private ClientDao clientDao;
   private Factory userFactory;
 
   /**
@@ -19,9 +19,9 @@ public class ClientUccImpl implements ClientUcc {
    * @param userFactory une userFactory.
    * @param userDao un userDao.
    */
-  public ClientUccImpl(Factory userFactory, UserDAO userDao) {
+  public ClientUccImpl(Factory userFactory, ClientDao clientDao) {
     super();
-    this.userDao = userDao;
+    this.clientDao = clientDao;
     this.userFactory = userFactory;
   }
 
@@ -29,7 +29,7 @@ public class ClientUccImpl implements ClientUcc {
   public List<DevisDto> voirDevis(ClientDto client) {
     List<DevisDto> devis = null;
     try {
-      // devis = userDao.getDevisClient(client);
+      devis = clientDao.getDevisClient(client);
     } catch (Exception ex) {
       ex.printStackTrace();
       throw new IllegalArgumentException();

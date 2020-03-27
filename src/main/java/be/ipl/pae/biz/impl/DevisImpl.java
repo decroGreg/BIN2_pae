@@ -9,6 +9,15 @@ import java.sql.Timestamp;
 
 public class DevisImpl implements Devis {
 
+  public enum Etat {
+    I, DDI, ANP, DC, A, EC, FM, T, FF, V;
+
+    @Override
+    public String toString() {
+      return super.toString();
+    }
+  }
+
   private int idDevis;
   private int idClient;
   private Timestamp date;
@@ -17,9 +26,6 @@ public class DevisImpl implements Devis {
   private int idPhotoPreferee;
   private Etat etat;
 
-  public enum Etat {
-    I, DDI, ANP, DC, A, EC, FM, T, FF, V
-  }
 
   /**
    * Cree un objet DevisImpl

@@ -6,13 +6,13 @@ import java.sql.SQLException;
 import be.ipl.pae.biz.dto.UserDto;
 import be.ipl.pae.biz.factory.FactoryImpl;
 import be.ipl.pae.biz.interfaces.Factory;
-import be.ipl.pae.dal.interfaces.DAOServices;
-import be.ipl.pae.dal.interfaces.UserDAO;
+import be.ipl.pae.dal.interfaces.DaoServices;
+import be.ipl.pae.dal.interfaces.UserDao;
 
-public class UserDAOImpl implements UserDAO {
+public class UserDaoImpl implements UserDao {
 
   private PreparedStatement ps;
-  private DAOServices services;
+  private DaoServices services;
   private String pseudo;
   private String nom;
   private String prenom;
@@ -22,8 +22,8 @@ public class UserDAOImpl implements UserDAO {
   private Factory factory;
   private int id;
 
-  public UserDAOImpl() {
-    this.services = new DAOServicesImpl();
+  public UserDaoImpl() {
+    this.services = new DaoServicesImpl();
     factory = new FactoryImpl();
   }
 

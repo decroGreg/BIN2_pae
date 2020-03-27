@@ -9,18 +9,18 @@ import be.ipl.pae.biz.dto.ClientDto;
 import be.ipl.pae.biz.dto.DevisDto;
 import be.ipl.pae.biz.factory.FactoryImpl;
 import be.ipl.pae.biz.interfaces.Factory;
-import be.ipl.pae.dal.interfaces.ClientDAO;
-import be.ipl.pae.dal.interfaces.DAOServices;
+import be.ipl.pae.dal.interfaces.ClientDao;
+import be.ipl.pae.dal.interfaces.DaoServices;
 import be.ipl.pae.exceptions.DALException;
 
-public class ClientDAOImpl implements ClientDAO {
+public class ClientDaoImpl implements ClientDao {
 
   private PreparedStatement ps;
-  private DAOServices services;
+  private DaoServices services;
   private Factory factory;
 
-  public ClientDAOImpl() {
-    this.services = new DAOServicesImpl();
+  public ClientDaoImpl() {
+    this.services = new DaoServicesImpl();
     this.factory = new FactoryImpl();
   }
 
