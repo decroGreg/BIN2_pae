@@ -20,6 +20,12 @@ let tempoUsersConf=[
         },
 ];
 
+let tempUsers=[{"dateInscription":"2020-03-26 11:46:37.95006","email":"mrbrg@live.fr","idUser":0,"motDePasse":"mdp","nom":"B","prenom":"M","pseudo":"mrbrg","statut":"c","ville":"Bruxdells"},
+				{"dateInscription":"2020-03-26 11:46:37.95006","email":"mrbrdddddddg@live.fr","idUser":0,"motDePasse":"fgr","nom":"Bdd","prenom":"Mdef","pseudo":"jbe","statut":"e","ville":"Brudddxdells"}];
+
+let tempDevis=[{"date":null,"dureeTravaux":"2 mois","etat":"DDI","idClient":0,"idDevis":0,"idPhotoPreferee":0,"montant":3000.0},
+				{"date":null,"dureeTravaux":"1 mois","etat":"A","idClient":0,"idDevis":0,"idPhotoPreferee":0,"montant":400.0}];
+
 
 $(document).ready(e=>{
        
@@ -102,16 +108,46 @@ $(document).ready(e=>{
         if($("#search-option-category").val()=="utilisateur"){
                 allHide();
                 $("#voir-utilisateurs").show();
-                $("#voir-utilisateurs tbody").append("<tr><td>DONNEES</td></tr>");
-
-                var data = getData("/listUsers",token,onGet,onError);
-                $("#voir-utilisateurs tbody").append("<tr><td>"+data+"</td></tr>");
+                console.log("ICI OK");
+                getData("/listeUsers",token,afficherUtilisateurs,onError);
+                afficherUtilisateurs();
+                /*$("#voir-utilisateurs tbody").append("<tr><td>"+data+"</td></tr>");
                 data = JSON.parse(data);
                 $("#voir-utilisateurs tbody").append("<tr><td>"+data+"</td></tr>");
                 var html = "<tr>";
                 html+="<td>" + data.pseudo + "</td>\n<td>" + data.nom + "</td>\n<td>" + data.prenom + "</td>\n<td>" + data.ville + "</td>\n<td>" + data.mail + "</td>\n<td>" + data.statut + "</td></tr>;"
-                $("#voir-utilisateurs tbody").append(html);
+                $("#voir-utilisateurs tbody").append(html);*/
         }
+        if($("#search-option-category").val()=="devis"){
+        	allHide();
+        	$("#voir-devis").show();
+        	getData("/listeDevis",token,afficherDevis,onError);
+        	afficherDevis();
+        }
+        if($("#search-option-category").val()=="client"){
+        	
+        }
+        
+        if($("#search-option-category").val()=="date"){
+        	allHide();
+        	$("#voir-devis-client").show();
+        	getData("/listeDevisClient",token,afficherDevisClient,onError);
+        	afficherDevisClient();
+        }
+        
+		if($("#search-option-category").val()=="montant"){
+			allHide();
+        	$("#voir-devis-client").show();
+        	getData("/listeDevisClient",token,afficherDevisClient,onError);
+        	afficherDevisClient();
+		}
+		
+		if($("#search-option-category").val()=="type_amenagement"){
+			allHide();
+        	$("#voir-devis-client").show();
+        	getData("/listeDevisClient",token,afficherDevisClient,onError);
+        	afficherDevisClient();
+		}
     });
     
 });
@@ -157,6 +193,8 @@ function viewHomePage(){
         $("#Register-confirmation").hide();
         $("#list-confirmation-link").hide(); 
         $("#voir-utilisateurs").hide();
+        $("#voir-devis").hide();
+        $("#voir-devis-client").hide();
 }
 
 //vue après authentification
@@ -173,6 +211,8 @@ function viewAuthentification(){
         $("#btn-deconnexion").show();
         $("#Register-confirmation").hide();
         $("#voir-utilisateurs").hide();
+        $("#voir-devis").hide();
+        $("#voir-devis-client").hide();
 
          
 }
@@ -254,18 +294,52 @@ function onPostRegister(response){
 }
 
 function onError(response){
-
+	console.log("Erreur dans getData");
 }
 /////////////////////////////////////////////////////////////////////////////////////////////test////////////////////////
 
 
-function afficherUtilisateurs(){
-	
+function afficherUtilisateurs(response){
+	console.log(response.data);
+	var data = response.data;
+	tempUsers.forEach(data => {
+	    var html = "<tr>";
+	    html+="<td>" 
+	    	+ data.pseudo + "</td>\n<td>" 
+	    	+ data.nom + "</td>\n<td>" 
+	    	+ data.prenom + "</td>\n<td>" 
+	    	+ data.ville + "</td>\n<td>" 
+	    	+ data.mail + "</td>\n<td>" 
+	    	+ data.statut + "</td></tr>";
+	    $("#voir-utilisateurs tbody").append(html);
+	});
 }
 
-function onGet(response) {
-	  if (response.success) {
-	    
-	    }
-	   else $("#message_board").text(JSON.stringify(response.error));
+function afficherDevis(response){
+	tempDevis.forEach(data => {
+	    var html = "<tr>";
+	    html+="<td>"
+	    	+ data.idClient + "</td>\n<td>" 
+	    	+ data.date + "</td>\n<td>" 
+	    	+ data.montant + "</td>\n<td>" 
+	    	+ data.dureeTravaux + "</td>\n<td>" 
+	    	+ data.photoPreferee + "</td>\n<td>" 
+	    	+ data.etat + "</td></tr>";	    
+	    $("#voir-devis tbody").append(html);
+	});
+}
+
+function afficherDevisClient(response){
+	console.log(response.data);
+	var data = response.data;
+	tempDevis.forEach(data => {
+	    var html = "<tr>";
+	    html+="<td>"
+	    	+ data.date + "</td>\n<td>" 
+	    	+ data.montant + "</td>\n<td>" 
+	    	+ data.dureeTravaux + "</td>\n<td>" 
+	    	+ data.photoPreferee + "</td>\n<td>" 
+	    	+ data.etat + "</td></tr>";	    
+	    $("#voir-devis-client tbody").append(html);
+	});
 }
