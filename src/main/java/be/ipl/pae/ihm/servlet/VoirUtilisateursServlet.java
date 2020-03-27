@@ -1,19 +1,22 @@
 package be.ipl.pae.ihm.servlet;
 
+import be.ipl.pae.biz.dto.UserDto;
+import be.ipl.pae.biz.factory.FactoryImpl;
+import be.ipl.pae.biz.interfaces.Factory;
+import be.ipl.pae.biz.interfaces.UserUcc;
+
+import com.owlike.genson.Genson;
+
 import java.io.IOException;
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import com.owlike.genson.Genson;
-import be.ipl.pae.biz.dto.UserDto;
-import be.ipl.pae.biz.factory.FactoryImpl;
-import be.ipl.pae.biz.interfaces.Factory;
-import be.ipl.pae.biz.interfaces.UserUcc;
 
 public class VoirUtilisateursServlet extends HttpServlet {
 
@@ -58,25 +61,26 @@ public class VoirUtilisateursServlet extends HttpServlet {
     try {
       // utilisateursDTO = userUCC.getUtilisateurs();
       System.out.println(utilisateursDTO.toString());
+      System.out.println("passage");
       Genson genson = new Genson();
       // Map<String, Object> data = genson.deserialize(req.getReader(), Map.class);
       // String token = data.get("token").toString();
       String token = req.getHeader("Authorization");
       System.out.println(token);
       if (token != null) {
-        for (UserDto user : utilisateursDTO) {
-          String usersData = genson.serialize(user);
-          String json = "{\"success\":\"true\", \"userData\":" + usersData + "}";
-          System.out.println("UsersData : " + usersData);
-          System.out.println("JSON generated :" + json);
+        System.out.println("test");
+        String usersData = genson.serialize(utilisateursDTO);
+        String json = "{\"success\":\"true\", \"usersData\":" + usersData + "}";
+        System.out.println("UsersData : " + usersData);
+        System.out.println("JSON generated :" + json);
 
-          resp.setContentType("application/json");
+        resp.setContentType("application/json");
 
-          resp.setCharacterEncoding("UTF-8");
+        resp.setCharacterEncoding("UTF-8");
 
-          resp.setStatus(HttpServletResponse.SC_OK);;
-          resp.getWriter().write(json);
-        }
+        resp.setStatus(HttpServletResponse.SC_OK);;
+        resp.getWriter().write(json);
+
       }
 
     } catch (Exception e) {
