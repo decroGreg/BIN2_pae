@@ -20,7 +20,7 @@ body{
     margin-left: 1%;
   }
   
-  ul {
+  nav ul {
       list-style-type: none;
       margin-left: 15%;
       background-color: #51df4c;
@@ -29,10 +29,10 @@ body{
         background-color: #51df4c;   
     }
    
-    li {
+   nav li {
       display: inline-block;
     }
-    li a {
+  nav li a {
       display: inline-block;
       color: darkgreen;
       text-align: left;
@@ -42,11 +42,11 @@ body{
       margin-right: auto;
   
     }
-    li a:any-link{
+    nav li a:any-link{
         color: darkgreen;
         text-decoration: none;
     }
-    li a:hover {
+    nav li a:hover {
         color: gray;
         text-decoration: none;
     }
