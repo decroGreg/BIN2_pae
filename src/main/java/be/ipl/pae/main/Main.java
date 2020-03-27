@@ -19,6 +19,7 @@ import be.ipl.pae.dal.interfaces.UserDAO;
 import be.ipl.pae.ihm.servlet.ConfirmationRegisterServlet;
 import be.ipl.pae.ihm.servlet.LoginServlet;
 import be.ipl.pae.ihm.servlet.RegisterServlet;
+import be.ipl.pae.ihm.servlet.VoirClientsServlet;
 import be.ipl.pae.ihm.servlet.VoirDevisClientServlet;
 import be.ipl.pae.ihm.servlet.VoirDevisServlet;
 import be.ipl.pae.ihm.servlet.VoirUtilisateursServlet;
@@ -67,6 +68,9 @@ public class Main {
 
     HttpServlet listeDevisClientServlet = new VoirDevisClientServlet(clientUcc, clientDto);
     context.addServlet(new ServletHolder(listeDevisClientServlet), "/listeDevisClient");
+
+    HttpServlet listeClientsServlet = new VoirClientsServlet(userUcc, userDto);
+    context.addServlet(new ServletHolder(listeClientsServlet), "/listeClients");
 
     context.setResourceBase("view");
     server.setHandler(context);

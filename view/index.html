@@ -205,12 +205,12 @@
               </thead>
               <tbody>
                 <tr>
-                  <td style="width: 15%;" id="login_user">mb</td>
-                  <td style="width: 15%;" id="prenom_user">Maria</td>
-                  <td style="width: 15%;" id="nom_user">Bouraga</td>
-                  <td style="width: 15%;" id="ville_user">Namur</td>
-                  <td style="width: 15%;" id="email_user">maria.bouraga@live.fr</td>
-                  <td style="width: 15%;" id="statut_user">e</td>
+                  <td style="width: 15%;" id="login_user"></td>
+                  <td style="width: 15%;" id="prenom_user"></td>
+                  <td style="width: 15%;" id="nom_user"></td>
+                  <td style="width: 15%;" id="ville_user"></td>
+                  <td style="width: 15%;" id="email_user"></td>
+                  <td style="width: 15%;" id="statut_user"></td>
                 </tr>
               </tbody>
             </table>
@@ -369,6 +369,44 @@
             </table>
           </div>
         </section>
+<!-----------------------------------------Voir clients---------------------------------------------->
+        <section id="voir-clients">
+          <h4>Liste des clients</h4>
+          <br/>
+          <div class="search-options">
+            <form class="form-inline">
+              <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+              <select name="search_option" class="form-control form-control-lg">
+                <option value="nom">Nom</option>
+                <option value="ville">Ville</option>
+                <option value="code_postal">Code Postal</option>
+              </select>
+              <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+            </form>
+          </div>
+          <div class="" id="voir-clients">
+            <table class="table table-bordered">
+              <thead>
+                <th><span>Prénom</span></th>
+                <th><span>Nom</span></th>
+                <th><span>Code Postal</span></th>
+                <th><span>Ville</span></th>
+                <th><span>Email</span></th>
+                <th><span>Numéro de téléphone</span></th>
+              </thead>
+              <tbody>
+                <tr>
+                  <td style="width: 15%;" id="prenom_client"></td>
+                  <td style="width: 15%;" id="nom_client"></td>
+                  <td style="width: 15%;" id="codePostal_client"></td>
+                  <td style="width: 15%;" id="ville_client"></td>
+                  <td style="width: 15%;" id="email_client"></td>
+                  <td style="width: 15%;" id="tel_client"></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </section>        
         
         <section id="test1">
         <h1>TEST 1</h1>

@@ -128,7 +128,6 @@ $(document).ready(e=>{
         if($("#search-option-category").val()=="utilisateur"){
                 allHide();
                 $("#voir-utilisateurs").show();
-                console.log("ICI OK");
                 getData("/listeUsers",token,afficherUtilisateurs,onError);
                 afficherUtilisateurs();
                 /*$("#voir-utilisateurs tbody").append("<tr><td>"+data+"</td></tr>");
@@ -145,7 +144,10 @@ $(document).ready(e=>{
         	afficherDevis();
         }
         if($("#search-option-category").val()=="client"){
-        	
+        	allHide();
+        	$("#voir-clients").show();
+            getData("/listeClients",token,afficherClients,onError);
+
         }
         
         if($("#search-option-category").val()=="date"){
@@ -219,6 +221,7 @@ function viewHomePage(){
         $("#voir-devis").hide();
         $("#voir-devis-client").hide();
 
+        $("#voir-clients").hide();
 }
 
 //vue après authentification
@@ -367,4 +370,8 @@ function afficherDevisClient(response){
 	    	+ data.etat + "</td></tr>";	    
 	    $("#voir-devis-client tbody").append(html);
 	});
+}
+
+function afficherClients(response){
+	
 }
