@@ -56,16 +56,13 @@ public class VoirUtilisateursServlet extends HttpServlet {
       throws ServletException, IOException {
     try {
       // utilisateursDTO = userUCC.getUtilisateurs();
-      // System.out.println(utilisateursDTO.toString());
       System.out.println("passage");
       Genson genson = new Genson();
       // Map<String, Object> data = genson.deserialize(req.getReader(), Map.class);
       // String token = data.get("token").toString();
-      // String token = req.getHeader("Authorization");
       String token = "t";
 
       if (token != null) {
-        System.out.println("test");
         String usersData = genson.serialize(utilisateursDTO);
         String json = "{\"success\":\"true\", \"usersData\":" + usersData + "}";
         System.out.println("UsersData : " + usersData);
