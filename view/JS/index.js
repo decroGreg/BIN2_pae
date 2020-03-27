@@ -5,6 +5,23 @@ const CLIENT="client";
 let token=undefined;
 let user;
 $('#navigation_bar').hide();
+
+function encodeImagetoBase64(element) {
+        
+        var file = element[0].files[0];
+
+        var reader = new FileReader();
+
+        reader.onloadend = function() {
+
+          $("img").attr("src",reader.result);
+
+        }
+
+        reader.readAsDataURL(file);
+}
+
+
 let tempoUsersConf=[
         {
                 "prenom":"Grégoire",
@@ -73,7 +90,10 @@ $(document).ready(e=>{
     $("#introductionQuote").click(e=>{
         viewIntroductionQuote();
     });
-    
+    $("#bnt-devis").click(e=>{
+        console.log($("#inputImage"));
+        encodeImagetoBase64($("#inputImage"));
+    });
 
     $(".Register-confirmation-link").click(e=>{
             viewRegisterConfirmation();
@@ -167,6 +187,7 @@ function viewIntroductionQuote(){
         $("#test1").hide();
         $("#carousel").hide();
         $("#Register-confirmation").hide();
+        $("#introductionQuoteForm").show();
 }
 function viewRegisterConfirmation(){
         $("#login").hide();
@@ -191,10 +212,13 @@ function viewHomePage(){
         $("#wrong_passwd").hide();
         $("#carousel").show();
         $("#Register-confirmation").hide();
+        $("#introductionQuote").hide();
+        $("#introductionQuoteForm").hide();
         $("#list-confirmation-link").hide(); 
         $("#voir-utilisateurs").hide();
         $("#voir-devis").hide();
         $("#voir-devis-client").hide();
+
 }
 
 //vue après authentification
@@ -202,7 +226,8 @@ function viewAuthentification(){
        
         if(user &&user.statut===OUVRIER){
                 console.log("passage");
-                $("#list-confirmation-link").show(); 
+                $("#list-confirmation-link").show();
+                $("#introductionQuote").show(); 
                 
         }
         $("#connexion").hide();

@@ -42,12 +42,13 @@ public class LoginServlet extends HttpServlet {
     Algorithm algorithm = Algorithm.HMAC256(JWTSECRET);
     DecodedJWT decode = JWT.decode(token);
     int id = (int) decode.getClaim("claim").asMap().get("id");
-    try {
-
-      // methode permettant de récupérer l'utilisateur via l'id;
-    } catch (Exception e) {
-
-    }
+    /*
+     * try {
+     * 
+     * // methode permettant de récupérer l'utilisateur via l'id; } catch (Exception e) {
+     * 
+     * }
+     */
     String userData = genson.serialize(userDto);
 
     String json =
@@ -81,10 +82,10 @@ public class LoginServlet extends HttpServlet {
         // TODO: handle exception
         System.out.println("mdp incorrect");
         e.printStackTrace();
-        String json = "{\"success\":\"false\"}";
         resp.setContentType("application/json");
         resp.setCharacterEncoding("UTF-8");
         resp.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+        String json = "{\"success\":\"false\"}";
         resp.getWriter().write(json);
         return;
       }
@@ -115,10 +116,10 @@ public class LoginServlet extends HttpServlet {
 
     } catch (Exception e) {
       e.printStackTrace();
-      String json = "{\"error\":\"false\"}";
       resp.setContentType("application/json");
       resp.setCharacterEncoding("UTF-8");
       resp.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+      String json = "{\"error\":\"false\"}";
       resp.getWriter().write(json);
     }
 
