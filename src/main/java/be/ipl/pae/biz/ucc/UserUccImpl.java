@@ -1,5 +1,7 @@
 package be.ipl.pae.biz.ucc;
 
+import be.ipl.pae.biz.dto.ClientDto;
+import be.ipl.pae.biz.dto.DevisDto;
 import be.ipl.pae.biz.dto.UserDto;
 import be.ipl.pae.biz.impl.UserImpl;
 import be.ipl.pae.biz.interfaces.Factory;
@@ -113,5 +115,11 @@ public class UserUccImpl implements UserUcc {
       exception.printStackTrace();
       throw new IllegalArgumentException(exception.getMessage());
     }
+  }
+
+  public void introduireDevis(ClientDto client, DevisDto devis /** ou int idDevis */
+  ) {
+    devis.setIdClient(client.getIdClient());
+    // userDao.ajouterDevis(devis);
   }
 }

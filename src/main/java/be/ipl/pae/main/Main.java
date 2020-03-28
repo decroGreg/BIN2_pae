@@ -1,16 +1,15 @@
 package be.ipl.pae.main;
 
-import javax.servlet.http.HttpServlet;
-import org.eclipse.jetty.server.Server;
-import org.eclipse.jetty.servlet.ServletHolder;
-import org.eclipse.jetty.webapp.WebAppContext;
 import be.ipl.pae.biz.config.Config;
 import be.ipl.pae.biz.dto.ClientDto;
+import be.ipl.pae.biz.dto.DevisDto;
 import be.ipl.pae.biz.dto.UserDto;
 import be.ipl.pae.biz.interfaces.ClientUcc;
+import be.ipl.pae.biz.interfaces.DevisUcc;
 import be.ipl.pae.biz.interfaces.Factory;
 import be.ipl.pae.biz.interfaces.UserUcc;
 import be.ipl.pae.biz.ucc.ClientUccImpl;
+import be.ipl.pae.biz.ucc.DevisUccImpl;
 import be.ipl.pae.biz.ucc.UserUccImpl;
 import be.ipl.pae.dal.impl.ClientDaoImpl;
 import be.ipl.pae.dal.impl.DaoServicesImpl;
@@ -26,6 +25,12 @@ import be.ipl.pae.ihm.servlet.VoirClientsServlet;
 import be.ipl.pae.ihm.servlet.VoirDevisClientServlet;
 import be.ipl.pae.ihm.servlet.VoirDevisServlet;
 import be.ipl.pae.ihm.servlet.VoirUtilisateursServlet;
+
+import org.eclipse.jetty.server.Server;
+import org.eclipse.jetty.servlet.ServletHolder;
+import org.eclipse.jetty.webapp.WebAppContext;
+
+import javax.servlet.http.HttpServlet;
 
 public class Main {
   public static void main(String[] args) throws Exception {
@@ -43,6 +48,8 @@ public class Main {
     UserDto userDto = factory.getUserDto();
     ClientDto clientDto = factory.getClientDto();
     ClientUcc clientUcc = new ClientUccImpl(factory, clientDao);
+    DevisUcc devisUcc = new DevisUccImpl(factory, clientDao);
+    DevisDto devisDto = factory.getDevisDto();
 
     Server server = new Server(8080);
     WebAppContext context = new WebAppContext();
@@ -70,10 +77,10 @@ public class Main {
     HttpServlet listeDevisServlet = new VoirDevisServlet(userUcc, userDto);
     context.addServlet(new ServletHolder(listeDevisServlet), "/listeDevis");
 
-    HttpServlet listeDevisClientServlet = new VoirDevisClientServlet(clientUcc, clientDto);
+    HttpServlet listeDevisClientServlet = new VoirDevisClientServlet(devisUcc, clientDto);
     context.addServlet(new ServletHolder(listeDevisClientServlet), "/listeDevisClient");
 
-    HttpServlet listeClientsServlet = new VoirClientsServlet(userUcc, userDto);
+    HttpServlet listeClientsServlet = new VoirClientsServlet(clientUcc, userDto);
     context.addServlet(new ServletHolder(listeClientsServlet), "/listeClients");
 
     HttpServlet detailsDevisServlet = new DetailsDevisServlet(userUcc, userDto);

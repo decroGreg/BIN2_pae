@@ -1,7 +1,6 @@
 package be.ipl.pae.biz.ucc;
 
 import be.ipl.pae.biz.dto.ClientDto;
-import be.ipl.pae.biz.dto.DevisDto;
 import be.ipl.pae.biz.interfaces.ClientUcc;
 import be.ipl.pae.biz.interfaces.Factory;
 import be.ipl.pae.dal.interfaces.ClientDao;
@@ -25,15 +24,14 @@ public class ClientUccImpl implements ClientUcc {
     this.userFactory = userFactory;
   }
 
-  @Override
-  public List<DevisDto> voirDevis(ClientDto client) {
-    List<DevisDto> devis = null;
+  public List<ClientDto> getClients() {
+    List<ClientDto> clients = null;
     try {
-      devis = clientDao.getDevisClient(client);
-    } catch (Exception ex) {
+      // clients = userDAO.trouverClients();
+    } catch (IllegalArgumentException ex) {
       ex.printStackTrace();
-      throw new IllegalArgumentException();
+      throw new IllegalStateException(ex.getMessage());
     }
-    return Collections.unmodifiableList(devis);
+    return Collections.unmodifiableList(clients);
   }
 }
