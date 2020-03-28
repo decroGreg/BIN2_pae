@@ -1,14 +1,16 @@
 
 package be.ipl.pae.dal.impl;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
-import org.apache.commons.dbcp2.BasicDataSource;
 import be.ipl.pae.biz.config.Config;
 import be.ipl.pae.dal.interfaces.DaoServices;
 import be.ipl.pae.dal.interfaces.DaoServicesUCC;
 import be.ipl.pae.exceptions.DALException;
+
+import org.apache.commons.dbcp2.BasicDataSource;
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
 
 public class DaoServicesImpl implements DaoServices, DaoServicesUCC {
 
