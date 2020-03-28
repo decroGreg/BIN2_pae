@@ -31,13 +31,13 @@ public class VoirDevisServlet extends HttpServlet {
     this.userUCC = userUCC;
     this.userDto = userDto;
     this.listeDevisDto = new ArrayList<>();
-    // devis1.setId= 1;
+    devis1.setIdDevis(1);
     devis1.setDate(Timestamp.valueOf(LocalDateTime.now()));
     devis1.setDureeTravaux("5 jours");
     devis1.setEtat(Etat.DDI);
     devis1.setIdClient(1);
     devis1.setMontant(3900);
-    // devis2.setId= 2;
+    devis2.setIdDevis(2);
     devis2.setDate(Timestamp.valueOf(LocalDateTime.now()));
     devis2.setDureeTravaux("2 semaines");
     devis2.setEtat(Etat.DDI);

@@ -66,7 +66,7 @@ $(document).ready(e=>{
                 $('#navigation_bar').show();
                 }
                 });
-    $("#dateTimePicker").datepicker();
+    //$("#dateTimePicker").datetimepicker();
  
     
     $("#btn-connexion").click(e=>{
@@ -362,8 +362,8 @@ function afficherUtilisateurs(response){
 function afficherDevis(response){
 	Object.keys(response.devisData).forEach(data => {
 	    var html = "<tr>";
-	    html+="<td>"
-	    	+ response.devisData[data].idDevis + "</td>\n<td>" 
+	    html+="<td><a href='#' id='reference-devis'>"
+	    	+ response.devisData[data].idDevis + "</a></td>\n<td>" 
 	    	+ response.devisData[data].idClient + "</td>\n<td>" 
 	    	+ response.devisData[data].date + "</td>\n<td>" 
 	    	+ response.devisData[data].montant + "</td>\n<td>" 
@@ -377,8 +377,8 @@ function afficherDevis(response){
 function afficherDevisClient(response){
 	Object.keys(response.devisData).forEach(data => {
 	    var html = "<tr>";
-	    html+="<td>"
-	    	+ response.devisData[data].date + "</td>\n<td>" 
+	    html+="<td><a href='#' id='reference-devis'>"
+	    	+ response.devisData[data].date + "</a></td>\n<td>" 
 	    	+ response.devisData[data].montant + "</td>\n<td>" 
 	    	+ response.devisData[data].dureeTravaux + "</td>\n<td>" 
 	    	+ response.devisData[data].photoPreferee + "</td>\n<td>" 
