@@ -123,6 +123,13 @@ $(document).ready(e=>{
 
     });
     
+    $("#mesDevis").click(e=>{
+    	e.preventDefault();
+    	allHide();
+    	$("#voir-devis-client").show();
+    	getData("/listeDevisClient",token,afficherDevisClient,onError);
+    });
+    
     $("#btn-search-category").click(e=>{
     	e.preventDefault();
         if($("#search-option-category").val()=="utilisateur"){
@@ -139,7 +146,6 @@ $(document).ready(e=>{
         	allHide();
         	$("#voir-clients").show();
             getData("/listeClients",token,afficherClients,onError);
-
         }
         
         if($("#search-option-category").val()=="date"){
@@ -209,18 +215,32 @@ function viewHomePage(){
         $("#voir-utilisateurs").hide();
         $("#voir-devis").hide();
         $("#voir-devis-client").hide();
-
         $("#voir-clients").hide();
+        //$("#mesDevis").hide();
+        //$("#search-homepage").hide();
 }
 
 //vue après authentification
 function viewAuthentification(){
-       
+		$("#search-homepage").show();
+		$("#search-devis-date-link").show();
+        $("#search-devis-montant-link").show();
+        $("#search-devis-amenagement-link").show();
+        $("#mesDevis").show();
+        
         if(user &&user.statut===OUVRIER){
                 console.log("passage");
                 $("#list-confirmation-link").show();
                 $("#introductionQuote").show(); 
-                
+                $("#search-client-link").show();
+                $("#search-utilisateur-link").show();
+                $("#search-amenagement-link").show();
+                $("#search-devis-link").show();
+                $("#search-devis-date-link").hide();
+                $("#search-devis-montant-link").hide();
+                $("#search-devis-amenagement-link").hide();
+                $("#mesDevis").hide();
+
         }
         $("#connexion").hide();
         $('#navigation_bar').hide();
@@ -230,7 +250,6 @@ function viewAuthentification(){
         $("#voir-utilisateurs").hide();
         $("#voir-devis").hide();
         $("#voir-devis-client").hide();
-
          
 }
 
@@ -358,5 +377,16 @@ function afficherDevisClient(response){
 }
 
 function afficherClients(response){
-	
+	Object.keys(response.clientsData).forEach(data => {
+		console.log(response.clientsData[data].prenom);
+	    var html = "<tr>";
+	    html+="<td>"
+	    	+ response.clientsData[data].prenom + "</td>\n<td>" 
+	    	+ response.clientsData[data].nom + "</td>\n<td>" 
+	    	+ response.clientsData[data].codePostal + "</td>\n<td>" 
+	    	+ response.clientsData[data].ville + "</td>\n<td>"
+	    	+ response.clientsData[data].email + "</td>\n<td>"
+	    	+ response.clientsData[data].telephone+ "</td></tr>";	    
+	    $("#voir-clients tbody").append(html);
+	});
 }

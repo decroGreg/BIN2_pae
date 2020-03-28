@@ -39,7 +39,7 @@ public class VoirClientsServlet extends HttpServlet {
       String token = "t";
       if (token != null) {
         String clientsData = genson.serialize(clientsDto);
-        String json = "{\"success\":\"true\", \"userData\":" + clientsData + "}";
+        String json = "{\"success\":\"true\", \"clientsData\":" + clientsData + "}";
         System.out.println("JSON generated :" + json);
 
         resp.setContentType("application/json");

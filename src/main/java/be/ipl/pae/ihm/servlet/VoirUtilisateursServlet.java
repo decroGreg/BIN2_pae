@@ -61,7 +61,7 @@ public class VoirUtilisateursServlet extends HttpServlet {
       // Map<String, Object> data = genson.deserialize(req.getReader(), Map.class);
       // String token = data.get("token").toString();
       String token = "t";
-
+      System.out.println(token);
       if (token != null) {
         String usersData = genson.serialize(utilisateursDTO);
         String json = "{\"success\":\"true\", \"usersData\":" + usersData + "}";
