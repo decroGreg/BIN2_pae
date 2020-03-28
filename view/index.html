@@ -325,6 +325,7 @@
           <div class="" id="voir-devis">
             <table class="table table-bordered">
               <thead>
+              	<th><span>Référence</span></th>
               	<th><span>Client</span></th>
                 <th><span>Date</span></th>
                 <th><span>Montant</span></th>
@@ -334,6 +335,7 @@
               </thead>
               <tbody>
                 <tr>
+                  <td style="width: 15%;" href="#" id="reference_devis"></td>
                   <td style="width: 15%;" id="client_devis"></td>
                   <td style="width: 15%;" id="date_devis"></td>
                   <td style="width: 15%;" id="montant_devis"></td>
@@ -353,6 +355,7 @@
           <div class="" id="voir-devis-client">
             <table class="table table-bordered">
               <thead>
+              	<th><span>Référence</span></th>	
                 <th><span>Date</span></th>
                 <th><span>Montant</span></th>
                 <th><span>Durée des travaux</span></th>
@@ -361,6 +364,7 @@
               </thead>
               <tbody>
                 <tr>
+                  <td style="width: 15%;" href="#" id="reference_devis"></td>
                   <td style="width: 15%;" id="date_devis"></td>
                   <td style="width: 15%;" id="montant_devis"></td>
                   <td style="width: 15%;" id="duree_travaux"></td>
@@ -409,7 +413,48 @@
             </table>
           </div>
         </section>        
-        
+<!-----------------------------------------Voir details devis---------------------------------------------->
+     	<section id="voir-details-devis">
+     		<form style="margin:2%;">
+              <div class="form-row">
+                <div class="form-group col-md-3">
+                  <label for="dateDevis">Date</label>
+                  <input type="text" class="form-control" id="dateDevis" value="DATE" disabled>
+                </div>
+                <div class="form-group col-md-3">
+                  <label for="etatDevis">Etat</label>
+                  <input type="text" class="form-control" id="etatDevis" value="ETAT" disabled>
+                </div>
+              </div>
+              <div class="form-row">
+              	<div class="form-group col-md-3">
+                  <label for="montantDevis">Montant</label>
+                  <input type="text" class="form-control" id="montantDevis" value="MONTANT" disabled>
+                </div>
+                <div class="form-group col-md-3">
+                  <label for="inputDate">Date de début de travaux</label>
+                  <input type="text" class="form-control" id="dateTimePicker">
+                  <span class="input-group-addon glyphicon glyphicon-calendar"></span>
+                </div>
+              </div>
+              <div class="form-row">
+              	<div class="form-group col-md-3">
+                  <label for="typeAmenagementDevis">Type d'aménagement</label>
+                  <input type="text" class="form-control" id="typeAmenagementDevis" value="TYPE AMENAGEMENT" disabled>
+                </div>
+              </div>
+              <div class="form-row">
+                <div class="form-group col-md-3">
+                  <label for="dureeTravauxDevis">Duree</label>
+                  <input type="text" class="form-control" id="dureeTravauxDevis" value="DUREE TRAVAUX" disabled>
+                </div>
+                <div class="form-group col-md-3" style="text-align: right;">
+                  <input type="submit" id="btn-devis" class="btn btn-danger"  value="OK">
+                </div>
+              </div>
+            </form>
+     	</section>
+     
         <section id="test1">
         <h1>TEST 1</h1>
         <h1>TEST</h1>
@@ -435,7 +480,7 @@
         </section>
     <button id="btn-deconnexion"> deconnexion</button>
     <script src="./JS/index.js" type="module"></script>
-<!--------------------------------------------------------------ACCEUILLE----------------------------------------------------------------------------------------->
+<!--------------------------------------------------------------ACCUEIL----------------------------------------------------------------------------------------->
 
 
 </body>

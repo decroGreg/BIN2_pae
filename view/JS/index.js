@@ -6,6 +6,7 @@ let token=undefined;
 let user;
 $('#navigation_bar').hide();
 
+
 function encodeImagetoBase64(element) {
         
         var file = element[0].files[0];
@@ -65,7 +66,9 @@ $(document).ready(e=>{
                 $('#navigation_bar').show();
                 }
                 });
-
+    $("#dateTimePicker").datepicker();
+ 
+    
     $("#btn-connexion").click(e=>{
             console.log($("#login-email").val());
             let data={};
@@ -165,6 +168,13 @@ $(document).ready(e=>{
         	$("#voir-devis-client").show();
         	getData("/listeDevisClient",token,afficherDevisClient,onError);
 		}
+    });
+    
+    $("#reference-devis").click(e=>{
+    	console.log("Reference devis : " + $("#reference-devis").val());
+    	let data={};
+        data.idDevis=$("#reference-devis").val();
+        postData("/detailsDevis",data,token,afficherDetailDevis,onError);
     });
     
 });
@@ -353,6 +363,7 @@ function afficherDevis(response){
 	Object.keys(response.devisData).forEach(data => {
 	    var html = "<tr>";
 	    html+="<td>"
+	    	+ response.devisData[data].idDevis + "</td>\n<td>" 
 	    	+ response.devisData[data].idClient + "</td>\n<td>" 
 	    	+ response.devisData[data].date + "</td>\n<td>" 
 	    	+ response.devisData[data].montant + "</td>\n<td>" 
@@ -389,4 +400,10 @@ function afficherClients(response){
 	    	+ response.clientsData[data].telephone+ "</td></tr>";	    
 	    $("#voir-clients tbody").append(html);
 	});
+}
+
+function afficherDetailDevis(response){
+	allHide();
+	$("#voir-details-devis").show();
+	console.log(JSON.stringify(response.detailsDevisData));
 }

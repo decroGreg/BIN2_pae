@@ -1,8 +1,7 @@
 package be.ipl.pae.biz.dto;
 
-import be.ipl.pae.biz.impl.DevisImpl.Etat;
-
 import java.sql.Timestamp;
+import be.ipl.pae.biz.impl.DevisImpl.Etat;
 
 
 public interface DevisDto {
@@ -32,5 +31,7 @@ public interface DevisDto {
   void setEtat(Etat etat);
 
   int getIdDevis();
+
+  void setIdDevis(int idDevis);
 
 }
