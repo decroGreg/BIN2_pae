@@ -26,16 +26,15 @@ public class IntroduireDevisServlet extends HttpServlet {
   @Override
   protected void doGet(HttpServletRequest req, HttpServletResponse resp)
       throws ServletException, IOException {
-    // récuperer les typesd'aménagements
     try {
       Genson genson = new Genson();
       String token = req.getHeader("Authorization");
       if (token != null) {
 
-        String typeAmenagements = genson.serialize("");// replacer "" par la liste d'aménagement
+        // String typeAmenagements = genson.serialize("");// replacer "" par la liste d'aménagement
 
-        String json = "{\"success\":\"true\", \"token\":\"" + token + "\", \"typeAmenagements\":"
-            + typeAmenagements + "}";
+        String json =
+            "{\"success\":\"true\", \"token\":\"" + token + "\", \"typeAmenagements\":" + "" + "}";
         System.out.println("JSON generated :" + json);
         resp.setContentType("application/json");
 
