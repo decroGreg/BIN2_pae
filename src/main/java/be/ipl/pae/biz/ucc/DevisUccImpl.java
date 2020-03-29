@@ -1,5 +1,7 @@
 package be.ipl.pae.biz.ucc;
 
+import java.util.Collections;
+import java.util.List;
 import be.ipl.pae.biz.dto.ClientDto;
 import be.ipl.pae.biz.dto.DevisDto;
 import be.ipl.pae.biz.interfaces.DevisUcc;
@@ -7,9 +9,6 @@ import be.ipl.pae.biz.interfaces.Factory;
 import be.ipl.pae.dal.interfaces.ClientDao;
 import be.ipl.pae.dal.interfaces.DaoServicesUCC;
 import be.ipl.pae.exceptions.DalException;
-
-import java.util.Collections;
-import java.util.List;
 
 public class DevisUccImpl implements DevisUcc {
 
@@ -37,7 +36,7 @@ public class DevisUccImpl implements DevisUcc {
     List<DevisDto> devis = null;
     try {
       daoServicesUcc.demarrerTransaction();
-      devis = clientDao.getDevisClient(client);
+      // devis = clientDao.getDevisClient(client);
     } catch (DalException de) {
       daoServicesUcc.rollback();
       throw new IllegalArgumentException();

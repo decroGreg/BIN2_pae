@@ -1,5 +1,9 @@
 package be.ipl.pae.biz.ucc;
 
+import java.sql.Timestamp;
+import java.time.LocalDate;
+import java.util.Collections;
+import java.util.List;
 import be.ipl.pae.biz.dto.ClientDto;
 import be.ipl.pae.biz.dto.DevisDto;
 import be.ipl.pae.biz.dto.UserDto;
@@ -11,11 +15,6 @@ import be.ipl.pae.dal.interfaces.DaoServicesUCC;
 import be.ipl.pae.dal.interfaces.UserDao;
 import be.ipl.pae.exceptions.BizException;
 import be.ipl.pae.exceptions.DalException;
-
-import java.sql.Timestamp;
-import java.time.LocalDate;
-import java.util.Collections;
-import java.util.List;
 
 
 
@@ -132,7 +131,7 @@ public class UserUccImpl implements UserUcc {
     try {
       daoServicesUcc.demarrerTransaction();
       devis.setIdClient(client.getIdClient());
-      userDao.createDevis(client.getIdClient(), devis);
+      // userDao.createDevis(client.getIdClient(), devis);
     } catch (DalException de) {
       daoServicesUcc.rollback();
       throw new IllegalArgumentException();
