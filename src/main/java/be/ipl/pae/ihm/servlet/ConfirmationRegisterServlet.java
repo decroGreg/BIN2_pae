@@ -1,6 +1,7 @@
 package be.ipl.pae.ihm.servlet;
 
 import be.ipl.pae.biz.config.Config;
+import be.ipl.pae.biz.dto.ClientDto;
 import be.ipl.pae.biz.dto.UserDto;
 import be.ipl.pae.biz.interfaces.UserUcc;
 
@@ -17,14 +18,15 @@ import javax.servlet.http.HttpServletResponse;
 public class ConfirmationRegisterServlet extends HttpServlet {
   private UserUcc userUcc;
   private UserDto userDto;
+  private ClientDto clientDto;
   private static final String JWTSECRET = new Config().getConfigPropertyAttribute("jwt.secret");
 
-  public ConfirmationRegisterServlet(UserUcc userUcc, UserDto userDto) {
+  public ConfirmationRegisterServlet(UserUcc userUcc, UserDto userDto, ClientDto clientDto) {
     // TODO Auto-generated constructor stub
     super();
     this.userDto = userDto;
     this.userUcc = userUcc;
-
+    this.clientDto = clientDto;
   }
 
   @Override
@@ -38,6 +40,7 @@ public class ConfirmationRegisterServlet extends HttpServlet {
       String usersJson = null;
       if (token != null) {
         // usersJson=genson.serialize(.....);
+
 
         String json = "{\"success\":\"true\", \"usersData\":" + usersJson + "}";
         System.out.println("JSON generated :" + json);
@@ -78,7 +81,9 @@ public class ConfirmationRegisterServlet extends HttpServlet {
       String token = req.getHeader("Authorization");// .replace("Bearer", "");
       System.out.println(token);
       if (token != null) {
+        // To do set...
 
+        userUcc.confirmerInscription(userDto, clientDto);
 
 
         String json = "{\"success\":\"true\"}";

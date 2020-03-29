@@ -76,7 +76,7 @@ public class Main {
     HttpServlet listeUsersServlet = new VoirUtilisateursServlet(userUcc, userDto);
     context.addServlet(new ServletHolder(listeUsersServlet), "/listeUsers");
 
-    HttpServlet listeDevisServlet = new VoirDevisServlet(userUcc, userDto);
+    HttpServlet listeDevisServlet = new VoirDevisServlet(devisUcc, userDto);
     context.addServlet(new ServletHolder(listeDevisServlet), "/listeDevis");
 
     HttpServlet listeDevisClientServlet = new VoirDevisClientServlet(devisUcc, clientDto);
@@ -87,15 +87,15 @@ public class Main {
 
 
 
-    HttpServlet introDevisServlet = new IntroduireDevisServlet(userDto, userUcc);
+    HttpServlet introDevisServlet = new IntroduireDevisServlet(userUcc, clientDto, devisDto);
     context.addServlet(new ServletHolder(introDevisServlet), "/introduireServlet");
 
-    HttpServlet confirmationServlet = new ConfirmationRegisterServlet(userUcc, userDto);
+    HttpServlet confirmationServlet = new ConfirmationRegisterServlet(userUcc, userDto, clientDto);
     context.addServlet(new ServletHolder(confirmationServlet), "/confirmation");
 
 
 
-    HttpServlet detailsDevis = new DetailsDevisServlet(userUcc, userDto);
+    HttpServlet detailsDevis = new DetailsDevisServlet(userUcc, userDto, devisUcc);
     context.addServlet(new ServletHolder(detailsDevis), "/detailsDevis");
 
     context.setResourceBase("view");

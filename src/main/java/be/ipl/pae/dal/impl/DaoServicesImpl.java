@@ -58,7 +58,9 @@ public class DaoServicesImpl implements DaoServices, DaoServicesUCC {
     }
     try {
       Connection conn = this.ds.getConnection();
+
       connections.set(conn);
+      System.out.println(connections.get());
       conn.setAutoCommit(false);
     } catch (SQLException e) {
       e.printStackTrace();
@@ -98,6 +100,7 @@ public class DaoServicesImpl implements DaoServices, DaoServicesUCC {
   @Override
   public PreparedStatement getPreparedSatement(String requeteSQL) {
     try {
+      System.out.println("test1:" + connections.toString());
       return connections.get().prepareStatement(requeteSQL);
     } catch (SQLException e) {
       throw new DalException("Erreur dans le prepared statement");
