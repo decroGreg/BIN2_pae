@@ -136,9 +136,9 @@ $(document).ready(e=>{
     $("#btn-search-category").click(e=>{
     	e.preventDefault();
         if($("#search-option-category").val()=="utilisateur"){
-                allHide();
-                $("#voir-utilisateurs").show();
-                getData("/listeUsers",token,afficherUtilisateurs,onError);
+            allHide();
+            $("#voir-utilisateurs").show();
+            getData("/listeUsers",token,afficherUtilisateurs,onError);
         }
         if($("#search-option-category").val()=="devis"){
         	allHide();
@@ -169,14 +169,6 @@ $(document).ready(e=>{
         	getData("/listeDevisClient",token,afficherDevisClient,onError);
 		}
     });
-    
-    $("#reference-devis").click(e=>{
-    	console.log("Reference devis : " + $("#reference-devis").val());
-    	let data={};
-        data.idDevis=$("#reference-devis").val();
-        postData("/detailsDevis",data,token,afficherDetailDevis,onError);
-    });
-    
 });
 
 function allHide(){
@@ -226,6 +218,7 @@ function viewHomePage(){
         $("#voir-devis").hide();
         $("#voir-devis-client").hide();
         $("#voir-clients").hide();
+        $("#voir-details-devis").hide();
         //$("#mesDevis").hide();
         //$("#search-homepage").hide();
 }
@@ -260,6 +253,7 @@ function viewAuthentification(){
         $("#voir-utilisateurs").hide();
         $("#voir-devis").hide();
         $("#voir-devis-client").hide();
+        $("#voir-details-devis").hide();
          
 }
 
@@ -340,7 +334,7 @@ function onPostRegister(response){
 }
 
 function onError(response){
-	console.log("Erreur dans getData");
+	console.log("Erreur");
 }
 /////////////////////////////////////////////////////////////////////////////////////////////test////////////////////////
 
@@ -362,7 +356,7 @@ function afficherUtilisateurs(response){
 function afficherDevis(response){
 	Object.keys(response.devisData).forEach(data => {
 	    var html = "<tr>";
-	    html+="<td><a href='#' id='reference-devis'>"
+	    html+="<td><a href=\"#\" id=\"reference-devis\">"
 	    	+ response.devisData[data].idDevis + "</a></td>\n<td>" 
 	    	+ response.devisData[data].idClient + "</td>\n<td>" 
 	    	+ response.devisData[data].date + "</td>\n<td>" 
@@ -372,6 +366,14 @@ function afficherDevis(response){
 	    	+ response.devisData[data].etat + "</td></tr>";	    
 	    $("#voir-devis tbody").append(html);
 	});
+	$("#reference-devis").click(e=>{
+    	let data={};
+        data.idDevis=$("#reference-devis").text();
+        console.log("Reference devis : " + data.idDevis);
+        postData("/detailsDevis",data,token,onError);
+        //console.log("apres postData");
+        //getData("/detailsDevis", token, afficherDetailDevis, onError);
+    });
 }
 
 function afficherDevisClient(response){
@@ -405,5 +407,5 @@ function afficherClients(response){
 function afficherDetailDevis(response){
 	allHide();
 	$("#voir-details-devis").show();
-	console.log(JSON.stringify(response.detailsDevisData));
+	console.log(JSON.stringify(response.devisData));
 }
