@@ -103,4 +103,8 @@ public class DaoServicesImpl implements DaoServices, DaoServicesUCC {
       throw new DalException("Erreur dans le prepared statement");
     }
   }
+
+  public ThreadLocal<Connection> getConnections() {
+    return connections;
+  }
 }

@@ -82,6 +82,7 @@ public class UserUccImpl implements UserUcc {
       UserDto userDb = null;
       try {
         daoServicesUcc.demarrerTransaction();
+        System.out.println(daoServicesUcc.getConnections().get());
         userDb = userDao.getUserConnexion(user.getEmail());
       } catch (DalException de) {
         daoServicesUcc.rollback();

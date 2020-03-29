@@ -15,8 +15,6 @@ import be.ipl.pae.dal.impl.ClientDaoImpl;
 import be.ipl.pae.dal.impl.DaoServicesImpl;
 import be.ipl.pae.dal.impl.UserDaoImpl;
 import be.ipl.pae.dal.interfaces.ClientDao;
-import be.ipl.pae.dal.interfaces.DaoServices;
-import be.ipl.pae.dal.interfaces.DaoServicesUCC;
 import be.ipl.pae.dal.interfaces.UserDao;
 import be.ipl.pae.ihm.servlet.ConfirmationRegisterServlet;
 import be.ipl.pae.ihm.servlet.DetailsDevisServlet;
@@ -42,10 +40,9 @@ public class Main {
 
     // Creation de la dépendance
     Factory factory = (Factory) conf.getConfigPropertyClass("factory.Factory");
-    DaoServicesUCC daoServices = new DaoServicesImpl();
+    DaoServicesImpl daoServices = new DaoServicesImpl();
 
-    DaoServices daoService = new DaoServicesImpl();
-    UserDao userDao = new UserDaoImpl();
+    UserDao userDao = new UserDaoImpl(daoServices);
     ClientDao clientDao = new ClientDaoImpl();
     UserUcc userUcc = new UserUccImpl(factory, userDao, daoServices);
     UserDto userDto = factory.getUserDto();

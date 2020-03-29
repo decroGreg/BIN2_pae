@@ -1,6 +1,6 @@
 package be.ipl.pae.dal.interfaces;
 
-
+import java.sql.Connection;
 
 public interface DaoServicesUCC {
 
@@ -9,5 +9,7 @@ public interface DaoServicesUCC {
   void commit();
 
   void rollback();
+
+  ThreadLocal<Connection> getConnections();
 
 }
