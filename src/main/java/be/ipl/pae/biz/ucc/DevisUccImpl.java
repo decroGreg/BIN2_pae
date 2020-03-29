@@ -41,7 +41,7 @@ public class DevisUccImpl implements DevisUcc {
     List<DevisDto> devis = null;
     try {
       daoServicesUcc.demarrerTransaction();
-      devis = clientDao.getDevisClient(client);
+      // devis = clientDao.getDevisClient(client);
     } catch (DalException de) {
       daoServicesUcc.rollback();
       throw new IllegalArgumentException();
@@ -69,7 +69,7 @@ public class DevisUccImpl implements DevisUcc {
     try {
       daoServicesUcc.demarrerTransaction();
       devis.setIdClient(client.getIdClient());
-      userDao.createDevis(client.getIdClient(), devis);
+      // userDao.createDevis(client.getIdClient(), devis);
     } catch (DalException de) {
       daoServicesUcc.rollback();
       throw new IllegalArgumentException();
