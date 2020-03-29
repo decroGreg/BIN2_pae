@@ -4,6 +4,7 @@ import be.ipl.pae.biz.dto.ClientDto;
 import be.ipl.pae.biz.dto.DevisDto;
 import be.ipl.pae.biz.dto.UserDto;
 import be.ipl.pae.biz.factory.FactoryImpl;
+import be.ipl.pae.biz.impl.DevisImpl.Etat;
 import be.ipl.pae.biz.interfaces.Factory;
 import be.ipl.pae.dal.interfaces.DaoServices;
 import be.ipl.pae.dal.interfaces.UserDao;
@@ -99,8 +100,8 @@ public class UserDaoImpl implements UserDao {
     try {
       ps.setInt(1, idClient);
       ps.setTimestamp(2, devis.getDate());
-      // ps.setFloat(3, devis.getMontant()); changer montant devis de double en float
-      ps.setInt(4, devis.getIdPhotoPreferee()); // Changer photo dans la DB pour avoir une FK
+      ps.setDouble(3, devis.getMontant());
+      ps.setInt(4, devis.getIdPhotoPreferee());
       ps.setString(5, devis.getDureeTravaux());
       ps.setString(6, null);
       ps.execute();
@@ -118,15 +119,14 @@ public class UserDaoImpl implements UserDao {
       try (ResultSet rs = ps.executeQuery()) {
         while (rs.next()) {
           DevisDto devis = factory.getDevisDto();
-          // devis.setIdDevis(rs.getInt(1));
+          devis.setIdDevis(rs.getInt(1));
           devis.setIdClient(rs.getInt(2));
           devis.setDate(rs.getTimestamp(3));
-          // devis.setMontant(rs.getDouble(4)); montant doit etre float
+          devis.setMontant(rs.getDouble(4));
           devis.setIdPhotoPreferee(rs.getInt(5));
           devis.setDureeTravaux(rs.getString(6));
-          /**
-           * String c = rs.getString(7); devis.setEtat(c);
-           **/
+          String c = rs.getString(7);
+          devis.setEtat(Etat.valueOf(c));
           listeDevis.add(devis);
         }
         return listeDevis;

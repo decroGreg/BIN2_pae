@@ -11,14 +11,14 @@ public class ClientImpl implements Client, ClientDto {
   private String rue;
   private String numero;
   private String boite;
-  private String codePostal;
+  private int codePostal;
   private String ville;
   private String email;
   private String telephone;
   private int idUtilisateur;
 
   public ClientImpl(int idClient, String nom, String prenom, String rue, String numero,
-      String boite, String codePostal, String ville, String email, String telephone,
+      String boite, int codePostal, String ville, String email, String telephone,
       int idUtilisateur) {
     super();
     this.idClient = idClient;
@@ -35,7 +35,7 @@ public class ClientImpl implements Client, ClientDto {
   }
 
   public ClientImpl(int idClient, String nom, String prenom, String rue, String numero,
-      String boite, String codePostal, String ville, String email, String telephone) {
+      String boite, int codePostal, String ville, String email, String telephone) {
     super();
     this.idClient = idClient;
     this.nom = nom;
@@ -104,12 +104,12 @@ public class ClientImpl implements Client, ClientDto {
   }
 
   @Override
-  public String getCodePostal() {
+  public int getCodePostal() {
     return codePostal;
   }
 
   @Override
-  public void setCodePostal(String codePostal) {
+  public void setCodePostal(int codePostal) {
     this.codePostal = codePostal;
   }
 

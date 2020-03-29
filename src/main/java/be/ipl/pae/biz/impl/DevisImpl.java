@@ -1,8 +1,9 @@
 package be.ipl.pae.biz.impl;
 
 
-import java.sql.Timestamp;
 import be.ipl.pae.biz.interfaces.Devis;
+
+import java.sql.Timestamp;
 
 
 
