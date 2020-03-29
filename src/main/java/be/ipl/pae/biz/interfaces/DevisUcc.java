@@ -16,4 +16,5 @@ public interface DevisUcc {
 
   void introduireDevis(ClientDto client, DevisDto devis);
 
+  void confirmerDateDebut(DevisDto devis);
 }

@@ -2,11 +2,11 @@ package be.ipl.pae.biz.ucc;
 
 import be.ipl.pae.biz.dto.ClientDto;
 import be.ipl.pae.biz.dto.DevisDto;
+import be.ipl.pae.biz.impl.DevisImpl.Etat;
 import be.ipl.pae.biz.interfaces.DevisUcc;
 import be.ipl.pae.biz.interfaces.Factory;
-import be.ipl.pae.dal.interfaces.ClientDao;
 import be.ipl.pae.dal.interfaces.DaoServicesUCC;
-import be.ipl.pae.dal.interfaces.UserDao;
+import be.ipl.pae.dal.interfaces.DevisDao;
 import be.ipl.pae.exceptions.DalException;
 
 import java.util.Collections;
@@ -14,8 +14,7 @@ import java.util.List;
 
 public class DevisUccImpl implements DevisUcc {
 
-  private ClientDao clientDao;
-  private UserDao userDao;
+  private DevisDao devisDao;
   private Factory userFactory;
   private DaoServicesUCC daoServicesUcc;
 
@@ -26,12 +25,10 @@ public class DevisUccImpl implements DevisUcc {
    * @param clientDao le clientDao
    * @param userFactory le userFactory
    */
-  public DevisUccImpl(Factory userFactory, ClientDao clientDao, UserDao userDao,
-      DaoServicesUCC daoServicesUcc) {
+  public DevisUccImpl(Factory userFactory, DevisDao devisDao, DaoServicesUCC daoServicesUcc) {
     super();
-    this.clientDao = clientDao;
     this.userFactory = userFactory;
-    this.userDao = userDao;
+    this.devisDao = devisDao;
     this.daoServicesUcc = daoServicesUcc;
   }
 
@@ -41,7 +38,7 @@ public class DevisUccImpl implements DevisUcc {
     List<DevisDto> devis = null;
     try {
       daoServicesUcc.demarrerTransaction();
-      // devis = clientDao.getDevisClient(client);
+      devis = devisDao.getDevisClient(client);
     } catch (DalException de) {
       daoServicesUcc.rollback();
       throw new IllegalArgumentException();
@@ -56,7 +53,7 @@ public class DevisUccImpl implements DevisUcc {
     List<DevisDto> devis = null;
     try {
       daoServicesUcc.demarrerTransaction();
-      // devis = clientDao.getDevis();
+      devis = devisDao.voirTousDevis();
     } catch (DalException de) {
       daoServicesUcc.rollback();
       throw new IllegalArgumentException();
@@ -69,7 +66,20 @@ public class DevisUccImpl implements DevisUcc {
     try {
       daoServicesUcc.demarrerTransaction();
       devis.setIdClient(client.getIdClient());
-      // userDao.createDevis(client.getIdClient(), devis);
+      devisDao.createDevis(client.getIdClient(), devis);
+    } catch (DalException de) {
+      daoServicesUcc.rollback();
+      throw new IllegalArgumentException();
+    }
+    daoServicesUcc.commit();
+  }
+
+  public void confirmerDateDebut(DevisDto devis) {
+    try {
+      daoServicesUcc.demarrerTransaction();
+      if (devis.getEtat().equals(Etat.DDI)) {
+        // userDao.confirmerDateDebut(devis);
+      }
     } catch (DalException de) {
       daoServicesUcc.rollback();
       throw new IllegalArgumentException();

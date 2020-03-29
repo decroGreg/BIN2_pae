@@ -1,9 +1,7 @@
 package be.ipl.pae.biz.ucc;
 
 import be.ipl.pae.biz.dto.ClientDto;
-import be.ipl.pae.biz.dto.DevisDto;
 import be.ipl.pae.biz.dto.UserDto;
-import be.ipl.pae.biz.impl.DevisImpl.Etat;
 import be.ipl.pae.biz.interfaces.Factory;
 import be.ipl.pae.biz.interfaces.User;
 import be.ipl.pae.biz.interfaces.UserUcc;
@@ -120,31 +118,6 @@ public class UserUccImpl implements UserUcc {
       daoServicesUcc.demarrerTransaction();
       if (client != null && utilisateur.getEmail().equals(client.getEmail())) {
         userDao.lierUserClient(client, utilisateur);
-      }
-    } catch (DalException de) {
-      daoServicesUcc.rollback();
-      throw new IllegalArgumentException();
-    }
-    daoServicesUcc.commit();
-  }
-
-  public void introduireDevis(ClientDto client, DevisDto devis) {
-    try {
-      daoServicesUcc.demarrerTransaction();
-      devis.setIdClient(client.getIdClient());
-      // userDao.createDevis(client.getIdClient(), devis);
-    } catch (DalException de) {
-      daoServicesUcc.rollback();
-      throw new IllegalArgumentException();
-    }
-    daoServicesUcc.commit();
-  }
-
-  public void confirmerDateDebut(DevisDto devis) {
-    try {
-      daoServicesUcc.demarrerTransaction();
-      if (devis.getEtat().equals(Etat.DDI)) {
-        // userDao.confirmerDateDebut(devis);
       }
     } catch (DalException de) {
       daoServicesUcc.rollback();

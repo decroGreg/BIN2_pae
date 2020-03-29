@@ -1,9 +1,5 @@
 package be.ipl.pae.main;
 
-import javax.servlet.http.HttpServlet;
-import org.eclipse.jetty.server.Server;
-import org.eclipse.jetty.servlet.ServletHolder;
-import org.eclipse.jetty.webapp.WebAppContext;
 import be.ipl.pae.biz.config.Config;
 import be.ipl.pae.biz.dto.ClientDto;
 import be.ipl.pae.biz.dto.DevisDto;
@@ -17,8 +13,10 @@ import be.ipl.pae.biz.ucc.DevisUccImpl;
 import be.ipl.pae.biz.ucc.UserUccImpl;
 import be.ipl.pae.dal.impl.ClientDaoImpl;
 import be.ipl.pae.dal.impl.DaoServicesImpl;
+import be.ipl.pae.dal.impl.DevisDaoImpl;
 import be.ipl.pae.dal.impl.UserDaoImpl;
 import be.ipl.pae.dal.interfaces.ClientDao;
+import be.ipl.pae.dal.interfaces.DevisDao;
 import be.ipl.pae.dal.interfaces.UserDao;
 import be.ipl.pae.ihm.servlet.ConfirmationRegisterServlet;
 import be.ipl.pae.ihm.servlet.DetailsDevisServlet;
@@ -29,6 +27,12 @@ import be.ipl.pae.ihm.servlet.VoirClientsServlet;
 import be.ipl.pae.ihm.servlet.VoirDevisClientServlet;
 import be.ipl.pae.ihm.servlet.VoirDevisServlet;
 import be.ipl.pae.ihm.servlet.VoirUtilisateursServlet;
+
+import org.eclipse.jetty.server.Server;
+import org.eclipse.jetty.servlet.ServletHolder;
+import org.eclipse.jetty.webapp.WebAppContext;
+
+import javax.servlet.http.HttpServlet;
 
 public class Main {
   public static void main(String[] args) throws Exception {
@@ -42,11 +46,12 @@ public class Main {
 
     UserDao userDao = new UserDaoImpl(daoServices);
     ClientDao clientDao = new ClientDaoImpl(daoServices);
+    DevisDao devisDao = new DevisDaoImpl(daoServices);
     UserUcc userUcc = new UserUccImpl(factory, userDao, daoServices);
     UserDto userDto = factory.getUserDto();
     ClientDto clientDto = factory.getClientDto();
     ClientUcc clientUcc = new ClientUccImpl(factory, clientDao, daoServices);
-    DevisUcc devisUcc = new DevisUccImpl(factory, clientDao, userDao, daoServices);
+    DevisUcc devisUcc = new DevisUccImpl(factory, devisDao, daoServices);
     DevisDto devisDto = factory.getDevisDto();
 
     Server server = new Server(8080);
