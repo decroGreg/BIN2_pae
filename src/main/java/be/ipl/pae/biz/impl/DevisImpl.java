@@ -1,9 +1,8 @@
 package be.ipl.pae.biz.impl;
 
 
-import be.ipl.pae.biz.interfaces.Devis;
-
 import java.sql.Timestamp;
+import be.ipl.pae.biz.interfaces.Devis;
 
 
 
@@ -112,5 +111,11 @@ public class DevisImpl implements Devis {
 
   public void setIdPhotoPreferee(int idPhotoPreferee) {
     this.idPhotoPreferee = idPhotoPreferee;
+  }
+
+  @Override
+  public void setIdDevis(int idDevis) {
+    this.idDevis = idDevis;
+
   }
 }

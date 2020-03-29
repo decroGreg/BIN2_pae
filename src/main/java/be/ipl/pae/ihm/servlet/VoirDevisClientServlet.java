@@ -1,26 +1,29 @@
 package be.ipl.pae.ihm.servlet;
 
+import be.ipl.pae.biz.dto.ClientDto;
+import be.ipl.pae.biz.dto.DevisDto;
+import be.ipl.pae.biz.interfaces.DevisUcc;
+
+import com.owlike.genson.Genson;
+
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import com.owlike.genson.Genson;
-import be.ipl.pae.biz.dto.ClientDto;
-import be.ipl.pae.biz.dto.DevisDto;
-import be.ipl.pae.biz.interfaces.ClientUcc;
 
 public class VoirDevisClientServlet extends HttpServlet {
 
-  private ClientUcc clientUCC;
+  private DevisUcc devisUcc;
   private ClientDto clientDto;
   private List<DevisDto> listeDevisDto;
 
-  public VoirDevisClientServlet(ClientUcc clientUCC, ClientDto clientDto) {
+  public VoirDevisClientServlet(DevisUcc devisUcc, ClientDto clientDto) {
     super();
-    this.clientUCC = clientUCC;
+    this.devisUcc = devisUcc;
     this.clientDto = clientDto;
     this.listeDevisDto = new ArrayList<>();
   }
@@ -29,25 +32,24 @@ public class VoirDevisClientServlet extends HttpServlet {
   protected void doGet(HttpServletRequest req, HttpServletResponse resp)
       throws ServletException, IOException {
     try {
-      listeDevisDto = clientUCC.voirDevis(clientDto);
+      listeDevisDto = devisUcc.voirDevis(clientDto);
       Genson genson = new Genson();
       // Map<String, Object> data = genson.deserialize(req.getReader(), Map.class);
       // String token = data.get("token").toString();
-      String token = req.getHeader("Authorization");
+      String token = "t";
 
       if (token != null) {
-        for (DevisDto devis : listeDevisDto) {
-          String devisData = genson.serialize(devis);
-          String json = "{\"success\":\"true\", \"devisData\":" + devisData + "}";
-          System.out.println("JSON generated :" + json);
+        String devisData = genson.serialize(listeDevisDto);
+        String json = "{\"success\":\"true\", \"devisData\":" + devisData + "}";
+        System.out.println("JSON generated :" + json);
 
-          resp.setContentType("application/json");
+        resp.setContentType("application/json");
 
-          resp.setCharacterEncoding("UTF-8");
+        resp.setCharacterEncoding("UTF-8");
 
-          resp.setStatus(HttpServletResponse.SC_OK);;
-          resp.getWriter().write(json);
-        }
+        resp.setStatus(HttpServletResponse.SC_OK);;
+        resp.getWriter().write(json);
+
       }
 
     } catch (Exception e) {

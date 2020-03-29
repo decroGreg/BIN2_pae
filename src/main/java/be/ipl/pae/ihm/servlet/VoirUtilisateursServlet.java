@@ -1,22 +1,19 @@
 package be.ipl.pae.ihm.servlet;
 
-import be.ipl.pae.biz.dto.UserDto;
-import be.ipl.pae.biz.factory.FactoryImpl;
-import be.ipl.pae.biz.interfaces.Factory;
-import be.ipl.pae.biz.interfaces.UserUcc;
-
-import com.owlike.genson.Genson;
-
 import java.io.IOException;
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
-
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import com.owlike.genson.Genson;
+import be.ipl.pae.biz.dto.UserDto;
+import be.ipl.pae.biz.factory.FactoryImpl;
+import be.ipl.pae.biz.interfaces.Factory;
+import be.ipl.pae.biz.interfaces.UserUcc;
 
 public class VoirUtilisateursServlet extends HttpServlet {
 
@@ -42,7 +39,7 @@ public class VoirUtilisateursServlet extends HttpServlet {
     user1.setDateInscription(Timestamp.valueOf(LocalDateTime.now()));
     user1.setMotDePasse("mdp");
     user2.setPseudo("jbe");
-    user2.setPrenom("Mdef");
+    user2.setPrenom("Julie");
     user2.setNom("Bdd");
     user2.setEmail("mrbrdddddddg@live.fr");
     user2.setVille("Brudddxdells");
@@ -57,18 +54,15 @@ public class VoirUtilisateursServlet extends HttpServlet {
   @Override
   protected void doGet(HttpServletRequest req, HttpServletResponse resp)
       throws ServletException, IOException {
-
     try {
       // utilisateursDTO = userUCC.getUtilisateurs();
-      System.out.println(utilisateursDTO.toString());
       System.out.println("passage");
       Genson genson = new Genson();
       // Map<String, Object> data = genson.deserialize(req.getReader(), Map.class);
       // String token = data.get("token").toString();
-      String token = req.getHeader("Authorization");
+      String token = "t";
       System.out.println(token);
       if (token != null) {
-        System.out.println("test");
         String usersData = genson.serialize(utilisateursDTO);
         String json = "{\"success\":\"true\", \"usersData\":" + usersData + "}";
         System.out.println("UsersData : " + usersData);

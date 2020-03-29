@@ -6,6 +6,7 @@ let token=undefined;
 let user;
 $('#navigation_bar').hide();
 
+
 function encodeImagetoBase64(element) {
         
         var file = element[0].files[0];
@@ -67,7 +68,9 @@ $(document).ready(e=>{
                 $('#navigation_bar').show();
                 }
                 });
-
+    //$("#dateTimePicker").datetimepicker();
+ 
+    
     $("#btn-connexion").click(e=>{
             console.log($("#login-email").val());
             let data={};
@@ -147,53 +150,55 @@ $(document).ready(e=>{
 
     });
     
+    $("#mesDevis").click(e=>{
+    	e.preventDefault();
+    	allHide();
+    	$("#voir-devis-client").show();
+    	getData("/listeDevisClient",token,afficherDevisClient,onError);
+    });
+    
     $("#btn-search-category").click(e=>{
     	e.preventDefault();
         if($("#search-option-category").val()=="utilisateur"){
                 allHide();
                 $("#voir-utilisateurs").show();
                 getData("/listeUsers",token,afficherUtilisateurs,onError);
-                afficherUtilisateurs();
-                /*$("#voir-utilisateurs tbody").append("<tr><td>"+data+"</td></tr>");
-                data = JSON.parse(data);
-                $("#voir-utilisateurs tbody").append("<tr><td>"+data+"</td></tr>");
-                var html = "<tr>";
-                html+="<td>" + data.pseudo + "</td>\n<td>" + data.nom + "</td>\n<td>" + data.prenom + "</td>\n<td>" + data.ville + "</td>\n<td>" + data.mail + "</td>\n<td>" + data.statut + "</td></tr>;"
-                $("#voir-utilisateurs tbody").append(html);*/
         }
         if($("#search-option-category").val()=="devis"){
         	allHide();
         	$("#voir-devis").show();
         	getData("/listeDevis",token,afficherDevis,onError);
-        	afficherDevis();
         }
         if($("#search-option-category").val()=="client"){
         	allHide();
         	$("#voir-clients").show();
             getData("/listeClients",token,afficherClients,onError);
-
         }
         
         if($("#search-option-category").val()=="date"){
         	allHide();
         	$("#voir-devis-client").show();
         	getData("/listeDevisClient",token,afficherDevisClient,onError);
-        	afficherDevisClient();
         }
         
 		if($("#search-option-category").val()=="montant"){
 			allHide();
         	$("#voir-devis-client").show();
         	getData("/listeDevisClient",token,afficherDevisClient,onError);
-        	afficherDevisClient();
 		}
 		
 		if($("#search-option-category").val()=="type_amenagement"){
 			allHide();
         	$("#voir-devis-client").show();
         	getData("/listeDevisClient",token,afficherDevisClient,onError);
-        	afficherDevisClient();
 		}
+    });
+    
+    $("#reference-devis").click(e=>{
+    	console.log("Reference devis : " + $("#reference-devis").val());
+    	let data={};
+        data.idDevis=$("#reference-devis").val();
+        postData("/detailsDevis",data,token,afficherDetailDevis,onError);
     });
     
 });
@@ -248,18 +253,32 @@ function viewHomePage(){
         $("#voir-utilisateurs").hide();
         $("#voir-devis").hide();
         $("#voir-devis-client").hide();
-
         $("#voir-clients").hide();
+        //$("#mesDevis").hide();
+        //$("#search-homepage").hide();
 }
 
 //vue après authentification
 function viewAuthentification(){
-       
+		$("#search-homepage").show();
+		$("#search-devis-date-link").show();
+        $("#search-devis-montant-link").show();
+        $("#search-devis-amenagement-link").show();
+        $("#mesDevis").show();
+        
         if(user &&user.statut===OUVRIER){
                 console.log("passage");
                 $("#list-confirmation-link").show();
                 $("#introductionQuote").show(); 
-                
+                $("#search-client-link").show();
+                $("#search-utilisateur-link").show();
+                $("#search-amenagement-link").show();
+                $("#search-devis-link").show();
+                $("#search-devis-date-link").hide();
+                $("#search-devis-montant-link").hide();
+                $("#search-devis-amenagement-link").hide();
+                $("#mesDevis").hide();
+
         }
         $("#connexion").hide();
         $('#navigation_bar').hide();
@@ -269,7 +288,6 @@ function viewAuthentification(){
         $("#voir-utilisateurs").hide();
         $("#voir-devis").hide();
         $("#voir-devis-client").hide();
-
          
 }
 
@@ -392,50 +410,64 @@ function onError(response){
 
 
 function afficherUtilisateurs(response){
-	console.log("afficherUtilisateur"+response.usersData);
-	var data = response.data;
-	tempUsers.forEach(data => {
+	Object.keys(response.usersData).forEach(data => {
 	    var html = "<tr>";
 	    html+="<td>" 
-	    	+ data.pseudo + "</td>\n<td>" 
-	    	+ data.nom + "</td>\n<td>" 
-	    	+ data.prenom + "</td>\n<td>" 
-	    	+ data.ville + "</td>\n<td>" 
-	    	+ data.mail + "</td>\n<td>" 
-	    	+ data.statut + "</td></tr>";
+	    	+ response.usersData[data].pseudo + "</td>\n<td>" 
+	    	+ response.usersData[data].nom + "</td>\n<td>" 
+	    	+ response.usersData[data].prenom + "</td>\n<td>" 
+	    	+ response.usersData[data].ville + "</td>\n<td>" 
+	    	+ response.usersData[data].email + "</td>\n<td>" 
+	    	+ response.usersData[data].statut + "</td></tr>";
 	    $("#voir-utilisateurs tbody").append(html);
 	});
 }
 
 function afficherDevis(response){
-	tempDevis.forEach(data => {
+	Object.keys(response.devisData).forEach(data => {
 	    var html = "<tr>";
-	    html+="<td>"
-	    	+ data.idClient + "</td>\n<td>" 
-	    	+ data.date + "</td>\n<td>" 
-	    	+ data.montant + "</td>\n<td>" 
-	    	+ data.dureeTravaux + "</td>\n<td>" 
-	    	+ data.photoPreferee + "</td>\n<td>" 
-	    	+ data.etat + "</td></tr>";	    
+	    html+="<td><a href='#' id='reference-devis'>"
+	    	+ response.devisData[data].idDevis + "</a></td>\n<td>" 
+	    	+ response.devisData[data].idClient + "</td>\n<td>" 
+	    	+ response.devisData[data].date + "</td>\n<td>" 
+	    	+ response.devisData[data].montant + "</td>\n<td>" 
+	    	+ response.devisData[data].dureeTravaux + "</td>\n<td>" 
+	    	+ response.devisData[data].photoPreferee + "</td>\n<td>" 
+	    	+ response.devisData[data].etat + "</td></tr>";	    
 	    $("#voir-devis tbody").append(html);
 	});
 }
 
 function afficherDevisClient(response){
-	console.log(response.data);
-	var data = response.data;
-	tempDevis.forEach(data => {
+	Object.keys(response.devisData).forEach(data => {
 	    var html = "<tr>";
-	    html+="<td>"
-	    	+ data.date + "</td>\n<td>" 
-	    	+ data.montant + "</td>\n<td>" 
-	    	+ data.dureeTravaux + "</td>\n<td>" 
-	    	+ data.photoPreferee + "</td>\n<td>" 
-	    	+ data.etat + "</td></tr>";	    
+	    html+="<td><a href='#' id='reference-devis'>"
+	    	+ response.devisData[data].date + "</a></td>\n<td>" 
+	    	+ response.devisData[data].montant + "</td>\n<td>" 
+	    	+ response.devisData[data].dureeTravaux + "</td>\n<td>" 
+	    	+ response.devisData[data].photoPreferee + "</td>\n<td>" 
+	    	+ response.devisData[data].etat + "</td></tr>";	    
 	    $("#voir-devis-client tbody").append(html);
 	});
 }
 
 function afficherClients(response){
-	
+	Object.keys(response.clientsData).forEach(data => {
+		console.log(response.clientsData[data].prenom);
+	    var html = "<tr>";
+	    html+="<td>"
+	    	+ response.clientsData[data].prenom + "</td>\n<td>" 
+	    	+ response.clientsData[data].nom + "</td>\n<td>" 
+	    	+ response.clientsData[data].codePostal + "</td>\n<td>" 
+	    	+ response.clientsData[data].ville + "</td>\n<td>"
+	    	+ response.clientsData[data].email + "</td>\n<td>"
+	    	+ response.clientsData[data].telephone+ "</td></tr>";	    
+	    $("#voir-clients tbody").append(html);
+	});
+}
+
+function afficherDetailDevis(response){
+	allHide();
+	$("#voir-details-devis").show();
+	console.log(JSON.stringify(response.detailsDevisData));
 }
