@@ -93,11 +93,15 @@ $(document).ready(e=>{
         
     });
     $("#introductionQuote").click(e=>{
+        var response=[{
+                "a":"a"},{
+                "a":"b"
+        }];
         viewIntroductionQuote();
+        //getData("/introduireServlet",token,onGetAmenagements,onError);
+        onGetAmenagements(response);
     });
-    $("#bnt-Register-confirmation").click(e=>{
-        alert();
-    });
+
     
 
     $("#bnt-IntroductionQuote").click(e=>{
@@ -128,7 +132,8 @@ $(document).ready(e=>{
                 "dataQuote":dataQuote
         }
         console.log(data.dataQuote.image);
-        postData("/introduireServlet",data,token,onPostIntroductionQuote,onError);
+        console.log(data.dataQuote.type);
+        //postData("/introduireServlet",data,token,onPostIntroductionQuote,onError);
         
     });
 
@@ -247,9 +252,9 @@ function viewHomePage(){
         $("#wrong_passwd").hide();
         $("#carousel").show();
         $("#Register-confirmation").hide();
-        $("#introductionQuote").hide();
-        $("#introductionQuoteForm").hide();
-        $("#list-confirmation-link").hide(); 
+        //$("#introductionQuote").hide();
+        //$("#introductionQuoteForm").hide();
+        //$("#list-confirmation-link").hide(); 
         $("#voir-utilisateurs").hide();
         $("#voir-devis").hide();
         $("#voir-devis-client").hide();
@@ -318,6 +323,19 @@ function onPostLogin(response){
                 $("#wrong_passwd").show();
         }
 }
+
+function onGetAmenagements(response){
+     
+        response.forEach(element => {//changer les donnees
+                var option=document.createElement("option");
+                option.value=element["a"];
+                option.innerText=element["a"];
+
+                $("#Quote-Form-layoutType").append(option);
+                
+        });
+}
+
 //affiche les demandes d'inscription dans un tableau
 function onGetRegisterConfirmation(response){
         
