@@ -34,7 +34,7 @@ public class ConfirmationRegisterServlet extends HttpServlet {
     try {
       Genson genson = new Genson();
       Map<String, Object> data = genson.deserialize(req.getReader(), Map.class);
-      String token = data.get("token").toString();
+      String token = req.getHeader("Authorization");
       String usersJson = null;
       if (token != null) {
         // usersJson=genson.serialize(.....);
