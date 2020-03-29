@@ -33,15 +33,7 @@ public class IntroduireDevisServlet extends HttpServlet {
 
         // String typeAmenagements = genson.serialize("");// replacer "" par la liste d'aménagement
 
-        String json =
-            "{\"success\":\"true\", \"token\":\"" + token + "\", \"typeAmenagements\":" + "" + "}";
-        System.out.println("JSON generated :" + json);
-        resp.setContentType("application/json");
-
-        resp.setCharacterEncoding("UTF-8");
-
-        resp.setStatus(HttpServletResponse.SC_OK);;
-        resp.getWriter().write(json);
+        System.out.println("test");
       }
 
 
