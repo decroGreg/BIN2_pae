@@ -41,7 +41,7 @@ public class LoginServlet extends HttpServlet {
     String token = data.get("token").toString();
     Algorithm algorithm = Algorithm.HMAC256(JWTSECRET);
     DecodedJWT decode = JWT.decode(token);
-    int id = (int) decode.getClaim("claim").asMap().get("id");
+    int id = (int) decode.getClaim("claims").asMap().get("id");
     /*
      * try {
      * 

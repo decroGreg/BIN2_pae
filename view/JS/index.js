@@ -13,12 +13,14 @@ function encodeImagetoBase64(element) {
         var reader = new FileReader();
 
         reader.onloadend = function() {
-
+                
           $("img").attr("src",reader.result);
-
+          
         }
 
         reader.readAsDataURL(file);
+
+        
 }
 
 
@@ -90,9 +92,41 @@ $(document).ready(e=>{
     $("#introductionQuote").click(e=>{
         viewIntroductionQuote();
     });
-    $("#bnt-devis").click(e=>{
-        console.log($("#inputImage"));
-        encodeImagetoBase64($("#inputImage"));
+    $("#bnt-Register-confirmation").click(e=>{
+        alert();
+    });
+    
+
+    $("#bnt-IntroductionQuote").click(e=>{
+        encodeImagetoBase64($("#Quote-Form-image"));
+        var dataUser={
+                firstname:$("#Quote-Form-firstName").val(),
+                lastname:$("#Quote-Form-name").val(),
+                street:$("#Quote-Form-street").val(),
+                number:$("#Quote-Form-number").val(),
+                boite:$("#Quote-Form-boite").val(),
+                postalCode:$("#Quote-Form-postalCode").val(),
+                city:$("#Quote-Form-city").val(),
+                mail:$("#Quote-Form-email").val(),
+                phone:$("#Quote-Form-phoneNumber").val()
+        };
+        
+        var dataQuote={
+                client:$("#Quote-Form-client").val(),
+                date:$("#Quote-Form-quoteDate").val(),
+                price:$("#Quote-Form-price").val(),
+                duration:$("#Quote-Form-duration").val(),
+                image:$("#imageQuote").attr("src"),
+                type:$("#Quote-Form-layoutType").val()
+
+        };
+        var data={
+                "dataUser":dataUser,
+                "dataQuote":dataQuote
+        }
+        console.log(data.dataQuote.image);
+        postData("/introduireServlet",data,token,onPostIntroductionQuote,onError);
+        
     });
 
     $(".Register-confirmation-link").click(e=>{
@@ -101,17 +135,7 @@ $(document).ready(e=>{
             //getData("/register_confirmation",token,onGetRegisterConfirmation,onError);
             onGetRegisterConfirmation();
     });
-    $("#btn-status").click(e=>{
-            alert();
-            console.log(e.innerHTML);
-            $("#btn-status").textSet(e.innerHTML);
-    });
-    $("#bnt-Register-confirmation").click(e=>{
-        var data={
-                
-        }
-        //postData("/register_confirmation",data,token,onError);
-    });
+   
 
     $("#btn-deconnexion").click(e=>{
         e.preventDefault()
@@ -173,6 +197,9 @@ $(document).ready(e=>{
     });
     
 });
+function onPostIntroductionQuote(response){
+
+}
 
 function allHide(){
         $("#login").hide();
@@ -209,6 +236,7 @@ function viewLogin(){
 }
 //Home page non-connecté
 function viewHomePage(){
+        
         $("#login-form").hide();
         $("#btn-deconnexion").hide();
         $("#wrong_passwd").hide();
@@ -277,36 +305,72 @@ function onGetRegisterConfirmation(response){
         
         
         tempoUsersConf.forEach(element => {
-                console.log(element.nom);
                 var tr=document.createElement("tr");
                 var prenom=document.createElement("td");
                 prenom.innerHTML=element.prenom;
+                prenom.val=element.prenom;
+                prenom.setAttribute("valueof","firstname");
                 var nom=document.createElement("td");
+                nom.val=element.nom;
                 nom.innerHTML=element.nom;
+                nom.setAttribute("valueof","lastname");
                 var btnStatus=document.createElement("td");
+                btnStatus.setAttribute("valueof","status");
                 var btnConfirmation=document.createElement("td");
                 tr.appendChild(prenom);
                 tr.appendChild(nom);
                 //creation du boutton status
-                btnStatus.appendChild(creatHTMLFromString('<td><div class="btn-group">'
+                
+                var btnStatusEvent=creatHTMLFromString('<td><div class="btn-group">'
                 +'<button type="button" id="btn-status" class="btn btn-danger dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">'
                 +'status'
                 +'</button>'
                 +'<div class="dropdown-menu">'
-                +'<a class="dropdown-item" onClick="onClickStatusItem(this)" href="#">Client</a>'
-                +'<a class="dropdown-item" onClick="onClickStatusItem(this)" href="#">Ouvrier</a>'
+                +'<a class="dropdown-item" href="#">Client</a>'
+                +'<a class="dropdown-item" href="#">Ouvrier</a>'
                 +'</div>'
-                +'</div></td>'));
-                tr.appendChild(btnStatus);
+                +'</div></td>');
+                btnStatus.appendChild(btnStatusEvent);
+                btnStatusEvent.addEventListener("click",onClickStatusItem);
                
-                btnConfirmation.appendChild(creatHTMLFromString('<td><button id="bnt-Register-confirmation" class="btn btn-info"> Confirmer</button></td>'));
+                tr.appendChild(btnStatus);
+
+                //creation du boutton confirmer
+                var btnConfirmationEvent=creatHTMLFromString('<td><button id="bnt-Register-confirmation" class="btn btn-info"> Confirmer</button></td>');
+                btnConfirmation.appendChild(btnConfirmationEvent);
+                btnConfirmationEvent.addEventListener("click",onClickRegisterConfirmation);
                 tr.appendChild(btnConfirmation);
                 $("#Register-confirmation-body").append(tr);
         });
 }
-function onClickStatusItem(element){
-        alert(element.innerHTML);
+function onClickRegisterConfirmation(element){
+        var btn=element.target;
+        var data={};
+        console.log(btn.parentNode.parentNode)
+        btn.parentNode.parentNode.childNodes.forEach(e => {
+                data[e.getAttribute("valueof")]=e.val;
+                
+                
+        });
+        console.log(data.status);
+        
+
+        postData("/confirmation",data,token,onPostRegisterConfirmation,onError);
 }
+function onPostRegisterConfirmation(response){
+        alert("passage");
+}
+
+function onClickStatusItem(element){
+        
+        var btn=element.target;
+        if(btn.tagName=="A"){//vérifie si c'est un element <a>
+                btn.parentNode.parentNode.parentNode.val=btn.innerHTML
+                btn.parentNode.parentNode.firstChild.innerHTML=btn.innerHTML;
+
+        }
+}
+
 //methode trouver sur: https://stackoverflow.com/questions/494143/creating-a-new-dom-element-from-an-html-string-using-built-in-dom-methods-or-pro
 function creatHTMLFromString(htmlString){
         var div = document.createElement('div');
