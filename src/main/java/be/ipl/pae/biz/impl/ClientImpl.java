@@ -157,4 +157,8 @@ public class ClientImpl implements Client, ClientDto {
   public int getIdClient() {
     return idClient;
   }
+
+  public void setIdClient(int idClient) {
+    this.idClient = idClient;
+  }
 }

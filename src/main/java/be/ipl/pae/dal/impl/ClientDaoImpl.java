@@ -38,7 +38,7 @@ public class ClientDaoImpl implements ClientDao {
           // devis.setIdDevis(rs.getInt(1));
           devis.setIdClient(rs.getInt(2));
           devis.setDate(rs.getTimestamp(3));
-          devis.setMontant(rs.getDouble(4));
+          // devis.setMontant(rs.getDouble(4)); montant doit etre float
           devis.setIdPhotoPreferee(rs.getInt(5));
           devis.setDureeTravaux(rs.getString(6));
           listeDevis.add(devis);
