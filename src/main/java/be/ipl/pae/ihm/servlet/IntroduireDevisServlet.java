@@ -31,8 +31,6 @@ public class IntroduireDevisServlet extends HttpServlet {
       String token = req.getHeader("Authorization");
       if (token != null) {
 
-        // String typeAmenagements = genson.serialize("");// replacer "" par la liste d'aménagement
-
         System.out.println("test");
       }
 
