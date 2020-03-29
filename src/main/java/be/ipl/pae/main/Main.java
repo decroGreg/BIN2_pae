@@ -48,7 +48,7 @@ public class Main {
     UserDto userDto = factory.getUserDto();
     ClientDto clientDto = factory.getClientDto();
     ClientUcc clientUcc = new ClientUccImpl(factory, clientDao, daoServices);
-    DevisUcc devisUcc = new DevisUccImpl(factory, clientDao, daoServices);
+    DevisUcc devisUcc = new DevisUccImpl(factory, clientDao, userDao, daoServices);
     DevisDto devisDto = factory.getDevisDto();
 
     Server server = new Server(8080);
@@ -84,7 +84,7 @@ public class Main {
 
 
 
-    HttpServlet introDevisServlet = new IntroduireDevisServlet(userUcc, clientDto, devisDto);
+    HttpServlet introDevisServlet = new IntroduireDevisServlet(devisUcc, clientDto, devisDto);
     context.addServlet(new ServletHolder(introDevisServlet), "/introduireServlet");
 
     HttpServlet confirmationServlet = new ConfirmationRegisterServlet(userUcc, userDto, clientDto);

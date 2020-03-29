@@ -1,7 +1,6 @@
 package be.ipl.pae.biz.interfaces;
 
 import be.ipl.pae.biz.dto.ClientDto;
-import be.ipl.pae.biz.dto.DevisDto;
 import be.ipl.pae.biz.dto.UserDto;
 
 import java.util.List;
@@ -17,5 +16,4 @@ public interface UserUcc {
 
   List<UserDto> getUtilisateurs();
 
-  void introduireDevis(ClientDto client, DevisDto devis);
 }

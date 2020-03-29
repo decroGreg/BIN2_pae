@@ -2,7 +2,7 @@ package be.ipl.pae.ihm.servlet;
 
 import be.ipl.pae.biz.dto.ClientDto;
 import be.ipl.pae.biz.dto.DevisDto;
-import be.ipl.pae.biz.interfaces.UserUcc;
+import be.ipl.pae.biz.interfaces.DevisUcc;
 
 import com.owlike.genson.Genson;
 
@@ -15,13 +15,13 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 public class IntroduireDevisServlet extends HttpServlet {
-  private UserUcc userUcc;
+  private DevisUcc devisUcc;
   private ClientDto clientDto;
   private DevisDto devisDto;
 
-  public IntroduireDevisServlet(UserUcc userUcc, ClientDto clientDto, DevisDto devisDto) {
+  public IntroduireDevisServlet(DevisUcc devisUcc, ClientDto clientDto, DevisDto devisDto) {
     super();
-    this.userUcc = userUcc;
+    this.devisUcc = devisUcc;
     this.clientDto = clientDto;
     this.devisDto = devisDto;
   }
@@ -69,7 +69,7 @@ public class IntroduireDevisServlet extends HttpServlet {
       try {
         // faire de set
 
-        userUcc.introduireDevis(clientDto, devisDto);
+        devisUcc.introduireDevis(clientDto, devisDto);
 
 
       } catch (Exception e) {

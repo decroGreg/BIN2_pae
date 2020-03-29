@@ -6,6 +6,7 @@ import be.ipl.pae.biz.interfaces.DevisUcc;
 import be.ipl.pae.biz.interfaces.Factory;
 import be.ipl.pae.dal.interfaces.ClientDao;
 import be.ipl.pae.dal.interfaces.DaoServicesUCC;
+import be.ipl.pae.dal.interfaces.UserDao;
 import be.ipl.pae.exceptions.DalException;
 
 import java.util.Collections;
@@ -14,6 +15,7 @@ import java.util.List;
 public class DevisUccImpl implements DevisUcc {
 
   private ClientDao clientDao;
+  private UserDao userDao;
   private Factory userFactory;
   private DaoServicesUCC daoServicesUcc;
 
@@ -24,10 +26,12 @@ public class DevisUccImpl implements DevisUcc {
    * @param clientDao le clientDao
    * @param userFactory le userFactory
    */
-  public DevisUccImpl(Factory userFactory, ClientDao clientDao, DaoServicesUCC daoServicesUcc) {
+  public DevisUccImpl(Factory userFactory, ClientDao clientDao, UserDao userDao,
+      DaoServicesUCC daoServicesUcc) {
     super();
     this.clientDao = clientDao;
     this.userFactory = userFactory;
+    this.userDao = userDao;
     this.daoServicesUcc = daoServicesUcc;
   }
 
@@ -59,5 +63,17 @@ public class DevisUccImpl implements DevisUcc {
     }
     daoServicesUcc.commit();
     return Collections.unmodifiableList(devis);
+  }
+
+  public void introduireDevis(ClientDto client, DevisDto devis) {
+    try {
+      daoServicesUcc.demarrerTransaction();
+      devis.setIdClient(client.getIdClient());
+      userDao.createDevis(client.getIdClient(), devis);
+    } catch (DalException de) {
+      daoServicesUcc.rollback();
+      throw new IllegalArgumentException();
+    }
+    daoServicesUcc.commit();
   }
 }
