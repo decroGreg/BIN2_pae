@@ -1,3 +1,4 @@
+
 package be.ipl.pae.exceptions;
 
 public class DalException extends RuntimeException {

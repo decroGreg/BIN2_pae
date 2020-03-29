@@ -38,7 +38,7 @@ public class LoginServlet extends HttpServlet {
 
     Genson genson = new Genson();
     Map<String, Object> data = genson.deserialize(req.getReader(), Map.class);
-    String token = data.get("token").toString();
+    String token = req.getHeader("Authorization");
     Algorithm algorithm = Algorithm.HMAC256(JWTSECRET);
     DecodedJWT decode = JWT.decode(token);
     int id = (int) decode.getClaim("claims").asMap().get("id");
