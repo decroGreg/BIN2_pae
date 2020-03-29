@@ -18,10 +18,7 @@ function encodeImagetoBase64(element) {
           $("img").attr("src",reader.result);
           
         }
-
-        reader.readAsDataURL(file);
-
-        
+        reader.readAsDataURL(file);        
 }
 
 
@@ -470,9 +467,9 @@ function afficherClients(response){
 
 function afficherDetailsDevis(response){
 	console.log(JSON.stringify(response.devisData));
-	allHide();
+	/*allHide();
 	$("#voir-devis").hide();
-    $("#voir-devis-client").hide();
+    $("#voir-devis-client").hide();*/
 	$("#voir-details-devis").show();
 	$("#voir-details-devis #dateDevis").attr("value", response.devisData.date);
 	$("#voir-details-devis #montantDevis").attr("value", response.devisData.montant);
