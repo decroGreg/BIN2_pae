@@ -4,7 +4,7 @@ package be.ipl.pae.dal.impl;
 import be.ipl.pae.biz.config.Config;
 import be.ipl.pae.dal.interfaces.DaoServices;
 import be.ipl.pae.dal.interfaces.DaoServicesUCC;
-import be.ipl.pae.exceptions.DALException;
+import be.ipl.pae.exceptions.DalException;
 
 import org.apache.commons.dbcp2.BasicDataSource;
 
@@ -54,7 +54,7 @@ public class DaoServicesImpl implements DaoServices, DaoServicesUCC {
   @Override
   public void demarrerTransaction() {
     if (connections.get() != null) {
-      throw new DALException("Transaction déja ouverte");
+      throw new DalException("Transaction déja ouverte");
     }
     try {
       Connection conn = this.ds.getConnection();
@@ -69,7 +69,7 @@ public class DaoServicesImpl implements DaoServices, DaoServicesUCC {
   public void commit() {
     try (Connection conn = connections.get()) {
       if (conn == null) {
-        throw new DALException("Ne peut pas commit car il n'y a pas de transaction");
+        throw new DalException("Ne peut pas commit car il n'y a pas de transaction");
       }
       conn.commit();
       conn.setAutoCommit(true);
@@ -84,12 +84,12 @@ public class DaoServicesImpl implements DaoServices, DaoServicesUCC {
   public void rollback() {
     try (Connection conn = connections.get()) {
       if (conn == null) {
-        throw new DALException("Ne peut pas rollback car il n'y a pas de transaction");
+        throw new DalException("Ne peut pas rollback car il n'y a pas de transaction");
       }
       conn.rollback();
       conn.setAutoCommit(true);
     } catch (SQLException e) {
-      throw new DALException("Erreur dans le rollback");
+      throw new DalException("Erreur dans le rollback");
     } finally {
       connections.remove();
     }
@@ -100,7 +100,7 @@ public class DaoServicesImpl implements DaoServices, DaoServicesUCC {
     try {
       return connections.get().prepareStatement(requeteSQL);
     } catch (SQLException e) {
-      throw new DALException("Erreur dans le prepared statement");
+      throw new DalException("Erreur dans le prepared statement");
     }
   }
 }

@@ -1,17 +1,18 @@
 package be.ipl.pae.dal.impl;
 
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.List;
 import be.ipl.pae.biz.dto.ClientDto;
 import be.ipl.pae.biz.dto.DevisDto;
 import be.ipl.pae.biz.factory.FactoryImpl;
 import be.ipl.pae.biz.interfaces.Factory;
 import be.ipl.pae.dal.interfaces.ClientDao;
 import be.ipl.pae.dal.interfaces.DaoServices;
-import be.ipl.pae.exceptions.DALException;
+import be.ipl.pae.exceptions.DalException;
+
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class ClientDaoImpl implements ClientDao {
 
@@ -49,7 +50,36 @@ public class ClientDaoImpl implements ClientDao {
         return listeDevis;
       }
     } catch (SQLException e) {
-      throw new DALException(e.getMessage());
+      throw new DalException(e.getMessage());
+    }
+  }
+
+  public List<ClientDto> voirTousClient() {
+    List<ClientDto> listeClient = new ArrayList<ClientDto>();
+    String requeteSQL = "SELECT * FROM init.clients";
+    ps = services.getPreparedSatement(requeteSQL);
+    try {
+      try (ResultSet rs = ps.executeQuery()) {
+        while (rs.next()) {
+          ClientDto client = factory.getClientDto();
+          client.setIdClient(rs.getInt(1));
+          client.setNom(rs.getString(2));
+          client.setPrenom(rs.getString(3));
+          client.setRue(rs.getString(4));
+          // client.setNumero(rs.getInt(5)); Conflit , numero est String dans le Bizz mais Int dans
+          // la Db
+          client.setBoite(rs.getString(6));
+          // client.setCodePostal(rs.getInt(7)); Pareil que Numero
+          client.setVille(rs.getString(8));
+          client.setEmail(rs.getString(9));
+          client.setTelephone(rs.getString(10));
+          client.setIdUtilisateur(rs.getInt(11));
+          listeClient.add(client);
+        }
+        return listeClient;
+      }
+    } catch (SQLException e) {
+      throw new DalException(e.getMessage());
     }
   }
 }

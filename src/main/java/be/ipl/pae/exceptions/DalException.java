@@ -1,15 +1,15 @@
 package be.ipl.pae.exceptions;
 
-public class DALException extends RuntimeException {
+public class DalException extends RuntimeException {
 
   private String message;
 
-  public DALException(String message) {
+  public DalException(String message) {
     super();
     this.message = message;
   }
 
-  public DALException() {
+  public DalException() {
     super();
   }
 
