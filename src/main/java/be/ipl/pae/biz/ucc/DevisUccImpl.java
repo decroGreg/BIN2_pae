@@ -6,6 +6,7 @@ import be.ipl.pae.biz.interfaces.DevisUcc;
 import be.ipl.pae.biz.interfaces.Factory;
 import be.ipl.pae.dal.interfaces.ClientDao;
 import be.ipl.pae.dal.interfaces.DaoServicesUCC;
+import be.ipl.pae.exceptions.DalException;
 
 import java.util.Collections;
 import java.util.List;
@@ -37,9 +38,8 @@ public class DevisUccImpl implements DevisUcc {
     try {
       daoServicesUcc.demarrerTransaction();
       devis = clientDao.getDevisClient(client);
-    } catch (Exception ex) {
+    } catch (DalException de) {
       daoServicesUcc.rollback();
-      ex.printStackTrace();
       throw new IllegalArgumentException();
     }
     daoServicesUcc.commit();
@@ -53,9 +53,8 @@ public class DevisUccImpl implements DevisUcc {
     try {
       daoServicesUcc.demarrerTransaction();
       // devis = clientDao.getDevis();
-    } catch (Exception ex) {
+    } catch (DalException de) {
       daoServicesUcc.rollback();
-      ex.printStackTrace();
       throw new IllegalArgumentException();
     }
     daoServicesUcc.commit();

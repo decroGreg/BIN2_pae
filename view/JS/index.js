@@ -165,9 +165,9 @@ $(document).ready(e=>{
     $("#btn-search-category").click(e=>{
     	e.preventDefault();
         if($("#search-option-category").val()=="utilisateur"){
-                allHide();
-                $("#voir-utilisateurs").show();
-                getData("/listeUsers",token,afficherUtilisateurs,onError);
+            allHide();
+            $("#voir-utilisateurs").show();
+            getData("/listeUsers",token,afficherUtilisateurs,onError);
         }
         if($("#search-option-category").val()=="devis"){
         	allHide();
@@ -198,14 +198,6 @@ $(document).ready(e=>{
         	getData("/listeDevisClient",token,afficherDevisClient,onError);
 		}
     });
-    
-    $("#reference-devis").click(e=>{
-    	console.log("Reference devis : " + $("#reference-devis").val());
-    	let data={};
-        data.idDevis=$("#reference-devis").val();
-        postData("/detailsDevis",data,token,afficherDetailDevis,onError);
-    });
-    
 });
 function onPostIntroductionQuote(response){
 
@@ -259,6 +251,7 @@ function viewHomePage(){
         $("#voir-devis").hide();
         $("#voir-devis-client").hide();
         $("#voir-clients").hide();
+        $("#voir-details-devis").hide();
         //$("#mesDevis").hide();
         //$("#search-homepage").hide();
 }
@@ -293,6 +286,7 @@ function viewAuthentification(){
         $("#voir-utilisateurs").hide();
         $("#voir-devis").hide();
         $("#voir-devis-client").hide();
+        $("#voir-details-devis").hide();
          
 }
 
@@ -422,7 +416,7 @@ function onPostRegister(response){
 }
 
 function onError(response){
-	console.log("Erreur dans getData");
+	console.log("Erreur");
 }
 /////////////////////////////////////////////////////////////////////////////////////////////test////////////////////////
 
@@ -444,7 +438,7 @@ function afficherUtilisateurs(response){
 function afficherDevis(response){
 	Object.keys(response.devisData).forEach(data => {
 	    var html = "<tr>";
-	    html+="<td><a href='#' id='reference-devis'>"
+	    html+="<td><a href=\"#\" id=\"reference-devis\">"
 	    	+ response.devisData[data].idDevis + "</a></td>\n<td>" 
 	    	+ response.devisData[data].idClient + "</td>\n<td>" 
 	    	+ response.devisData[data].date + "</td>\n<td>" 
@@ -454,6 +448,14 @@ function afficherDevis(response){
 	    	+ response.devisData[data].etat + "</td></tr>";	    
 	    $("#voir-devis tbody").append(html);
 	});
+	$("#reference-devis").click(e=>{
+    	let data={};
+        data.idDevis=$("#reference-devis").text();
+        console.log("Reference devis : " + data.idDevis);
+        postData("/detailsDevis",data,token, afficherDetailsDevis, onError);
+        //console.log("apres postData");
+        //getData("/detailsDevis", token, afficherDetailDevis, onError);
+    });
 }
 
 function afficherDevisClient(response){
@@ -484,8 +486,96 @@ function afficherClients(response){
 	});
 }
 
-function afficherDetailDevis(response){
+function afficherDetailsDevis(response){
+	console.log(JSON.stringify(response.devisData));
 	allHide();
+	$("#voir-devis").hide();
+    $("#voir-devis-client").hide();
 	$("#voir-details-devis").show();
-	console.log(JSON.stringify(response.detailsDevisData));
+	$("#voir-details-devis #dateDevis").attr("value", response.devisData.date);
+	$("#voir-details-devis #montantDevis").attr("value", response.devisData.montant);
+	$("#voir-details-devis #etatDevis").attr("value", response.devisData.etat);
+	//$("#voir-details-devis #typeAmenagementDevis").attr("value", response.devisData.typeAmenagement);
+	$("#voir-details-devis #dureeTravauxDevis").attr("value", response.devisData.dureeTravaux);
+	$("#voir-details-devis #btn-devis").attr("value", changerValeurBouton(response.devisData.etat));
+	$("#voir-details-devis #btn-devis").click(e=>{
+		changerEtat(response.devisData.etat);	
+	});
+}
+
+function changerValeurBouton(etat){
+	var valeurBouton;
+	switch (etat) {
+	  case 'I':
+		  valeurBouton = "Confirmer commande";
+		  break;
+	  case 'DDI':
+		  valeurBouton = "Confirmer date";
+		  break;
+	  case 'ANP':
+		  valeurBouton = "Repousser date début";
+		  break;
+	  case 'DC':
+		  valeurBouton = "";
+		  break;
+	  case 'A':
+		  valeurBouton = "";
+		  break;
+	  case 'EC':
+		  valeurBouton = "Envoyer facture de milieu de chantier";
+		  break;
+	  case 'FM':
+		  valeurBouton = "";
+		  break;
+	  case 'T':
+		  valeurBouton = "Envoyer facture finale";
+		  break;
+	  case 'FF':
+		  valeurBouton = "Rendre visible";
+		  break;
+	  default:
+		  break;
+	}
+	return valeurBouton;
+}
+
+function changerEtat(etat){
+	var nouvelEtat;
+	switch (etat) {
+	  case 'I':
+		  nouvelEtat = "DDI";
+		  break;
+	  case 'DDI':
+		  nouvelEtat = "ANP";
+		  break;
+	  case 'ANP':
+		  nouvelEtat = "DC";
+		  break;
+	  case 'DC':
+		  nouvelEtat = "A";
+		  break;
+	  case 'A':
+		  nouvelEtat = "EC";
+		  break;
+	  case 'EC':
+		  nouvelEtat = "FM";
+		  break;
+	  case 'FM':
+		  nouvelEtat = "T";
+		  break;
+	  case 'T':
+		  nouvelEtat = "FF";
+		  break;
+	  case 'FF':
+		  nouvelEtat = "V";
+		  break;
+	  default:
+		  break;
+	}
+	let data={};
+	data.etatDevis = nouvelEtat;
+	console.log("Nouvel etat : " + nouvelEtat);
+	console.log(data.etatDevis);
+	putData("/detailsDevis", token, data, afficherDetailsDevis, onError);
+
 }
