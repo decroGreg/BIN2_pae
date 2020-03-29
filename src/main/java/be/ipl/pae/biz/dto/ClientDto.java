@@ -46,5 +46,5 @@ public interface ClientDto {
 
   int getIdClient();
 
-  public void setIdClient(int idClient);
+  void setIdClient(int idClient);
 }

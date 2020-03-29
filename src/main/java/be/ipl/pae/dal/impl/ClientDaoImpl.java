@@ -30,8 +30,8 @@ public class ClientDaoImpl implements ClientDao {
   public List<DevisDto> getDevisClient(ClientDto client) {
     List<DevisDto> listeDevis = new ArrayList<DevisDto>();
     int idClient = client.getIdClient();
-    String requeteSQL = "SELECT * FROM init.devis WHERE id_client = ?";
-    ps = services.getPreparedSatement(requeteSQL);
+    String requeteSql = "SELECT * FROM init.devis WHERE id_client = ?";
+    ps = services.getPreparedSatement(requeteSql);
     try {
       ps.setInt(1, idClient);
       try (ResultSet rs = ps.executeQuery()) {
@@ -48,15 +48,15 @@ public class ClientDaoImpl implements ClientDao {
         }
         return listeDevis;
       }
-    } catch (SQLException e) {
-      throw new DalException(e.getMessage());
+    } catch (SQLException ex) {
+      throw new DalException(ex.getMessage());
     }
   }
 
   public List<ClientDto> voirTousClient() {
     List<ClientDto> listeClient = new ArrayList<ClientDto>();
-    String requeteSQL = "SELECT * FROM init.clients";
-    ps = services.getPreparedSatement(requeteSQL);
+    String requeteSql = "SELECT * FROM init.clients";
+    ps = services.getPreparedSatement(requeteSql);
     try {
       try (ResultSet rs = ps.executeQuery()) {
         while (rs.next()) {
@@ -76,8 +76,8 @@ public class ClientDaoImpl implements ClientDao {
         }
         return listeClient;
       }
-    } catch (SQLException e) {
-      throw new DalException(e.getMessage());
+    } catch (SQLException ex) {
+      throw new DalException(ex.getMessage());
     }
   }
 }

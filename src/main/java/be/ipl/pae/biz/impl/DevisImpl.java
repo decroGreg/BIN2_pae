@@ -12,7 +12,6 @@ public class DevisImpl implements Devis {
   public enum Etat {
     I, DDI, ANP, DC, A, EC, FM, T, FF, V;
 
-    @Override
     public String toString() {
       return super.toString();
     }

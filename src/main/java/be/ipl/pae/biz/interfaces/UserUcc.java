@@ -17,5 +17,5 @@ public interface UserUcc {
 
   List<UserDto> getUtilisateurs();
 
-  public void introduireDevis(ClientDto client, DevisDto devis);
+  void introduireDevis(ClientDto client, DevisDto devis);
 }

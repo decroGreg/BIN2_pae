@@ -24,7 +24,7 @@ public class UserDaoImpl implements UserDao {
   private String nom;
   private String prenom;
   private String ville;
-  private String eMail;
+  private String mail;
   private String motDePasse;
   private Factory factory;
   private int id;
@@ -37,8 +37,8 @@ public class UserDaoImpl implements UserDao {
   @Override
   public UserDto getUserConnexion(String email) {
     UserDto userD = factory.getUserDto();
-    String requeteSQL = "SELECT * FROM init.utilisateurs WHERE email = ?";
-    ps = services.getPreparedSatement(requeteSQL);
+    String requeteSql = "SELECT * FROM init.utilisateurs WHERE email = ?";
+    ps = services.getPreparedSatement(requeteSql);
     try {
       ps.setString(1, email);
       try (ResultSet rs = ps.executeQuery()) {
@@ -49,7 +49,7 @@ public class UserDaoImpl implements UserDao {
           nom = rs.getString(3);
           prenom = rs.getString(4);
           ville = rs.getString(5);
-          eMail = rs.getString(6);
+          mail = rs.getString(6);
           motDePasse = rs.getString(8);
         }
         userD.setPseudo(pseudo);
@@ -57,14 +57,14 @@ public class UserDaoImpl implements UserDao {
         userD.setNom(nom);
         userD.setPrenom(prenom);
         userD.setVille(ville);
-        userD.setEmail(eMail);
+        userD.setEmail(mail);
         userD.setMotDePasse(motDePasse);
         userD.setIdUser(id);
-      } catch (SQLException e) {
-        e.printStackTrace();
+      } catch (SQLException ex) {
+        ex.printStackTrace();
       }
-    } catch (SQLException e) {
-      e.printStackTrace();
+    } catch (SQLException ex) {
+      ex.printStackTrace();
       System.exit(1);
     }
     if (userD.getEmail() == null) {
@@ -74,8 +74,8 @@ public class UserDaoImpl implements UserDao {
   }
 
   public boolean createInscription(UserDto user) {
-    String requestSQL = "INSERT INTO init.utilisateurs VALUES (DEFAULT, ?, ?, ?, ?, ?, ?, ?, ?)";
-    ps = services.getPreparedSatement(requestSQL);
+    String requestSql = "INSERT INTO init.utilisateurs VALUES (DEFAULT, ?, ?, ?, ?, ?, ?, ?, ?)";
+    ps = services.getPreparedSatement(requestSql);
     try {
       ps.setString(1, user.getPseudo());
       ps.setString(2, user.getNom());
@@ -86,8 +86,8 @@ public class UserDaoImpl implements UserDao {
       ps.setString(7, user.getMotDePasse());
       ps.setString(8, null);
       ps.execute();
-    } catch (SQLException e) {
-      e.printStackTrace();
+    } catch (SQLException ex) {
+      ex.printStackTrace();
       System.exit(500);
       return false;
     }
@@ -95,8 +95,8 @@ public class UserDaoImpl implements UserDao {
   }
 
   public boolean createDevis(int idClient, DevisDto devis) {
-    String requestSQL = "INSERT INTO init.devis VALUES (DEFAULT,?,?,?,?,?,?)";
-    ps = services.getPreparedSatement(requestSQL);
+    String requestSql = "INSERT INTO init.devis VALUES (DEFAULT,?,?,?,?,?,?)";
+    ps = services.getPreparedSatement(requestSql);
     try {
       ps.setInt(1, idClient);
       ps.setTimestamp(2, devis.getDate());
@@ -105,16 +105,16 @@ public class UserDaoImpl implements UserDao {
       ps.setString(5, devis.getDureeTravaux());
       ps.setString(6, null);
       ps.execute();
-    } catch (SQLException e) {
-      throw new DalException("Erreur lors de l'ajout du devis : " + e.getMessage());
+    } catch (SQLException ex) {
+      throw new DalException("Erreur lors de l'ajout du devis : " + ex.getMessage());
     }
     return true;
   }
 
   public List<DevisDto> voirTousDevis() {
     List<DevisDto> listeDevis = new ArrayList<DevisDto>();
-    String requeteSQL = "SELECT * FROM init.devis";
-    ps = services.getPreparedSatement(requeteSQL);
+    String requeteSql = "SELECT * FROM init.devis";
+    ps = services.getPreparedSatement(requeteSql);
     try {
       try (ResultSet rs = ps.executeQuery()) {
         while (rs.next()) {
@@ -125,21 +125,20 @@ public class UserDaoImpl implements UserDao {
           devis.setMontant(rs.getDouble(4));
           devis.setIdPhotoPreferee(rs.getInt(5));
           devis.setDureeTravaux(rs.getString(6));
-          String c = rs.getString(7);
-          devis.setEtat(Etat.valueOf(c));
+          devis.setEtat(Etat.valueOf(rs.getString(7)));
           listeDevis.add(devis);
         }
         return listeDevis;
       }
-    } catch (SQLException e) {
-      throw new DalException(e.getMessage());
+    } catch (SQLException ex) {
+      throw new DalException(ex.getMessage());
     }
   }
 
   public List<UserDto> voirTousUser() {
     List<UserDto> listeUser = new ArrayList<UserDto>();
-    String requeteSQL = "SELECT * FROM init.utilisateurs";
-    ps = services.getPreparedSatement(requeteSQL);
+    String requeteSql = "SELECT * FROM init.utilisateurs";
+    ps = services.getPreparedSatement(requeteSql);
     try {
       try (ResultSet rs = ps.executeQuery()) {
         while (rs.next()) {
@@ -158,29 +157,29 @@ public class UserDaoImpl implements UserDao {
         }
         return listeUser;
       }
-    } catch (SQLException e) {
-      throw new DalException(e.getMessage());
+    } catch (SQLException ex) {
+      throw new DalException(ex.getMessage());
     }
   }
 
   public boolean lierUserClient(ClientDto client, UserDto user) {
 
-    String requestSQL1 = "UPDATE init.utilisateurs SET statut='c' WHERE id_utilisateur=?";
-    String requestSQL2 = "UPDATE init.clients SET id_utilisateur=? WHERE id_client=?";
-    ps = services.getPreparedSatement(requestSQL1);
+    String requestSql1 = "UPDATE init.utilisateurs SET statut='c' WHERE id_utilisateur=?";
+    String requestSql2 = "UPDATE init.clients SET id_utilisateur=? WHERE id_client=?";
+    ps = services.getPreparedSatement(requestSql1);
     try {
       ps.setInt(1, user.getIdUser());
       ps.execute();
-    } catch (SQLException e) {
+    } catch (SQLException ex) {
       throw new DalException(
-          "Erreur lors de la liaison dans la table utilisateurs" + e.getMessage());
+          "Erreur lors de la liaison dans la table utilisateurs" + ex.getMessage());
     }
-    ps = services.getPreparedSatement(requestSQL2);
+    ps = services.getPreparedSatement(requestSql2);
     try {
       ps.setInt(1, user.getIdUser());
       ps.setInt(2, client.getIdClient());
-    } catch (SQLException e) {
-      throw new DalException("Erreur lors de liaison dans la table client" + e.getMessage());
+    } catch (SQLException ex) {
+      throw new DalException("Erreur lors de liaison dans la table client" + ex.getMessage());
     }
     return true;
   }

@@ -17,6 +17,21 @@ public class ClientImpl implements Client, ClientDto {
   private String telephone;
   private int idUtilisateur;
 
+  /**
+   * Cree un objet ClientImpl
+   * 
+   * @param idClient l'id du client
+   * @param nom le nom du client
+   * @param prenom le prenom du client
+   * @param rue la rue du client
+   * @param numero le numero de la rue du client
+   * @param boite la boite postale du client
+   * @param codePostal le code postal du client
+   * @param ville la ville du client
+   * @param email l'email du client
+   * @param telephone le telephone du client
+   * @param idUtilisateur l'id de l'utilisateur lie au client
+   */
   public ClientImpl(int idClient, String nom, String prenom, String rue, String numero,
       String boite, int codePostal, String ville, String email, String telephone,
       int idUtilisateur) {
