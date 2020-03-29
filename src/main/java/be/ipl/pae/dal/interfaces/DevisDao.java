@@ -13,4 +13,5 @@ public interface DevisDao {
 
   List<DevisDto> getDevisClient(ClientDto client);
 
+  boolean confirmerDateDevis(int idDevis);
 }

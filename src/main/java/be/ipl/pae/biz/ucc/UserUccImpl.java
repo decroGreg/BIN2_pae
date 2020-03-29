@@ -5,7 +5,7 @@ import be.ipl.pae.biz.dto.UserDto;
 import be.ipl.pae.biz.interfaces.Factory;
 import be.ipl.pae.biz.interfaces.User;
 import be.ipl.pae.biz.interfaces.UserUcc;
-import be.ipl.pae.dal.interfaces.DaoServicesUCC;
+import be.ipl.pae.dal.daoservices.DaoServicesUCC;
 import be.ipl.pae.dal.interfaces.UserDao;
 import be.ipl.pae.exceptions.BizException;
 import be.ipl.pae.exceptions.DalException;

@@ -9,7 +9,7 @@ import be.ipl.pae.biz.dto.ClientDto;
 import be.ipl.pae.biz.dto.UserDto;
 import be.ipl.pae.biz.factory.FactoryImpl;
 import be.ipl.pae.biz.interfaces.Factory;
-import be.ipl.pae.dal.interfaces.DaoServices;
+import be.ipl.pae.dal.daoservices.DaoServices;
 import be.ipl.pae.dal.interfaces.UserDao;
 import be.ipl.pae.exceptions.DalException;
 
@@ -107,7 +107,7 @@ public class UserDaoImpl implements UserDao {
           user.setVille(rs.getString(5));
           user.setEmail(rs.getString(6));
           user.setDateInscription(rs.getTimestamp(7));
-          user.setMotDePasse(rs.getString(8));
+          user.setMotDePasse(null);
           String status = rs.getString(9);
           user.setStatut(status.charAt(0));
           listeUser.add(user);
@@ -139,5 +139,34 @@ public class UserDaoImpl implements UserDao {
       throw new DalException("Erreur lors de liaison dans la table client" + ex.getMessage());
     }
     return true;
+  }
+
+  public List<UserDto> voirUserPasConfirmer() {
+    List<UserDto> listeUser = new ArrayList<UserDto>();
+    String requestSql = "SELECT * FROM init.utilisateurs WHERE statut IS NULL ";
+    ps = services.getPreparedSatement(requestSql);
+    try {
+      try (ResultSet rs = ps.executeQuery()) {
+        while (rs.next()) {
+          UserDto user = factory.getUserDto();
+          user.setIdUser(rs.getInt(1));
+          user.setPseudo(rs.getString(2));
+          user.setNom(rs.getString(3));
+          user.setPrenom(rs.getString(4));
+          user.setVille(rs.getString(5));
+          user.setEmail(rs.getString(6));
+          user.setDateInscription(rs.getTimestamp(7));
+          user.setMotDePasse(null);
+          String status = rs.getString(9);
+          user.setStatut(status.charAt(0));
+          listeUser.add(user);
+        }
+        return listeUser;
+      }
+    } catch (SQLException ex) {
+      throw new DalException(
+          "Erreur lors de la prise des utilisateurs non confirmer : " + ex.getMessage());
+    }
+
   }
 }

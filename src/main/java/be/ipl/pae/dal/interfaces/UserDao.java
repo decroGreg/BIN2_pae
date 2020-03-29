@@ -14,4 +14,6 @@ public interface UserDao {
   public List<UserDto> voirTousUser();
 
   public boolean lierUserClient(ClientDto client, UserDto user);
+
+  List<UserDto> voirUserPasConfirmer();
 }

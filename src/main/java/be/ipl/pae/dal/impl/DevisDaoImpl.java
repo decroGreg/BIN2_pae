@@ -10,7 +10,7 @@ import be.ipl.pae.biz.dto.DevisDto;
 import be.ipl.pae.biz.factory.FactoryImpl;
 import be.ipl.pae.biz.impl.DevisImpl.Etat;
 import be.ipl.pae.biz.interfaces.Factory;
-import be.ipl.pae.dal.interfaces.DaoServices;
+import be.ipl.pae.dal.daoservices.DaoServices;
 import be.ipl.pae.dal.interfaces.DevisDao;
 import be.ipl.pae.exceptions.DalException;
 
@@ -95,4 +95,15 @@ public class DevisDaoImpl implements DevisDao {
     }
   }
 
+  public boolean confirmerDateDevis(int idDevis) {
+    String requeteSql = "UPDATE init.devis SET statut = 'DDI' WHERE id_devis = ?";
+    ps = services.getPreparedSatement(requeteSql);
+    try {
+      ps.setInt(1, idDevis);
+      ps.execute();
+    } catch (SQLException ex) {
+      throw new DalException("Erreur lors de la confirmation de la Date" + ex.getMessage());
+    }
+    return true;
+  }
 }

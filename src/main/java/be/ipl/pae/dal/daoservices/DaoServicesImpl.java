@@ -1,9 +1,7 @@
 
-package be.ipl.pae.dal.impl;
+package be.ipl.pae.dal.daoservices;
 
 import be.ipl.pae.biz.config.Config;
-import be.ipl.pae.dal.interfaces.DaoServices;
-import be.ipl.pae.dal.interfaces.DaoServicesUCC;
 import be.ipl.pae.exceptions.DalException;
 
 import org.apache.commons.dbcp2.BasicDataSource;
