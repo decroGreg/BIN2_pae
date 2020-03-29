@@ -434,7 +434,7 @@ function afficherDevis(response){
     	let data={};
         data.idDevis=$("#reference-devis").text();
         console.log("Reference devis : " + data.idDevis);
-        postData("/detailsDevis",data,token,onError);
+        postData("/detailsDevis",data,token, afficherDetailsDevis, onError);
         //console.log("apres postData");
         //getData("/detailsDevis", token, afficherDetailDevis, onError);
     });
@@ -468,8 +468,96 @@ function afficherClients(response){
 	});
 }
 
-function afficherDetailDevis(response){
-	allHide();
-	$("#voir-details-devis").show();
+function afficherDetailsDevis(response){
 	console.log(JSON.stringify(response.devisData));
+	allHide();
+	$("#voir-devis").hide();
+    $("#voir-devis-client").hide();
+	$("#voir-details-devis").show();
+	$("#voir-details-devis #dateDevis").attr("value", response.devisData.date);
+	$("#voir-details-devis #montantDevis").attr("value", response.devisData.montant);
+	$("#voir-details-devis #etatDevis").attr("value", response.devisData.etat);
+	//$("#voir-details-devis #typeAmenagementDevis").attr("value", response.devisData.typeAmenagement);
+	$("#voir-details-devis #dureeTravauxDevis").attr("value", response.devisData.dureeTravaux);
+	$("#voir-details-devis #btn-devis").attr("value", changerValeurBouton(response.devisData.etat));
+	$("#voir-details-devis #btn-devis").click(e=>{
+		changerEtat(response.devisData.etat);	
+	});
+}
+
+function changerValeurBouton(etat){
+	var valeurBouton;
+	switch (etat) {
+	  case 'I':
+		  valeurBouton = "Confirmer commande";
+		  break;
+	  case 'DDI':
+		  valeurBouton = "Confirmer date";
+		  break;
+	  case 'ANP':
+		  valeurBouton = "Repousser date début";
+		  break;
+	  case 'DC':
+		  valeurBouton = "";
+		  break;
+	  case 'A':
+		  valeurBouton = "";
+		  break;
+	  case 'EC':
+		  valeurBouton = "Envoyer facture de milieu de chantier";
+		  break;
+	  case 'FM':
+		  valeurBouton = "";
+		  break;
+	  case 'T':
+		  valeurBouton = "Envoyer facture finale";
+		  break;
+	  case 'FF':
+		  valeurBouton = "Rendre visible";
+		  break;
+	  default:
+		  break;
+	}
+	return valeurBouton;
+}
+
+function changerEtat(etat){
+	var nouvelEtat;
+	switch (etat) {
+	  case 'I':
+		  nouvelEtat = "DDI";
+		  break;
+	  case 'DDI':
+		  nouvelEtat = "ANP";
+		  break;
+	  case 'ANP':
+		  nouvelEtat = "DC";
+		  break;
+	  case 'DC':
+		  nouvelEtat = "A";
+		  break;
+	  case 'A':
+		  nouvelEtat = "EC";
+		  break;
+	  case 'EC':
+		  nouvelEtat = "FM";
+		  break;
+	  case 'FM':
+		  nouvelEtat = "T";
+		  break;
+	  case 'T':
+		  nouvelEtat = "FF";
+		  break;
+	  case 'FF':
+		  nouvelEtat = "V";
+		  break;
+	  default:
+		  break;
+	}
+	let data={};
+	data.etatDevis = nouvelEtat;
+	console.log("Nouvel etat : " + nouvelEtat);
+	console.log(data.etatDevis);
+	putData("/detailsDevis", token, data, afficherDetailsDevis, onError);
+
 }
