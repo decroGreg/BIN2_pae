@@ -19,7 +19,7 @@ import be.ipl.pae.dal.interfaces.DaoServices;
 import be.ipl.pae.dal.interfaces.DaoServicesUCC;
 import be.ipl.pae.dal.interfaces.UserDao;
 import be.ipl.pae.ihm.servlet.ConfirmationRegisterServlet;
-import be.ipl.pae.ihm.servlet.DetailsDevisServlet;
+import be.ipl.pae.ihm.servlet.IntroduireDevisServlet;
 import be.ipl.pae.ihm.servlet.LoginServlet;
 import be.ipl.pae.ihm.servlet.RegisterServlet;
 import be.ipl.pae.ihm.servlet.VoirClientsServlet;
@@ -64,7 +64,6 @@ public class Main {
     System.out.println("test");
     // regarder à quoi ça sert vraimant
     context.setInitParameter("cacheControl", "no-store,no-cache,must-revalidate");
-    HttpServlet confirmation = new ConfirmationRegisterServlet(userUcc, userDto);
 
 
     HttpServlet serv = new LoginServlet(userUcc, userDto);
@@ -85,8 +84,11 @@ public class Main {
     HttpServlet listeClientsServlet = new VoirClientsServlet(clientUcc, userDto);
     context.addServlet(new ServletHolder(listeClientsServlet), "/listeClients");
 
-    HttpServlet detailsDevisServlet = new DetailsDevisServlet(userUcc, userDto);
-    context.addServlet(new ServletHolder(detailsDevisServlet), "/detailsDevis");
+    HttpServlet introDevisServlet = new IntroduireDevisServlet(userDto, userUcc);
+    context.addServlet(new ServletHolder(introDevisServlet), "/introduireServlet");
+
+    HttpServlet confirmationServlet = new ConfirmationRegisterServlet(userUcc, userDto);
+    context.addServlet(new ServletHolder(confirmationServlet), "/confirmation");
     context.setResourceBase("view");
     server.setHandler(context);
     server.start();

@@ -229,46 +229,46 @@
               <form style="margin:1%; align-items: center;" >
                 <div class="form-row">
                   <div class="form-group col-md-3">
-                    <label for="inputPrenom">Prénom</label>
-                    <input type="text" class="form-control" id="inputPrenom" placeholder="Prénom*">
+                    <label for="Quote-Form-firstName">Prénom</label>
+                    <input type="text" class="form-control" id="Quote-Form-firstName" placeholder="Prénom*">
                   </div>
                   <div class="form-group col-md-3">
-                    <label for="inputNom">nom</label>
-                    <input type="text" class="form-control" id="inputNom" placeholder="nom*">
-                  </div>
-                </div>
-                <div class="form-row">
-                  <div class="form-group col-md-3">
-                    <label for="inputRue">Rue</label>
-                    <input type="text" class="form-control" id="inputRue" placeholder="Rue*">
-                  </div>
-                  <div class="form-group col-md-3">
-                    <label for="inputNumero">Numéro</label>
-                    <input type="text" class="form-control" id="inputNumero" placeholder="Numéro*">
-                  </div>
-                  <div class="form-group col-md-3">
-                    <label for="inputBoîte">Boîte</label>
-                    <input type="text" class="form-control" id="inputNumero" placeholder="Boîte*">
+                    <label for="Quote-Form-name">nom</label>
+                    <input type="text" class="form-control" id="Quote-Form-name" placeholder="nom*">
                   </div>
                 </div>
                 <div class="form-row">
                   <div class="form-group col-md-3">
-                    <label for="inputCodePostal">Code Postal</label>
-                    <input type="text" class="form-control" id="inputCodePostal" placeholder="Code Postal*">
+                    <label for="Quote-Form-street">Rue</label>
+                    <input type="text" class="form-control" id="Quote-Form-street" placeholder="Rue*">
                   </div>
                   <div class="form-group col-md-3">
-                    <label for="inputVille">Ville</label>
-                    <input type="text" class="form-control" id="inputVille" placeholder="Ville*">
+                    <label for="Quote-Form-number">Numéro</label>
+                    <input type="text" class="form-control" id="Quote-Form-number" placeholder="Numéro*">
+                  </div>
+                  <div class="form-group col-md-3">
+                    <label for="Quote-Form-boite">Boîte</label>
+                    <input type="text" class="form-control" id="inputBoite" placeholder="Boîte*">
                   </div>
                 </div>
                 <div class="form-row">
                   <div class="form-group col-md-3">
-                    <label for="inputEmail">Email</label>
-                    <input type="email" class="form-control" id="inputEmail" placeholder="Email*">
+                    <label for="Quote-Form-postalCode">Code Postal</label>
+                    <input type="number" class="form-control" id="Quote-Form-postalCode" placeholder="Code Postal*">
                   </div>
                   <div class="form-group col-md-3">
-                    <label for="inputTel">num Telephone</label>
-                    <input type="tel" class="form-control" id="inputTel" placeholder="num*">
+                    <label for="Quote-Form-city">Ville</label>
+                    <input type="text" class="form-control" id="Quote-Form-city" placeholder="Ville*">
+                  </div>
+                </div>
+                <div class="form-row">
+                  <div class="form-group col-md-3">
+                    <label for="Quote-Form-email">Email</label>
+                    <input type="email" class="form-control" id="Quote-Form-email" placeholder="Email*">
+                  </div>
+                  <div class="form-group col-md-3">
+                    <label for="Quote-Form-phoneNumber">num Telephone</label>
+                    <input type="tel" class="form-control" id="Quote-Form-phoneNumber" placeholder="num*">
                   </div>
                 </div>
               
@@ -278,44 +278,44 @@
             <form style="margin:2%;">
               <div class="form-row">
                 <div class="form-group col-md-3">
-                  <label for="inputPrenom">lié au client</label>
-                  <input type="text" class="form-control" id="inputPrenom" placeholder="client*">
+                  <label for="Quote-Form-Client">lié au client</label>
+                  <input type="text" class="form-control" id="Quote-Form-Client" placeholder="client*" required>
                 </div>
               </div>
               <div class="form-row">
                 <div class="form-group col-md-3">
-                  <label for="inputPrenom">date du devis</label>
-                  <input type="text" class="form-control" id="inputPrenom" placeholder="date*">
+                  <label for="Quote-Form-quoteDate">date du devis</label>
+                  <input type="date" class="form-control" id="Quote-Form-quoteDate" placeholder="date*" required>
                 </div>
                 <div class="form-group col-md-3">
-                  <label for="inputPrix">Prix</label>
-                  <input type="text" class="form-control" id="inputPrix" placeholder="prix*">
-                </div>
-              </div>
-              <div class="form-row">
-                <div class="form-group col-md-3">
-                  <label for="inputDuree">Duree</label>
-                  <input type="text" class="form-control" id="inputDuree" placeholder="Duree*">
-                </div>
-                <div class="form-group col-md-3">
-                  <label for="inputImage">Image</label>
-                  <input type="file" name="image" id="inputImage">
+                  <label for="Quote-Form-price">Prix</label>
+                  <input type="number" class="form-control" id="Quote-Form-price" placeholder="prix*" required>
                 </div>
               </div>
               <div class="form-row">
                 <div class="form-group col-md-3">
-                  <label for="inputPrenom">Type d'Aménagement</label>
-                  <input type="text" class="form-control" id="inputPrenom" placeholder="Aménagement*">
+                  <label for="Quote-Form-duration">Duree</label>
+                  <input type="text" class="form-control" id="Quote-Form-duration" placeholder="Duree*" required>
+                </div>
+                <div class="form-group col-md-3">
+                  <label for="Quote-Form-image">Image</label>
+                  <input type="file" name="image" id="Quote-Form-image" required>
+                </div>
+              </div>
+              <div class="form-row">
+                <div class="form-group col-md-3">
+                  <label for="Quote-Form-layoutType">Type d'Aménagement</label>
+                  <input type="text" class="form-control" id="Quote-Form-layoutType" placeholder="Aménagement*" required>
                 </div>
                 <div class="form-group col-md-3"></div>
                 <div class="form-group col-md-3" style="text-align: right;">
-                  <input type="submit" id="bnt-devis" class="btn btn-danger"  value="Introduire">
+                  <input type="submit" id="bnt-IntroductionQuote" class="btn btn-danger"  value="Introduire">
                 </div>
 
 
             </form>
           </div>
-          <img src=""/>
+          <img id="imageQuote"src=""/>
         </section>
         
 <!-----------------------------------------Voir devis---------------------------------------------->
@@ -404,7 +404,7 @@
                 <tr>
                   <td style="width: 15%;" id="prenom_client"></td>
                   <td style="width: 15%;" id="nom_client"></td>
-                  <td style="width: 15%;" id="codePostal_client"></td>
+                  <td style="width: 15%;" id="postalCode_client"></td>
                   <td style="width: 15%;" id="ville_client"></td>
                   <td style="width: 15%;" id="email_client"></td>
                   <td style="width: 15%;" id="tel_client"></td>
