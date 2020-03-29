@@ -28,8 +28,8 @@ public class UserDaoImpl implements UserDao {
   private Factory factory;
   private int id;
 
-  public UserDaoImpl() {
-    this.services = new DaoServicesImpl();
+  public UserDaoImpl(DaoServices daoServices) {
+    this.services = daoServices;
     factory = new FactoryImpl();
   }
 
