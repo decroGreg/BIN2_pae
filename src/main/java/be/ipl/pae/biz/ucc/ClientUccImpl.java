@@ -17,10 +17,11 @@ public class ClientUccImpl implements ClientUcc {
   private DaoServicesUcc daoServicesUcc;
 
   /**
-   * Cree un objet UserUccImpl.
+   * Cree un objet ClientUccImpl.
    * 
-   * @param userFactory une userFactory.
-   * @param userDao un userDao.
+   * @param userFactory la factory.
+   * @param clientDao le dao client.
+   * @param daoServicesUcc le dao services.
    */
   public ClientUccImpl(Factory userFactory, ClientDao clientDao, DaoServicesUcc daoServicesUcc) {
     super();
