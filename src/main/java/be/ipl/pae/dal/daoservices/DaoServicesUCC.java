@@ -1,4 +1,4 @@
-package be.ipl.pae.dal.interfaces;
+package be.ipl.pae.dal.daoservices;
 
 import java.sql.Connection;
 

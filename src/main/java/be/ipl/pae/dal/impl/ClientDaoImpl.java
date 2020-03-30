@@ -8,8 +8,8 @@ import java.util.List;
 import be.ipl.pae.biz.dto.ClientDto;
 import be.ipl.pae.biz.factory.FactoryImpl;
 import be.ipl.pae.biz.interfaces.Factory;
+import be.ipl.pae.dal.daoservices.DaoServices;
 import be.ipl.pae.dal.interfaces.ClientDao;
-import be.ipl.pae.dal.interfaces.DaoServices;
 import be.ipl.pae.exceptions.DalException;
 
 public class ClientDaoImpl implements ClientDao {
