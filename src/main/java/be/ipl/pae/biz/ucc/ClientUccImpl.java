@@ -3,7 +3,7 @@ package be.ipl.pae.biz.ucc;
 import be.ipl.pae.biz.dto.ClientDto;
 import be.ipl.pae.biz.interfaces.ClientUcc;
 import be.ipl.pae.biz.interfaces.Factory;
-import be.ipl.pae.dal.daoservices.DaoServicesUCC;
+import be.ipl.pae.dal.daoservices.DaoServicesUcc;
 import be.ipl.pae.dal.interfaces.ClientDao;
 import be.ipl.pae.exceptions.DalException;
 
@@ -14,7 +14,7 @@ public class ClientUccImpl implements ClientUcc {
 
   private ClientDao clientDao;
   private Factory userFactory;
-  private DaoServicesUCC daoServicesUcc;
+  private DaoServicesUcc daoServicesUcc;
 
   /**
    * Cree un objet UserUccImpl
@@ -22,7 +22,7 @@ public class ClientUccImpl implements ClientUcc {
    * @param userFactory une userFactory.
    * @param userDao un userDao.
    */
-  public ClientUccImpl(Factory userFactory, ClientDao clientDao, DaoServicesUCC daoServicesUcc) {
+  public ClientUccImpl(Factory userFactory, ClientDao clientDao, DaoServicesUcc daoServicesUcc) {
     super();
     this.clientDao = clientDao;
     this.userFactory = userFactory;

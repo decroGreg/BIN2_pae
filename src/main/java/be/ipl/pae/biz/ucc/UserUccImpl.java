@@ -5,7 +5,7 @@ import be.ipl.pae.biz.dto.UserDto;
 import be.ipl.pae.biz.interfaces.Factory;
 import be.ipl.pae.biz.interfaces.User;
 import be.ipl.pae.biz.interfaces.UserUcc;
-import be.ipl.pae.dal.daoservices.DaoServicesUCC;
+import be.ipl.pae.dal.daoservices.DaoServicesUcc;
 import be.ipl.pae.dal.interfaces.UserDao;
 import be.ipl.pae.exceptions.BizException;
 import be.ipl.pae.exceptions.DalException;
@@ -20,7 +20,7 @@ import java.util.List;
 public class UserUccImpl implements UserUcc {
   private UserDao userDao;
   private Factory userFactory;
-  private DaoServicesUCC daoServicesUcc;
+  private DaoServicesUcc daoServicesUcc;
 
   /**
    * Cree un objet UserUccImpl
@@ -28,7 +28,7 @@ public class UserUccImpl implements UserUcc {
    * @param userFactory une userFactory.
    * @param userDao un userDao.
    */
-  public UserUccImpl(Factory userFactory, UserDao userDao, DaoServicesUCC daoServicesUcc) {
+  public UserUccImpl(Factory userFactory, UserDao userDao, DaoServicesUcc daoServicesUcc) {
     super();
     this.userDao = userDao;
     this.userFactory = userFactory;
@@ -124,5 +124,19 @@ public class UserUccImpl implements UserUcc {
       throw new IllegalArgumentException();
     }
     daoServicesUcc.commit();
+  }
+
+  @Override
+  public List<UserDto> voirUtilisateurEnAttente() {
+    List<UserDto> listeUtilisateursNonConfirmes = null;
+    try {
+      daoServicesUcc.demarrerTransaction();
+      listeUtilisateursNonConfirmes = userDao.voirUserPasConfirmer();
+    } catch (DalException de) {
+      daoServicesUcc.rollback();
+      throw new IllegalStateException();
+    }
+    daoServicesUcc.commit();
+    return Collections.unmodifiableList(listeUtilisateursNonConfirmes);
   }
 }

@@ -5,7 +5,7 @@ import be.ipl.pae.biz.dto.DevisDto;
 import be.ipl.pae.biz.impl.DevisImpl.Etat;
 import be.ipl.pae.biz.interfaces.DevisUcc;
 import be.ipl.pae.biz.interfaces.Factory;
-import be.ipl.pae.dal.daoservices.DaoServicesUCC;
+import be.ipl.pae.dal.daoservices.DaoServicesUcc;
 import be.ipl.pae.dal.interfaces.DevisDao;
 import be.ipl.pae.exceptions.DalException;
 
@@ -16,7 +16,7 @@ public class DevisUccImpl implements DevisUcc {
 
   private DevisDao devisDao;
   private Factory userFactory;
-  private DaoServicesUCC daoServicesUcc;
+  private DaoServicesUcc daoServicesUcc;
 
 
   /**
@@ -26,7 +26,7 @@ public class DevisUccImpl implements DevisUcc {
    * @param devisDao le devisDao
    * @param daoServicesUcc le daoServices
    */
-  public DevisUccImpl(Factory userFactory, DevisDao devisDao, DaoServicesUCC daoServicesUcc) {
+  public DevisUccImpl(Factory userFactory, DevisDao devisDao, DaoServicesUcc daoServicesUcc) {
     super();
     this.userFactory = userFactory;
     this.devisDao = devisDao;
@@ -80,7 +80,7 @@ public class DevisUccImpl implements DevisUcc {
     try {
       daoServicesUcc.demarrerTransaction();
       if (devis.getEtat().equals(Etat.DDI)) {
-        // userDao.confirmerDateDebut(devis);
+        devisDao.confirmerDateDevis(devis.getIdDevis());
       }
     } catch (DalException de) {
       daoServicesUcc.rollback();

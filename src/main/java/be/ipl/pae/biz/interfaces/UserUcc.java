@@ -16,4 +16,6 @@ public interface UserUcc {
 
   List<UserDto> getUtilisateurs();
 
+  List<UserDto> voirUtilisateurEnAttente();
+
 }

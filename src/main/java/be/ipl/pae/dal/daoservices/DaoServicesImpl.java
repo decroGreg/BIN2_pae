@@ -10,7 +10,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
-public class DaoServicesImpl implements DaoServices, DaoServicesUCC {
+public class DaoServicesImpl implements DaoServices, DaoServicesUcc {
 
   // private String url = "jdbc:postgresql://127.0.0.1/Projet";
   // private String url = "jdbc:postgresql://172.24.2.6:5432/dbmariabouraga";
