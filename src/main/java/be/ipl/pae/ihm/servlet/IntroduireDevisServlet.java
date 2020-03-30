@@ -86,11 +86,6 @@ public class IntroduireDevisServlet extends HttpServlet {
           clientDto.setEmail(dataUser.get("mail").toString());
           clientDto.setTelephone(dataUser.get("phone").toString());
         }
-
-
-
-        // insérer la photo dans la base de données
-
         devisUcc.introduireDevis(clientDto, devisDto);
 
 
