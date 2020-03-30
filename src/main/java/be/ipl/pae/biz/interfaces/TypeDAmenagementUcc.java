@@ -7,7 +7,6 @@ import java.util.List;
 
 public interface TypeDAmenagementUcc {
 
-  List<TypeDAmenagementDto> voirTypeDAmenagement(/**TypeDAmenagementDao typeDAmenagementDao*/
-  );
+  List<TypeDAmenagementDto> voirTypeDAmenagement();
 
 }

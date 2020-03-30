@@ -17,10 +17,11 @@ public class TypeDAmenagementUccImpl implements TypeDAmenagementUcc {
   private TypeDAmenagementDao typeDAmenagementDao;
 
   /**
-   * Cree un objet TypeDAmenagementUccImpl
+   * Cree un objet TypeDAmenagementUccImpl.
    * 
-   * @param userFactory la factory
-   * @param daoServicesUcc le daoServices
+   * @param userFactory la factory.
+   * @param typeDAmenagementDao le dao de type d'amenagement.
+   * @param daoServicesUcc le dao services.
    */
   public TypeDAmenagementUccImpl(Factory userFactory, TypeDAmenagementDao typeDAmenagementDao,
       DaoServicesUcc daoServicesUcc) {

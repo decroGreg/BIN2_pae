@@ -20,11 +20,11 @@ public class DevisUccImpl implements DevisUcc {
 
 
   /**
-   * Cree un objet DevisUccImpl
+   * Cree un objet DevisUccImpl.
    * 
-   * @param userFactory la factory
-   * @param devisDao le devisDao
-   * @param daoServicesUcc le daoServices
+   * @param userFactory la factory.
+   * @param devisDao le dao du devis.
+   * @param daoServicesUcc le dao services.
    */
   public DevisUccImpl(Factory userFactory, DevisDao devisDao, DaoServicesUcc daoServicesUcc) {
     super();

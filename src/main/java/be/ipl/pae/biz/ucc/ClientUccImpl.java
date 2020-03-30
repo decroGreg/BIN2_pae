@@ -17,7 +17,7 @@ public class ClientUccImpl implements ClientUcc {
   private DaoServicesUcc daoServicesUcc;
 
   /**
-   * Cree un objet UserUccImpl
+   * Cree un objet UserUccImpl.
    * 
    * @param userFactory une userFactory.
    * @param userDao un userDao.
@@ -29,6 +29,7 @@ public class ClientUccImpl implements ClientUcc {
     this.daoServicesUcc = daoServicesUcc;
   }
 
+  @Override
   public List<ClientDto> getClients() {
     List<ClientDto> clients = null;
     try {

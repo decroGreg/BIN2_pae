@@ -23,10 +23,11 @@ public class UserUccImpl implements UserUcc {
   private DaoServicesUcc daoServicesUcc;
 
   /**
-   * Cree un objet UserUccImpl
+   * Cree un objet UserUccImpl.
    * 
-   * @param userFactory une userFactory.
-   * @param userDao un userDao.
+   * @param userFactory la factory.
+   * @param userDao la dao du user.
+   * @param daoServicesUcc la dao services.
    */
   public UserUccImpl(Factory userFactory, UserDao userDao, DaoServicesUcc daoServicesUcc) {
     super();
@@ -35,8 +36,9 @@ public class UserUccImpl implements UserUcc {
     this.daoServicesUcc = daoServicesUcc;
   }
 
-  public UserDto sinscrire(UserDto userDTO) {
-    User user = (User) userDTO;
+  @Override
+  public UserDto sinscrire(UserDto userDto) {
+    User user = (User) userDto;
     LocalDate now = LocalDate.now();
     Timestamp timestamp = Timestamp.valueOf(now.atStartOfDay());
     user.setDateInscription(timestamp);
@@ -100,6 +102,7 @@ public class UserUccImpl implements UserUcc {
     }
   }
 
+  @Override
   public List<UserDto> getUtilisateurs() {
     List<UserDto> utilisateurs = null;
     try {
@@ -113,6 +116,7 @@ public class UserUccImpl implements UserUcc {
     return Collections.unmodifiableList(utilisateurs);
   }
 
+  @Override
   public void confirmerInscription(UserDto utilisateur, ClientDto client) {
     try {
       daoServicesUcc.demarrerTransaction();

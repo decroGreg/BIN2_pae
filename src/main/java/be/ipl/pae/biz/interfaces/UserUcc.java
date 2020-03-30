@@ -10,7 +10,7 @@ public interface UserUcc {
 
   UserDto login(String email, String motDePasse);
 
-  UserDto sinscrire(UserDto userDTO);
+  UserDto sinscrire(UserDto userDto);
 
   void confirmerInscription(UserDto utilisateur, ClientDto client);
 
