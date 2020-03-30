@@ -11,12 +11,12 @@ import be.ipl.pae.biz.interfaces.UserUcc;
 import be.ipl.pae.biz.ucc.ClientUccImpl;
 import be.ipl.pae.biz.ucc.DevisUccImpl;
 import be.ipl.pae.biz.ucc.UserUccImpl;
+import be.ipl.pae.dal.daoservices.DaoServicesImpl;
 import be.ipl.pae.dal.impl.ClientDaoImpl;
-import be.ipl.pae.dal.impl.DaoServicesImpl;
+import be.ipl.pae.dal.impl.DevisDaoImpl;
 import be.ipl.pae.dal.impl.UserDaoImpl;
 import be.ipl.pae.dal.interfaces.ClientDao;
-import be.ipl.pae.dal.interfaces.DaoServices;
-import be.ipl.pae.dal.interfaces.DaoServicesUCC;
+import be.ipl.pae.dal.interfaces.DevisDao;
 import be.ipl.pae.dal.interfaces.UserDao;
 import be.ipl.pae.ihm.servlet.ConfirmationRegisterServlet;
 import be.ipl.pae.ihm.servlet.DetailsDevisServlet;
@@ -42,16 +42,16 @@ public class Main {
 
     // Creation de la dépendance
     Factory factory = (Factory) conf.getConfigPropertyClass("factory.Factory");
-    DaoServicesUCC daoServices = new DaoServicesImpl();
+    DaoServicesImpl daoServices = new DaoServicesImpl();
 
-    DaoServices daoService = new DaoServicesImpl();
-    UserDao userDao = new UserDaoImpl();
-    ClientDao clientDao = new ClientDaoImpl();
+    UserDao userDao = new UserDaoImpl(daoServices);
+    ClientDao clientDao = new ClientDaoImpl(daoServices);
+    DevisDao devisDao = new DevisDaoImpl(daoServices);
     UserUcc userUcc = new UserUccImpl(factory, userDao, daoServices);
     UserDto userDto = factory.getUserDto();
     ClientDto clientDto = factory.getClientDto();
     ClientUcc clientUcc = new ClientUccImpl(factory, clientDao, daoServices);
-    DevisUcc devisUcc = new DevisUccImpl(factory, clientDao, daoServices);
+    DevisUcc devisUcc = new DevisUccImpl(factory, devisDao, daoServices);
     DevisDto devisDto = factory.getDevisDto();
 
     Server server = new Server(8080);
@@ -76,7 +76,7 @@ public class Main {
     HttpServlet listeUsersServlet = new VoirUtilisateursServlet(userUcc, userDto);
     context.addServlet(new ServletHolder(listeUsersServlet), "/listeUsers");
 
-    HttpServlet listeDevisServlet = new VoirDevisServlet(userUcc, userDto);
+    HttpServlet listeDevisServlet = new VoirDevisServlet(devisUcc, userDto);
     context.addServlet(new ServletHolder(listeDevisServlet), "/listeDevis");
 
     HttpServlet listeDevisClientServlet = new VoirDevisClientServlet(devisUcc, clientDto);
@@ -87,15 +87,15 @@ public class Main {
 
 
 
-    HttpServlet introDevisServlet = new IntroduireDevisServlet(userDto, userUcc);
+    HttpServlet introDevisServlet = new IntroduireDevisServlet(devisUcc, clientDto, devisDto);
     context.addServlet(new ServletHolder(introDevisServlet), "/introduireServlet");
 
-    HttpServlet confirmationServlet = new ConfirmationRegisterServlet(userUcc, userDto);
+    HttpServlet confirmationServlet = new ConfirmationRegisterServlet(userUcc, userDto, clientDto);
     context.addServlet(new ServletHolder(confirmationServlet), "/confirmation");
 
 
 
-    HttpServlet detailsDevis = new DetailsDevisServlet(userUcc, userDto);
+    HttpServlet detailsDevis = new DetailsDevisServlet(userUcc, userDto, devisUcc);
     context.addServlet(new ServletHolder(detailsDevis), "/detailsDevis");
 
     context.setResourceBase("view");

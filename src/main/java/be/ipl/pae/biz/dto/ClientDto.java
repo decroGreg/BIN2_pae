@@ -24,9 +24,9 @@ public interface ClientDto {
 
   void setBoite(String boite);
 
-  String getCodePostal();
+  int getCodePostal();
 
-  void setCodePostal(String codePostal);
+  void setCodePostal(int codePostal);
 
   String getVille();
 
@@ -46,5 +46,5 @@ public interface ClientDto {
 
   int getIdClient();
 
-  public void setIdClient(int idClient);
+  void setIdClient(int idClient);
 }

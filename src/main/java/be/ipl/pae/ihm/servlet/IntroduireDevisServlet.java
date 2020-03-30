@@ -1,7 +1,8 @@
 package be.ipl.pae.ihm.servlet;
 
-import be.ipl.pae.biz.dto.UserDto;
-import be.ipl.pae.biz.interfaces.UserUcc;
+import be.ipl.pae.biz.dto.ClientDto;
+import be.ipl.pae.biz.dto.DevisDto;
+import be.ipl.pae.biz.interfaces.DevisUcc;
 
 import com.owlike.genson.Genson;
 
@@ -14,13 +15,15 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 public class IntroduireDevisServlet extends HttpServlet {
-  private UserDto userDto;
-  private UserUcc userUcc;
+  private DevisUcc devisUcc;
+  private ClientDto clientDto;
+  private DevisDto devisDto;
 
-  public IntroduireDevisServlet(UserDto userDto, UserUcc userUcc) {
+  public IntroduireDevisServlet(DevisUcc devisUcc, ClientDto clientDto, DevisDto devisDto) {
     super();
-    this.userDto = userDto;
-    this.userUcc = userUcc;
+    this.devisUcc = devisUcc;
+    this.clientDto = clientDto;
+    this.devisDto = devisDto;
   }
 
   @Override
@@ -31,7 +34,17 @@ public class IntroduireDevisServlet extends HttpServlet {
       String token = req.getHeader("Authorization");
       if (token != null) {
 
-        System.out.println("test");
+
+
+        String json =
+            "{\"success\":\"true\", \"token\":\"" + token + "\", \"typeAmenagements\":" + "" + "}";
+        System.out.println("JSON generated :" + json);
+        resp.setContentType("application/json");
+
+        resp.setCharacterEncoding("UTF-8");
+
+        resp.setStatus(HttpServletResponse.SC_OK);;
+        resp.getWriter().write(json);
       }
 
 
@@ -54,8 +67,10 @@ public class IntroduireDevisServlet extends HttpServlet {
       Map<String, Map<String, String>> data = genson.deserialize(req.getReader(), Map.class);
       System.out.println(data.get("dataQuote").toString());
       try {
-        System.out.println("en attendant");
-        // faire appel a la methode de l'ucc pour introduire un user et un devis
+        // faire de set
+
+        devisUcc.introduireDevis(clientDto, devisDto);
+
 
       } catch (Exception e) {
         e.printStackTrace();

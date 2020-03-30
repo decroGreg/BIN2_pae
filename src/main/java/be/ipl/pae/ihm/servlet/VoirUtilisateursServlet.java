@@ -1,19 +1,21 @@
 package be.ipl.pae.ihm.servlet;
 
-import java.io.IOException;
-import java.sql.Timestamp;
-import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.List;
-import javax.servlet.ServletException;
-import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import com.owlike.genson.Genson;
 import be.ipl.pae.biz.dto.UserDto;
 import be.ipl.pae.biz.factory.FactoryImpl;
 import be.ipl.pae.biz.interfaces.Factory;
 import be.ipl.pae.biz.interfaces.UserUcc;
+
+import com.owlike.genson.Genson;
+
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 public class VoirUtilisateursServlet extends HttpServlet {
 
@@ -30,37 +32,17 @@ public class VoirUtilisateursServlet extends HttpServlet {
     this.userDto = userDto;
     this.utilisateursDTO = new ArrayList<>();
     // creation de 2 usersDTO dans ma liste pour tester si mon html se remplit
-    user1.setPseudo("mrbrg");
-    user1.setPrenom("M");
-    user1.setNom("B");
-    user1.setEmail("mrbrg@live.fr");
-    user1.setVille("Bruxdells");
-    user1.setStatut('c');
-    user1.setDateInscription(Timestamp.valueOf(LocalDateTime.now()));
-    user1.setMotDePasse("mdp");
-    user2.setPseudo("jbe");
-    user2.setPrenom("Julie");
-    user2.setNom("Bdd");
-    user2.setEmail("mrbrdddddddg@live.fr");
-    user2.setVille("Brudddxdells");
-    user2.setStatut('e');
-    user2.setDateInscription(Timestamp.valueOf(LocalDateTime.now()));
-    user2.setMotDePasse("fgr");
-
-    utilisateursDTO.add(user1);
-    utilisateursDTO.add(user2);
   }
 
   @Override
   protected void doGet(HttpServletRequest req, HttpServletResponse resp)
       throws ServletException, IOException {
     try {
-      // utilisateursDTO = userUCC.getUtilisateurs();
+      utilisateursDTO = userUCC.getUtilisateurs();
       System.out.println("passage");
       Genson genson = new Genson();
-      // Map<String, Object> data = genson.deserialize(req.getReader(), Map.class);
-      // String token = data.get("token").toString();
-      String token = "t";
+      Map<String, Object> data = genson.deserialize(req.getReader(), Map.class);
+      String token = req.getHeader("Authorization");
       System.out.println(token);
       if (token != null) {
         String usersData = genson.serialize(utilisateursDTO);

@@ -1,9 +1,7 @@
 
-package be.ipl.pae.dal.impl;
+package be.ipl.pae.dal.daoservices;
 
 import be.ipl.pae.biz.config.Config;
-import be.ipl.pae.dal.interfaces.DaoServices;
-import be.ipl.pae.dal.interfaces.DaoServicesUCC;
 import be.ipl.pae.exceptions.DalException;
 
 import org.apache.commons.dbcp2.BasicDataSource;
@@ -12,7 +10,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
-public class DaoServicesImpl implements DaoServices, DaoServicesUCC {
+public class DaoServicesImpl implements DaoServices, DaoServicesUcc {
 
   // private String url = "jdbc:postgresql://127.0.0.1/Projet";
   // private String url = "jdbc:postgresql://172.24.2.6:5432/dbmariabouraga";
@@ -58,7 +56,9 @@ public class DaoServicesImpl implements DaoServices, DaoServicesUCC {
     }
     try {
       Connection conn = this.ds.getConnection();
+
       connections.set(conn);
+      System.out.println(connections.get());
       conn.setAutoCommit(false);
     } catch (SQLException e) {
       e.printStackTrace();
@@ -98,9 +98,14 @@ public class DaoServicesImpl implements DaoServices, DaoServicesUCC {
   @Override
   public PreparedStatement getPreparedSatement(String requeteSQL) {
     try {
+      System.out.println("test1:" + connections.toString());
       return connections.get().prepareStatement(requeteSQL);
     } catch (SQLException e) {
       throw new DalException("Erreur dans le prepared statement");
     }
+  }
+
+  public ThreadLocal<Connection> getConnections() {
+    return connections;
   }
 }

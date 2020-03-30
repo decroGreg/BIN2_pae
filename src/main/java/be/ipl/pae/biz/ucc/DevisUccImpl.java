@@ -2,10 +2,11 @@ package be.ipl.pae.biz.ucc;
 
 import be.ipl.pae.biz.dto.ClientDto;
 import be.ipl.pae.biz.dto.DevisDto;
+import be.ipl.pae.biz.impl.DevisImpl.Etat;
 import be.ipl.pae.biz.interfaces.DevisUcc;
 import be.ipl.pae.biz.interfaces.Factory;
-import be.ipl.pae.dal.interfaces.ClientDao;
-import be.ipl.pae.dal.interfaces.DaoServicesUCC;
+import be.ipl.pae.dal.daoservices.DaoServicesUcc;
+import be.ipl.pae.dal.interfaces.DevisDao;
 import be.ipl.pae.exceptions.DalException;
 
 import java.util.Collections;
@@ -13,21 +14,22 @@ import java.util.List;
 
 public class DevisUccImpl implements DevisUcc {
 
-  private ClientDao clientDao;
+  private DevisDao devisDao;
   private Factory userFactory;
-  private DaoServicesUCC daoServicesUcc;
+  private DaoServicesUcc daoServicesUcc;
 
 
   /**
-   * Cree un objet DevisUccImpl
+   * Cree un objet DevisUccImpl.
    * 
-   * @param clientDao le clientDao
-   * @param userFactory le userFactory
+   * @param userFactory la factory.
+   * @param devisDao le dao du devis.
+   * @param daoServicesUcc le dao services.
    */
-  public DevisUccImpl(Factory userFactory, ClientDao clientDao, DaoServicesUCC daoServicesUcc) {
+  public DevisUccImpl(Factory userFactory, DevisDao devisDao, DaoServicesUcc daoServicesUcc) {
     super();
-    this.clientDao = clientDao;
     this.userFactory = userFactory;
+    this.devisDao = devisDao;
     this.daoServicesUcc = daoServicesUcc;
   }
 
@@ -37,7 +39,7 @@ public class DevisUccImpl implements DevisUcc {
     List<DevisDto> devis = null;
     try {
       daoServicesUcc.demarrerTransaction();
-      devis = clientDao.getDevisClient(client);
+      devis = devisDao.getDevisClient(client);
     } catch (DalException de) {
       daoServicesUcc.rollback();
       throw new IllegalArgumentException();
@@ -52,12 +54,38 @@ public class DevisUccImpl implements DevisUcc {
     List<DevisDto> devis = null;
     try {
       daoServicesUcc.demarrerTransaction();
-      // devis = clientDao.getDevis();
+      devis = devisDao.voirTousDevis();
     } catch (DalException de) {
       daoServicesUcc.rollback();
       throw new IllegalArgumentException();
     }
     daoServicesUcc.commit();
     return Collections.unmodifiableList(devis);
+  }
+
+  @Override
+  public void introduireDevis(ClientDto client, DevisDto devis) {
+    try {
+      daoServicesUcc.demarrerTransaction();
+      devisDao.createDevis(client.getIdClient(), devis);
+    } catch (DalException de) {
+      daoServicesUcc.rollback();
+      throw new IllegalArgumentException();
+    }
+    daoServicesUcc.commit();
+  }
+
+  @Override
+  public void confirmerDateDebut(DevisDto devis) {
+    try {
+      daoServicesUcc.demarrerTransaction();
+      if (devis.getEtat().equals(Etat.DDI)) {
+        devisDao.confirmerDateDevis(devis.getIdDevis());
+      }
+    } catch (DalException de) {
+      daoServicesUcc.rollback();
+      throw new IllegalArgumentException();
+    }
+    daoServicesUcc.commit();
   }
 }

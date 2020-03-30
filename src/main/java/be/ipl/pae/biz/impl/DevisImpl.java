@@ -1,8 +1,9 @@
 package be.ipl.pae.biz.impl;
 
 
-import java.sql.Timestamp;
 import be.ipl.pae.biz.interfaces.Devis;
+
+import java.sql.Timestamp;
 
 
 
@@ -10,11 +11,6 @@ public class DevisImpl implements Devis {
 
   public enum Etat {
     I, DDI, ANP, DC, A, EC, FM, T, FF, V;
-
-    @Override
-    public String toString() {
-      return super.toString();
-    }
   }
 
   private int idDevis;
