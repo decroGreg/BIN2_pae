@@ -39,9 +39,10 @@ public class ConfirmationRegisterServlet extends HttpServlet {
       String token = req.getHeader("Authorization");
       String usersJson = null;
       if (token != null) {
-        // usersJson=genson.serialize(.....);
 
 
+        usersJson = genson.serialize(userUcc.voirUtilisateurEnAttente());
+        // TO DO js-> tableau
         String json = "{\"success\":\"true\", \"usersData\":" + usersJson + "}";
         System.out.println("JSON generated :" + json);
         resp.setContentType("application/json");
@@ -77,13 +78,15 @@ public class ConfirmationRegisterServlet extends HttpServlet {
       Genson genson = new Genson();
       Map<String, String> data = genson.deserialize(req.getReader(), Map.class);
       System.out.println(data.get("status"));
-
-      String token = req.getHeader("Authorization");// .replace("Bearer", "");
+      int idClient = 0;
+      int idUtilConfirm = 0;
+      String token = req.getHeader("Authorization");
       System.out.println(token);
       if (token != null) {
         // To do set...
 
-
+        userDto.setIdUser(idUtilConfirm);
+        clientDto.setIdClient(idClient);
 
         userUcc.confirmerInscription(userDto, clientDto);
 
