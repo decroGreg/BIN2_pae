@@ -22,8 +22,9 @@ public class DevisUccImpl implements DevisUcc {
   /**
    * Cree un objet DevisUccImpl
    * 
-   * @param clientDao le clientDao
-   * @param userFactory le userFactory
+   * @param userFactory la factory
+   * @param devisDao le devisDao
+   * @param daoServicesUcc le daoServices
    */
   public DevisUccImpl(Factory userFactory, DevisDao devisDao, DaoServicesUCC daoServicesUcc) {
     super();
@@ -62,10 +63,10 @@ public class DevisUccImpl implements DevisUcc {
     return Collections.unmodifiableList(devis);
   }
 
+  @Override
   public void introduireDevis(ClientDto client, DevisDto devis) {
     try {
       daoServicesUcc.demarrerTransaction();
-      devis.setIdClient(client.getIdClient());
       devisDao.createDevis(client.getIdClient(), devis);
     } catch (DalException de) {
       daoServicesUcc.rollback();
@@ -74,6 +75,7 @@ public class DevisUccImpl implements DevisUcc {
     daoServicesUcc.commit();
   }
 
+  @Override
   public void confirmerDateDebut(DevisDto devis) {
     try {
       daoServicesUcc.demarrerTransaction();
