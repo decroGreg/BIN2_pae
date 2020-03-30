@@ -1,13 +1,11 @@
 package be.ipl.pae.biz.ucc;
 
 import be.ipl.pae.biz.dto.ClientDto;
-import be.ipl.pae.biz.dto.DevisDto;
 import be.ipl.pae.biz.dto.UserDto;
-import be.ipl.pae.biz.impl.DevisImpl.Etat;
 import be.ipl.pae.biz.interfaces.Factory;
 import be.ipl.pae.biz.interfaces.User;
 import be.ipl.pae.biz.interfaces.UserUcc;
-import be.ipl.pae.dal.interfaces.DaoServicesUCC;
+import be.ipl.pae.dal.daoservices.DaoServicesUcc;
 import be.ipl.pae.dal.interfaces.UserDao;
 import be.ipl.pae.exceptions.BizException;
 import be.ipl.pae.exceptions.DalException;
@@ -22,23 +20,25 @@ import java.util.List;
 public class UserUccImpl implements UserUcc {
   private UserDao userDao;
   private Factory userFactory;
-  private DaoServicesUCC daoServicesUcc;
+  private DaoServicesUcc daoServicesUcc;
 
   /**
-   * Cree un objet UserUccImpl
+   * Cree un objet UserUccImpl.
    * 
-   * @param userFactory une userFactory.
-   * @param userDao un userDao.
+   * @param userFactory la factory.
+   * @param userDao la dao du user.
+   * @param daoServicesUcc la dao services.
    */
-  public UserUccImpl(Factory userFactory, UserDao userDao, DaoServicesUCC daoServicesUcc) {
+  public UserUccImpl(Factory userFactory, UserDao userDao, DaoServicesUcc daoServicesUcc) {
     super();
     this.userDao = userDao;
     this.userFactory = userFactory;
     this.daoServicesUcc = daoServicesUcc;
   }
 
-  public UserDto sinscrire(UserDto userDTO) {
-    User user = (User) userDTO;
+  @Override
+  public UserDto sinscrire(UserDto userDto) {
+    User user = (User) userDto;
     LocalDate now = LocalDate.now();
     Timestamp timestamp = Timestamp.valueOf(now.atStartOfDay());
     user.setDateInscription(timestamp);
@@ -102,6 +102,7 @@ public class UserUccImpl implements UserUcc {
     }
   }
 
+  @Override
   public List<UserDto> getUtilisateurs() {
     List<UserDto> utilisateurs = null;
     try {
@@ -115,13 +116,12 @@ public class UserUccImpl implements UserUcc {
     return Collections.unmodifiableList(utilisateurs);
   }
 
+  @Override
   public void confirmerInscription(UserDto utilisateur, ClientDto client) {
     try {
       daoServicesUcc.demarrerTransaction();
-      if (client != null) {
-        if (utilisateur.getEmail().equals(client.getEmail())) {
-          userDao.lierUserClient(client, utilisateur);
-        }
+      if (client != null && utilisateur.getEmail().equals(client.getEmail())) {
+        userDao.lierUserClient(client, utilisateur);
       }
     } catch (DalException de) {
       daoServicesUcc.rollback();
@@ -130,28 +130,17 @@ public class UserUccImpl implements UserUcc {
     daoServicesUcc.commit();
   }
 
-  public void introduireDevis(ClientDto client, DevisDto devis) {
+  @Override
+  public List<UserDto> voirUtilisateurEnAttente() {
+    List<UserDto> listeUtilisateursNonConfirmes = null;
     try {
       daoServicesUcc.demarrerTransaction();
-      devis.setIdClient(client.getIdClient());
-      userDao.createDevis(client.getIdClient(), devis);
+      listeUtilisateursNonConfirmes = userDao.voirUserPasConfirmer();
     } catch (DalException de) {
       daoServicesUcc.rollback();
-      throw new IllegalArgumentException();
+      throw new IllegalStateException();
     }
     daoServicesUcc.commit();
-  }
-
-  public void confirmerDateDebut(DevisDto devis) {
-    try {
-      daoServicesUcc.demarrerTransaction();
-      if (devis.getEtat().equals(Etat.DDI)) {
-        // userDao.confirmerDateDebut(devis);
-      }
-    } catch (DalException de) {
-      daoServicesUcc.rollback();
-      throw new IllegalArgumentException();
-    }
-    daoServicesUcc.commit();
+    return Collections.unmodifiableList(listeUtilisateursNonConfirmes);
   }
 }

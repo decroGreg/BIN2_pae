@@ -1,8 +1,8 @@
-package be.ipl.pae.dal.interfaces;
+package be.ipl.pae.dal.daoservices;
 
 import java.sql.Connection;
 
-public interface DaoServicesUCC {
+public interface DaoServicesUcc {
 
   void demarrerTransaction();
 

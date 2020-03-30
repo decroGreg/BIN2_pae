@@ -5,6 +5,7 @@ import be.ipl.pae.biz.impl.DevisImpl.Etat;
 import java.sql.Timestamp;
 
 
+
 public interface DevisDto {
 
   int getIdClient();
@@ -34,6 +35,5 @@ public interface DevisDto {
   int getIdDevis();
 
   void setIdDevis(int idDevis);
-
 
 }

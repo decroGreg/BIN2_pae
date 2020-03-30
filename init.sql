@@ -18,7 +18,7 @@ CREATE TABLE init.clients(
     nom VARCHAR(100) NOT NULL,
     prenom VARCHAR(100) NOT NULL,
     rue VARCHAR(100) NOT NULL,
-    numero INTEGER NOT NULL, 
+    numero VARCHAR(100) NOT NULL, 
     boite VARCHAR(3) NOT NULL,
     code_postal INTEGER NOT NULL,
     ville VARCHAR(100) NOT NULL,
@@ -36,7 +36,7 @@ CREATE TABLE init.devis(
     id_devis SERIAL PRIMARY KEY,
     id_client INTEGER REFERENCES init.clients(id_client) NOT NULL,
     date TIMESTAMP NOT NULL,
-    montant FLOAT NOT NULL,
+    montant DOUBLE PRECISION NOT NULL,
     photo_preferee INTEGER,
     duree_travaux VARCHAR(100) NOT NULL,
     etat CHAR(3) NOT NULL

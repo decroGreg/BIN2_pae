@@ -2,7 +2,7 @@ package be.ipl.pae.ihm.servlet;
 
 import be.ipl.pae.biz.dto.ClientDto;
 import be.ipl.pae.biz.dto.DevisDto;
-import be.ipl.pae.biz.interfaces.UserUcc;
+import be.ipl.pae.biz.interfaces.DevisUcc;
 
 import com.owlike.genson.Genson;
 
@@ -18,13 +18,13 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 public class IntroduireDevisServlet extends HttpServlet {
-  private UserUcc userUcc;
+  private DevisUcc devisUcc;
   private ClientDto clientDto;
   private DevisDto devisDto;
 
-  public IntroduireDevisServlet(UserUcc userUcc, ClientDto clientDto, DevisDto devisDto) {
+  public IntroduireDevisServlet(DevisUcc devisUcc, ClientDto clientDto, DevisDto devisDto) {
     super();
-    this.userUcc = userUcc;
+    this.devisUcc = devisUcc;
     this.clientDto = clientDto;
     this.devisDto = devisDto;
   }
@@ -80,7 +80,7 @@ public class IntroduireDevisServlet extends HttpServlet {
           clientDto.setRue(dataUser.get("street").toString());
           clientDto.setNumero(dataUser.get("number").toString());
           clientDto.setBoite(dataUser.get("boite").toString());
-          clientDto.setCodePostal(dataUser.get("postalCode").toString());
+          clientDto.setCodePostal(Integer.parseInt(dataUser.get("postalCode").toString()));
           clientDto.setVille(dataUser.get("city").toString());
           clientDto.setEmail(dataUser.get("mail").toString());
           clientDto.setTelephone(dataUser.get("phone").toString());
@@ -93,7 +93,7 @@ public class IntroduireDevisServlet extends HttpServlet {
 
         // insérer la photo dans la base de données
 
-        userUcc.introduireDevis(clientDto, devisDto);
+        devisUcc.introduireDevis(clientDto, devisDto);
 
 
       } catch (Exception e) {

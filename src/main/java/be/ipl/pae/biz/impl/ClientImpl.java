@@ -11,14 +11,29 @@ public class ClientImpl implements Client, ClientDto {
   private String rue;
   private String numero;
   private String boite;
-  private String codePostal;
+  private int codePostal;
   private String ville;
   private String email;
   private String telephone;
   private int idUtilisateur;
 
+  /**
+   * Cree un objet ClientImpl.
+   * 
+   * @param idClient l'id du client.
+   * @param nom le nom du client.
+   * @param prenom le prenom du client.
+   * @param rue la rue du client.
+   * @param numero le numero de la rue du client.
+   * @param boite la boite postale du client.
+   * @param codePostal le code postal du client.
+   * @param ville la ville du client.
+   * @param email l'email du client.
+   * @param telephone le telephone du client.
+   * @param idUtilisateur l'id de l'utilisateur lie au client.
+   */
   public ClientImpl(int idClient, String nom, String prenom, String rue, String numero,
-      String boite, String codePostal, String ville, String email, String telephone,
+      String boite, int codePostal, String ville, String email, String telephone,
       int idUtilisateur) {
     super();
     this.idClient = idClient;
@@ -34,8 +49,22 @@ public class ClientImpl implements Client, ClientDto {
     this.idUtilisateur = idUtilisateur;
   }
 
+  /**
+   * Cree un objet ClientImpl.
+   * 
+   * @param idClient l'id du client.
+   * @param nom le nom du client.
+   * @param prenom le prenom du client.
+   * @param rue la rue du client.
+   * @param numero le numero du client.
+   * @param boite la boite du client.
+   * @param codePostal le code postal du client.
+   * @param ville la ville du client.
+   * @param email l'email du client.
+   * @param telephone le telephone du client.
+   */
   public ClientImpl(int idClient, String nom, String prenom, String rue, String numero,
-      String boite, String codePostal, String ville, String email, String telephone) {
+      String boite, int codePostal, String ville, String email, String telephone) {
     super();
     this.idClient = idClient;
     this.nom = nom;
@@ -104,12 +133,12 @@ public class ClientImpl implements Client, ClientDto {
   }
 
   @Override
-  public String getCodePostal() {
+  public int getCodePostal() {
     return codePostal;
   }
 
   @Override
-  public void setCodePostal(String codePostal) {
+  public void setCodePostal(int codePostal) {
     this.codePostal = codePostal;
   }
 

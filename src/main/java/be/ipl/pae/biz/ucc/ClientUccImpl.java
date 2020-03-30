@@ -3,8 +3,8 @@ package be.ipl.pae.biz.ucc;
 import be.ipl.pae.biz.dto.ClientDto;
 import be.ipl.pae.biz.interfaces.ClientUcc;
 import be.ipl.pae.biz.interfaces.Factory;
+import be.ipl.pae.dal.daoservices.DaoServicesUcc;
 import be.ipl.pae.dal.interfaces.ClientDao;
-import be.ipl.pae.dal.interfaces.DaoServicesUCC;
 import be.ipl.pae.exceptions.DalException;
 
 import java.util.Collections;
@@ -14,21 +14,23 @@ public class ClientUccImpl implements ClientUcc {
 
   private ClientDao clientDao;
   private Factory userFactory;
-  private DaoServicesUCC daoServicesUcc;
+  private DaoServicesUcc daoServicesUcc;
 
   /**
-   * Cree un objet UserUccImpl
+   * Cree un objet ClientUccImpl.
    * 
-   * @param userFactory une userFactory.
-   * @param userDao un userDao.
+   * @param userFactory la factory.
+   * @param clientDao le dao client.
+   * @param daoServicesUcc le dao services.
    */
-  public ClientUccImpl(Factory userFactory, ClientDao clientDao, DaoServicesUCC daoServicesUcc) {
+  public ClientUccImpl(Factory userFactory, ClientDao clientDao, DaoServicesUcc daoServicesUcc) {
     super();
     this.clientDao = clientDao;
     this.userFactory = userFactory;
     this.daoServicesUcc = daoServicesUcc;
   }
 
+  @Override
   public List<ClientDto> getClients() {
     List<ClientDto> clients = null;
     try {
