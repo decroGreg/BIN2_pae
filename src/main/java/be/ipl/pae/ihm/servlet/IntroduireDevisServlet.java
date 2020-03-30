@@ -7,6 +7,9 @@ import be.ipl.pae.biz.interfaces.UserUcc;
 import com.owlike.genson.Genson;
 
 import java.io.IOException;
+import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.Map;
 
 import javax.servlet.ServletException;
@@ -32,12 +35,13 @@ public class IntroduireDevisServlet extends HttpServlet {
     try {
       Genson genson = new Genson();
       String token = req.getHeader("Authorization");
+      String typeAmenagements = null;
       if (token != null) {
 
+        // String typeAmenagements = genson.serialize("");
 
-
-        String json =
-            "{\"success\":\"true\", \"token\":\"" + token + "\", \"typeAmenagements\":" + "" + "}";
+        String json = "{\"success\":\"true\", \"token\":\"" + token + "\", \"typeAmenagements\":"
+            + typeAmenagements + "}";
         System.out.println("JSON generated :" + json);
         resp.setContentType("application/json");
 
@@ -68,6 +72,26 @@ public class IntroduireDevisServlet extends HttpServlet {
       System.out.println(data.get("dataQuote").toString());
       try {
         // faire de set
+        Map<String, String> dataUser = data.get("dataUser");
+        Map<String, String> dataQuote = data.get("dataQuote");
+        if (dataUser != null) {
+          clientDto.setPrenom(dataUser.get("firstname").toString());
+          clientDto.setNom(dataUser.get("lastname").toString());
+          clientDto.setRue(dataUser.get("street").toString());
+          clientDto.setNumero(dataUser.get("number").toString());
+          clientDto.setBoite(dataUser.get("boite").toString());
+          clientDto.setCodePostal(dataUser.get("postalCode").toString());
+          clientDto.setVille(dataUser.get("city").toString());
+          clientDto.setEmail(dataUser.get("mail").toString());
+          clientDto.setTelephone(dataUser.get("phone").toString());
+        }
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss.SSS");
+        Date parsedDate = dateFormat.parse(dataQuote.get("date").toString() + " 00:00:00.000");
+        Timestamp timestamp = new Timestamp(parsedDate.getTime());
+        devisDto.setDate(timestamp);
+        devisDto.setMontant(Double.parseDouble(dataQuote.get("price").toString()));
+
+        // insérer la photo dans la base de données
 
         userUcc.introduireDevis(clientDto, devisDto);
 

@@ -159,24 +159,12 @@
               </tr>
             </thead>
             <tbody id="Register-confirmation-body">
-              <!---<tr>
-                <th>Grégoire</th>
-                <th>de Crombrugghe</th>
-                <th><div class="btn-group">
-                  <button type="button" class="btn btn-danger dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    fonction
-                  </button>
-                  <div class="dropdown-menu">
-                    <a class="dropdown-item" href="#">Client</a>
-                    <a class="dropdown-item" href="#">Ouvrier</a>
-                  </div>
-                </div></th>
-                <th>-->
                   <!-----------------------------lier au client --------------------------------->
                   <!----
                 </th>
                 <th><button id="bnt-Register-confirmation" class="btn btn-info"> Confirmer</button></th>
               </tr>--->
+              
             </tbody>
             </table>
         </section>
@@ -230,7 +218,7 @@
                 <div class="form-row">
                   <div class="form-group col-md-3">
                     <label for="Quote-Form-firstName">Prénom</label>
-                    <input type="text" class="form-control" id="Quote-Form-firstName" placeholder="Prénom*">
+                    <input type="text" class="form-control" id="Quote-Form-firstName" placeholder="Prénom*" required>
                   </div>
                   <div class="form-group col-md-3">
                     <label for="Quote-Form-name">nom</label>
@@ -248,7 +236,7 @@
                   </div>
                   <div class="form-group col-md-3">
                     <label for="Quote-Form-boite">Boîte</label>
-                    <input type="text" class="form-control" id="inputBoite" placeholder="Boîte*">
+                    <input type="text" class="form-control" id="Quote-Form-boite" placeholder="Boîte*">
                   </div>
                 </div>
                 <div class="form-row">
@@ -278,8 +266,12 @@
             <form style="margin:2%;">
               <div class="form-row">
                 <div class="form-group col-md-3">
-                  <label for="Quote-Form-Client">lié au client</label>
-                  <input type="text" class="form-control" id="Quote-Form-Client" placeholder="client*" required>
+                  <div class="dropdown-Client">
+                    <button class="btn btn-secondary dropdown-toggle" id="Quote-Form-Client-dropdown" type="button" data-toggle="dropdown">lié au client<span class="caret"></span></button>
+                    <ul class="dropdown-menu" id="Quote-Form-Client-items">
+                      <input class="form-control" id="Quote-Form-Client-Search" type="text" placeholder="Search..">
+                    </ul>
+                  </div>
                 </div>
               </div>
               <div class="form-row">
@@ -303,12 +295,11 @@
                 </div>
               </div>
               <div class="form-row">
-                <div class="form-group col-md-3" id="div-Quote-Form-layoutType">
-                  <label for="Quote-Form-layoutType">Type d'Aménagement</label>
-                  <!--<input type="text" class="form-control" id="Quote-Form-layoutType" placeholder="Aménagement*" required>-->
-                  <select id="Quote-Form-layoutType" name="search_option" class="form-control form-control-lg"></select>
+                <div class="form-group col-md-8" id="div-Quote-Form-layoutType">
+                  <input type="button" class="btn btn-primary" data-toggle="collapse" data-target="#Quote-Form-layoutType" value="Type d'aménagement">
+                  <div id="Quote-Form-layoutType"></div>
                 </div>
-                <div class="form-group col-md-3"></div>
+               
                 <div class="form-group col-md-3" style="text-align: right;">
                   <input type="submit" id="bnt-IntroductionQuote" class="btn btn-danger"  value="Introduire">
                 </div>

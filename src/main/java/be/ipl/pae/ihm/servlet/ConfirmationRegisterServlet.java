@@ -83,6 +83,8 @@ public class ConfirmationRegisterServlet extends HttpServlet {
       if (token != null) {
         // To do set...
 
+
+
         userUcc.confirmerInscription(userDto, clientDto);
 
 
