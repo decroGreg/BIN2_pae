@@ -36,7 +36,8 @@ public class VoirDevisClientServlet extends HttpServlet {
       Genson genson = new Genson();
       Map<String, Object> data = genson.deserialize(req.getReader(), Map.class);
       String token = req.getHeader("Authorization");
-      int idUtilisateur = Integer.parseInt(data.get("id").toString());
+      // token = "t";
+      int idUtilisateur = Integer.parseInt(data.get("idUser").toString());
       for (ClientDto c : clientUcc.getClients()) {
         if (c.getIdUtilisateur() == idUtilisateur) {
           clientDto = c;

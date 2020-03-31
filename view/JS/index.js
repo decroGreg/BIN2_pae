@@ -331,6 +331,7 @@ function onPostLogin(response){
         if(response.success==="true"){
                 console.log("data: "+response.userData.prenom);
                 user=response.userData;
+                console.log(user);
                 token=response.token;
                 localStorage.setItem("token",token);
                 console.log(localStorage.getItem("token"));
@@ -538,7 +539,6 @@ function afficherDevis(response){
         data.idDevis=$(e.target).text();
         console.log("Reference devis : " + data.idDevis);
         postData("/detailsDevis",data,token, afficherDetailsDevis, onError);
-        //console.log("apres postData");
         //getData("/detailsDevis", token, afficherDetailDevis, onError);
     });
 }
@@ -671,7 +671,7 @@ function changerEtat(etat){
 function mesDevis(){
 	$("#voir-devis-client").show();	
 	let data={};
-	console.log("user = " + user);
-	data.userId = user.userId;
-	//postData("/listeDevisClient",data,token,afficherDevisClient,onError);
+	console.log("user = " + JSON.stringify(user));
+	data = user;
+	postData("/listeDevisClient",data,token,afficherDevisClient,onError);
 }
