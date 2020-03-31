@@ -25,9 +25,9 @@ class TestClientUcc {
   @BeforeEach
   void setUp() throws Exception {}
 
-  @Test
+  /**@Test
   void testGetClients() {
     fail("Not yet implemented");
-  }
+  }*/
 
 }

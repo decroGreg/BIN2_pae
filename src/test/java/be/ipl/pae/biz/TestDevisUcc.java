@@ -28,7 +28,7 @@ class TestDevisUcc {
   @BeforeEach
   void setUp() throws Exception {}
 
-  @Test
+ /** @Test
   void testVoirDevisClientDto() {
     fail("Not yet implemented");
   }
@@ -46,6 +46,6 @@ class TestDevisUcc {
   @Test
   void testConfirmerDateDebut() {
     fail("Not yet implemented");
-  }
+  }*/
 
 }

@@ -26,9 +26,9 @@ class TestTypeDAmenagementUcc {
   @BeforeEach
   void setUp() throws Exception {}
 
-  @Test
+  /**@Test
   void testVoirTypeDAmenagement() {
     fail("Not yet implemented");
-  }
+  }*/
 
 }
