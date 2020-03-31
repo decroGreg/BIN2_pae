@@ -114,4 +114,14 @@ public class DevisImpl implements Devis {
     this.idDevis = idDevis;
 
   }
+
+  public boolean checkEtat() {
+    if (etat.equals(Etat.I) || etat.equals(Etat.DDI) || etat.equals(Etat.ANP)
+        || etat.equals(Etat.DC) || etat.equals(Etat.A) || etat.equals(Etat.EC)
+        || etat.equals(Etat.FM) || etat.equals(Etat.T) || etat.equals(Etat.FF)
+        || etat.equals(Etat.V)) {
+      return true;
+    }
+    return false;
+  }
 }

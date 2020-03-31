@@ -9,7 +9,7 @@ CREATE TABLE init.utilisateurs(
     ville VARCHAR(100) NOT NULL,
     email VARCHAR(100) NOT NULL,
     date_inscription TIMESTAMP NOT NULL,
-    mot_de_passe VARCHAR(30) NOT NULL,
+    mot_de_passe VARCHAR(100) NOT NULL,
     statut CHAR(1)
 );
 
@@ -39,7 +39,7 @@ CREATE TABLE init.devis(
     montant DOUBLE PRECISION NOT NULL,
     photo_preferee INTEGER,
     duree_travaux VARCHAR(100) NOT NULL,
-    etat CHAR(3) NOT NULL
+    etat VARCHAR(3) NOT NULL
 );
 
 CREATE TABLE init.amenagements(
@@ -60,4 +60,19 @@ FOREIGN KEY (photo_preferee) REFERENCES init.photos(id_photo);
 
 -- Insert 2 utilisateurs --
 INSERT INTO init.utilisateurs VALUES(DEFAULT, 'mbourag', 'Bouraga', 'Maria', 'Namur', 'maria.bouraga@student.vinci.be', '2020-03-03', 'mdp', NULL);
-INSERT INTO init.utilisateurs VALUES(DEFAULT, 'jdupont', 'Dupont', 'Jean', 'Bruxelles', 'jean.dupont@hotmail.com', '2020-03-03', 'mdpJean', NULL);
+INSERT INTO init.utilisateurs VALUES(DEFAULT, 'jdupont', 'Dupont', 'Jean', 'Bruxelles', 'samuYahoo@hotmail.be', '2020-03-03', '$2a$10$qx7UPfRmazPnRmNgO5fv/u/ZhxGwQhSmyXjVxBZQ55MCWQv5vBTEG', 'C');
+-- Insert 1 type amenagement --
+INSERT INTO init.types_amenagement VALUES(DEFAULT,'Amenagement d etang');
+-- Insert 2 clients --
+INSERT INTO init.clients VALUES(DEFAULT,'Vch','Samuel','Avenue des roses','13A','129',1040,'Bruxelles','samuYahoo@hotmail.be','0489685897',2);
+-- Insert 2 devis --
+INSERT INTO init.devis VALUES(DEFAULT,1,'2020-03-31',1500,NULL,'2 semaines','I');
+--Insert 1 amenagement --
+INSERT INTO init.amenagements VALUES(DEFAULT,1,1);
+-- Insert 1 photos -- 
+INSERT INTO init.photos VALUES(DEFAULT,1,1);
+
+
+
+
+
