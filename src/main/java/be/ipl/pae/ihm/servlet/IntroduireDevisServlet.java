@@ -3,6 +3,7 @@ package be.ipl.pae.ihm.servlet;
 import be.ipl.pae.biz.dto.ClientDto;
 import be.ipl.pae.biz.dto.DevisDto;
 import be.ipl.pae.biz.interfaces.DevisUcc;
+import be.ipl.pae.biz.interfaces.TypeDAmenagementUcc;
 
 import com.owlike.genson.Genson;
 
@@ -18,12 +19,15 @@ public class IntroduireDevisServlet extends HttpServlet {
   private DevisUcc devisUcc;
   private ClientDto clientDto;
   private DevisDto devisDto;
+  private TypeDAmenagementUcc typeUcc;
 
-  public IntroduireDevisServlet(DevisUcc devisUcc, ClientDto clientDto, DevisDto devisDto) {
+  public IntroduireDevisServlet(DevisUcc devisUcc, ClientDto clientDto, DevisDto devisDto,
+      TypeDAmenagementUcc type) {
     super();
     this.devisUcc = devisUcc;
     this.clientDto = clientDto;
     this.devisDto = devisDto;
+    this.typeUcc = type;
   }
 
   @Override
@@ -32,12 +36,13 @@ public class IntroduireDevisServlet extends HttpServlet {
     try {
       Genson genson = new Genson();
       String token = req.getHeader("Authorization");
+      String typeAmenagements = null;
       if (token != null) {
 
+        typeAmenagements = genson.serialize(typeUcc.voirTypeDAmenagement());
 
-
-        String json =
-            "{\"success\":\"true\", \"token\":\"" + token + "\", \"typeAmenagements\":" + "" + "}";
+        String json = "{\"success\":\"true\", \"token\":\"" + token + "\", \"typeAmenagements\":"
+            + typeAmenagements + "}";
         System.out.println("JSON generated :" + json);
         resp.setContentType("application/json");
 
@@ -68,7 +73,19 @@ public class IntroduireDevisServlet extends HttpServlet {
       System.out.println(data.get("dataQuote").toString());
       try {
         // faire de set
-
+        Map<String, String> dataUser = data.get("dataUser");
+        Map<String, String> dataQuote = data.get("dataQuote");
+        if (dataUser != null) {
+          clientDto.setPrenom(dataUser.get("firstname").toString());
+          clientDto.setNom(dataUser.get("lastname").toString());
+          clientDto.setRue(dataUser.get("street").toString());
+          clientDto.setNumero(dataUser.get("number").toString());
+          clientDto.setBoite(dataUser.get("boite").toString());
+          clientDto.setCodePostal(Integer.parseInt(dataUser.get("postalCode").toString()));
+          clientDto.setVille(dataUser.get("city").toString());
+          clientDto.setEmail(dataUser.get("mail").toString());
+          clientDto.setTelephone(dataUser.get("phone").toString());
+        }
         devisUcc.introduireDevis(clientDto, devisDto);
 
 

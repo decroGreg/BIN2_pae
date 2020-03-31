@@ -7,16 +7,20 @@ import be.ipl.pae.biz.dto.UserDto;
 import be.ipl.pae.biz.interfaces.ClientUcc;
 import be.ipl.pae.biz.interfaces.DevisUcc;
 import be.ipl.pae.biz.interfaces.Factory;
+import be.ipl.pae.biz.interfaces.TypeDAmenagementUcc;
 import be.ipl.pae.biz.interfaces.UserUcc;
 import be.ipl.pae.biz.ucc.ClientUccImpl;
 import be.ipl.pae.biz.ucc.DevisUccImpl;
+import be.ipl.pae.biz.ucc.TypeDAmenagementUccImpl;
 import be.ipl.pae.biz.ucc.UserUccImpl;
 import be.ipl.pae.dal.daoservices.DaoServicesImpl;
 import be.ipl.pae.dal.impl.ClientDaoImpl;
 import be.ipl.pae.dal.impl.DevisDaoImpl;
+import be.ipl.pae.dal.impl.TypeDAmenagementDaoImpl;
 import be.ipl.pae.dal.impl.UserDaoImpl;
 import be.ipl.pae.dal.interfaces.ClientDao;
 import be.ipl.pae.dal.interfaces.DevisDao;
+import be.ipl.pae.dal.interfaces.TypeDAmenagementDao;
 import be.ipl.pae.dal.interfaces.UserDao;
 import be.ipl.pae.ihm.servlet.ConfirmationRegisterServlet;
 import be.ipl.pae.ihm.servlet.DetailsDevisServlet;
@@ -47,13 +51,15 @@ public class Main {
     UserDao userDao = new UserDaoImpl(daoServices);
     ClientDao clientDao = new ClientDaoImpl(daoServices);
     DevisDao devisDao = new DevisDaoImpl(daoServices);
+    TypeDAmenagementDao typeAmenagementDao = new TypeDAmenagementDaoImpl(daoServices);
     UserUcc userUcc = new UserUccImpl(factory, userDao, daoServices);
     UserDto userDto = factory.getUserDto();
     ClientDto clientDto = factory.getClientDto();
     ClientUcc clientUcc = new ClientUccImpl(factory, clientDao, daoServices);
     DevisUcc devisUcc = new DevisUccImpl(factory, devisDao, daoServices);
     DevisDto devisDto = factory.getDevisDto();
-
+    TypeDAmenagementUcc typeAmenagmentUcc =
+        new TypeDAmenagementUccImpl(factory, typeAmenagementDao, daoServices);
     Server server = new Server(8080);
     WebAppContext context = new WebAppContext();
 
@@ -87,7 +93,8 @@ public class Main {
 
 
 
-    HttpServlet introDevisServlet = new IntroduireDevisServlet(devisUcc, clientDto, devisDto);
+    HttpServlet introDevisServlet =
+        new IntroduireDevisServlet(devisUcc, clientDto, devisDto, typeAmenagmentUcc);
     context.addServlet(new ServletHolder(introDevisServlet), "/introduireServlet");
 
     HttpServlet confirmationServlet = new ConfirmationRegisterServlet(userUcc, userDto, clientDto);

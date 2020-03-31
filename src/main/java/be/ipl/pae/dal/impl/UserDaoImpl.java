@@ -159,8 +159,6 @@ public class UserDaoImpl implements UserDao {
           user.setEmail(rs.getString(6));
           user.setDateInscription(rs.getTimestamp(7));
           user.setMotDePasse(null);
-          String status = rs.getString(9);
-          user.setStatut(status.charAt(0));
           listeUser.add(user);
         }
         return listeUser;

@@ -9,7 +9,7 @@ $('#navigation_bar').hide();
 
 function encodeImagetoBase64(element) {
         
-        var file = element[0].files[0];
+        var file = element.files[0];
 
         var reader = new FileReader();
 
@@ -38,7 +38,7 @@ let tempoUsersConf=[
 ];
 
 let tempUsers=[{"dateInscription":"2020-03-26 11:46:37.95006","email":"mrbrg@live.fr","idUser":0,"motDePasse":"mdp","nom":"B","prenom":"M","pseudo":"mrbrg","statut":"c","ville":"Bruxdells"},
-				{"dateInscription":"2020-03-26 11:46:37.95006","email":"mrbrdddddddg@live.fr","idUser":0,"motDePasse":"fgr","nom":"Bdd","prenom":"Mdef","pseudo":"jbe","statut":"e","ville":"Brudddxdells"}];
+				{"dateInscription":"2020-03-26 11:46:37.95006","email":"mrbrdddddddg@live.fr","idUser":1,"motDePasse":"fgr","nom":"Bdd","prenom":"Mdef","pseudo":"jbe","statut":"e","ville":"Brudddxdells"}];
 
 let tempDevis=[{"date":null,"dureeTravaux":"2 mois","etat":"DDI","idClient":0,"idDevis":0,"idPhotoPreferee":0,"montant":3000.0},
 				{"date":null,"dureeTravaux":"1 mois","etat":"A","idClient":0,"idDevis":0,"idPhotoPreferee":0,"montant":400.0}];
@@ -91,18 +91,38 @@ $(document).ready(e=>{
     });
     $("#introductionQuote").click(e=>{
         var response=[{
-                "a":"a"},{
-                "a":"b"
+                "a":"aaaaaaaaaaa"},{
+                "a":"b"},{
+                "a":"c"},{
+                "a":"d"},{
+                "a":"e"
         }];
         viewIntroductionQuote();
+
         //getData("/introduireServlet",token,onGetAmenagements,onError);
         onGetAmenagements(response);
+        //getClient
+        onGetClientQuoteForm(tempUsers);
     });
 
-    
-
+    /*
+    filtre dropdow lié client
+    */
+    $("#Quote-Form-Client-Search").on("keyup", function() {
+        var value = $(this).val().toLowerCase();
+        $(".dropdown-menu li").filter(function() {
+          $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+        });
+      });
+      $("#Quote-Form-image").change(e=>{
+              encodeImagetoBase64(e.target);
+      })
+      //evoyé donné Introduction devis
     $("#bnt-IntroductionQuote").click(e=>{
+            console.log($("#imageQuote").attr("src"));
         encodeImagetoBase64($("#Quote-Form-image"));
+        
+        if($("#Quote-Form-firstName").val())
         var dataUser={
                 firstname:$("#Quote-Form-firstName").val(),
                 lastname:$("#Quote-Form-name").val(),
@@ -114,9 +134,15 @@ $(document).ready(e=>{
                 mail:$("#Quote-Form-email").val(),
                 phone:$("#Quote-Form-phoneNumber").val()
         };
-        
+        var amenagementList=document.getElementsByClassName("form-check");
+        for(var i=0;i<amenagementList.length;i++){
+                var element=amenagementList[i].firstChild;
+                if(element.checked){
+                        console.log("ok");/////////////////////////////////
+                }
+        }
         var dataQuote={
-                client:$("#Quote-Form-client").val(),
+                client:$("#Quote-Form-Client-items").val(),
                 date:$("#Quote-Form-quoteDate").val(),
                 price:$("#Quote-Form-price").val(),
                 duration:$("#Quote-Form-duration").val(),
@@ -314,16 +340,35 @@ function onPostLogin(response){
                 $("#wrong_passwd").show();
         }
 }
+function onGetClientQuoteForm(response){
+        response.forEach(element => {
+                var li=document.createElement("li");
+                var a=document.createElement("a");
+                a.href="#";
+                a.val=element.idUser;// a changer en idClient
+                a.innerText=element.prenom+" "+element.nom;
+                a.addEventListener("click",function(e){
+                        
+                        $("#Quote-Form-Client-items").val(e.target.val);
+                        $("#Quote-Form-Client-dropdown").text(e.target.innerText);
+                        console.log($("#Quote-Form-Client-items").val());
+
+                });
+                li.appendChild(a);
+                $("#Quote-Form-Client-items").append(li);
+        });
+}
 
 function onGetAmenagements(response){
-     
+     var i=0;
         response.forEach(element => {//changer les donnees
-                var option=document.createElement("option");
-                option.value=element["a"];
-                option.innerText=element["a"];
-
-                $("#Quote-Form-layoutType").append(option);
                 
+                var checkbox=creatHTMLFromString('<div class="form-check col-sm-3 col-form-label" >'
+                +'<input  type="checkbox" id="'+i+'" value="option1">'
+                +'<label for="#'+i+'">'+element["a"]+'</label>'
+                +'</div>');
+                $("#Quote-Form-layoutType").append(checkbox);
+                i++;
         });
 }
 
@@ -361,6 +406,16 @@ function onGetRegisterConfirmation(response){
                 btnStatusEvent.addEventListener("click",onClickStatusItem);
                
                 tr.appendChild(btnStatus);
+
+                var btnClientLink=creatHTMLFromString('<div class="dropdown-Client">'
+                +'<button class="btn btn-secondary dropdown-toggle" id="Quote-Form-Client-dropdown" type="button" data-toggle="dropdown">lié au client<span class="caret"></span></button>'
+                +'<ul class="dropdown-menu" id="Quote-Form-Client-items">'
+                +'<input class="form-control" id="Quote-Form-Client-Search" type="text" placeholder="Search..">'
+                +'</ul>'
+                +'</div>');
+                tr.appendChild(btnClientLink);
+                
+                //GetClient
 
                 //creation du boutton confirmer
                 var btnConfirmationEvent=creatHTMLFromString('<td><button id="bnt-Register-confirmation" class="btn btn-info"> Confirmer</button></td>');
