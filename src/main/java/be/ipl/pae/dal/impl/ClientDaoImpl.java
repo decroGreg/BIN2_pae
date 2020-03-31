@@ -50,4 +50,25 @@ public class ClientDaoImpl implements ClientDao {
       throw new DalException(ex.getMessage());
     }
   }
+
+  public boolean createClient(ClientDto clientDto) {
+    String requeteSql =
+        "INSERT INTO init.clients VALUES (DEFAULT, ?, ?, ?, ?, ?, ?, ?, ?, ?, null)";
+    ps = services.getPreparedSatement(requeteSql);
+    try {
+      ps.setString(1, clientDto.getNom());
+      ps.setString(2, clientDto.getPrenom());
+      ps.setString(3, clientDto.getRue());
+      ps.setString(4, clientDto.getNumero());
+      ps.setString(5, clientDto.getBoite());
+      ps.setInt(6, clientDto.getCodePostal());
+      ps.setString(7, clientDto.getVille());
+      ps.setString(8, clientDto.getEmail());
+      ps.setString(9, clientDto.getTelephone());
+      ps.execute();
+    } catch (SQLException ex) {
+      throw new DalException("Erreur de la creation du client : " + ex.getMessage());
+    }
+    return true;
+  }
 }

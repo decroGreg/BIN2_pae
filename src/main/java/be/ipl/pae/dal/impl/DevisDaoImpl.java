@@ -1,5 +1,10 @@
 package be.ipl.pae.dal.impl;
 
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 import be.ipl.pae.biz.dto.ClientDto;
 import be.ipl.pae.biz.dto.DevisDto;
 import be.ipl.pae.biz.factory.FactoryImpl;
@@ -8,12 +13,6 @@ import be.ipl.pae.biz.interfaces.Factory;
 import be.ipl.pae.dal.daoservices.DaoServices;
 import be.ipl.pae.dal.interfaces.DevisDao;
 import be.ipl.pae.exceptions.DalException;
-
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.List;
 
 public class DevisDaoImpl implements DevisDao {
 
@@ -28,15 +27,14 @@ public class DevisDaoImpl implements DevisDao {
 
   @Override
   public boolean createDevis(int idClient, DevisDto devis) {
-    String requestSql = "INSERT INTO init.devis VALUES (DEFAULT,?,?,?,?,?,?)";
+    String requestSql = "INSERT INTO init.devis VALUES (DEFAULT,?,?,?,null,?,?)";
     ps = services.getPreparedSatement(requestSql);
     try {
       ps.setInt(1, idClient);
       ps.setTimestamp(2, devis.getDate());
       ps.setDouble(3, devis.getMontant());
-      ps.setInt(4, devis.getIdPhotoPreferee());
-      ps.setString(5, devis.getDureeTravaux());
-      ps.setString(6, "I");
+      ps.setString(4, devis.getDureeTravaux());
+      ps.setString(5, "I");
       ps.execute();
     } catch (SQLException ex) {
       throw new DalException("Erreur lors de l'ajout du devis : " + ex.getMessage());
