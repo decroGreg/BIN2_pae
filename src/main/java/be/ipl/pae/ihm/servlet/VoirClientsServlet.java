@@ -1,20 +1,17 @@
 package be.ipl.pae.ihm.servlet;
 
-import be.ipl.pae.biz.dto.ClientDto;
-import be.ipl.pae.biz.dto.UserDto;
-import be.ipl.pae.biz.interfaces.ClientUcc;
-
-import com.owlike.genson.Genson;
-
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import com.owlike.genson.Genson;
+import be.ipl.pae.biz.dto.ClientDto;
+import be.ipl.pae.biz.dto.UserDto;
+import be.ipl.pae.biz.interfaces.ClientUcc;
 
 public class VoirClientsServlet extends HttpServlet {
 
@@ -40,6 +37,7 @@ public class VoirClientsServlet extends HttpServlet {
       Genson genson = new Genson();
       Map<String, Object> data = genson.deserialize(req.getReader(), Map.class);
       String token = req.getHeader("Authorization");
+      // token = "t";
       if (token != null) {
         String clientsData = genson.serialize(clientsDto);
         String json = "{\"success\":\"true\", \"clientsData\":" + clientsData + "}";

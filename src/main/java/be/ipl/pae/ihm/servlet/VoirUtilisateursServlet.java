@@ -1,24 +1,23 @@
 package be.ipl.pae.ihm.servlet;
 
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import com.owlike.genson.Genson;
+import be.ipl.pae.biz.config.Config;
 import be.ipl.pae.biz.dto.UserDto;
 import be.ipl.pae.biz.factory.FactoryImpl;
 import be.ipl.pae.biz.interfaces.Factory;
 import be.ipl.pae.biz.interfaces.UserUcc;
 
-import com.owlike.genson.Genson;
-
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-
-import javax.servlet.ServletException;
-import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
 public class VoirUtilisateursServlet extends HttpServlet {
 
+  private static final String JWTSECRET = new Config().getConfigPropertyAttribute("jwt.secret");
   private UserUcc userUCC;
   private List<UserDto> utilisateursDTO;
   private UserDto userDto;
@@ -39,10 +38,11 @@ public class VoirUtilisateursServlet extends HttpServlet {
       throws ServletException, IOException {
     try {
       utilisateursDTO = userUCC.getUtilisateurs();
-      System.out.println("passage");
+      System.out.println("passage = " + utilisateursDTO);
       Genson genson = new Genson();
       Map<String, Object> data = genson.deserialize(req.getReader(), Map.class);
       String token = req.getHeader("Authorization");
+      // token = "t";
       System.out.println(token);
       if (token != null) {
         String usersData = genson.serialize(utilisateursDTO);
