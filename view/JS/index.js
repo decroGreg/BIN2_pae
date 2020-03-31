@@ -65,7 +65,6 @@ $(document).ready(e=>{
                 $('#navigation_bar').show();
                 }
                 });
-    //$("#dateTimePicker").datetimepicker();
  
     
     $("#btn-connexion").click(e=>{
@@ -90,37 +89,27 @@ $(document).ready(e=>{
         
     });
     $("#introductionQuote").click(e=>{
-        var response=[{
-                "a":"aaaaaaaaaaa"},{
-                "a":"b"},{
-                "a":"c"},{
-                "a":"d"},{
-                "a":"e"
-        }];
         viewIntroductionQuote();
 
-        //getData("/introduireServlet",token,onGetAmenagements,onError);
-        onGetAmenagements(response);
-        //getClient
-        onGetClientQuoteForm(tempUsers);
+        getData("/introduireServlet",token,onGetAmenagements,onError);
+        getData("/listeUsers",token,onGetClientQuoteForm,onError)
+        
     });
 
     /*
     filtre dropdow lié client
     */
     $("#Quote-Form-Client-Search").on("keyup", function() {
-        var value = $(this).val().toLowerCase();
-        $(".dropdown-menu li").filter(function() {
-          $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
-        });
+                filterSearchClient(this);
       });
       $("#Quote-Form-image").change(e=>{
               encodeImagetoBase64(e.target);
       })
+
       //evoyé donné Introduction devis
     $("#bnt-IntroductionQuote").click(e=>{
             console.log($("#imageQuote").attr("src"));
-        encodeImagetoBase64($("#Quote-Form-image"));
+        
         
         if($("#Quote-Form-firstName").val())
         var dataUser={
@@ -134,37 +123,42 @@ $(document).ready(e=>{
                 mail:$("#Quote-Form-email").val(),
                 phone:$("#Quote-Form-phoneNumber").val()
         };
+        var type=[];
         var amenagementList=document.getElementsByClassName("form-check");
         for(var i=0;i<amenagementList.length;i++){
                 var element=amenagementList[i].firstChild;
+                console.log(i);
+
                 if(element.checked){
-                        console.log("ok");/////////////////////////////////
+                        type.push({"amenagement":element.id});
+                        
                 }
         }
+        
         var dataQuote={
-                client:$("#Quote-Form-Client-items").val(),
-                date:$("#Quote-Form-quoteDate").val(),
-                price:$("#Quote-Form-price").val(),
-                duration:$("#Quote-Form-duration").val(),
-                image:$("#imageQuote").attr("src"),
-                type:$("#Quote-Form-layoutType").val()
+                "client":$("#Quote-Form-Client-items").val(),
+                "date":$("#Quote-Form-quoteDate").val(),
+                "price":$("#Quote-Form-price").val(),
+                "duration":$("#Quote-Form-duration").val(),
+                "image":$("#imageQuote").attr("src")
+                
 
         };
         var data={
                 "dataUser":dataUser,
-                "dataQuote":dataQuote
+                "dataQuote":dataQuote,
+                "type":type
         }
-        console.log(data.dataQuote.image);
         console.log(data.dataQuote.type);
-        //postData("/introduireServlet",data,token,onPostIntroductionQuote,onError);
+        postData("/introduireServlet",data,token,onPostIntroductionQuote,onError);
         
     });
 
     $(".Register-confirmation-link").click(e=>{
             viewRegisterConfirmation();
             
-            //getData("/register_confirmation",token,onGetRegisterConfirmation,onError);
-            onGetRegisterConfirmation();
+            getData("/confirmation",token,onGetRegisterConfirmation,onError);
+        
     });
    
 
@@ -224,6 +218,12 @@ $(document).ready(e=>{
 function onPostIntroductionQuote(response){
 
 }
+function filterSearchClient(element){
+        var value = $(element).val().toLowerCase();
+        $(".dropdown-menu li").filter(function() {
+          $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+        });
+}
 
 function allHide(){
         $("#login").hide();
@@ -249,6 +249,7 @@ function viewRegisterConfirmation(){
         $("#test1").hide();
         $("#carousel").hide();
         $("#Register-confirmation").show();
+        $("#introductionQuoteForm").hide();
 }
 
 function viewLogin(){
@@ -340,11 +341,11 @@ function onPostLogin(response){
         }
 }
 function onGetClientQuoteForm(response){
-        response.forEach(element => {
+        response.usersData.forEach(element => {
                 var li=document.createElement("li");
                 var a=document.createElement("a");
                 a.href="#";
-                a.val=element.idUser;// a changer en idClient
+                a.val=element.idUser;
                 a.innerText=element.prenom+" "+element.nom;
                 a.addEventListener("click",function(e){
                         
@@ -360,30 +361,32 @@ function onGetClientQuoteForm(response){
 
 function onGetAmenagements(response){
      var i=0;
-        response.forEach(element => {//changer les donnees
+     console.log(response.typeAmenagements);
+        response.typeAmenagements.forEach(element => {//changer les donnees hanger le i par l'id
                 
                 var checkbox=creatHTMLFromString('<div class="form-check col-sm-3 col-form-label" >'
                 +'<input  type="checkbox" id="'+i+'" value="option1">'
-                +'<label for="#'+i+'">'+element["a"]+'</label>'
+                +'<label for="#'+i+'">'+element.description+'</label>'
                 +'</div>');
                 $("#Quote-Form-layoutType").append(checkbox);
                 i++;
         });
 }
-
+var i=0;//permet d'afficher la meme liste des clients pour des bouttonsdifférentss
 //affiche les demandes d'inscription dans un tableau
 function onGetRegisterConfirmation(response){
         
         
-        tempoUsersConf.forEach(element => {
+        response.usersData.forEach(element => {
                 var tr=document.createElement("tr");
                 var prenom=document.createElement("td");
                 prenom.innerHTML=element.prenom;
-                prenom.val=element.prenom;
-                prenom.setAttribute("valueof","firstname");
+                prenom.value=element.idUser;
+                console.log(element.idUser);
+                prenom.setAttribute("valueof","id");
                 var nom=document.createElement("td");
-                nom.val=element.nom;
                 nom.innerHTML=element.nom;
+
                 nom.setAttribute("valueof","lastname");
                 var btnStatus=document.createElement("td");
                 btnStatus.setAttribute("valueof","status");
@@ -405,15 +408,18 @@ function onGetRegisterConfirmation(response){
                 btnStatusEvent.addEventListener("click",onClickStatusItem);
                
                 tr.appendChild(btnStatus);
-
-                var btnClientLink=creatHTMLFromString('<div class="dropdown-Client">'
-                +'<button class="btn btn-secondary dropdown-toggle" id="Quote-Form-Client-dropdown" type="button" data-toggle="dropdown">lié au client<span class="caret"></span></button>'
-                +'<ul class="dropdown-menu" id="Quote-Form-Client-items">'
-                +'<input class="form-control" id="Quote-Form-Client-Search" type="text" placeholder="Search..">'
-                +'</ul>'
-                +'</div>');
-                tr.appendChild(btnClientLink);
-                
+                var tdBtnClientLink=document.createElement("td");
+                tdBtnClientLink.setAttribute("valueof","client");
+                tdBtnClientLink.id="ClientLink"+i;
+                var btnClientLink=creatHTMLFromString('<div class="form-group col-md-3">'
+                +'<div class="dropdown-Client">'
+                + '<button class="btn btn-secondary dropdown-toggle" id="RegisterConfirmation-Form-Client-dropdown'+i+'" type="button" data-toggle="dropdown">lié à l\'utilisateur<span class="caret"></span></button>'
+                + '<ul class="dropdown-menu" id="RegisterConfirmation-Form-Client-items'+i+'">'
+                +  ' <input class="form-control" id="RegisterConfirmation-Form-Client-Search'+i+'" type="text" placeholder="Search..">'
+                +'</ul></div></div>');
+                tdBtnClientLink.appendChild(btnClientLink);
+                tr.appendChild(tdBtnClientLink);
+                getData("/listeUsers",token,onGetClientRegisterConfirmationForm,onError);
                 //GetClient
 
                 //creation du boutton confirmer
@@ -422,18 +428,46 @@ function onGetRegisterConfirmation(response){
                 btnConfirmationEvent.addEventListener("click",onClickRegisterConfirmation);
                 tr.appendChild(btnConfirmation);
                 $("#Register-confirmation-body").append(tr);
+                
+                i++;
         });
+        i=0;
+
+}
+function onGetClientRegisterConfirmationForm(response){
+        response.usersData.forEach(element => {
+                var li=document.createElement("li");
+                var a=document.createElement("a");
+                a.href="#";
+                a.setAttribute("valueofI",i);
+                a.val=element.idUser;
+                a.innerText=element.prenom+" "+element.nom;
+                a.addEventListener("click",function(e){
+                        
+                        $("#ClientLink"+e.target.getAttribute("valueofI")).val(e.target.val);
+                        $("#RegisterConfirmation-Form-Client-dropdown"+e.target.getAttribute("valueofI")).text(e.target.innerText);
+                        
+                        console.log($("#ClientLink"+e.target.getAttribute("valueofI")));
+
+                });
+                li.appendChild(a);
+                $("#RegisterConfirmation-Form-Client-items"+i).append(li);
+        });
+        i++;
+
 }
 function onClickRegisterConfirmation(element){
         var btn=element.target;
         var data={};
-        console.log(btn.parentNode.parentNode)
+        console.log(element)
         btn.parentNode.parentNode.childNodes.forEach(e => {
+                console.log(e);
+                console.log("valeur:"+e.value);
                 data[e.getAttribute("valueof")]=e.val;
                 
                 
         });
-        console.log(data.status);
+        console.log(data.client);
         
 
         postData("/confirmation",data,token,onPostRegisterConfirmation,onError);
@@ -446,7 +480,7 @@ function onClickStatusItem(element){
         
         var btn=element.target;
         if(btn.tagName=="A"){//vérifie si c'est un element <a>
-                btn.parentNode.parentNode.parentNode.val=btn.innerHTML
+                btn.parentNode.parentNode.parentNode.value=btn.innerHTML
                 btn.parentNode.parentNode.firstChild.innerHTML=btn.innerHTML;
 
         }

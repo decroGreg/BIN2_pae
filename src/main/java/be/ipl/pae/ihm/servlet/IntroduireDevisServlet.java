@@ -70,7 +70,7 @@ public class IntroduireDevisServlet extends HttpServlet {
     try {
       Genson genson = new Genson();
       Map<String, Map<String, String>> data = genson.deserialize(req.getReader(), Map.class);
-      System.out.println(data.get("dataQuote").toString());
+      System.out.println(data.toString());
       try {
         // faire de set
         Map<String, String> dataUser = data.get("dataUser");
@@ -86,7 +86,11 @@ public class IntroduireDevisServlet extends HttpServlet {
           clientDto.setEmail(dataUser.get("mail").toString());
           clientDto.setTelephone(dataUser.get("phone").toString());
         }
-        devisUcc.introduireDevis(clientDto, devisDto);
+
+
+        System.out.println(data.get("type").get("amenagment"));
+
+        // devisUcc.introduireDevis(clientDto, devisDto);
 
 
       } catch (Exception e) {
