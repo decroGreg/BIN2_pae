@@ -7,9 +7,11 @@ import be.ipl.pae.dal.interfaces.ClientDao;
 public class ClientDaoMock implements ClientDao {
 
   private boolean voirTousClient;
+  private boolean createClient;
 
-  public ClientDaoMock(boolean voirTousClient) {
+  public ClientDaoMock(boolean voirTousClient, boolean createClien) {
     this.voirTousClient = voirTousClient;
+    this.createClient = createClien;
   }
 
   @Override
