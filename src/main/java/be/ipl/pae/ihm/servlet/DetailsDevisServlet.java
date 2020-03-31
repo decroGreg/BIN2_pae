@@ -1,5 +1,14 @@
 package be.ipl.pae.ihm.servlet;
 
+import java.io.IOException;
+import java.sql.Timestamp;
+import java.time.LocalDateTime;
+import java.util.Map;
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import com.owlike.genson.Genson;
 import be.ipl.pae.biz.dto.DevisDto;
 import be.ipl.pae.biz.dto.UserDto;
 import be.ipl.pae.biz.factory.FactoryImpl;
@@ -7,18 +16,6 @@ import be.ipl.pae.biz.impl.DevisImpl.Etat;
 import be.ipl.pae.biz.interfaces.DevisUcc;
 import be.ipl.pae.biz.interfaces.Factory;
 import be.ipl.pae.biz.interfaces.UserUcc;
-
-import com.owlike.genson.Genson;
-
-import java.io.IOException;
-import java.sql.Timestamp;
-import java.time.LocalDateTime;
-import java.util.Map;
-
-import javax.servlet.ServletException;
-import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 
 public class DetailsDevisServlet extends HttpServlet {
 
@@ -119,21 +116,25 @@ public class DetailsDevisServlet extends HttpServlet {
       Genson genson = new Genson();
       Map<String, Object> data = genson.deserialize(req.getReader(), Map.class);
       System.out.println(data);
-      // String token = data.get("token").toString();
-      String token = "t";
-
+      String token = req.getHeader("Authorization");
+      // String token = "t";
+      DevisDto devis = null;
       if (token != null) {
-        String nouvelEtat = data.get("etatDevis").toString();
-        System.out.println(nouvelEtat);
-
+        int idDevis = Integer.parseInt(data.get("idDevis").toString());
+        System.out.println(idDevis);
+        for (DevisDto e : devisUcc.voirDevis()) {
+          if (e.getIdDevis() == idDevis) {
+            devis = e;
+          }
+        }
         // Changement d'état dans la db
+        devisUcc.confirmerDateDebut(devis);
 
-        // DevisDto devisNouvelEtat = userUCC.updateEtatDevis(nouvelEtat);
-        DevisDto devisNouvelEtat = devis1;
-        devisNouvelEtat.setEtat(Etat.ANP);
+        // DevisDto devisNouvelEtat = devis1;
+        devis.setEtat(Etat.DDI);
 
         // Renvoi du nouveau DevisDTO
-        String devisData = genson.serialize(devisNouvelEtat);
+        String devisData = genson.serialize(devis);
         String json = "{\"success\":\"true\", \"devisData\":" + devisData + "}";
         System.out.println("JSON generated :" + json);
 

@@ -18,10 +18,7 @@ function encodeImagetoBase64(element) {
           $("img").attr("src",reader.result);
           
         }
-
-        reader.readAsDataURL(file);
-
-        
+        reader.readAsDataURL(file);        
 }
 
 
@@ -178,8 +175,7 @@ $(document).ready(e=>{
     $("#mesDevis").click(e=>{
     	e.preventDefault();
     	allHide();
-    	$("#voir-devis-client").show();
-    	getData("/listeDevisClient",token,afficherDevisClient,onError);
+    	mesDevis();
     });
     
     $("#btn-search-category").click(e=>{
@@ -290,9 +286,9 @@ function viewAuthentification(){
         $("#search-devis-montant-link").show();
         $("#search-devis-amenagement-link").show();
         $("#mesDevis").show();
+
         
         if(user &&user.statut===OUVRIER){
-                console.log("passage");
                 $("#list-confirmation-link").show();
                 $("#introductionQuote").show(); 
                 $("#search-client-link").show();
@@ -302,7 +298,7 @@ function viewAuthentification(){
                 $("#search-devis-date-link").hide();
                 $("#search-devis-montant-link").hide();
                 $("#search-devis-amenagement-link").hide();
-                $("#mesDevis").hide();
+                $("#mesDevis").show();
 
         }
         $("#connexion").hide();
@@ -335,6 +331,7 @@ function onPostLogin(response){
         if(response.success==="true"){
                 console.log("data: "+response.userData.prenom);
                 user=response.userData;
+                console.log(user);
                 token=response.token;
                 localStorage.setItem("token",token);
                 console.log(localStorage.getItem("token"));
@@ -527,22 +524,21 @@ function afficherUtilisateurs(response){
 function afficherDevis(response){
 	Object.keys(response.devisData).forEach(data => {
 	    var html = "<tr>";
-	    html+="<td><a href=\"#\" id=\"reference-devis\">"
+	    html+="<td><a href=\"#\" class=\"reference-devis\">"
 	    	+ response.devisData[data].idDevis + "</a></td>\n<td>" 
 	    	+ response.devisData[data].idClient + "</td>\n<td>" 
 	    	+ response.devisData[data].date + "</td>\n<td>" 
-	    	+ response.devisData[data].montant + "</td>\n<td>" 
+	    	+ response.devisData[data].montant + "€</td>\n<td>" 
 	    	+ response.devisData[data].dureeTravaux + "</td>\n<td>" 
 	    	+ response.devisData[data].photoPreferee + "</td>\n<td>" 
 	    	+ response.devisData[data].etat + "</td></tr>";	    
 	    $("#voir-devis tbody").append(html);
 	});
-	$("#reference-devis").click(e=>{
+	$("a.reference-devis").click(e=>{
     	let data={};
-        data.idDevis=$("#reference-devis").text();
+        data.idDevis=$(e.target).text();
         console.log("Reference devis : " + data.idDevis);
         postData("/detailsDevis",data,token, afficherDetailsDevis, onError);
-        //console.log("apres postData");
         //getData("/detailsDevis", token, afficherDetailDevis, onError);
     });
 }
@@ -550,9 +546,9 @@ function afficherDevis(response){
 function afficherDevisClient(response){
 	Object.keys(response.devisData).forEach(data => {
 	    var html = "<tr>";
-	    html+="<td><a href='#' id='reference-devis'>"
+	    html+="<td><a href='#' class='reference-devis'>"
 	    	+ response.devisData[data].date + "</a></td>\n<td>" 
-	    	+ response.devisData[data].montant + "</td>\n<td>" 
+	    	+ response.devisData[data].montant + "€</td>\n<td>" 
 	    	+ response.devisData[data].dureeTravaux + "</td>\n<td>" 
 	    	+ response.devisData[data].photoPreferee + "</td>\n<td>" 
 	    	+ response.devisData[data].etat + "</td></tr>";	    
@@ -577,9 +573,9 @@ function afficherClients(response){
 
 function afficherDetailsDevis(response){
 	console.log(JSON.stringify(response.devisData));
-	allHide();
+	/*allHide();
 	$("#voir-devis").hide();
-    $("#voir-devis-client").hide();
+    $("#voir-devis-client").hide();*/
 	$("#voir-details-devis").show();
 	$("#voir-details-devis #dateDevis").attr("value", response.devisData.date);
 	$("#voir-details-devis #montantDevis").attr("value", response.devisData.montant);
@@ -588,7 +584,13 @@ function afficherDetailsDevis(response){
 	$("#voir-details-devis #dureeTravauxDevis").attr("value", response.devisData.dureeTravaux);
 	$("#voir-details-devis #btn-devis").attr("value", changerValeurBouton(response.devisData.etat));
 	$("#voir-details-devis #btn-devis").click(e=>{
-		changerEtat(response.devisData.etat);	
+		var nouvelEtat = changerEtat(response.devisData.etat);	
+		let data={};
+		data.etatDevis = nouvelEtat;
+		console.log("Nouvel etat : " + nouvelEtat);
+		console.log(data.etatDevis);
+		//putData("/detailsDevis", token, data, afficherDetailsDevis, onError);
+
 	});
 }
 
@@ -661,10 +663,15 @@ function changerEtat(etat){
 	  default:
 		  break;
 	}
-	let data={};
-	data.etatDevis = nouvelEtat;
-	console.log("Nouvel etat : " + nouvelEtat);
-	console.log(data.etatDevis);
-	putData("/detailsDevis", token, data, afficherDetailsDevis, onError);
+	
+	return nouvelEtat;
 
+}
+
+function mesDevis(){
+	$("#voir-devis-client").show();	
+	let data={};
+	console.log("user = " + JSON.stringify(user));
+	data = user;
+	postData("/listeDevisClient",data,token,afficherDevisClient,onError);
 }
