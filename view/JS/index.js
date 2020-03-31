@@ -93,19 +93,11 @@ $(document).ready(e=>{
         
     });
     $("#introductionQuote").click(e=>{
-        var response=[{
-                "a":"aaaaaaaaaaa"},{
-                "a":"b"},{
-                "a":"c"},{
-                "a":"d"},{
-                "a":"e"
-        }];
         viewIntroductionQuote();
 
-        //getData("/introduireServlet",token,onGetAmenagements,onError);
-        onGetAmenagements(response);
-        //getClient
-        onGetClientQuoteForm(tempUsers);
+        getData("/introduireServlet",token,onGetAmenagements,onError);
+        getData("/listeUsers",token,onGetClientQuoteForm,onError)
+        
     });
 
     /*
@@ -166,8 +158,8 @@ $(document).ready(e=>{
     $(".Register-confirmation-link").click(e=>{
             viewRegisterConfirmation();
             
-            //getData("/register_confirmation",token,onGetRegisterConfirmation,onError);
-            onGetRegisterConfirmation();
+            getData("/confirmation",token,onGetRegisterConfirmation,onError);
+            //onGetRegisterConfirmation();
     });
    
 
@@ -344,11 +336,11 @@ function onPostLogin(response){
         }
 }
 function onGetClientQuoteForm(response){
-        response.forEach(element => {
+        response.usersData.forEach(element => {
                 var li=document.createElement("li");
                 var a=document.createElement("a");
                 a.href="#";
-                a.val=element.idUser;// a changer en idClient
+                a.val=element.idUser;
                 a.innerText=element.prenom+" "+element.nom;
                 a.addEventListener("click",function(e){
                         
@@ -364,11 +356,12 @@ function onGetClientQuoteForm(response){
 
 function onGetAmenagements(response){
      var i=0;
-        response.forEach(element => {//changer les donnees
+     console.log(response.typeAmenagements);
+        response.typeAmenagements.forEach(element => {//changer les donnees
                 
                 var checkbox=creatHTMLFromString('<div class="form-check col-sm-3 col-form-label" >'
                 +'<input  type="checkbox" id="'+i+'" value="option1">'
-                +'<label for="#'+i+'">'+element["a"]+'</label>'
+                +'<label for="#'+i+'">'+element.description+'</label>'
                 +'</div>');
                 $("#Quote-Form-layoutType").append(checkbox);
                 i++;
@@ -379,15 +372,16 @@ function onGetAmenagements(response){
 function onGetRegisterConfirmation(response){
         
         
-        tempoUsersConf.forEach(element => {
+        response.usersData.forEach(element => {
                 var tr=document.createElement("tr");
                 var prenom=document.createElement("td");
                 prenom.innerHTML=element.prenom;
-                prenom.val=element.prenom;
-                prenom.setAttribute("valueof","firstname");
+                prenom.val=element.idUser;
+                console.log(element.idUser);
+                prenom.setAttribute("valueof","id");
                 var nom=document.createElement("td");
-                nom.val=element.nom;
                 nom.innerHTML=element.nom;
+
                 nom.setAttribute("valueof","lastname");
                 var btnStatus=document.createElement("td");
                 btnStatus.setAttribute("valueof","status");
@@ -411,9 +405,9 @@ function onGetRegisterConfirmation(response){
                 tr.appendChild(btnStatus);
 
                 var btnClientLink=creatHTMLFromString('<div class="dropdown-Client">'
-                +'<button class="btn btn-secondary dropdown-toggle" id="Quote-Form-Client-dropdown" type="button" data-toggle="dropdown">lié au client<span class="caret"></span></button>'
-                +'<ul class="dropdown-menu" id="Quote-Form-Client-items">'
-                +'<input class="form-control" id="Quote-Form-Client-Search" type="text" placeholder="Search..">'
+                +'<button class="btn btn-secondary dropdown-toggle" id="RegisterConfirmation-Form-Client-dropdown'+element.idUser+'" type="button" data-toggle="dropdown">lié au client</button>'
+                +'<ul class="dropdown-menu" id="RegisterConfirmation-Form-Client-items'+element.idUser+'">'
+                +'<input class="form-control" id="RegisterConfirmation-Form-Client-Search'+element.idUser+'" type="text" placeholder="Search..">'
                 +'</ul>'
                 +'</div>');
                 tr.appendChild(btnClientLink);
