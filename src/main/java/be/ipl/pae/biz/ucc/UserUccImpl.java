@@ -1,9 +1,5 @@
 package be.ipl.pae.biz.ucc;
 
-import java.sql.Timestamp;
-import java.time.LocalDate;
-import java.util.Collections;
-import java.util.List;
 import be.ipl.pae.biz.dto.ClientDto;
 import be.ipl.pae.biz.dto.UserDto;
 import be.ipl.pae.biz.interfaces.Factory;
@@ -13,6 +9,11 @@ import be.ipl.pae.dal.daoservices.DaoServicesUcc;
 import be.ipl.pae.dal.interfaces.UserDao;
 import be.ipl.pae.exceptions.BizException;
 import be.ipl.pae.exceptions.DalException;
+
+import java.sql.Timestamp;
+import java.time.LocalDate;
+import java.util.Collections;
+import java.util.List;
 
 
 
@@ -119,7 +120,7 @@ public class UserUccImpl implements UserUcc {
   }
 
   @Override
-  public void confirmerInscription(UserDto utilisateur, ClientDto client) {
+  public void confirmerInscription(UserDto utilisateur, ClientDto client, char etat) {
     try {
       daoServicesUcc.demarrerTransaction();
       if (client != null && utilisateur.getEmail().equals(client.getEmail())) {

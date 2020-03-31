@@ -87,8 +87,8 @@ public class ConfirmationRegisterServlet extends HttpServlet {
 
         userDto.setIdUser(idUtilConfirm);
         clientDto.setIdClient(idClient);
-
-        userUcc.confirmerInscription(userDto, clientDto);
+        // J'ai besoin de l'etat choisi dans le formulaire pour le changer dans le userDto
+        // userUcc.confirmerInscription(userDto, clientDto);
 
 
         String json = "{\"success\":\"true\"}";
