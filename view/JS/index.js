@@ -68,7 +68,7 @@ $(document).ready(e=>{
         viewIntroductionQuote();
 
         getData("/introduireServlet",token,onGetAmenagements,onError);
-        getData("/listeUsers",token,onGetClientQuoteForm,onError)
+        getData("/listeUsers",token,onGetClientQuoteForm,onError);
         
         
     });
@@ -111,6 +111,10 @@ $(document).ready(e=>{
                         type[i]=element.id;
                         
                 }
+        }
+
+        if(type.length==0){
+                return ;
         }
         
         var dataQuote={
@@ -255,6 +259,8 @@ function viewHomePage(){
         $("#voir-clients").hide();
         $("#voir-details-devis").hide();
         $("#mesDevis").hide();
+        $("#success-notification").hide();
+        $("#error-notification").hide();
         //$("#search-homepage").hide();
 }
 
@@ -307,7 +313,9 @@ function authentificationToken(token){
 //Authentificaiton réussis
 function onPostLogin(response){
         if(response.success=="true"){
-                alert();
+                $("#success-notification").show();
+                $("#success-notification").text(response.message);
+                console.log( $("#success-notification").text());
                 token=response.token;
                 localStorage.setItem("token",token);
 
@@ -403,6 +411,7 @@ function onGetRegisterConfirmation(response){
                 +'</ul></div></div>');
                 tdBtnClientLink.appendChild(btnClientLink);
                 tr.appendChild(tdBtnClientLink);
+
                 getData("/listeClients",token,onGetClientRegisterConfirmationForm,onError);
                 
                 //GetClient
@@ -420,12 +429,12 @@ function onGetRegisterConfirmation(response){
 
 }
 function onGetClientRegisterConfirmationForm(response){
-        response.usersData.forEach(element => {
+        response.clientsData.forEach(element => {
                 var li=document.createElement("li");
                 var a=document.createElement("a");
                 a.href="#";
                 a.setAttribute("valueofI",i);
-                a.val=element.idUser;
+                a.val=element.idClient;
                 a.innerText=element.prenom+" "+element.nom;
                 a.addEventListener("click",function(e){
                         
