@@ -1,9 +1,5 @@
 package be.ipl.pae.main;
 
-import javax.servlet.http.HttpServlet;
-import org.eclipse.jetty.server.Server;
-import org.eclipse.jetty.servlet.ServletHolder;
-import org.eclipse.jetty.webapp.WebAppContext;
 import be.ipl.pae.biz.config.Config;
 import be.ipl.pae.biz.dto.ClientDto;
 import be.ipl.pae.biz.dto.DevisDto;
@@ -18,10 +14,12 @@ import be.ipl.pae.biz.ucc.DevisUccImpl;
 import be.ipl.pae.biz.ucc.TypeDAmenagementUccImpl;
 import be.ipl.pae.biz.ucc.UserUccImpl;
 import be.ipl.pae.dal.daoservices.DaoServicesImpl;
+import be.ipl.pae.dal.impl.AmenagementDaoImpl;
 import be.ipl.pae.dal.impl.ClientDaoImpl;
 import be.ipl.pae.dal.impl.DevisDaoImpl;
 import be.ipl.pae.dal.impl.TypeDAmenagementDaoImpl;
 import be.ipl.pae.dal.impl.UserDaoImpl;
+import be.ipl.pae.dal.interfaces.AmenagementDao;
 import be.ipl.pae.dal.interfaces.ClientDao;
 import be.ipl.pae.dal.interfaces.DevisDao;
 import be.ipl.pae.dal.interfaces.TypeDAmenagementDao;
@@ -36,6 +34,12 @@ import be.ipl.pae.ihm.servlet.VoirDevisClientServlet;
 import be.ipl.pae.ihm.servlet.VoirDevisServlet;
 import be.ipl.pae.ihm.servlet.VoirUtilisateursServlet;
 
+import org.eclipse.jetty.server.Server;
+import org.eclipse.jetty.servlet.ServletHolder;
+import org.eclipse.jetty.webapp.WebAppContext;
+
+import javax.servlet.http.HttpServlet;
+
 public class Main {
   public static void main(String[] args) throws Exception {
     // Lecture du fichier properties
@@ -46,6 +50,7 @@ public class Main {
     DaoServicesImpl daoServices = new DaoServicesImpl();
 
     UserDao userDao = new UserDaoImpl(daoServices);
+    AmenagementDao amenagementDao = new AmenagementDaoImpl(daoServices);
     ClientDao clientDao = new ClientDaoImpl(daoServices);
     DevisDao devisDao = new DevisDaoImpl(daoServices);
     TypeDAmenagementDao typeAmenagementDao = new TypeDAmenagementDaoImpl(daoServices);
@@ -53,7 +58,7 @@ public class Main {
     UserDto userDto = factory.getUserDto();
     ClientDto clientDto = factory.getClientDto();
     ClientUcc clientUcc = new ClientUccImpl(factory, clientDao, daoServices);
-    DevisUcc devisUcc = new DevisUccImpl(factory, devisDao, clientDao, daoServices);
+    DevisUcc devisUcc = new DevisUccImpl(factory, devisDao, clientDao, amenagementDao, daoServices);
     DevisDto devisDto = factory.getDevisDto();
     TypeDAmenagementUcc typeAmenagmentUcc =
         new TypeDAmenagementUccImpl(factory, typeAmenagementDao, daoServices);

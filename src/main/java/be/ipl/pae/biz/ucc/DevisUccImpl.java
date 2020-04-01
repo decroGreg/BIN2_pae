@@ -6,6 +6,7 @@ import be.ipl.pae.biz.impl.DevisImpl.Etat;
 import be.ipl.pae.biz.interfaces.DevisUcc;
 import be.ipl.pae.biz.interfaces.Factory;
 import be.ipl.pae.dal.daoservices.DaoServicesUcc;
+import be.ipl.pae.dal.interfaces.AmenagementDao;
 import be.ipl.pae.dal.interfaces.ClientDao;
 import be.ipl.pae.dal.interfaces.DevisDao;
 import be.ipl.pae.exceptions.BizException;
@@ -18,7 +19,8 @@ public class DevisUccImpl implements DevisUcc {
 
   private DevisDao devisDao;
   private ClientDao clientDao;
-  private Factory userFactory;
+  private AmenagementDao amenagementDao;
+  private Factory bizFactory;
   private DaoServicesUcc daoServicesUcc;
 
 
@@ -29,12 +31,13 @@ public class DevisUccImpl implements DevisUcc {
    * @param devisDao le dao du devis.
    * @param daoServicesUcc le dao services.
    */
-  public DevisUccImpl(Factory userFactory, DevisDao devisDao, ClientDao clientDao,
-      DaoServicesUcc daoServicesUcc) {
+  public DevisUccImpl(Factory bizFactory, DevisDao devisDao, ClientDao clientDao,
+      AmenagementDao amenagementDao, DaoServicesUcc daoServicesUcc) {
     super();
-    this.userFactory = userFactory;
+    this.bizFactory = bizFactory;
     this.devisDao = devisDao;
     this.clientDao = clientDao;
+    this.amenagementDao = amenagementDao;
     this.daoServicesUcc = daoServicesUcc;
   }
 
@@ -69,7 +72,9 @@ public class DevisUccImpl implements DevisUcc {
   }
 
   @Override
-  public void introduireDevis(ClientDto nouveauClient, int idClient, DevisDto devis) {
+  public void introduireDevis(ClientDto nouveauClient, int idClient, DevisDto devis,
+      List<String> listeIdTypeAmenagement) {
+    int idDevis = 0;
     try {
       daoServicesUcc.demarrerTransaction();
       if (nouveauClient == null) {
@@ -80,6 +85,11 @@ public class DevisUccImpl implements DevisUcc {
           throw new BizException("Impossible de créer un client");
         }
         devisDao.createDevis(nouveauClient.getIdClient(), devis);
+        idDevis = devisDao.getDernierDevis();
+        for (String idTypeAmenagement : listeIdTypeAmenagement) {
+          int idType = Integer.parseInt(idTypeAmenagement);
+          amenagementDao.createAmenagement(idType, idDevis);
+        }
       }
     } catch (DalException de) {
       daoServicesUcc.rollback();
