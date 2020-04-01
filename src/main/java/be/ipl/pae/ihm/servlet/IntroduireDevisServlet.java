@@ -76,7 +76,7 @@ public class IntroduireDevisServlet extends HttpServlet {
       Map<String, Map<String, String>> data = genson.deserialize(req.getReader(), Map.class);
       System.out.println(data.toString());
       try {
-        // faire de set
+
         Map<String, String> dataUser = data.get("dataUser");
         Map<String, String> dataQuote = data.get("dataQuote");
         if (dataUser != null) {
@@ -90,7 +90,7 @@ public class IntroduireDevisServlet extends HttpServlet {
           clientDto.setEmail(dataUser.get("mail").toString());
           clientDto.setTelephone(dataUser.get("phone").toString());
         }
-        // methode pour introduire la photo dans la bd;
+
 
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss.SSS");
         Date parsedDate = dateFormat.parse(dataQuote.get("date").toString() + " 00:00:00.000");
