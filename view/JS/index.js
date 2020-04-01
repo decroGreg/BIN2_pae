@@ -587,6 +587,7 @@ function afficherDetailsDevis(response){
 		let data={};
 		data.idDevis = response.devisData.idDevis;
 		data.etatDevis = nouvelEtat;
+		data.dateDebutTravaux = $("#voir-details-devis #dateDebutTravaux").text();
 		console.log("Nouvel etat : " + nouvelEtat);
 		console.log(data.etatDevis);
 		putData("/detailsDevis", token, data, devisDC, onError);
@@ -683,6 +684,7 @@ function devisDC(response){
 	$("#voir-details-devis #etatDevis").attr("value", response.devisData.etat);
 	$("#voir-details-devis #typeAmenagementDevis").attr("value", response.devisData.typeAmenagement);
 	$("#voir-details-devis #dureeTravauxDevis").attr("value", response.devisData.dureeTravaux);
+	$("#voir-details-devis #dateDebutTravaux").attr("value", response.devisData.dateDebutTravaux);
 	$("#voir-details-devis #dateDebutTravaux").prop("disabled", true);
-	$("#voir-details-devis #btn-devis").atr("tvalue", changerValeurBouton(response.devisData.etat));
+	$("#voir-details-devis #btn-devis").attr("tvalue", changerValeurBouton(response.devisData.etat));
 }
