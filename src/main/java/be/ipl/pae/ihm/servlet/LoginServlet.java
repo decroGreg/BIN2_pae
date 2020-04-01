@@ -95,7 +95,7 @@ public class LoginServlet extends HttpServlet {
         Map<String, Object> claims = new HashMap<String, Object>();
         claims.put("id", userDto.getIdUser());
         claims.put("ip", req.getRemoteAddr());
-
+        userDto.setStatut('e');
         Algorithm algorithm = Algorithm.HMAC256(JWTSECRET);
 
         String ltoken =
