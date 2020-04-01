@@ -120,9 +120,7 @@ public class UserUccImpl implements UserUcc {
   public void confirmerInscription(UserDto utilisateur, ClientDto client, char etat) {
     try {
       daoServicesUcc.demarrerTransaction();
-      if (client != null && utilisateur.getEmail().equals(client.getEmail())) {
-        userDao.lierUserUtilisateur(client, utilisateur, etat);
-      }
+      userDao.lierUserUtilisateur(client, utilisateur, etat);
     } catch (DalException de) {
       daoServicesUcc.rollback();
       throw new IllegalArgumentException();
