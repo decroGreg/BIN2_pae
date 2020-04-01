@@ -136,6 +136,7 @@ public class UserDaoImpl implements UserDao {
         try {
           ps.setInt(1, user.getIdUser());
           ps.setInt(2, client.getIdClient());
+          ps.execute();
         } catch (SQLException ex) {
           throw new DalException("Erreur lors de liaison dans la table client" + ex.getMessage());
         }

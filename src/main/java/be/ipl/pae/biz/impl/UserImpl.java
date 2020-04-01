@@ -177,4 +177,11 @@ public class UserImpl implements User {
     }
     return false;
   }
+
+  public boolean checkStatut(char statut) {
+    if (statut != 'O' && statut != 'C') {
+      return false;
+    }
+    return true;
+  }
 }

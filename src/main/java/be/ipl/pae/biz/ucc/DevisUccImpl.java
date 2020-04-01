@@ -9,6 +9,7 @@ import be.ipl.pae.dal.daoservices.DaoServicesUcc;
 import be.ipl.pae.dal.interfaces.AmenagementDao;
 import be.ipl.pae.dal.interfaces.ClientDao;
 import be.ipl.pae.dal.interfaces.DevisDao;
+import be.ipl.pae.dal.interfaces.UserDao;
 import be.ipl.pae.exceptions.BizException;
 import be.ipl.pae.exceptions.DalException;
 
@@ -19,6 +20,7 @@ public class DevisUccImpl implements DevisUcc {
 
   private DevisDao devisDao;
   private ClientDao clientDao;
+  private UserDao userDao;
   private AmenagementDao amenagementDao;
   private Factory bizFactory;
   private DaoServicesUcc daoServicesUcc;
@@ -31,12 +33,13 @@ public class DevisUccImpl implements DevisUcc {
    * @param devisDao le dao du devis.
    * @param daoServicesUcc le dao services.
    */
-  public DevisUccImpl(Factory bizFactory, DevisDao devisDao, ClientDao clientDao,
+  public DevisUccImpl(Factory bizFactory, DevisDao devisDao, UserDao userDao, ClientDao clientDao,
       AmenagementDao amenagementDao, DaoServicesUcc daoServicesUcc) {
     super();
     this.bizFactory = bizFactory;
     this.devisDao = devisDao;
     this.clientDao = clientDao;
+    this.userDao = userDao;
     this.amenagementDao = amenagementDao;
     this.daoServicesUcc = daoServicesUcc;
   }
@@ -72,17 +75,20 @@ public class DevisUccImpl implements DevisUcc {
   }
 
   @Override
-  public void introduireDevis(ClientDto nouveauClient, int idClient, DevisDto devis,
+  public void introduireDevis(ClientDto nouveauClient, int idUtilisateur, DevisDto devis,
       List<String> listeIdTypeAmenagement) {
     int idDevis = 0;
     try {
       daoServicesUcc.demarrerTransaction();
       if (nouveauClient == null) {
-        devisDao.createDevis(idClient, devis);
+        devisDao.createDevis(idUtilisateur, devis);
       } else {
         if (!clientDao.createClient(nouveauClient)) {
           daoServicesUcc.commit();
           throw new BizException("Impossible de créer un client");
+        }
+        if (idUtilisateur > 0) {
+          // userDao.lierUserUtilisateur(nouveauClient.getIdClient(), , etat)
         }
         devisDao.createDevis(nouveauClient.getIdClient(), devis);
         idDevis = devisDao.getIdDernierDevis();

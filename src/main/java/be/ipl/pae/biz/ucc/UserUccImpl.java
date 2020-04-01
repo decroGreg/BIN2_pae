@@ -118,8 +118,13 @@ public class UserUccImpl implements UserUcc {
 
   @Override
   public void confirmerInscription(UserDto utilisateur, ClientDto client, char etat) {
+    User user = (User) utilisateur;
     try {
       daoServicesUcc.demarrerTransaction();
+      if (!user.checkStatut(etat)) {
+        daoServicesUcc.commit();
+        throw new BizException("L'etat n'est pas correct");
+      }
       userDao.lierUserUtilisateur(client, utilisateur, etat);
     } catch (DalException de) {
       daoServicesUcc.rollback();

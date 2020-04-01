@@ -90,8 +90,9 @@ public class ConfirmationRegisterServlet extends HttpServlet {
         clientDto.setIdClient(idClient);
 
 
-        System.out.println(data.get("status"));
-        userUcc.confirmerInscription(userDto, clientDto, data.get("status").charAt(0));
+        System.out.println("XXXXX" + data.get("status"));
+        char statut = Character.toUpperCase(data.get("status").charAt(0));
+        userUcc.confirmerInscription(userDto, clientDto, statut);
 
 
 

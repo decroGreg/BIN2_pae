@@ -58,7 +58,8 @@ public class Main {
     UserDto userDto = factory.getUserDto();
     ClientDto clientDto = factory.getClientDto();
     ClientUcc clientUcc = new ClientUccImpl(factory, clientDao, daoServices);
-    DevisUcc devisUcc = new DevisUccImpl(factory, devisDao, clientDao, amenagementDao, daoServices);
+    DevisUcc devisUcc =
+        new DevisUccImpl(factory, devisDao, userDao, clientDao, amenagementDao, daoServices);
     DevisDto devisDto = factory.getDevisDto();
     TypeDAmenagementUcc typeAmenagmentUcc =
         new TypeDAmenagementUccImpl(factory, typeAmenagementDao, daoServices);
