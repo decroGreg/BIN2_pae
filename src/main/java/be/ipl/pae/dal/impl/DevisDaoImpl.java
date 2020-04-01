@@ -110,4 +110,21 @@ public class DevisDaoImpl implements DevisDao {
     }
     return true;
   }
+
+  public int getDernierDevis() {
+    int idDevis = 0;
+    String requeteSql = "SELECT MAX(id_devis) FROM init.devis";
+    ps = services.getPreparedSatement(requeteSql);
+    try {
+      try (ResultSet rs = ps.executeQuery()) {
+        while (rs.next()) {
+          idDevis = rs.getInt(1);
+        }
+      }
+    } catch (SQLException ex) {
+      throw new DalException("Erreur dans la recherche du dernier devis : " + ex.getMessage());
+    }
+    return idDevis;
+  }
 }
+
