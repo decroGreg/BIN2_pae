@@ -1,16 +1,17 @@
 package be.ipl.pae.dal.impl;
 
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.List;
 import be.ipl.pae.biz.dto.TypeDAmenagementDto;
 import be.ipl.pae.biz.factory.FactoryImpl;
 import be.ipl.pae.biz.interfaces.Factory;
 import be.ipl.pae.dal.daoservices.DaoServices;
 import be.ipl.pae.dal.interfaces.TypeDAmenagementDao;
 import be.ipl.pae.exceptions.DalException;
+
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class TypeDAmenagementDaoImpl implements TypeDAmenagementDao {
 

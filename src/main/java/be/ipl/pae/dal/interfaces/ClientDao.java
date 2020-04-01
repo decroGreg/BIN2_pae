@@ -1,7 +1,8 @@
 package be.ipl.pae.dal.interfaces;
 
-import java.util.List;
 import be.ipl.pae.biz.dto.ClientDto;
+
+import java.util.List;
 
 public interface ClientDao {
   List<ClientDto> voirTousClient();

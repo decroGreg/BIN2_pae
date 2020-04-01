@@ -1,9 +1,10 @@
 package be.ipl.pae.dal.interfaces;
 
-import java.sql.Timestamp;
-import java.util.List;
 import be.ipl.pae.biz.dto.ClientDto;
 import be.ipl.pae.biz.dto.DevisDto;
+
+import java.sql.Timestamp;
+import java.util.List;
 
 
 public interface DevisDao {
