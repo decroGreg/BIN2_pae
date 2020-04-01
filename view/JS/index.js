@@ -70,6 +70,7 @@ $(document).ready(e=>{
         getData("/introduireServlet",token,onGetAmenagements,onError);
         getData("/listeUsers",token,onGetClientQuoteForm,onError)
         
+        
     });
 
     /*
@@ -402,7 +403,8 @@ function onGetRegisterConfirmation(response){
                 +'</ul></div></div>');
                 tdBtnClientLink.appendChild(btnClientLink);
                 tr.appendChild(tdBtnClientLink);
-                getData("/listeUsers",token,onGetClientRegisterConfirmationForm,onError);
+                getData("/listeClients",token,onGetClientRegisterConfirmationForm,onError);
+                
                 //GetClient
 
                 //creation du boutton confirmer
@@ -556,7 +558,8 @@ function afficherClients(response){
 
 function afficherDetailsDevis(response){
 	console.log(JSON.stringify(response.devisData));
-	allHide();
+        allHide();
+        
 	$("#voir-details-devis").show();
 	$("#voir-details-devis #dateDevis").attr("value", response.devisData.date);
 	$("#voir-details-devis #montantDevis").attr("value", response.devisData.montant);

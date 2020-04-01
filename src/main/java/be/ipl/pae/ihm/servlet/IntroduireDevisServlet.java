@@ -103,13 +103,7 @@ public class IntroduireDevisServlet extends HttpServlet {
           idClient = Integer.parseInt(dataQuote.get("client").toString());
         }
 
-
-        for (String e : ((List<String>) data.get("type"))) {
-          System.out.println(e);
-        }
-
-
-        // devisUcc.introduireDevis(clientDto, devisDto);
+        devisUcc.introduireDevis(clientDto, idClient, devisDto, (List<String>) data.get("type"));
 
       } catch (Exception e) {
         e.printStackTrace();
