@@ -105,7 +105,7 @@ public class IntroduireDevisServlet extends HttpServlet {
           System.out.println();
         }
 
-        // devisUcc.introduireDevis(clientDto, devisDto);
+        // devisUcc.introduireDevis(clientDto, idClient, devisDto);
 
 
       } catch (Exception e) {
