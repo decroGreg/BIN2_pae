@@ -1,11 +1,10 @@
 package be.ipl.pae.dal.impl;
 
+import java.sql.Timestamp;
+import java.util.List;
 import be.ipl.pae.biz.dto.ClientDto;
 import be.ipl.pae.biz.dto.DevisDto;
 import be.ipl.pae.dal.interfaces.DevisDao;
-
-import java.sql.Timestamp;
-import java.util.List;
 
 public class DevisDaoMock implements DevisDao {
 
@@ -46,4 +45,7 @@ public class DevisDaoMock implements DevisDao {
     return false;
   }
 
+  public int getDernierDevis() {
+    return 0;
+  }
 }

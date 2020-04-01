@@ -19,11 +19,11 @@ public class DevisDaoImpl implements DevisDao {
 
   private PreparedStatement ps;
   private DaoServices services;
-  private Factory factory;
+  private Factory bizfactory;
 
   public DevisDaoImpl(DaoServices daoService) {
     this.services = daoService;
-    this.factory = new FactoryImpl();
+    this.bizfactory = new FactoryImpl();
   }
 
   @Override
@@ -51,7 +51,7 @@ public class DevisDaoImpl implements DevisDao {
     try {
       try (ResultSet rs = ps.executeQuery()) {
         while (rs.next()) {
-          DevisDto devis = factory.getDevisDto();
+          DevisDto devis = bizfactory.getDevisDto();
           devis.setIdDevis(rs.getInt(1));
           devis.setIdClient(rs.getInt(2));
           devis.setDate(rs.getTimestamp(3));
@@ -79,7 +79,7 @@ public class DevisDaoImpl implements DevisDao {
       ps.setInt(1, idClient);
       try (ResultSet rs = ps.executeQuery()) {
         while (rs.next()) {
-          DevisDto devis = factory.getDevisDto();
+          DevisDto devis = bizfactory.getDevisDto();
           devis.setIdDevis(rs.getInt(1));
           devis.setIdClient(rs.getInt(2));
           devis.setDate(rs.getTimestamp(3));
@@ -110,4 +110,21 @@ public class DevisDaoImpl implements DevisDao {
     }
     return true;
   }
+
+  public int getDernierDevis() {
+    int idDevis = 0;
+    String requeteSql = "SELECT MAX(id_devis) FROM init.devis";
+    ps = services.getPreparedSatement(requeteSql);
+    try {
+      try (ResultSet rs = ps.executeQuery()) {
+        while (rs.next()) {
+          idDevis = rs.getInt(1);
+        }
+      }
+    } catch (SQLException ex) {
+      throw new DalException("Erreur dans la recherche du dernier devis : " + ex.getMessage());
+    }
+    return idDevis;
+  }
 }
+

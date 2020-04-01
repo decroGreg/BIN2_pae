@@ -34,7 +34,7 @@ public class UserDaoImpl implements UserDao {
   @Override
   public UserDto getUserConnexion(String email) {
     UserDto userD = factory.getUserDto();
-    String requeteSql = "SELECT * FROM init.utilisateurs WHERE email = ?";
+    String requeteSql = "SELECT * FROM init.utilisateurs WHERE email = ? AND statut IS NOT NULL";
     ps = services.getPreparedSatement(requeteSql);
     try {
       ps.setString(1, email);
@@ -123,37 +123,32 @@ public class UserDaoImpl implements UserDao {
 
   public boolean lierUserUtilisateur(ClientDto client, UserDto user, Character etat) {
 
-    if (etat == 'e') {
-      String requeteSql = "UPDATE init.utilisateurs SET statut='e' WHERE id_utilisateur=?";
-      ps = services.getPreparedSatement(requeteSql);
-      try {
-        ps.setInt(1, user.getIdUser());
-        ps.execute();
-      } catch (SQLException ex) {
-        throw new DalException(
-            "Erreur lors de la liaison dans la table utilisateurs" + ex.getMessage());
-      }
-      return true;
+    String requeteSql1;
+    String requeteSql2;
+    if (etat == 'O') {
+      requeteSql1 = "UPDATE init.utilisateurs SET statut='O' WHERE id_utilisateur=?";
     } else {
-      String requestSql1 = "UPDATE init.utilisateurs SET statut='c' WHERE id_utilisateur=?";
-      String requestSql2 = "UPDATE init.clients SET id_utilisateur=? WHERE id_client=?";
-      ps = services.getPreparedSatement(requestSql1);
-      try {
-        ps.setInt(1, user.getIdUser());
-        ps.execute();
-      } catch (SQLException ex) {
-        throw new DalException(
-            "Erreur lors de la liaison dans la table utilisateurs" + ex.getMessage());
+      requeteSql1 = "UPDATE init.utilisateurs SET statut='C' WHERE id_utilisateur=?";
+      if (client != null) {
+        requeteSql2 = "UPDATE init.clients SET id_utilisateur=? WHERE id_client=?";
+        ps = services.getPreparedSatement(requeteSql2);
+        try {
+          ps.setInt(1, user.getIdUser());
+          ps.setInt(2, client.getIdClient());
+        } catch (SQLException ex) {
+          throw new DalException("Erreur lors de liaison dans la table client" + ex.getMessage());
+        }
       }
-      ps = services.getPreparedSatement(requestSql2);
-      try {
-        ps.setInt(1, user.getIdUser());
-        ps.setInt(2, client.getIdClient());
-      } catch (SQLException ex) {
-        throw new DalException("Erreur lors de liaison dans la table client" + ex.getMessage());
-      }
-      return true;
     }
+    ps = services.getPreparedSatement(requeteSql1);
+    try {
+      ps.setInt(1, user.getIdUser());
+      ps.execute();
+    } catch (SQLException ex) {
+      throw new DalException(
+          "Erreur lors de la liaison dans la table utilisateurs" + ex.getMessage());
+    }
+    return true;
   }
 
   public List<UserDto> voirUserPasConfirmer() {

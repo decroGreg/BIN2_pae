@@ -104,13 +104,12 @@ public class IntroduireDevisServlet extends HttpServlet {
         }
 
 
-
         for (String e : ((List<String>) data.get("type"))) {
           System.out.println(e);
         }
 
 
-        devisUcc.introduireDevis(clientDto, devisDto);
+        // devisUcc.introduireDevis(clientDto, devisDto);
 
       } catch (Exception e) {
         e.printStackTrace();

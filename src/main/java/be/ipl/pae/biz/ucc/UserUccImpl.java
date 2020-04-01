@@ -19,20 +19,20 @@ import java.util.List;
 
 public class UserUccImpl implements UserUcc {
   private UserDao userDao;
-  private Factory userFactory;
+  private Factory bizFactory;
   private DaoServicesUcc daoServicesUcc;
 
   /**
    * Cree un objet UserUccImpl.
    * 
-   * @param userFactory la factory.
+   * @param bizFactory la factory.
    * @param userDao la dao du user.
    * @param daoServicesUcc la dao services.
    */
-  public UserUccImpl(Factory userFactory, UserDao userDao, DaoServicesUcc daoServicesUcc) {
+  public UserUccImpl(Factory bizFactory, UserDao userDao, DaoServicesUcc daoServicesUcc) {
     super();
     this.userDao = userDao;
-    this.userFactory = userFactory;
+    this.bizFactory = bizFactory;
     this.daoServicesUcc = daoServicesUcc;
   }
 
@@ -75,7 +75,7 @@ public class UserUccImpl implements UserUcc {
 
   @Override
   public UserDto login(String email, String motDePasse) {
-    User user = (User) userFactory.getUserDto();
+    User user = (User) bizFactory.getUserDto();
     user.setEmail(email);
     user.setMotDePasse(motDePasse);
     if (user.checkUser()) {
@@ -84,9 +84,6 @@ public class UserUccImpl implements UserUcc {
         daoServicesUcc.demarrerTransaction();
         System.out.println(daoServicesUcc.getConnections().get());
         userDb = userDao.getUserConnexion(user.getEmail());
-        if (userDb.getStatut() == ' ') {
-
-        }
       } catch (DalException de) {
         daoServicesUcc.rollback();
         throw new IllegalArgumentException();
@@ -124,7 +121,7 @@ public class UserUccImpl implements UserUcc {
     try {
       daoServicesUcc.demarrerTransaction();
       if (client != null && utilisateur.getEmail().equals(client.getEmail())) {
-        // userDao.lierUserUtilisateur(client, utilisateur);
+        userDao.lierUserUtilisateur(client, utilisateur, etat);
       }
     } catch (DalException de) {
       daoServicesUcc.rollback();
