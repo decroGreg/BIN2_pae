@@ -102,7 +102,7 @@ public class DevisUccImpl implements DevisUcc {
   public void confirmerDateDebut(DevisDto devis) {
     try {
       daoServicesUcc.demarrerTransaction();
-      if (devis.getEtat().equals(Etat.I)) {
+      if (devis.getEtat().equals(Etat.DDI)) {
 
         devisDao.confirmerDateDevis(devis.getIdDevis(), devis.getDateDebutTravaux());
       }
