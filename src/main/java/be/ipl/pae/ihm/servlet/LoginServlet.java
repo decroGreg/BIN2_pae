@@ -92,7 +92,6 @@ public class LoginServlet extends HttpServlet {
       // verification du pseudo
       // verification du mdp
       if (userDto != null) {
-        userDto.setStatut('o');
         Map<String, Object> claims = new HashMap<String, Object>();
         claims.put("id", userDto.getIdUser());
         claims.put("ip", req.getRemoteAddr());

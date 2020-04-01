@@ -1,7 +1,7 @@
 "use-strict";
 import {postData,getData,deleteData,putData} from "./util.js" ;
-const OUVRIER="o";
-const CLIENT="client";
+const OUVRIER="Ouvrier";
+const CLIENT="Client";
 let token=undefined;
 let user;
 $('#navigation_bar').hide();
@@ -45,7 +45,7 @@ let tempDevis=[{"date":null,"dureeTravaux":"2 mois","etat":"DDI","idClient":0,"i
 
 
 $(document).ready(e=>{
-       
+        
         token=localStorage.getItem("token");
         authentificationToken(token);
         $("#connexion").click(function (e) {
@@ -130,7 +130,7 @@ $(document).ready(e=>{
                 console.log(i);
 
                 if(element.checked){
-                        type.push({"amenagement":element.id});
+                        type[i]=element.id;
                         
                 }
         }
@@ -168,6 +168,7 @@ $(document).ready(e=>{
         localStorage.removeItem("token");
         console.log(token);
         console.log(localStorage.getItem("token"));
+        viewHomePage();
         
 
     });
@@ -286,7 +287,6 @@ function viewAuthentification(){
         $("#search-devis-montant-link").show();
         $("#search-devis-amenagement-link").show();
         $("#mesDevis").show();
-
         
         if(user &&user.statut===OUVRIER){
                 $("#list-confirmation-link").show();
@@ -328,12 +328,15 @@ function authentificationToken(token){
 }
 //Authentificaiton réussis
 function onPostLogin(response){
-        if(response.success==="true"){
-                console.log("data: "+response.userData.prenom);
-                user=response.userData;
-                console.log(user);
+        if(response.success=="true"){
+                alert();
                 token=response.token;
                 localStorage.setItem("token",token);
+
+                console.log("data: "+response.userData.prenom);
+                user=response.userData;
+                console.log("user"+user.idUser);
+                
                 console.log(localStorage.getItem("token"));
                 viewAuthentification();
         }else{
@@ -401,8 +404,8 @@ function onGetRegisterConfirmation(response){
                 +'status'
                 +'</button>'
                 +'<div class="dropdown-menu">'
-                +'<a class="dropdown-item" href="#">Client</a>'
-                +'<a class="dropdown-item" href="#">Ouvrier</a>'
+                +'<a class="dropdown-item" value="c" href="#">Client</a>'
+                +'<a class="dropdown-item" value="e" href="#">Ouvrier</a>'
                 +'</div>'
                 +'</div></td>');
                 btnStatus.appendChild(btnStatusEvent);
@@ -416,7 +419,7 @@ function onGetRegisterConfirmation(response){
                 +'<div class="dropdown-Client">'
                 + '<button class="btn btn-secondary dropdown-toggle" id="RegisterConfirmation-Form-Client-dropdown'+i+'" type="button" data-toggle="dropdown">lié à l\'utilisateur<span class="caret"></span></button>'
                 + '<ul class="dropdown-menu" id="RegisterConfirmation-Form-Client-items'+i+'">'
-                +  ' <input class="form-control" id="RegisterConfirmation-Form-Client-Search'+i+'" type="text" placeholder="Search..">'
+                +  '<input class="form-control" id="RegisterConfirmation-Form-Client-Search'+i+'" type="text" placeholder="Search..">'
                 +'</ul></div></div>');
                 tdBtnClientLink.appendChild(btnClientLink);
                 tr.appendChild(tdBtnClientLink);
@@ -464,7 +467,7 @@ function onClickRegisterConfirmation(element){
         btn.parentNode.parentNode.childNodes.forEach(e => {
                 console.log(e);
                 console.log("valeur:"+e.value);
-                data[e.getAttribute("valueof")]=e.val;
+                data[e.getAttribute("valueof")]=e.value;
                 
                 
         });
@@ -481,9 +484,15 @@ function onClickStatusItem(element){
         
         var btn=element.target;
         if(btn.tagName=="A"){//vérifie si c'est un element <a>
-                btn.parentNode.parentNode.parentNode.value=btn.innerHTML
+                var statut=btn.innerHTML;
+                if(statut==CLIENT){
+                        btn.parentNode.parentNode.parentNode.value='c';
+                }
+                else{
+                        btn.parentNode.parentNode.parentNode.value='e';
+                }
+               
                 btn.parentNode.parentNode.firstChild.innerHTML=btn.innerHTML;
-
         }
 }
 

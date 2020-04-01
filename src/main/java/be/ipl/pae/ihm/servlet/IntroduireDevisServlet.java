@@ -8,6 +8,10 @@ import be.ipl.pae.biz.interfaces.TypeDAmenagementUcc;
 import com.owlike.genson.Genson;
 
 import java.io.IOException;
+import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.Map;
 
 import javax.servlet.ServletException;
@@ -72,7 +76,7 @@ public class IntroduireDevisServlet extends HttpServlet {
       Map<String, Map<String, String>> data = genson.deserialize(req.getReader(), Map.class);
       System.out.println(data.toString());
       try {
-        // faire de set
+
         Map<String, String> dataUser = data.get("dataUser");
         Map<String, String> dataQuote = data.get("dataQuote");
         if (dataUser != null) {
@@ -88,9 +92,20 @@ public class IntroduireDevisServlet extends HttpServlet {
         }
 
 
-        System.out.println(data.get("type").get("amenagment"));
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss.SSS");
+        Date parsedDate = dateFormat.parse(dataQuote.get("date").toString() + " 00:00:00.000");
+        Timestamp timestamp = new Timestamp(parsedDate.getTime());
+        devisDto.setDate(timestamp);
+        devisDto.setMontant(Double.parseDouble(dataQuote.get("price").toString()));
+        devisDto.setDureeTravaux(dataQuote.get("duration"));
 
-        // devisUcc.introduireDevis(clientDto, devisDto);
+        int idClient = Integer.parseInt(dataQuote.get("client").toString());
+
+        for (String e : ((ArrayList<String>) data.get("type"))) {
+          System.out.println();
+        }
+
+        devisUcc.introduireDevis(clientDto, devisDto);
 
 
       } catch (Exception e) {

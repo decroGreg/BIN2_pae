@@ -77,18 +77,21 @@ public class ConfirmationRegisterServlet extends HttpServlet {
     try {
       Genson genson = new Genson();
       Map<String, String> data = genson.deserialize(req.getReader(), Map.class);
-      System.out.println(data.get("status"));
-      int idClient = 0;
-      int idUtilConfirm = 0;
+      System.out.println("--------" + data.toString());
+      int idClient = Integer.parseInt(data.get("client"));
+      int idUtilConfirm = Integer.parseInt(data.get("id"));
       String token = req.getHeader("Authorization");
       System.out.println(token);
       if (token != null) {
-        // To do set...
+
 
         userDto.setIdUser(idUtilConfirm);
         clientDto.setIdClient(idClient);
-        // J'ai besoin de l'etat choisi dans le formulaire pour le changer dans le userDto
-        // userUcc.confirmerInscription(userDto, clientDto);
+
+
+
+        userUcc.confirmerInscription(userDto, clientDto, data.get("status").charAt(0));
+
 
 
         String json = "{\"success\":\"true\"}";
