@@ -10,8 +10,8 @@ import com.owlike.genson.Genson;
 import java.io.IOException;
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.ServletException;
@@ -91,7 +91,6 @@ public class IntroduireDevisServlet extends HttpServlet {
           clientDto.setTelephone(dataUser.get("phone").toString());
         }
 
-
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss.SSS");
         Date parsedDate = dateFormat.parse(dataQuote.get("date").toString() + " 00:00:00.000");
         Timestamp timestamp = new Timestamp(parsedDate.getTime());
@@ -99,14 +98,18 @@ public class IntroduireDevisServlet extends HttpServlet {
         devisDto.setMontant(Double.parseDouble(dataQuote.get("price").toString()));
         devisDto.setDureeTravaux(dataQuote.get("duration"));
 
-        int idClient = Integer.parseInt(dataQuote.get("client").toString());
-
-        for (String e : ((ArrayList<String>) data.get("type"))) {
-          System.out.println();
+        int idClient = 0;
+        if (!dataQuote.get("client").toString().equals("")) {
+          idClient = Integer.parseInt(dataQuote.get("client").toString());
         }
 
-        // devisUcc.introduireDevis(clientDto, idClient, devisDto);
 
+        for (String e : ((List<String>) data.get("type"))) {
+          System.out.println(e);
+        }
+
+
+        // devisUcc.introduireDevis(clientDto, devisDto);
 
       } catch (Exception e) {
         e.printStackTrace();

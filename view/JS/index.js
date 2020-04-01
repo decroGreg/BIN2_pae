@@ -1,7 +1,7 @@
 "use-strict";
 import {postData,getData,deleteData,putData} from "./util.js" ;
-const OUVRIER="Ouvrier";
-const CLIENT="Client";
+const OUVRIER="e";
+const CLIENT="c";
 let token=undefined;
 let user;
 $('#navigation_bar').hide();
@@ -21,31 +21,7 @@ function encodeImagetoBase64(element) {
         reader.readAsDataURL(file);        
 }
 
-
-let tempoUsersConf=[
-        {
-                "prenom":"Grégoire",
-                "nom":"deC"
-        },
-        {
-                "prenom":"Gregory",
-                "nom":"delacroix"
-        },
-        {
-                "prenom":"Gggggggggg",
-                "nom":"deCaaaaaaaaaa"
-        },
-];
-
-let tempUsers=[{"dateInscription":"2020-03-26 11:46:37.95006","email":"mrbrg@live.fr","idUser":0,"motDePasse":"mdp","nom":"B","prenom":"M","pseudo":"mrbrg","statut":"c","ville":"Bruxdells"},
-				{"dateInscription":"2020-03-26 11:46:37.95006","email":"mrbrdddddddg@live.fr","idUser":1,"motDePasse":"fgr","nom":"Bdd","prenom":"Mdef","pseudo":"jbe","statut":"e","ville":"Brudddxdells"}];
-
-let tempDevis=[{"date":null,"dureeTravaux":"2 mois","etat":"DDI","idClient":0,"idDevis":0,"idPhotoPreferee":0,"montant":3000.0},
-				{"date":null,"dureeTravaux":"1 mois","etat":"A","idClient":0,"idDevis":0,"idPhotoPreferee":0,"montant":400.0}];
-
-
 $(document).ready(e=>{
-        
         token=localStorage.getItem("token");
         authentificationToken(token);
         $("#connexion").click(function (e) {
@@ -102,11 +78,12 @@ $(document).ready(e=>{
     $("#Quote-Form-Client-Search").on("keyup", function() {
                 filterSearchClient(this);
       });
+
       $("#Quote-Form-image").change(e=>{
               encodeImagetoBase64(e.target);
       })
 
-      //evoyé donné Introduction devis
+      //envoyé donné Introduction devis
     $("#bnt-IntroductionQuote").click(e=>{
             console.log($("#imageQuote").attr("src"));
         
@@ -268,15 +245,15 @@ function viewHomePage(){
         $("#wrong_passwd").hide();
         $("#carousel").show();
         $("#Register-confirmation").hide();
-        //$("#introductionQuote").hide();
-        //$("#introductionQuoteForm").hide();
-        //$("#list-confirmation-link").hide(); 
+        $("#introductionQuote").hide();
+        $("#introductionQuoteForm").hide();
+        $("#list-confirmation-link").hide(); 
         $("#voir-utilisateurs").hide();
         $("#voir-devis").hide();
         $("#voir-devis-client").hide();
         $("#voir-clients").hide();
         $("#voir-details-devis").hide();
-        //$("#mesDevis").hide();
+        $("#mesDevis").hide();
         //$("#search-homepage").hide();
 }
 
@@ -364,22 +341,22 @@ function onGetClientQuoteForm(response){
 }
 
 function onGetAmenagements(response){
-     var i=0;
+     
      console.log(response.typeAmenagements);
         response.typeAmenagements.forEach(element => {//changer les donnees hanger le i par l'id
-                
+                console.log(element.id);
                 var checkbox=creatHTMLFromString('<div class="form-check col-sm-3 col-form-label" >'
-                +'<input  type="checkbox" id="'+i+'" value="option1">'
-                +'<label for="#'+i+'">'+element.description+'</label>'
+                +'<input  type="checkbox" id="'+element.id+'" value="option1">'
+                +'<label for="#'+element.id+'">'+element.description+'</label>'
                 +'</div>');
                 $("#Quote-Form-layoutType").append(checkbox);
-                i++;
+                
         });
 }
 var i=0;//permet d'afficher la meme liste des clients pour des bouttonsdifférentss
 //affiche les demandes d'inscription dans un tableau
 function onGetRegisterConfirmation(response){
-        
+        $("#Register-confirmation-body").html("");
         
         response.usersData.forEach(element => {
                 var tr=document.createElement("tr");
@@ -412,6 +389,8 @@ function onGetRegisterConfirmation(response){
                 btnStatusEvent.addEventListener("click",onClickStatusItem);
                
                 tr.appendChild(btnStatus);
+
+                //lié un client à l'utilisateurs
                 var tdBtnClientLink=document.createElement("td");
                 tdBtnClientLink.setAttribute("valueof","client");
                 tdBtnClientLink.id="ClientLink"+i;
@@ -467,7 +446,7 @@ function onClickRegisterConfirmation(element){
         btn.parentNode.parentNode.childNodes.forEach(e => {
                 console.log(e);
                 console.log("valeur:"+e.value);
-                data[e.getAttribute("valueof")]=e.value;
+                data[e.getAttribute("valueof")]=e.value+"";
                 
                 
         });
@@ -484,14 +463,8 @@ function onClickStatusItem(element){
         
         var btn=element.target;
         if(btn.tagName=="A"){//vérifie si c'est un element <a>
-                var statut=btn.innerHTML;
-                if(statut==CLIENT){
-                        btn.parentNode.parentNode.parentNode.value='c';
-                }
-                else{
-                        btn.parentNode.parentNode.parentNode.value='e';
-                }
-               
+                console.log($(btn).attr("value"));
+                btn.parentNode.parentNode.parentNode.value=$(btn).attr("value");
                 btn.parentNode.parentNode.firstChild.innerHTML=btn.innerHTML;
         }
 }

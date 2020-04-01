@@ -7,13 +7,13 @@ import be.ipl.pae.dal.interfaces.PhotoDao;
 
 public class PhotoUccImpl implements PhotoUcc {
   private PhotoDao photoDao;
-  private Factory factory;
+  private Factory bizFactory;
   private DaoServices daoServicesUcc;
 
-  public PhotoUccImpl(PhotoDao photoDao, Factory factory, DaoServices daoServicesUcc) {
+  public PhotoUccImpl(PhotoDao photoDao, Factory bizFactory, DaoServices daoServicesUcc) {
     super();
     this.photoDao = photoDao;
-    this.factory = factory;
+    this.bizFactory = bizFactory;
     this.daoServicesUcc = daoServicesUcc;
   }
 

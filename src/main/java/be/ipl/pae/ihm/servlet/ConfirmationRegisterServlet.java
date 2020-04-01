@@ -78,18 +78,19 @@ public class ConfirmationRegisterServlet extends HttpServlet {
       Genson genson = new Genson();
       Map<String, String> data = genson.deserialize(req.getReader(), Map.class);
       System.out.println("--------" + data.toString());
-      int idClient = Integer.parseInt(data.get("client"));
+      int idClient = 0;
       int idUtilConfirm = Integer.parseInt(data.get("id"));
       String token = req.getHeader("Authorization");
       System.out.println(token);
       if (token != null) {
-
+        if (data.get("client") != null)
+          idClient = Integer.parseInt(data.get("client"));
 
         userDto.setIdUser(idUtilConfirm);
         clientDto.setIdClient(idClient);
 
 
-
+        System.out.println(data.get("status"));
         userUcc.confirmerInscription(userDto, clientDto, data.get("status").charAt(0));
 
 

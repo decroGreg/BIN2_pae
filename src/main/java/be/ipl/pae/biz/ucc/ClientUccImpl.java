@@ -13,20 +13,20 @@ import java.util.List;
 public class ClientUccImpl implements ClientUcc {
 
   private ClientDao clientDao;
-  private Factory userFactory;
+  private Factory bizFactory;
   private DaoServicesUcc daoServicesUcc;
 
   /**
    * Cree un objet ClientUccImpl.
    * 
-   * @param userFactory la factory.
+   * @param bizFactory la factory.
    * @param clientDao le dao client.
    * @param daoServicesUcc le dao services.
    */
-  public ClientUccImpl(Factory userFactory, ClientDao clientDao, DaoServicesUcc daoServicesUcc) {
+  public ClientUccImpl(Factory bizFactory, ClientDao clientDao, DaoServicesUcc daoServicesUcc) {
     super();
     this.clientDao = clientDao;
-    this.userFactory = userFactory;
+    this.bizFactory = bizFactory;
     this.daoServicesUcc = daoServicesUcc;
   }
 

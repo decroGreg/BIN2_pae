@@ -14,7 +14,8 @@ public interface DevisUcc {
   // Afficher tous les devis
   List<DevisDto> voirDevis();
 
-  void introduireDevis(ClientDto nouveauClient, int idClient, DevisDto devis);
+  void introduireDevis(ClientDto nouveauClient, int idClient, DevisDto devis,
+      List<String> listeIdTypeAmenagement);
 
   void confirmerDateDebut(DevisDto devis);
 }

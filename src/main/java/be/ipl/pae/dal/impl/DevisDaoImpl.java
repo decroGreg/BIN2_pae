@@ -1,11 +1,5 @@
 package be.ipl.pae.dal.impl;
 
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Timestamp;
-import java.util.ArrayList;
-import java.util.List;
 import be.ipl.pae.biz.dto.ClientDto;
 import be.ipl.pae.biz.dto.DevisDto;
 import be.ipl.pae.biz.factory.FactoryImpl;
@@ -15,15 +9,22 @@ import be.ipl.pae.dal.daoservices.DaoServices;
 import be.ipl.pae.dal.interfaces.DevisDao;
 import be.ipl.pae.exceptions.DalException;
 
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Timestamp;
+import java.util.ArrayList;
+import java.util.List;
+
 public class DevisDaoImpl implements DevisDao {
 
   private PreparedStatement ps;
   private DaoServices services;
-  private Factory factory;
+  private Factory bizfactory;
 
   public DevisDaoImpl(DaoServices daoService) {
     this.services = daoService;
-    this.factory = new FactoryImpl();
+    this.bizfactory = new FactoryImpl();
   }
 
   @Override
@@ -51,7 +52,7 @@ public class DevisDaoImpl implements DevisDao {
     try {
       try (ResultSet rs = ps.executeQuery()) {
         while (rs.next()) {
-          DevisDto devis = factory.getDevisDto();
+          DevisDto devis = bizfactory.getDevisDto();
           devis.setIdDevis(rs.getInt(1));
           devis.setIdClient(rs.getInt(2));
           devis.setDate(rs.getTimestamp(3));
@@ -79,7 +80,7 @@ public class DevisDaoImpl implements DevisDao {
       ps.setInt(1, idClient);
       try (ResultSet rs = ps.executeQuery()) {
         while (rs.next()) {
-          DevisDto devis = factory.getDevisDto();
+          DevisDto devis = bizfactory.getDevisDto();
           devis.setIdDevis(rs.getInt(1));
           devis.setIdClient(rs.getInt(2));
           devis.setDate(rs.getTimestamp(3));
@@ -99,7 +100,7 @@ public class DevisDaoImpl implements DevisDao {
   @Override
   public boolean confirmerDateDevis(int idDevis, Timestamp dateDebutTravaux) {
     String requeteSql =
-        "UPDATE init.devis SET statut = 'DDI',date_debut_travaux = ? WHERE id_devis = ?";
+        "UPDATE init.devis SET statut = 'DC',date_debut_travaux = ? WHERE id_devis = ?";
     ps = services.getPreparedSatement(requeteSql);
     try {
       ps.setInt(2, idDevis);

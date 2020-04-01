@@ -12,21 +12,21 @@ import java.util.List;
 
 public class TypeDAmenagementUccImpl implements TypeDAmenagementUcc {
 
-  private Factory userFactory;
+  private Factory bizFactory;
   private DaoServicesUcc daoServicesUcc;
   private TypeDAmenagementDao typeDAmenagementDao;
 
   /**
    * Cree un objet TypeDAmenagementUccImpl.
    * 
-   * @param userFactory la factory.
+   * @param bizFactory la factory.
    * @param typeDAmenagementDao le dao de type d'amenagement.
    * @param daoServicesUcc le dao services.
    */
-  public TypeDAmenagementUccImpl(Factory userFactory, TypeDAmenagementDao typeDAmenagementDao,
+  public TypeDAmenagementUccImpl(Factory bizFactory, TypeDAmenagementDao typeDAmenagementDao,
       DaoServicesUcc daoServicesUcc) {
     super();
-    this.userFactory = userFactory;
+    this.bizFactory = bizFactory;
     this.daoServicesUcc = daoServicesUcc;
     this.typeDAmenagementDao = typeDAmenagementDao;
   }
