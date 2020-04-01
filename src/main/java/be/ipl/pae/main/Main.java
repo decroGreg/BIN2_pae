@@ -1,5 +1,9 @@
 package be.ipl.pae.main;
 
+import javax.servlet.http.HttpServlet;
+import org.eclipse.jetty.server.Server;
+import org.eclipse.jetty.servlet.ServletHolder;
+import org.eclipse.jetty.webapp.WebAppContext;
 import be.ipl.pae.biz.config.Config;
 import be.ipl.pae.biz.dto.ClientDto;
 import be.ipl.pae.biz.dto.DevisDto;
@@ -31,12 +35,6 @@ import be.ipl.pae.ihm.servlet.VoirClientsServlet;
 import be.ipl.pae.ihm.servlet.VoirDevisClientServlet;
 import be.ipl.pae.ihm.servlet.VoirDevisServlet;
 import be.ipl.pae.ihm.servlet.VoirUtilisateursServlet;
-
-import org.eclipse.jetty.server.Server;
-import org.eclipse.jetty.servlet.ServletHolder;
-import org.eclipse.jetty.webapp.WebAppContext;
-
-import javax.servlet.http.HttpServlet;
 
 public class Main {
   public static void main(String[] args) throws Exception {
@@ -108,6 +106,7 @@ public class Main {
     context.setResourceBase("view");
     server.setHandler(context);
     server.start();
+
   }
 
 }

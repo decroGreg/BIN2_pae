@@ -59,7 +59,8 @@ public class DetailsDevisServlet extends HttpServlet {
 
       Genson genson = new Genson();
       Map<String, Object> data = genson.deserialize(req.getReader(), Map.class);
-      String token = "t";
+      String token = req.getHeader("Authorization");
+      // String token = "t";
       int idDevis = Integer.parseInt(data.get("idDevis").toString());
       System.out.println("idDevis = " + idDevis);
 
@@ -131,7 +132,7 @@ public class DetailsDevisServlet extends HttpServlet {
         devisUcc.confirmerDateDebut(devis);
 
         // DevisDto devisNouvelEtat = devis1;
-        devis.setEtat(Etat.DDI);
+        devis.setEtat(Etat.DC);
 
         // Renvoi du nouveau DevisDTO
         String devisData = genson.serialize(devis);
