@@ -7,5 +7,8 @@ public interface ClientDao {
   List<ClientDto> voirTousClient();
 
   boolean createClient(ClientDto clientDto);
+
+  ClientDto getClientMail(String email);
+
 }
 

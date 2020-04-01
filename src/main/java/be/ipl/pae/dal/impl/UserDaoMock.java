@@ -52,4 +52,11 @@ public class UserDaoMock implements UserDao {
     return null;
   }
 
+  public boolean lierClientUser(ClientDto client, UserDto user) {
+    return false;
+  }
+
+  public boolean confirmerUtilisateur(UserDto user, Character etat) {
+    return false;
+  }
 }
