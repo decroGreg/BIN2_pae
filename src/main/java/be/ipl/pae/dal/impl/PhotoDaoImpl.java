@@ -4,8 +4,9 @@ import java.sql.PreparedStatement;
 import be.ipl.pae.biz.factory.FactoryImpl;
 import be.ipl.pae.biz.interfaces.Factory;
 import be.ipl.pae.dal.daoservices.DaoServices;
+import be.ipl.pae.dal.interfaces.PhotoDao;
 
-public class PhotoDaoImpl {
+public class PhotoDaoImpl implements PhotoDao {
 
   private PreparedStatement ps;
   private DaoServices services;

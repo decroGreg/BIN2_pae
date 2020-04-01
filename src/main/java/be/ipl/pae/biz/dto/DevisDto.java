@@ -36,4 +36,8 @@ public interface DevisDto {
 
   void setIdDevis(int idDevis);
 
+  Timestamp getDateDebutTravaux();
+
+  void setDateDebutTravaux(Timestamp dateDebutTravaux);
+
 }
