@@ -69,14 +69,18 @@ public class DevisUccImpl implements DevisUcc {
   }
 
   @Override
-  public void introduireDevis(ClientDto client, DevisDto devis) {
+  public void introduireDevis(ClientDto nouveauClient, int idClient, DevisDto devis) {
     try {
       daoServicesUcc.demarrerTransaction();
-      if (!clientDao.createClient(client)) {
-        daoServicesUcc.commit();
-        throw new BizException("Impossible de créer un client");
+      if (nouveauClient == null) {
+        devisDao.createDevis(idClient, devis);
+      } else {
+        if (!clientDao.createClient(nouveauClient)) {
+          daoServicesUcc.commit();
+          throw new BizException("Impossible de créer un client");
+        }
+        devisDao.createDevis(nouveauClient.getIdClient(), devis);
       }
-      devisDao.createDevis(client.getIdClient(), devis);
     } catch (DalException de) {
       daoServicesUcc.rollback();
       throw new IllegalArgumentException();

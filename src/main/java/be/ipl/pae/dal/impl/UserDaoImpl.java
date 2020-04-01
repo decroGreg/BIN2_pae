@@ -1,10 +1,5 @@
 package be.ipl.pae.dal.impl;
 
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.List;
 import be.ipl.pae.biz.dto.ClientDto;
 import be.ipl.pae.biz.dto.UserDto;
 import be.ipl.pae.biz.factory.FactoryImpl;
@@ -12,6 +7,12 @@ import be.ipl.pae.biz.interfaces.Factory;
 import be.ipl.pae.dal.daoservices.DaoServices;
 import be.ipl.pae.dal.interfaces.UserDao;
 import be.ipl.pae.exceptions.DalException;
+
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class UserDaoImpl implements UserDao {
 
@@ -34,7 +35,7 @@ public class UserDaoImpl implements UserDao {
   @Override
   public UserDto getUserConnexion(String email) {
     UserDto userD = factory.getUserDto();
-    String requeteSql = "SELECT * FROM init.utilisateurs WHERE email = ?";
+    String requeteSql = "SELECT * FROM init.utilisateurs WHERE email = ? AND statut IS NOT NULL";
     ps = services.getPreparedSatement(requeteSql);
     try {
       ps.setString(1, email);
@@ -123,8 +124,8 @@ public class UserDaoImpl implements UserDao {
 
   public boolean lierUserUtilisateur(ClientDto client, UserDto user, Character etat) {
 
-    if (etat == 'e') {
-      String requeteSql = "UPDATE init.utilisateurs SET statut='e' WHERE id_utilisateur=?";
+    if (etat == 'O') {
+      String requeteSql = "UPDATE init.utilisateurs SET statut='O' WHERE id_utilisateur=?";
       ps = services.getPreparedSatement(requeteSql);
       try {
         ps.setInt(1, user.getIdUser());
@@ -135,7 +136,7 @@ public class UserDaoImpl implements UserDao {
       }
       return true;
     } else {
-      String requestSql1 = "UPDATE init.utilisateurs SET statut='c' WHERE id_utilisateur=?";
+      String requestSql1 = "UPDATE init.utilisateurs SET statut='C' WHERE id_utilisateur=?";
       String requestSql2 = "UPDATE init.clients SET id_utilisateur=? WHERE id_client=?";
       ps = services.getPreparedSatement(requestSql1);
       try {
