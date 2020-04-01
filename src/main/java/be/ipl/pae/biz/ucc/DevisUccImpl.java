@@ -29,7 +29,7 @@ public class DevisUccImpl implements DevisUcc {
   /**
    * Cree un objet DevisUccImpl.
    * 
-   * @param userFactory la factory.
+   * @param bizFactory la factory.
    * @param devisDao le dao du devis.
    * @param daoServicesUcc le dao services.
    */
