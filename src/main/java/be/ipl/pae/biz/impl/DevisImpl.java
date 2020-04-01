@@ -16,6 +16,7 @@ public class DevisImpl implements Devis {
   private int idDevis;
   private int idClient;
   private Timestamp date;
+  private Timestamp dateDebutTravaux;
   private double montant;
   private String dureeTravaux;
   private int idPhotoPreferee;
@@ -32,12 +33,13 @@ public class DevisImpl implements Devis {
    * @param dureeTravaux la duree des travaux du devis.
    * @param etat l'etat du devis.
    */
-  public DevisImpl(int idDevis, int idClient, Timestamp date, double montant, String dureeTravaux,
-      Etat etat) {
+  public DevisImpl(int idDevis, int idClient, Timestamp date, Timestamp dateDebutTravaux,
+      double montant, String dureeTravaux, Etat etat) {
     super();
     this.idDevis = idDevis;
     this.idClient = idClient;
     this.date = date;
+    this.dateDebutTravaux = dateDebutTravaux;
     this.montant = montant;
     this.dureeTravaux = dureeTravaux;
     this.etat = etat;
@@ -123,5 +125,13 @@ public class DevisImpl implements Devis {
       return true;
     }
     return false;
+  }
+
+  public Timestamp getDateDebutTravaux() {
+    return dateDebutTravaux;
+  }
+
+  public void setDateDebutTravaux(Timestamp dateDebutTravaux) {
+    this.dateDebutTravaux = dateDebutTravaux;
   }
 }
