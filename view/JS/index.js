@@ -547,7 +547,8 @@ function afficherDevisClient(response){
 	Object.keys(response.devisData).forEach(data => {
 	    var html = "<tr>";
 	    html+="<td><a href='#' class='reference-devis'>"
-	    	+ response.devisData[data].date + "</a></td>\n<td>" 
+	    	+ response.devisData[data].idDevis + "</a></td>\n<td>"
+	    	+ response.devisData[data].date + "</td>\n<td>" 
 	    	+ response.devisData[data].montant + "€</td>\n<td>" 
 	    	+ response.devisData[data].dureeTravaux + "</td>\n<td>" 
 	    	+ response.devisData[data].photoPreferee + "</td>\n<td>" 
@@ -682,6 +683,6 @@ function devisDC(response){
 	$("#voir-details-devis #etatDevis").attr("value", response.devisData.etat);
 	$("#voir-details-devis #typeAmenagementDevis").attr("value", response.devisData.typeAmenagement);
 	$("#voir-details-devis #dureeTravauxDevis").attr("value", response.devisData.dureeTravaux);
-	$("#voir-details-devis #dateDebutTravaux")..prop("disabled", true);
+	$("#voir-details-devis #dateDebutTravaux").prop("disabled", true);
 	$("#voir-details-devis #btn-devis").atr("tvalue", changerValeurBouton(response.devisData.etat));
 }
