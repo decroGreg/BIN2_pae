@@ -28,12 +28,12 @@ public class AmenagementUccImpl implements AmenagementUcc {
     this.daoServicesUcc = daoServicesUcc;
   }
 
-  public void ajouterAmenagement(List<Integer> listeIdTypeAmenagement, int idDevis) {
+  public void ajouterAmenagement(List<String> listeIdTypeAmenagement, int idDevis) {
     try {
       daoServicesUcc.demarrerTransaction();
       if (!listeIdTypeAmenagement.isEmpty()) {
-        for (Integer idTypeAmenagement : listeIdTypeAmenagement) {
-          amenagementDao.createAmenagement(idTypeAmenagement, idDevis);
+        for (String idTypeAmenagement : listeIdTypeAmenagement) {
+          amenagementDao.createAmenagement(Integer.parseInt(idTypeAmenagement), idDevis);
         }
       }
     } catch (DalException de) {
