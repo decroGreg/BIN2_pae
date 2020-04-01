@@ -52,7 +52,7 @@ public class LoginServlet extends HttpServlet {
     String userData = genson.serialize(userDto);
 
     String json =
-        "{\"success\":\"true\", \"token\":\"" + token + "\", \"userData\":" + userData + "}";
+        "{\"success\":\"true\", \"token\":\"" + token + "\", \"userData\":\"" + userData + "\"}";
     System.out.println("JSON generated :" + json);
     resp.setContentType("application/json");
 
@@ -102,8 +102,8 @@ public class LoginServlet extends HttpServlet {
             JWT.create().withIssuer("auth0").withClaim("claims", claims).sign(algorithm);
         String userData = genson.serialize(userDto);
 
-        String json =
-            "{\"success\":\"true\", \"token\":\"" + ltoken + "\", \"userData\":" + userData + "}";
+        String json = "{\"success\":\"true\", \"token\":\"" + ltoken + "\", \"userData\":"
+            + userData + ",\"message\":\"" + "login reussit" + "\"}";
         System.out.println("JSON generated :" + json);
         resp.setContentType("application/json");
 
