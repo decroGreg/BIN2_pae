@@ -17,4 +17,8 @@ public interface UserDao {
   public boolean lierUserUtilisateur(ClientDto idClient, UserDto idUtilisateur, Character etat);
 
   List<UserDto> voirUserPasConfirmer();
+
+  boolean lierClientUser(int client, int user);
+
+  boolean confirmerUtilisateur(UserDto user, Character etat);
 }

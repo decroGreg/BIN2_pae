@@ -24,4 +24,7 @@ public class ClientDaoMock implements ClientDao {
     return true;
   }
 
+  public ClientDto getClientMail(String email) {
+    return null;
+  }
 }

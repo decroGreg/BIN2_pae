@@ -125,7 +125,8 @@ public class UserUccImpl implements UserUcc {
         daoServicesUcc.commit();
         throw new BizException("L'etat n'est pas correct");
       }
-      userDao.lierUserUtilisateur(client, utilisateur, etat);
+      userDao.confirmerUtilisateur(utilisateur, etat);
+      userDao.lierClientUser(client.getIdClient(), utilisateur.getIdUser());
     } catch (DalException de) {
       daoServicesUcc.rollback();
       throw new IllegalArgumentException();

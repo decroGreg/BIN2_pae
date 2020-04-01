@@ -83,12 +83,19 @@ public class DevisUccImpl implements DevisUcc {
       if (nouveauClient == null) {
         devisDao.createDevis(idUtilisateur, devis);
       } else {
+        // Email deja utilisé
+        ClientDto client = clientDao.getClientMail(nouveauClient.getEmail());
+        if (client != null) {
+          daoServicesUcc.commit();
+          throw new BizException("Email deja utilisé");
+        }
         if (!clientDao.createClient(nouveauClient)) {
           daoServicesUcc.commit();
           throw new BizException("Impossible de créer un client");
         }
         if (idUtilisateur > 0) {
-          // userDao.lierUserUtilisateur(nouveauClient.getIdClient(), , etat)
+          client = clientDao.getClientMail(nouveauClient.getEmail());
+          userDao.lierClientUser(client.getIdClient(), idUtilisateur);
         }
         devisDao.createDevis(nouveauClient.getIdClient(), devis);
         idDevis = devisDao.getIdDernierDevis();

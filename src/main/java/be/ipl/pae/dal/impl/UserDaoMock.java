@@ -1,9 +1,10 @@
 package be.ipl.pae.dal.impl;
 
-import java.util.List;
 import be.ipl.pae.biz.dto.ClientDto;
 import be.ipl.pae.biz.dto.UserDto;
 import be.ipl.pae.dal.interfaces.UserDao;
+
+import java.util.List;
 
 public class UserDaoMock implements UserDao {
 
@@ -52,4 +53,11 @@ public class UserDaoMock implements UserDao {
     return null;
   }
 
+  public boolean lierClientUser(int client, int user) {
+    return false;
+  }
+
+  public boolean confirmerUtilisateur(UserDto user, Character etat) {
+    return false;
+  }
 }

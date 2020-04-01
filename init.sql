@@ -39,7 +39,8 @@ CREATE TABLE init.devis(
     montant DOUBLE PRECISION NOT NULL,
     photo_preferee INTEGER,
     duree_travaux VARCHAR(100) NOT NULL,
-    etat VARCHAR(3) NOT NULL
+    etat VARCHAR(3) NOT NULL,
+    date_debut_travaux TIMESTAMP 
 );
 
 CREATE TABLE init.amenagements(
@@ -89,10 +90,10 @@ INSERT INTO init.clients VALUES(DEFAULT, 'Ile', 'Théophile', 'Rue de Renkin', 7
 
 --Insert devis--
 
-INSERT INTO init.devis VALUES(DEFAULT, 1, '2018-12-11', 4260, NULL, '5 jours', 'V');
-INSERT INTO init.devis VALUES(DEFAULT, 1, '2018-12-15', 18306, NULL, '25 jours', 'V');
-INSERT INTO init.devis VALUES(DEFAULT, 1, '2019-12-11', 8540, NULL, '10 jours', 'DC');
-INSERT INTO init.devis VALUES(DEFAULT, 2, '2020-01-10', 6123, NULL, '7 jours', 'FF');
+INSERT INTO init.devis VALUES(DEFAULT, 1, '2018-12-11', 4260, NULL, '5 jours', 'V',NULL);
+INSERT INTO init.devis VALUES(DEFAULT, 1, '2018-12-15', 18306, NULL, '25 jours', 'V',NULL);
+INSERT INTO init.devis VALUES(DEFAULT, 1, '2019-12-11', 8540, NULL, '10 jours', 'DC',NULL);
+INSERT INTO init.devis VALUES(DEFAULT, 2, '2020-01-10', 6123, NULL, '7 jours', 'FF',NULL);
 
 
 
@@ -105,4 +106,5 @@ INSERT INTO init.amenagements VALUES(DEFAULT, 3, 3);
 INSERT INTO init.amenagements VALUES(DEFAULT, 1, 4);
 INSERT INTO init.amenagements VALUES(DEFAULT, 11, 4);
 
-
+-- Test maison --
+INSERT INTO init.utilisateurs VALUES(DEFAULT, 'achil', 'Ile', 'Achille', 'Verviers', 'samuel98@hotmail.com', '2020-04-01', '$2a$10$qx2s5Vy1f00ePAsCHNzWGuROzKWzP3YcxWfKvhYveLDkoMAq3lrDy', NULL);

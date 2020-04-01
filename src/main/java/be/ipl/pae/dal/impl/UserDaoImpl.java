@@ -154,6 +154,38 @@ public class UserDaoImpl implements UserDao {
   }
 
   @Override
+  public boolean lierClientUser(int client, int user) {
+    String requeteSql = "UPDATE init.clients SET id_utilisateur=? WHERE id_client=?";
+    ps = services.getPreparedSatement(requeteSql);
+    try {
+      ps.setInt(1, user);
+      ps.setInt(2, client);
+      ps.execute();
+    } catch (SQLException ex) {
+      throw new DalException("Erreur lors de liaison dans la table client" + ex.getMessage());
+    }
+    return true;
+  }
+
+  public boolean confirmerUtilisateur(UserDto user, Character etat) {
+    String requeteSql;
+    if (etat == 'O') {
+      requeteSql = "UPDATE init.utilisateurs SET statut='O' WHERE id_utilisateur=?";
+    } else {
+      requeteSql = "UPDATE init.utilisateurs SET statut='C' WHERE id_utilisateur=?";
+    }
+    ps = services.getPreparedSatement(requeteSql);
+    try {
+      ps.setInt(1, user.getIdUser());
+      ps.execute();
+    } catch (SQLException ex) {
+      throw new DalException(
+          "Erreur lors de la liaison dans la table utilisateurs" + ex.getMessage());
+    }
+    return true;
+
+  }
+
   public List<UserDto> voirUserPasConfirmer() {
     List<UserDto> listeUser = new ArrayList<UserDto>();
     String requestSql = "SELECT * FROM init.utilisateurs WHERE statut IS NULL ";
