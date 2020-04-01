@@ -84,9 +84,6 @@ public class UserUccImpl implements UserUcc {
         daoServicesUcc.demarrerTransaction();
         System.out.println(daoServicesUcc.getConnections().get());
         userDb = userDao.getUserConnexion(user.getEmail());
-        if (userDb.getStatut() == ' ') {
-
-        }
       } catch (DalException de) {
         daoServicesUcc.rollback();
         throw new IllegalArgumentException();
@@ -124,7 +121,7 @@ public class UserUccImpl implements UserUcc {
     try {
       daoServicesUcc.demarrerTransaction();
       if (client != null && utilisateur.getEmail().equals(client.getEmail())) {
-        // userDao.lierUserUtilisateur(client, utilisateur);
+        userDao.lierUserUtilisateur(client, utilisateur, etat);
       }
     } catch (DalException de) {
       daoServicesUcc.rollback();
