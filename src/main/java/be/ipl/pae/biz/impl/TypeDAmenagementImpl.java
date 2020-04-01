@@ -4,6 +4,7 @@ import be.ipl.pae.biz.dto.TypeDAmenagementDto;
 import be.ipl.pae.biz.interfaces.TypeDAmenagement;
 
 public class TypeDAmenagementImpl implements TypeDAmenagement, TypeDAmenagementDto {
+  private int id;
   private String description;
 
   /**
@@ -11,9 +12,17 @@ public class TypeDAmenagementImpl implements TypeDAmenagement, TypeDAmenagementD
    * 
    * @param description description du type d'amenagement.
    */
-  public TypeDAmenagementImpl(String description) {
+  public TypeDAmenagementImpl(int id, String description) {
     super();
     this.description = description;
+  }
+
+  public int getId() {
+    return id;
+  }
+
+  public void setId(int id) {
+    this.id = id;
   }
 
   public TypeDAmenagementImpl() {

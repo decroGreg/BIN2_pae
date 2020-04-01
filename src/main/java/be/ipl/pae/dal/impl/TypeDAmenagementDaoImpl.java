@@ -32,6 +32,7 @@ public class TypeDAmenagementDaoImpl implements TypeDAmenagementDao {
       try (ResultSet rs = ps.executeQuery()) {
         while (rs.next()) {
           TypeDAmenagementDto type = factory.getTypeDAmenagementDto();
+          type.setId(rs.getInt(1));
           type.setDescription(rs.getString(2));
           listeType.add(type);
         }
