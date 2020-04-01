@@ -16,7 +16,7 @@ class TestUserUcc {
   Constructor<?> userDaoConstruct;
   UserUcc userUcc;
   Constructor<?> userUccConstruct;
-  Factory Factory;
+  Factory bizFactory;
   UserDto userDto;
   DaoServices dalServices;
 
