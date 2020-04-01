@@ -1,5 +1,10 @@
 package be.ipl.pae.dal.impl;
 
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 import be.ipl.pae.biz.dto.ClientDto;
 import be.ipl.pae.biz.dto.UserDto;
 import be.ipl.pae.biz.factory.FactoryImpl;
@@ -7,12 +12,6 @@ import be.ipl.pae.biz.interfaces.Factory;
 import be.ipl.pae.dal.daoservices.DaoServices;
 import be.ipl.pae.dal.interfaces.UserDao;
 import be.ipl.pae.exceptions.DalException;
-
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.List;
 
 public class UserDaoImpl implements UserDao {
 
@@ -124,37 +123,32 @@ public class UserDaoImpl implements UserDao {
 
   public boolean lierUserUtilisateur(ClientDto client, UserDto user, Character etat) {
 
+    String requeteSql1;
+    String requeteSql2;
     if (etat == 'O') {
-      String requeteSql = "UPDATE init.utilisateurs SET statut='O' WHERE id_utilisateur=?";
-      ps = services.getPreparedSatement(requeteSql);
-      try {
-        ps.setInt(1, user.getIdUser());
-        ps.execute();
-      } catch (SQLException ex) {
-        throw new DalException(
-            "Erreur lors de la liaison dans la table utilisateurs" + ex.getMessage());
-      }
-      return true;
+      requeteSql1 = "UPDATE init.utilisateurs SET statut='O' WHERE id_utilisateur=?";
     } else {
-      String requestSql1 = "UPDATE init.utilisateurs SET statut='C' WHERE id_utilisateur=?";
-      String requestSql2 = "UPDATE init.clients SET id_utilisateur=? WHERE id_client=?";
-      ps = services.getPreparedSatement(requestSql1);
-      try {
-        ps.setInt(1, user.getIdUser());
-        ps.execute();
-      } catch (SQLException ex) {
-        throw new DalException(
-            "Erreur lors de la liaison dans la table utilisateurs" + ex.getMessage());
+      requeteSql1 = "UPDATE init.utilisateurs SET statut='C' WHERE id_utilisateur=?";
+      if (client != null) {
+        requeteSql2 = "UPDATE init.clients SET id_utilisateur=? WHERE id_client=?";
+        ps = services.getPreparedSatement(requeteSql2);
+        try {
+          ps.setInt(1, user.getIdUser());
+          ps.setInt(2, client.getIdClient());
+        } catch (SQLException ex) {
+          throw new DalException("Erreur lors de liaison dans la table client" + ex.getMessage());
+        }
       }
-      ps = services.getPreparedSatement(requestSql2);
-      try {
-        ps.setInt(1, user.getIdUser());
-        ps.setInt(2, client.getIdClient());
-      } catch (SQLException ex) {
-        throw new DalException("Erreur lors de liaison dans la table client" + ex.getMessage());
-      }
-      return true;
     }
+    ps = services.getPreparedSatement(requeteSql1);
+    try {
+      ps.setInt(1, user.getIdUser());
+      ps.execute();
+    } catch (SQLException ex) {
+      throw new DalException(
+          "Erreur lors de la liaison dans la table utilisateurs" + ex.getMessage());
+    }
+    return true;
   }
 
   public List<UserDto> voirUserPasConfirmer() {
