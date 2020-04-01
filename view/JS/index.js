@@ -1,7 +1,7 @@
 "use-strict";
 import {postData,getData,deleteData,putData} from "./util.js" ;
-const OUVRIER="o";
-const CLIENT="client";
+const OUVRIER="Ouvrier";
+const CLIENT="Client";
 let token=undefined;
 let user;
 $('#navigation_bar').hide();
@@ -404,8 +404,8 @@ function onGetRegisterConfirmation(response){
                 +'status'
                 +'</button>'
                 +'<div class="dropdown-menu">'
-                +'<a class="dropdown-item" href="#">Client</a>'
-                +'<a class="dropdown-item" href="#">Ouvrier</a>'
+                +'<a class="dropdown-item" value="c" href="#">Client</a>'
+                +'<a class="dropdown-item" value="e" href="#">Ouvrier</a>'
                 +'</div>'
                 +'</div></td>');
                 btnStatus.appendChild(btnStatusEvent);
@@ -419,7 +419,7 @@ function onGetRegisterConfirmation(response){
                 +'<div class="dropdown-Client">'
                 + '<button class="btn btn-secondary dropdown-toggle" id="RegisterConfirmation-Form-Client-dropdown'+i+'" type="button" data-toggle="dropdown">lié à l\'utilisateur<span class="caret"></span></button>'
                 + '<ul class="dropdown-menu" id="RegisterConfirmation-Form-Client-items'+i+'">'
-                +  ' <input class="form-control" id="RegisterConfirmation-Form-Client-Search'+i+'" type="text" placeholder="Search..">'
+                +  '<input class="form-control" id="RegisterConfirmation-Form-Client-Search'+i+'" type="text" placeholder="Search..">'
                 +'</ul></div></div>');
                 tdBtnClientLink.appendChild(btnClientLink);
                 tr.appendChild(tdBtnClientLink);
@@ -467,7 +467,7 @@ function onClickRegisterConfirmation(element){
         btn.parentNode.parentNode.childNodes.forEach(e => {
                 console.log(e);
                 console.log("valeur:"+e.value);
-                data[e.getAttribute("valueof")]=e.val;
+                data[e.getAttribute("valueof")]=e.value;
                 
                 
         });
@@ -484,9 +484,15 @@ function onClickStatusItem(element){
         
         var btn=element.target;
         if(btn.tagName=="A"){//vérifie si c'est un element <a>
-                btn.parentNode.parentNode.parentNode.value=btn.innerHTML
+                var statut=btn.innerHTML;
+                if(statut==CLIENT){
+                        btn.parentNode.parentNode.parentNode.value='c';
+                }
+                else{
+                        btn.parentNode.parentNode.parentNode.value='e';
+                }
+               
                 btn.parentNode.parentNode.firstChild.innerHTML=btn.innerHTML;
-
         }
 }
 
@@ -550,7 +556,8 @@ function afficherDevisClient(response){
 	Object.keys(response.devisData).forEach(data => {
 	    var html = "<tr>";
 	    html+="<td><a href='#' class='reference-devis'>"
-	    	+ response.devisData[data].date + "</a></td>\n<td>" 
+	    	+ response.devisData[data].idDevis + "</a></td>\n<td>"
+	    	+ response.devisData[data].date + "</td>\n<td>" 
 	    	+ response.devisData[data].montant + "€</td>\n<td>" 
 	    	+ response.devisData[data].dureeTravaux + "</td>\n<td>" 
 	    	+ response.devisData[data].photoPreferee + "</td>\n<td>" 
@@ -576,23 +583,22 @@ function afficherClients(response){
 
 function afficherDetailsDevis(response){
 	console.log(JSON.stringify(response.devisData));
-	/*allHide();
-	$("#voir-devis").hide();
-    $("#voir-devis-client").hide();*/
+	allHide();
 	$("#voir-details-devis").show();
 	$("#voir-details-devis #dateDevis").attr("value", response.devisData.date);
 	$("#voir-details-devis #montantDevis").attr("value", response.devisData.montant);
 	$("#voir-details-devis #etatDevis").attr("value", response.devisData.etat);
-	//$("#voir-details-devis #typeAmenagementDevis").attr("value", response.devisData.typeAmenagement);
+	$("#voir-details-devis #typeAmenagementDevis").attr("value", response.devisData.typeAmenagement);
 	$("#voir-details-devis #dureeTravauxDevis").attr("value", response.devisData.dureeTravaux);
 	$("#voir-details-devis #btn-devis").attr("value", changerValeurBouton(response.devisData.etat));
 	$("#voir-details-devis #btn-devis").click(e=>{
 		var nouvelEtat = changerEtat(response.devisData.etat);	
 		let data={};
+		data.idDevis = response.devisData.idDevis;
 		data.etatDevis = nouvelEtat;
 		console.log("Nouvel etat : " + nouvelEtat);
 		console.log(data.etatDevis);
-		//putData("/detailsDevis", token, data, afficherDetailsDevis, onError);
+		putData("/detailsDevis", token, data, devisDC, onError);
 
 	});
 }
@@ -610,7 +616,7 @@ function changerValeurBouton(etat){
 		  valeurBouton = "Repousser date début";
 		  break;
 	  case 'DC':
-		  valeurBouton = "";
+		  valeurBouton = "Annuler la commande";
 		  break;
 	  case 'A':
 		  valeurBouton = "";
@@ -640,13 +646,13 @@ function changerEtat(etat){
 		  nouvelEtat = "DDI";
 		  break;
 	  case 'DDI':
-		  nouvelEtat = "ANP";
+		  nouvelEtat = "DC";
 		  break;
 	  case 'ANP':
 		  nouvelEtat = "DC";
 		  break;
 	  case 'DC':
-		  nouvelEtat = "A";
+		  nouvelEtat = "EC";
 		  break;
 	  case 'A':
 		  nouvelEtat = "EC";
@@ -677,4 +683,15 @@ function mesDevis(){
 	console.log("user = " + JSON.stringify(user));
 	data = user;
 	postData("/listeDevisClient",data,token,afficherDevisClient,onError);
+}
+
+function devisDC(response){
+	$("#voir-details-devis").show();
+	$("#voir-details-devis #dateDevis").attr("value", response.devisData.date);
+	$("#voir-details-devis #montantDevis").attr("value", response.devisData.montant);
+	$("#voir-details-devis #etatDevis").attr("value", response.devisData.etat);
+	$("#voir-details-devis #typeAmenagementDevis").attr("value", response.devisData.typeAmenagement);
+	$("#voir-details-devis #dureeTravauxDevis").attr("value", response.devisData.dureeTravaux);
+	$("#voir-details-devis #dateDebutTravaux").prop("disabled", true);
+	$("#voir-details-devis #btn-devis").atr("tvalue", changerValeurBouton(response.devisData.etat));
 }

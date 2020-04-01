@@ -91,6 +91,7 @@ public class IntroduireDevisServlet extends HttpServlet {
           clientDto.setTelephone(dataUser.get("phone").toString());
         }
         // methode pour introduire la photo dans la bd;
+
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss.SSS");
         Date parsedDate = dateFormat.parse(dataQuote.get("date").toString() + " 00:00:00.000");
         Timestamp timestamp = new Timestamp(parsedDate.getTime());
@@ -98,13 +99,13 @@ public class IntroduireDevisServlet extends HttpServlet {
         devisDto.setMontant(Double.parseDouble(dataQuote.get("price").toString()));
         devisDto.setDureeTravaux(dataQuote.get("duration"));
 
+        int idClient = Integer.parseInt(dataQuote.get("client").toString());
+
         for (String e : ((ArrayList<String>) data.get("type"))) {
           System.out.println();
         }
 
-        System.out.println(((ArrayList) data.get("type")));
-
-        // devisUcc.introduireDevis(clientDto, devisDto);
+        devisUcc.introduireDevis(clientDto, devisDto);
 
 
       } catch (Exception e) {
