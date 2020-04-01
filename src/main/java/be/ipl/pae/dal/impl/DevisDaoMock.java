@@ -45,7 +45,7 @@ public class DevisDaoMock implements DevisDao {
     return false;
   }
 
-  public int getDernierDevis() {
+  public int getIdDernierDevis() {
     return 0;
   }
 }

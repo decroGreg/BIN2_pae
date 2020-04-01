@@ -85,7 +85,7 @@ public class DevisUccImpl implements DevisUcc {
           throw new BizException("Impossible de créer un client");
         }
         devisDao.createDevis(nouveauClient.getIdClient(), devis);
-        idDevis = devisDao.getDernierDevis();
+        idDevis = devisDao.getIdDernierDevis();
         for (String idTypeAmenagement : listeIdTypeAmenagement) {
           int idType = Integer.parseInt(idTypeAmenagement);
           amenagementDao.createAmenagement(idType, idDevis);

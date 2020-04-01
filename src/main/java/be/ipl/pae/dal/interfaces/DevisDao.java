@@ -16,5 +16,5 @@ public interface DevisDao {
 
   boolean confirmerDateDevis(int idDevis, Timestamp dateDebutTravaux);
 
-  int getDernierDevis();
+  int getIdDernierDevis();
 }

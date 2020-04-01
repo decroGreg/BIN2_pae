@@ -1,5 +1,11 @@
 package be.ipl.pae.dal.impl;
 
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Timestamp;
+import java.util.ArrayList;
+import java.util.List;
 import be.ipl.pae.biz.dto.ClientDto;
 import be.ipl.pae.biz.dto.DevisDto;
 import be.ipl.pae.biz.factory.FactoryImpl;
@@ -8,13 +14,6 @@ import be.ipl.pae.biz.interfaces.Factory;
 import be.ipl.pae.dal.daoservices.DaoServices;
 import be.ipl.pae.dal.interfaces.DevisDao;
 import be.ipl.pae.exceptions.DalException;
-
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Timestamp;
-import java.util.ArrayList;
-import java.util.List;
 
 public class DevisDaoImpl implements DevisDao {
 
@@ -29,7 +28,7 @@ public class DevisDaoImpl implements DevisDao {
 
   @Override
   public boolean createDevis(int idClient, DevisDto devis) {
-    String requestSql = "INSERT INTO init.devis VALUES (DEFAULT,?,?,?,null,?,?)";
+    String requestSql = "INSERT INTO init.devis VALUES (DEFAULT,?,?,?,null,?,?,?)";
     ps = services.getPreparedSatement(requestSql);
     try {
       ps.setInt(1, idClient);
@@ -37,6 +36,7 @@ public class DevisDaoImpl implements DevisDao {
       ps.setDouble(3, devis.getMontant());
       ps.setString(4, devis.getDureeTravaux());
       ps.setString(5, "I");
+      ps.setTimestamp(6, devis.getDateDebutTravaux());
       ps.execute();
     } catch (SQLException ex) {
       throw new DalException("Erreur lors de l'ajout du devis : " + ex.getMessage());
@@ -88,6 +88,7 @@ public class DevisDaoImpl implements DevisDao {
           devis.setIdPhotoPreferee(rs.getInt(5));
           devis.setDureeTravaux(rs.getString(6));
           devis.setEtat(Etat.valueOf(rs.getString(7)));
+          devis.setDateDebutTravaux(rs.getTimestamp(8));
           listeDevis.add(devis);
         }
         return listeDevis;
@@ -112,7 +113,7 @@ public class DevisDaoImpl implements DevisDao {
     return true;
   }
 
-  public int getDernierDevis() {
+  public int getIdDernierDevis() {
     int idDevis = 0;
     String requeteSql = "SELECT MAX(id_devis) FROM init.devis";
     ps = services.getPreparedSatement(requeteSql);
