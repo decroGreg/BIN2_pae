@@ -8,6 +8,10 @@ import be.ipl.pae.biz.interfaces.TypeDAmenagementUcc;
 import com.owlike.genson.Genson;
 
 import java.io.IOException;
+import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.Map;
 
 import javax.servlet.ServletException;
@@ -86,9 +90,19 @@ public class IntroduireDevisServlet extends HttpServlet {
           clientDto.setEmail(dataUser.get("mail").toString());
           clientDto.setTelephone(dataUser.get("phone").toString());
         }
+        // methode pour introduire la photo dans la bd;
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss.SSS");
+        Date parsedDate = dateFormat.parse(dataQuote.get("date").toString() + " 00:00:00.000");
+        Timestamp timestamp = new Timestamp(parsedDate.getTime());
+        devisDto.setDate(timestamp);
+        devisDto.setMontant(Double.parseDouble(dataQuote.get("price").toString()));
+        devisDto.setDureeTravaux(dataQuote.get("duration"));
 
+        for (String e : ((ArrayList<String>) data.get("type"))) {
+          System.out.println();
+        }
 
-        System.out.println(data.get("type").get("amenagment"));
+        System.out.println(((ArrayList) data.get("type")));
 
         // devisUcc.introduireDevis(clientDto, devisDto);
 

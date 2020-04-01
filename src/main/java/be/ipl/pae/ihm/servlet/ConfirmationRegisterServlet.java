@@ -88,6 +88,7 @@ public class ConfirmationRegisterServlet extends HttpServlet {
         userDto.setIdUser(idUtilConfirm);
         clientDto.setIdClient(idClient);
 
+
         userUcc.confirmerInscription(userDto, clientDto);
 
 

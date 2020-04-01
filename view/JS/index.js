@@ -48,7 +48,7 @@ let tempDevis=[{"date":null,"dureeTravaux":"2 mois","etat":"DDI","idClient":0,"i
 
 
 $(document).ready(e=>{
-       
+        
         token=localStorage.getItem("token");
         authentificationToken(token);
         $("#connexion").click(function (e) {
@@ -133,7 +133,7 @@ $(document).ready(e=>{
                 console.log(i);
 
                 if(element.checked){
-                        type.push({"amenagement":element.id});
+                        type[i]=element.id;
                         
                 }
         }
@@ -171,6 +171,7 @@ $(document).ready(e=>{
         localStorage.removeItem("token");
         console.log(token);
         console.log(localStorage.getItem("token"));
+        viewHomePage();
         
 
     });
@@ -318,6 +319,7 @@ function viewAuthentification(){
 }
 
 function authentificationToken(token){
+       
         console.log("test"+token)
         if(token){
                 if(user==undefined){
@@ -332,11 +334,15 @@ function authentificationToken(token){
 }
 //Authentificaiton réussis
 function onPostLogin(response){
-        if(response.success==="true"){
-                console.log("data: "+response.userData.prenom);
-                user=response.userData;
+        if(response.success=="true"){
+                alert();
                 token=response.token;
                 localStorage.setItem("token",token);
+
+                console.log("data: "+response.userData.prenom);
+                user=response.userData;
+                console.log("user"+user.idUser);
+                
                 console.log(localStorage.getItem("token"));
                 viewAuthentification();
         }else{
