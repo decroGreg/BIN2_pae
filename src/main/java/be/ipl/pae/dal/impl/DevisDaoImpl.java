@@ -27,15 +27,14 @@ public class DevisDaoImpl implements DevisDao {
 
   @Override
   public boolean createDevis(int idClient, DevisDto devis) {
-    String requestSql = "INSERT INTO init.devis VALUES (DEFAULT,?,?,?,?,?,?)";
+    String requestSql = "INSERT INTO init.devis VALUES (DEFAULT,?,?,?,null,?,?)";
     ps = services.getPreparedSatement(requestSql);
     try {
       ps.setInt(1, idClient);
       ps.setTimestamp(2, devis.getDate());
       ps.setDouble(3, devis.getMontant());
-      ps.setInt(4, devis.getIdPhotoPreferee());
-      ps.setString(5, devis.getDureeTravaux());
-      ps.setString(6, null);
+      ps.setString(4, devis.getDureeTravaux());
+      ps.setString(5, "I");
       ps.execute();
     } catch (SQLException ex) {
       throw new DalException("Erreur lors de l'ajout du devis : " + ex.getMessage());
@@ -59,6 +58,7 @@ public class DevisDaoImpl implements DevisDao {
           devis.setIdPhotoPreferee(rs.getInt(5));
           devis.setDureeTravaux(rs.getString(6));
           devis.setEtat(Etat.valueOf(rs.getString(7)));
+
           listeDevis.add(devis);
         }
         return listeDevis;

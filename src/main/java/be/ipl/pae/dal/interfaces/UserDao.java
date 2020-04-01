@@ -13,7 +13,7 @@ public interface UserDao {
 
   public List<UserDto> voirTousUser();
 
-  public boolean lierUserClient(ClientDto client, UserDto user);
+  public boolean lierUserUtilisateur(ClientDto client, UserDto user, Character etat);
 
   List<UserDto> voirUserPasConfirmer();
 }

@@ -40,7 +40,6 @@ import javax.servlet.http.HttpServlet;
 
 public class Main {
   public static void main(String[] args) throws Exception {
-
     // Lecture du fichier properties
     Config conf = new Config();
 
@@ -56,7 +55,7 @@ public class Main {
     UserDto userDto = factory.getUserDto();
     ClientDto clientDto = factory.getClientDto();
     ClientUcc clientUcc = new ClientUccImpl(factory, clientDao, daoServices);
-    DevisUcc devisUcc = new DevisUccImpl(factory, devisDao, daoServices);
+    DevisUcc devisUcc = new DevisUccImpl(factory, devisDao, clientDao, daoServices);
     DevisDto devisDto = factory.getDevisDto();
     TypeDAmenagementUcc typeAmenagmentUcc =
         new TypeDAmenagementUccImpl(factory, typeAmenagementDao, daoServices);
@@ -85,7 +84,8 @@ public class Main {
     HttpServlet listeDevisServlet = new VoirDevisServlet(devisUcc, userDto);
     context.addServlet(new ServletHolder(listeDevisServlet), "/listeDevis");
 
-    HttpServlet listeDevisClientServlet = new VoirDevisClientServlet(devisUcc, clientDto);
+    HttpServlet listeDevisClientServlet =
+        new VoirDevisClientServlet(clientUcc, devisUcc, clientDto);
     context.addServlet(new ServletHolder(listeDevisClientServlet), "/listeDevisClient");
 
     HttpServlet listeClientsServlet = new VoirClientsServlet(clientUcc, userDto);

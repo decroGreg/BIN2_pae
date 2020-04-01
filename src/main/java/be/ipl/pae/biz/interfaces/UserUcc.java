@@ -12,7 +12,7 @@ public interface UserUcc {
 
   UserDto sinscrire(UserDto userDto);
 
-  void confirmerInscription(UserDto utilisateur, ClientDto client);
+  void confirmerInscription(UserDto utilisateur, ClientDto client, char etat);
 
   List<UserDto> getUtilisateurs();
 

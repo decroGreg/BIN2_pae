@@ -1,42 +1,50 @@
 package be.ipl.pae.ihm.servlet;
 
-import be.ipl.pae.biz.dto.ClientDto;
-import be.ipl.pae.biz.dto.DevisDto;
-import be.ipl.pae.biz.interfaces.DevisUcc;
-
-import com.owlike.genson.Genson;
-
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import com.owlike.genson.Genson;
+import be.ipl.pae.biz.dto.ClientDto;
+import be.ipl.pae.biz.dto.DevisDto;
+import be.ipl.pae.biz.interfaces.ClientUcc;
+import be.ipl.pae.biz.interfaces.DevisUcc;
 
 public class VoirDevisClientServlet extends HttpServlet {
 
+  private ClientUcc clientUcc;
   private DevisUcc devisUcc;
   private ClientDto clientDto;
   private List<DevisDto> listeDevisDto;
 
-  public VoirDevisClientServlet(DevisUcc devisUcc, ClientDto clientDto) {
+  public VoirDevisClientServlet(ClientUcc clientUcc, DevisUcc devisUcc, ClientDto clientDto) {
     super();
+    this.clientUcc = clientUcc;
     this.devisUcc = devisUcc;
     this.clientDto = clientDto;
     this.listeDevisDto = new ArrayList<>();
   }
 
   @Override
-  protected void doGet(HttpServletRequest req, HttpServletResponse resp)
+  protected void doPost(HttpServletRequest req, HttpServletResponse resp)
       throws ServletException, IOException {
     try {
-      listeDevisDto = devisUcc.voirDevis(clientDto);
       Genson genson = new Genson();
       Map<String, Object> data = genson.deserialize(req.getReader(), Map.class);
       String token = req.getHeader("Authorization");
+      // token = "t";
+      int idUtilisateur = Integer.parseInt(data.get("idUser").toString());
+      for (ClientDto c : clientUcc.getClients()) {
+        if (c.getIdUtilisateur() == idUtilisateur) {
+          clientDto = c;
+        }
+      }
+      listeDevisDto = devisUcc.voirDevis(clientDto);
+
 
       if (token != null) {
         String devisData = genson.serialize(listeDevisDto);
