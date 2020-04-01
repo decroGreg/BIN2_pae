@@ -59,7 +59,7 @@ public class DevisDaoImpl implements DevisDao {
           devis.setIdPhotoPreferee(rs.getInt(5));
           devis.setDureeTravaux(rs.getString(6));
           devis.setEtat(Etat.valueOf(rs.getString(7)));
-
+          devis.setDateDebutTravaux(rs.getTimestamp(8));
           listeDevis.add(devis);
         }
         return listeDevis;
