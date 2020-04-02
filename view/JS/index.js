@@ -242,6 +242,8 @@ function allHide(){
         $("#wrong_passwd").hide();
         $("#test1").hide();
         $("#carousel").hide();
+        $("#introductionQuoteForm").hide();
+        
         $("#Register-confirmation").hide();
         $("#success-notification").hide();
         $("#error-notification").hide();
@@ -320,6 +322,7 @@ function viewAuthentification(){
                 $("#mesDevis").show();
 
         }
+        $("#introductionQuoteForm").hide();
         $("#connexion").hide();
         $('#navigation_bar').hide();
         $("#login-form").hide();
@@ -516,6 +519,8 @@ function onPostRegisterConfirmation(response){
         if(response.success=="true"){
                 $("#success-notification").fadeIn('slow').delay(1000).fadeOut('slow');
                 $("#success-notification").text(response.message);
+                getData("/confirmation",token,onGetRegisterConfirmation,onError);
+
         }else{
                 $("#error-notification").fadeIn('slow').delay(1000).fadeOut('slow');
                 $("#error-notification").text(response.message);
