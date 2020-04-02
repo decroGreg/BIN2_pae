@@ -89,7 +89,7 @@ public class LoginServlet extends HttpServlet {
 
           String ltoken =
               JWT.create().withIssuer("auth0").withClaim("claims", claims).sign(algorithm);
-          userDto.setStatut('O');
+
           String userData = genson.serialize(userDto);
 
 

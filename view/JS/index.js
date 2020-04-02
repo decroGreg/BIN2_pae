@@ -44,6 +44,10 @@ $(document).ready(e=>{
                
                viewLogin();
         });
+        $("#imageMenu").click(e=>{
+                viewHomePage();
+                viewAuthentification();
+        });
                 
         $(window).bind('scroll', function() {
 
@@ -53,7 +57,6 @@ $(document).ready(e=>{
                 $('#navigation_bar').hide();
                 }
                 else {
-                console.log("test");
                 $('#navigation_bar').show();
                 }
                 });
@@ -278,7 +281,7 @@ function viewLogin(){
 }
 //Home page non-connecté
 function viewHomePage(){
-        
+        $("#test1").show();
         $("#login-form").hide();
         $("#btn-deconnexion").hide();
         $("#wrong_passwd").hide();
@@ -347,7 +350,7 @@ function authentificationToken(token){
                 if(user==undefined){
                       //  getData("/login",token,onPostLogin,onError);
                       
-                }    
+                }
                 viewAuthentification();
         }
         else{

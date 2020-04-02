@@ -59,11 +59,8 @@ public class VoirDevisClientServlet extends HttpServlet {
         String devisData = genson.serialize(listeDevisDto);
         String json = "{\"success\":\"true\", \"devisData\":" + devisData + "}";
         System.out.println("JSON generated :" + json);
-
         resp.setContentType("application/json");
-
         resp.setCharacterEncoding("UTF-8");
-
         resp.setStatus(HttpServletResponse.SC_OK);
         resp.getWriter().write(json);
 

@@ -97,7 +97,8 @@ public class DevisUccImpl implements DevisUcc {
           client = clientDao.getClientMail(nouveauClient.getEmail());
           userDao.lierClientUser(client.getIdClient(), idUtilisateur);
         }
-        devisDao.createDevis(nouveauClient.getIdClient(), devis);
+
+        devisDao.createDevis(client.getIdClient(), devis);
         idDevis = devisDao.getIdDernierDevis();
         for (String idTypeAmenagement : listeIdTypeAmenagement) {
           int idType = Integer.parseInt(idTypeAmenagement);
