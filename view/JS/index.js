@@ -23,7 +23,10 @@ function encodeImagetoBase64(element) {
 }
 function checkInput(data,message){
         var element;
+        console.log(data);
+        
         for(element in data){
+                console.log(data[element])
                 if(!data[element]){
                         
                         $("#error-notification").fadeIn('slow').delay(1000).fadeOut('slow');
@@ -114,7 +117,11 @@ $(document).ready(e=>{
                         mail:$("#Quote-Form-email").val(),
                         phone:$("#Quote-Form-phoneNumber").val()
                 };
-                if(checkInput(dataUser,"veuillez remplir tous les champs pour le nouveau client")) return;
+                if(!checkInput(dataUser,"veuillez remplir tous les champs pour le nouveau client")) {
+                        console.log("ne passe pas la methode");
+                        return;
+                }
+                console.log(dataUser);
         
         }
         var type=[];
@@ -124,12 +131,6 @@ $(document).ready(e=>{
                 if(element.checked){
                         type[i]=element.id;    
                 }
-        }
-        
-        if(type.length==0){
-                $("#error-notification").fadeIn('slow').delay(1000).fadeOut('slow');
-                $("#error-notification").text("veillez introduire un type d'aménagement");
-                return;
         }
         var dataQuote={
                 "client":$("#Quote-Form-Client-items").val(),
@@ -141,6 +142,11 @@ $(document).ready(e=>{
 
         };
         if(!checkInput(dataQuote,"veuillez remplir tous les champs du devis")) return;//à voir si image peut être null;
+        if(type.length==0){
+                $("#error-notification").fadeIn('slow').delay(1000).fadeOut('slow');
+                $("#error-notification").text("veillez introduire un type d'aménagement");
+                return;
+        }
         var data={
                 "dataUser":dataUser,
                 "dataQuote":dataQuote,
