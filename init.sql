@@ -94,7 +94,7 @@ INSERT INTO init.clients VALUES(DEFAULT, 'Ile', 'Theophile', 'Rue de Renkin', 7,
 
 INSERT INTO init.devis VALUES(DEFAULT, 1, '2018-12-11', 4260, NULL, '5 jours', 'V', '2019-02-01');
 INSERT INTO init.devis VALUES(DEFAULT, 1, '2018-12-15', 18306, NULL, '25 jours', 'V', '2019-03-15');
-INSERT INTO init.devis VALUES(DEFAULT, 1, '2019-12-11', 8540, NULL, '10 jours', 'DDI', '2020-03-30');
+INSERT INTO init.devis VALUES(DEFAULT, 1, '2019-12-11', 8540, NULL, '10 jours', 'FD', '2020-03-30');
 INSERT INTO init.devis VALUES(DEFAULT, 2, '2020-01-10', 6123, NULL, '7 jours', 'FF', '2020-03-03');
 
 --Insert aménagements--

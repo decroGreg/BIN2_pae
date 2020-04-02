@@ -307,6 +307,9 @@ function viewAuthentification(){
 		$("#search-devis-date-link").show();
         $("#search-devis-montant-link").show();
         $("#search-devis-amenagement-link").show();
+        $("#search-client-link").hide();
+        $("#search-utilisateur-link").hide();
+        $("#search-amenagement-link").hide();
         $("#mesDevis").show();
         
         if(user &&user.statut===OUVRIER){
@@ -332,7 +335,7 @@ function viewAuthentification(){
         $("#voir-devis").hide();
         $("#voir-devis-client").hide();
         $("#voir-details-devis").hide();
-
+        $("#voir-clients").hide();
         $("#voir-details-devis-DDI").hide();
     	$("#voir-details-devis-DC").hide();
          
@@ -584,7 +587,7 @@ function afficherDevis(response){
 	    html+="<td><a href=\"#\" class=\"reference-devis\">"
 	    	+ response.devisData[data].idDevis + "</a></td>\n<td>" 
 	    	+ response.devisData[data].idClient + "</td>\n<td>" 
-	    	+ response.devisData[data].date + "</td>\n<td>" 
+	    	+ response.devisData[data].date.substring(0,10) + "</td>\n<td>" 
 	    	+ response.devisData[data].montant + "€</td>\n<td>" 
 	    	+ response.devisData[data].dureeTravaux + "</td>\n<td>" 
 	    	+ response.devisData[data].photoPreferee + "</td>\n<td>" 
@@ -605,7 +608,7 @@ function afficherDevisClient(response){
 	    var html = "<tr>";
 	    html+="<td><a href='#' class='reference-devis'>"
 	    	+ response.devisData[data].idDevis + "</a></td>\n<td>"
-	    	+ response.devisData[data].date + "</td>\n<td>" 
+	    	+ response.devisData[data].date.substring(0,10) + "</td>\n<td>" 
 	    	+ response.devisData[data].montant + "€</td>\n<td>" 
 	    	+ response.devisData[data].dureeTravaux + "</td>\n<td>" 
 	    	+ response.devisData[data].photoPreferee + "</td>\n<td>" 
@@ -632,12 +635,12 @@ function afficherClients(response){
 function afficherDetailsDevis(response){
 	console.log(JSON.stringify(response.devisData));
         allHide();
-    if(response.devisData.etat === "DDI"){
+    if(response.devisData.etat === "FD"){
     	viewDevisDDI(response);
     }
     else{
     	$("#voir-details-devis").show();
-    	$("#voir-details-devis #dateDevis").attr("value", response.devisData.date);
+    	$("#voir-details-devis #dateDevis").attr("value", response.devisData.date.substring(0,10));
     	$("#voir-details-devis #montantDevis").attr("value", response.devisData.montant);
     	$("#voir-details-devis #etatDevis").attr("value", response.devisData.etat);
     	$("#voir-details-devis #typeAmenagementDevis").attr("value", response.devisData.typeAmenagement);
@@ -742,12 +745,12 @@ function viewDevisDC(response){
 	$("#voir-details-devis-DC").show();
 	$("#voir-details-devis-DDI").hide();
 	console.log("ICI");
-	$("#voir-details-devis-DC #dateDevis").attr("value", response.devisData.date);
+	$("#voir-details-devis-DC #dateDevis").attr("value", response.devisData.date.substring(0,10));
 	$("#voir-details-devis-DC #montantDevis").attr("value", response.devisData.montant);
 	$("#voir-details-devis-DC #etatDevis").attr("value", response.devisData.etat);
 	$("#voir-details-devis-DC #typeAmenagementDevis").attr("value", response.devisData.typeAmenagement);
 	$("#voir-details-devis-DC #dureeTravauxDevis").attr("value", response.devisData.dureeTravaux);
-	$("#voir-details-devis-DC #dateDebutTravaux").attr("value", response.devisData.dateDebutTravaux);
+	$("#voir-details-devis-DC #dateDebutTravaux").attr("value", response.devisData.dateDebutTravaux.substring(0,10));
 	$("#voir-details-devis-DC #btn-devis").attr("value", changerValeurBouton(response.devisData.etat));
 }
 
@@ -755,7 +758,7 @@ function viewDevisDDI(response){
 	allHide();
 	console.log("OK");
 	$("#voir-details-devis-DDI").show();
-	$("#voir-details-devis-DDI #dateDevis").attr("value", response.devisData.date);
+	$("#voir-details-devis-DDI #dateDevis").attr("value", response.devisData.date.substring(0,10));
 	$("#voir-details-devis-DDI #montantDevis").attr("value", response.devisData.montant);
 	$("#voir-details-devis-DDI #etatDevis").attr("value", response.devisData.etat);
 	$("#voir-details-devis-DDI #typeAmenagementDevis").attr("value", response.devisData.typeAmenagement);
