@@ -110,7 +110,7 @@ public class LoginServlet extends HttpServlet {
         resp.setCharacterEncoding("UTF-8");
         resp.setStatus(HttpServletResponse.SC_OK);
         String json = "{\"success\":\"false\",\"message\":\""
-            + "mot de passe/email incorrect/enregistrement non-confirmé" + "\"}";
+            + "mot de passe/email incorrect/enregistrement non-confirme" + "\"}";
         System.out.println(json);
         resp.getWriter().write(json);
 

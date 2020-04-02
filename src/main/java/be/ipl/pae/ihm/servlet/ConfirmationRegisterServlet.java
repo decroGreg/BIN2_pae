@@ -94,13 +94,13 @@ public class ConfirmationRegisterServlet extends HttpServlet {
           clientDto.setIdClient(idClient);
 
 
-        System.out.println("XXXXX" + data.get("status"));
-        char statut = Character.toUpperCase(data.get("status").charAt(0));
-        userUcc.confirmerInscription(userDto, clientDto, statut);
+          System.out.println("XXXXX" + data.get("status"));
+          char statut = Character.toUpperCase(data.get("status").charAt(0));
+          userUcc.confirmerInscription(userDto, clientDto, statut);
 
 
 
-          String json = "{\"success\":\"true\",\"message\":\"" + "Enregistrement confirmé" + "\"}";
+          String json = "{\"success\":\"true\",\"message\":\"" + "Enregistrement confirmer" + "\"}";
           System.out.println("JSON generated :" + json);
           resp.setContentType("application/json");
 
@@ -112,7 +112,7 @@ public class ConfirmationRegisterServlet extends HttpServlet {
         }
       } catch (Exception exc) {
         System.err.println("token est NULL");
-        String json = "{\"success\":\false\",\"message\":\"" + "échec de la confirmation:"
+        String json = "{\"success\":\false\",\"message\":\"" + "echec de la confirmation:"
             + exc.getMessage() + "\"}";
         resp.setContentType("application/json");
         resp.setCharacterEncoding("UTF-8");

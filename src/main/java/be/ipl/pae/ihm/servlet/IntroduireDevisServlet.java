@@ -110,7 +110,7 @@ public class IntroduireDevisServlet extends HttpServlet {
         if (idClient == -1 && dataUser == null) {// si aucun client est lier et si il n'y a pas de
                                                  // nouvaux client introduit
           throw new IllegalArgumentException(
-              "veuillez introduire lié un client ou un nouveau client");
+              "veuillez introduire lie un client ou un nouveau client");
         }
         System.out.println(dataQuote.get("image"));
 
@@ -118,7 +118,7 @@ public class IntroduireDevisServlet extends HttpServlet {
 
       } catch (Exception exce) {
         exce.printStackTrace();
-        String json = "{\"success\":\"false\",\"message\":\"" + "échec de l'introduction du devis: "
+        String json = "{\"success\":\"false\",\"message\":\"" + "echec de l introduction du devis: "
             + exce.getMessage() + "\"}";
         System.out.println("JSON:" + json);
         resp.setContentType("application/json");
@@ -128,7 +128,7 @@ public class IntroduireDevisServlet extends HttpServlet {
         return;
       }
       String json =
-          "{\"success\":\"true\",\"message\":\"" + "l'introduction du devis reussit" + "\"}";
+          "{\"success\":\"true\",\"message\":\"" + "l introduction du devis reussit" + "\"}";
       System.out.println("JSON generated :" + json);
       resp.setContentType("application/json");
 
