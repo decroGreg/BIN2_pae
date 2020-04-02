@@ -9,7 +9,6 @@ import be.ipl.pae.dal.daoservices.DaoServices;
 import be.ipl.pae.dal.interfaces.ClientDao;
 
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
 
 import java.lang.reflect.Constructor;
 
@@ -40,10 +39,9 @@ class TestClientUcc {
   }
 
 
-  @Test
-  void testGetClients() {
-
-  }
-
-
+  /**
+   * @Test void testGetClients() {
+   * 
+   *       }
+   */
 }
