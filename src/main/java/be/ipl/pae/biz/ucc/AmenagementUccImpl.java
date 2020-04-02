@@ -1,7 +1,6 @@
 package be.ipl.pae.biz.ucc;
 
 import be.ipl.pae.biz.interfaces.AmenagementUcc;
-import be.ipl.pae.exceptions.DalException;
 
 public class AmenagementUccImpl implements AmenagementUcc {
   // private AmenagementDao amenagementDao;
@@ -14,29 +13,20 @@ public class AmenagementUccImpl implements AmenagementUcc {
    * @param amenagementDao l amenagement dao.
    * @param bizFactory la factory.
    * @param daoServicesUcc le dal services.
+   * 
+   *        public AmenagementUccImpl(AmenagementDao amenagementDao, Factory bizFactory,
+   *        DaoServicesUcc daoServicesUcc) { super(); this.amenagementDao = amenagementDao;
+   *        this.bizFactory = bizFactory; this.daoServicesUcc = daoServicesUcc; }
    */
-  // public AmenagementUccImpl(AmenagementDao amenagementDao, Factory bizFactory,
-  // DaoServicesUcc daoServicesUcc) {
-  // super();
-  // this.amenagementDao = amenagementDao;
-  // this.bizFactory = bizFactory;
-  // this.daoServicesUcc = daoServicesUcc;
-  // }
 
 
 
- /** public void ajouterAmenagement(List<String> listeIdTypeAmenagement, int idDevis) {
-    try {
-      daoServicesUcc.demarrerTransaction();
-      if (!listeIdTypeAmenagement.isEmpty()) {
-        for (String idTypeAmenagement : listeIdTypeAmenagement) {
-          amenagementDao.createAmenagement(Integer.parseInt(idTypeAmenagement), idDevis);
-        }
-      }
-    } catch (DalException de) {
-      daoServicesUcc.rollback();
-      throw new IllegalArgumentException();
-    }
-    daoServicesUcc.commit();
-  }**/
+  /**
+   * public void ajouterAmenagement(List<String> listeIdTypeAmenagement, int idDevis) { try {
+   * daoServicesUcc.demarrerTransaction(); if (!listeIdTypeAmenagement.isEmpty()) { for (String
+   * idTypeAmenagement : listeIdTypeAmenagement) {
+   * amenagementDao.createAmenagement(Integer.parseInt(idTypeAmenagement), idDevis); } } } catch
+   * (DalException de) { daoServicesUcc.rollback(); throw new IllegalArgumentException(); }
+   * daoServicesUcc.commit(); }
+   **/
 }
