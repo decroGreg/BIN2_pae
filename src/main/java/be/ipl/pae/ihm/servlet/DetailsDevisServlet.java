@@ -112,13 +112,10 @@ public class DetailsDevisServlet extends HttpServlet {
   @Override
   protected void doPut(HttpServletRequest req, HttpServletResponse resp)
       throws ServletException, IOException {
-    System.out.println("ICI");
     try {
       Genson genson = new Genson();
       Map<String, Object> data = genson.deserialize(req.getReader(), Map.class);
-      System.out.println(data);
       String token = req.getHeader("Authorization");
-      // String token = "t";
       DevisDto devis = null;
       if (token != null) {
         int idDevis = Integer.parseInt(data.get("idDevis").toString());
@@ -128,15 +125,18 @@ public class DetailsDevisServlet extends HttpServlet {
             devis = e;
           }
         }
+
         // Changement d'état dans la db
-        devisUcc.confirmerDateDebut(devis);
+        // devisUcc.confirmerDateDebut(devis);
 
         // DevisDto devisNouvelEtat = devis1;
         devis.setEtat(Etat.DC);
 
         // Renvoi du nouveau DevisDTO
         String devisData = genson.serialize(devis);
-        String json = "{\"success\":\"true\", \"devisData\":" + devisData + "}";
+        String json =
+            "{\"success\":\"true\", \"token\":\"" + token + "\", \"devisData\":" + devisData + "}";
+
         System.out.println("JSON generated :" + json);
 
         resp.setContentType("application/json");
@@ -145,7 +145,6 @@ public class DetailsDevisServlet extends HttpServlet {
 
         resp.setStatus(HttpServletResponse.SC_OK);;
         resp.getWriter().write(json);
-
       }
 
     } catch (Exception e) {
