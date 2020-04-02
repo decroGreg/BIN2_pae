@@ -32,7 +32,7 @@ public class ClientUccImpl implements ClientUcc {
 
   @Override
   public List<ClientDto> getClients() {
-    List<ClientDto> clients = null;
+    List<ClientDto> clients;
     try {
       daoServicesUcc.demarrerTransaction();
       clients = clientDao.voirTousClient();

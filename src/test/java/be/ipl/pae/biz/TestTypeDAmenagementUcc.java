@@ -5,10 +5,12 @@ import be.ipl.pae.biz.dto.TypeDAmenagementDto;
 import be.ipl.pae.biz.interfaces.Factory;
 import be.ipl.pae.biz.interfaces.TypeDAmenagementUcc;
 import be.ipl.pae.dal.daoservices.DaoServices;
+import be.ipl.pae.dal.daoservices.DaoServicesUcc;
 import be.ipl.pae.dal.interfaces.TypeDAmenagementDao;
 
 import org.junit.jupiter.api.BeforeEach;
 
+import java.io.IOException;
 import java.lang.reflect.Constructor;
 
 class TestTypeDAmenagementUcc {
@@ -19,25 +21,32 @@ class TestTypeDAmenagementUcc {
   Constructor<?> typeDAmenagementUccConstruct;
   Factory bizFactory;
   TypeDAmenagementDto typeDAmenagementDto;
-  DaoServices dalServices;
-  Config config;
+  DaoServicesUcc dalServices;
+
+  {
+    try {
+      Config.init("test.properties");
+    } catch (IOException ex) {
+
+      ex.printStackTrace();
+    }
+  }
 
   @BeforeEach
   void setUp() throws Exception {
-    config = new Config();
-    bizFactory = (Factory) Class.forName(config.getConfigPropertyAttribute(Factory.class.getName()))
+    bizFactory = (Factory) Class.forName(Config.getConfigPropertyAttribute(Factory.class.getName()))
         .getConstructor().newInstance();
-    dalServices =
-        (DaoServices) Class.forName(config.getConfigPropertyAttribute(DaoServices.class.getName()))
-            .getConstructor().newInstance();
+    dalServices = (DaoServicesUcc) Class
+        .forName(Config.getConfigPropertyAttribute(DaoServices.class.getName())).getConstructor()
+        .newInstance();
     typeDAmenagementDto = bizFactory.getTypeDAmenagementDto();
 
     typeDAmenagementDaoConstruct =
-        Class.forName(config.getConfigPropertyAttribute(TypeDAmenagementDao.class.getName()))
+        Class.forName(Config.getConfigPropertyAttribute(TypeDAmenagementDao.class.getName()))
             .getConstructor(boolean.class);
     typeDAmenagementUccConstruct =
-        Class.forName(config.getConfigPropertyAttribute(TypeDAmenagementUcc.class.getName()))
-            .getConstructor(Factory.class, TypeDAmenagementDao.class, DaoServices.class);
+        Class.forName(Config.getConfigPropertyAttribute(TypeDAmenagementUcc.class.getName()))
+            .getConstructor(Factory.class, TypeDAmenagementDao.class, DaoServicesUcc.class);
   }
 
   /**
