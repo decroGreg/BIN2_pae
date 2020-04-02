@@ -23,10 +23,10 @@ public class VoirClientsServlet extends HttpServlet {
   private UserDto userDto;
 
   /**
-   * Cree un VoirClientsServlet
+   * Cree un VoirClientsServlet.
    * 
-   * @param clientUcc
-   * @param userDto
+   * @param clientUcc un clientUcc
+   * @param userDto un userDto
    */
   public VoirClientsServlet(ClientUcc clientUcc, UserDto userDto) {
     super();

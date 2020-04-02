@@ -25,11 +25,11 @@ public class VoirDevisClientServlet extends HttpServlet {
   private List<DevisDto> listeDevisDto;
 
   /**
-   * Cree un VoirDevisClientServlet
+   * Cree un VoirDevisClientServlet.
    * 
-   * @param clientUcc
-   * @param devisUcc
-   * @param clientDto
+   * @param clientUcc un clientUcc
+   * @param devisUcc un devisUcc
+   * @param clientDto un clientDto
    */
   public VoirDevisClientServlet(ClientUcc clientUcc, DevisUcc devisUcc, ClientDto clientDto) {
     super();

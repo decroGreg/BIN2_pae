@@ -23,11 +23,11 @@ public class DetailsDevisServlet extends HttpServlet {
   private DevisUcc devisUcc;
 
   /**
-   * Cree un objet DetailsDevisServlet
+   * Cree un objet DetailsDevisServlet.
    * 
-   * @param userUcc
-   * @param userDto
-   * @param devisUcc
+   * @param userUcc un userUcc
+   * @param userDto un userDto
+   * @param devisUcc un devisUcc
    */
   public DetailsDevisServlet(UserUcc userUcc, UserDto userDto, DevisUcc devisUcc) {
     super();

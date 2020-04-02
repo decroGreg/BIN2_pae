@@ -43,10 +43,10 @@ import javax.servlet.http.HttpServlet;
 public class Main {
 
   /**
-   * Main
+   * Main.
    * 
-   * @param args
-   * @throws Exception
+   * @param args les arguments
+   * @throws Exception une exception
    */
   public static void main(String[] args) throws Exception {
     // Lecture du fichier properties

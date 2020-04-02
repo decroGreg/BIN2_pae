@@ -24,10 +24,10 @@ public class VoirUtilisateursServlet extends HttpServlet {
   private UserDto userDto;
 
   /**
-   * Cree un VoirUtilisateursServlet
+   * Cree un VoirUtilisateursServlet.
    * 
-   * @param userUCC
-   * @param userDto
+   * @param userUCC un userUcc
+   * @param userDto un userDto
    */
   public VoirUtilisateursServlet(UserUcc userUCC, UserDto userDto) {
     super();
