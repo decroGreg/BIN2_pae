@@ -698,27 +698,18 @@ function changerEtat(etat){
 	var nouvelEtat;
 	switch (etat) {
 	  case 'I':
-		  nouvelEtat = "DDI";
+		  nouvelEtat = "FD";
 		  break;
-	  case 'DDI':
-		  nouvelEtat = "DC";
-		  break;
-	  case 'ANP':
+	  case 'FD':
 		  nouvelEtat = "DC";
 		  break;
 	  case 'DC':
-		  nouvelEtat = "EC";
+		  nouvelEtat = "A";
 		  break;
 	  case 'A':
-		  nouvelEtat = "EC";
-		  break;
-	  case 'EC':
 		  nouvelEtat = "FM";
 		  break;
 	  case 'FM':
-		  nouvelEtat = "T";
-		  break;
-	  case 'T':
 		  nouvelEtat = "FF";
 		  break;
 	  case 'FF':
