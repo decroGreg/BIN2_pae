@@ -29,9 +29,9 @@ public class VoirUtilisateursServlet extends HttpServlet {
    * @param userUCC un userUcc
    * @param userDto un userDto
    */
-  public VoirUtilisateursServlet(UserUcc userUCC, UserDto userDto) {
+  public VoirUtilisateursServlet(UserUcc userUcc, UserDto userDto) {
     super();
-    this.userUcc = userUCC;
+    this.userUcc = userUcc;
     this.userDto = userDto;
     this.utilisateursDto = new ArrayList<>();
   }
