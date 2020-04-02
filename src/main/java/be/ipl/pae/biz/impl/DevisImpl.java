@@ -10,7 +10,7 @@ import java.sql.Timestamp;
 public class DevisImpl implements Devis {
 
   public enum Etat {
-    I, DDI, ANP, DC, A, EC, FM, T, FF, V;
+    I, FD, DC, A, FM, FF, V;
   }
 
   private int idDevis;
@@ -119,10 +119,8 @@ public class DevisImpl implements Devis {
 
   @Override
   public boolean checkEtat() {
-    if (etat.equals(Etat.I) || etat.equals(Etat.DDI) || etat.equals(Etat.ANP)
-        || etat.equals(Etat.DC) || etat.equals(Etat.A) || etat.equals(Etat.EC)
-        || etat.equals(Etat.FM) || etat.equals(Etat.T) || etat.equals(Etat.FF)
-        || etat.equals(Etat.V)) {
+    if (etat.equals(Etat.I) || etat.equals(Etat.FD) || etat.equals(Etat.DC) || etat.equals(Etat.A)
+        || etat.equals(Etat.FM) || etat.equals(Etat.FF) || etat.equals(Etat.V)) {
       return true;
     }
     return false;
