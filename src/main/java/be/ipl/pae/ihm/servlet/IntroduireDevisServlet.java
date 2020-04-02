@@ -107,8 +107,8 @@ public class IntroduireDevisServlet extends HttpServlet {
         } else {
           idClient = -1;
         }
-        if (idClient == 0 && dataUser == null) {// si aucun client est lier et si il n'y a pas de
-                                                // nouvaux client introduit
+        if (idClient == -1 && dataUser == null) {// si aucun client est lier et si il n'y a pas de
+                                                 // nouvaux client introduit
           throw new IllegalArgumentException(
               "veuillez introduire lié un client ou un nouveau client");
         }
