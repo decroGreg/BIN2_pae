@@ -61,7 +61,7 @@ public class ConfirmationRegisterServlet extends HttpServlet {
       }
     } catch (Exception e) {
       e.printStackTrace();
-      String json = "{\"error\":\"false\"}";
+      String json = "{\"error\":\"false\",\"message\":\"" + e.getMessage() + "\"}";
       resp.setContentType("application/json");
       resp.setCharacterEncoding("UTF-8");
       resp.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
@@ -78,44 +78,50 @@ public class ConfirmationRegisterServlet extends HttpServlet {
       Genson genson = new Genson();
       Map<String, String> data = genson.deserialize(req.getReader(), Map.class);
       System.out.println("--------" + data.toString());
-      int idClient = 0;
-      int idUtilConfirm = Integer.parseInt(data.get("id"));
-      String token = req.getHeader("Authorization");
-      System.out.println(token);
-      if (token != null) {
-        if (data.get("client") != null)
-          idClient = Integer.parseInt(data.get("client"));
+      try {
+        int idClient = 0;
+        int idUtilConfirm = Integer.parseInt(data.get("id"));
+        String token = req.getHeader("Authorization");
+        System.out.println(token);
+        if (token != null) {
+          try {
+            idClient = Integer.parseInt(data.get("client"));
+          } catch (Exception e) {
+            e.printStackTrace();
+          }
 
-        userDto.setIdUser(idUtilConfirm);
-        clientDto.setIdClient(idClient);
+          userDto.setIdUser(idUtilConfirm);
+          clientDto.setIdClient(idClient);
 
 
-        System.out.println(data.get("status"));
-        userUcc.confirmerInscription(userDto, clientDto, data.get("status").charAt(0));
+          System.out.println(data.get("status"));
+          userUcc.confirmerInscription(userDto, clientDto, data.get("status").charAt(0));
 
 
 
-        String json = "{\"success\":\"true\"}";
-        System.out.println("JSON generated :" + json);
-        resp.setContentType("application/json");
+          String json = "{\"success\":\"true\",\"message\":\"" + "Enregistrement confirmé" + "\"}";
+          System.out.println("JSON generated :" + json);
+          resp.setContentType("application/json");
 
-        resp.setCharacterEncoding("UTF-8");
+          resp.setCharacterEncoding("UTF-8");
 
-        resp.setStatus(HttpServletResponse.SC_OK);;
-        resp.getWriter().write(json);
+          resp.setStatus(HttpServletResponse.SC_OK);
+          resp.getWriter().write(json);
 
-      } else {
+        }
+      } catch (Exception exc) {
         System.err.println("token est NULL");
-        String json = "{\"success\":\false\"}";
+        String json = "{\"success\":\false\",\"message\":\"" + "échec de la confirmation:"
+            + exc.getMessage() + "\"}";
         resp.setContentType("application/json");
         resp.setCharacterEncoding("UTF-8");
-        resp.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+        resp.setStatus(HttpServletResponse.SC_OK);
         resp.getWriter().write(json);
       }
 
     } catch (Exception e) {
       e.printStackTrace();
-      String json = "{\"error\":\"false\"}";
+      String json = "{\"error\":\"false\",\"message\":\"" + e.getMessage() + "\"}";
       resp.setContentType("application/json");
       resp.setCharacterEncoding("UTF-8");
       resp.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);

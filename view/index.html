@@ -17,10 +17,13 @@
     </head>
     <body>
       <div id="success-notification" class="alert alert-success alert-dismissible fixed-top" style="text-align: center;">
-        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+        
         
       </div>
-      <div id="error-notification" class="alert alert-danger" role="alert"></div>
+      <div id="error-notification" class="alert alert-danger alert-dismissible fixed-top" style="text-align: center;">
+        
+        
+      </div>
       
       <!------------------------------------navigation static----------------------------------->
       <nav class="nav" id="menu">
@@ -47,7 +50,7 @@
         </form>
            <ul>
                 <li>
-                    <a href="#">HOME</a></li>
+                    <a href="#" id="homePage">HOME</a></li>
                 <li><a href="#">Catégorie</a></li>
                 <li id="list-confirmation-link"><a href="#"  class="Register-confirmation-link">Confirmer inscription</a></li>
                 <li id="connexion">
@@ -67,10 +70,10 @@
               <h3>Login for Form</h3>
               <form>
                   <div class="form-group">
-                      <input id="login-email" type="email" class="form-control" placeholder="Your Email *"  />
+                      <input id="login-email" type="email" class="form-control login" placeholder="Your Email *"  />
                   </div>
                   <div class="form-group">
-                      <input id="login-pwd" type="password" class="form-control" placeholder="Your Password *" />
+                      <input id="login-pwd" type="password" class="form-control login" placeholder="Your Password *" />
                   </div>
                   <div class="form-group">
                       <button id="btn-connexion" class="btnSubmit" value="Login" >log in</button>
@@ -84,23 +87,23 @@
               <h3>Register for Form</h3>
               <form>
                   <div class="form-group">
-                    <input id="Register-lastname" type="text" class="form-control" placeholder="lastname *" value="" />
+                    <input id="Register-lastname" type="text" class="form-control Register" placeholder="lastname *" value="" />
                 </div>
                   <div class="form-group">
-                      <input id="Register-firstname" type="text" class="form-control" placeholder="firstname *" value="" />
+                      <input id="Register-firstname" type="text" class="form-control Register" placeholder="firstname *" value="" />
                   </div>
                   <div class="form-group">
-                    <input id="Register-email" type="email" class="form-control" placeholder="Your Email *" value="" />
+                    <input id="Register-email" type="email" class="form-control Register" placeholder="Your Email *" value="" />
                   </div>
                   <div class="form-group">
-                    <input id="Register-pseudo" type="text" class="form-control" placeholder="pseudo *" value="" />
+                    <input id="Register-pseudo" type="text" class="form-control Register" placeholder="pseudo *" value="" />
                 </div>
                   <div class="form-group">
-                      <input id="Register-pwd" type="password" class="form-control" placeholder="Your Password *" value="" />
+                      <input id="Register-pwd" type="password" class="form-control Register" placeholder="Your Password *" value="" />
                   </div>
                   
                   <div class="form-group">
-                    <input id="Register-city" type="text" class="form-control" placeholder="ville *" value="" />
+                    <input id="Register-city" type="text" class="form-control Register" placeholder="ville *" value="" />
                 </div>
                   <div class="form-group">
                       <input id="btn-register" type="submit" class="btnSubmit" value="Register" />
@@ -268,7 +271,7 @@
               </form>
               
             </div>
-            <form style="margin:2%;">
+            <form id="Quote-Form" style="margin:2%;">
               <div class="form-row">
                 <div class="form-group col-md-3">
                   <div class="dropdown-Client">
@@ -282,21 +285,21 @@
               <div class="form-row">
                 <div class="form-group col-md-3">
                   <label for="Quote-Form-quoteDate">date du devis</label>
-                  <input type="date" class="form-control" id="Quote-Form-quoteDate" placeholder="date*" required>
+                  <input type="date" class="form-control Quote" id="Quote-Form-quoteDate" placeholder="date*" required>
                 </div>
                 <div class="form-group col-md-3">
                   <label for="Quote-Form-price">Prix</label>
-                  <input type="number" class="form-control" id="Quote-Form-price" placeholder="prix*" required>
+                  <input type="number" class="form-control Quote" id="Quote-Form-price" placeholder="prix*" required>
                 </div>
               </div>
               <div class="form-row">
                 <div class="form-group col-md-3">
                   <label for="Quote-Form-duration">Duree</label>
-                  <input type="text" class="form-control" id="Quote-Form-duration" placeholder="Duree*" required>
+                  <input type="text" class="form-control Quote" id="Quote-Form-duration" placeholder="Duree*" required>
                 </div>
                 <div class="form-group col-md-3">
                   <label for="Quote-Form-image">Image</label>
-                  <input type="file" name="image" id="Quote-Form-image" required>
+                  <input type="file" name="image" id="Quote-Form-image">
                 </div>
               </div>
               <div class="form-row">
@@ -312,7 +315,7 @@
 
             </form>
           </div>
-          <img id="imageQuote"src=""/>
+          <img id="imageQuote"src="#"/>
         </section>
         
 <!-----------------------------------------Voir devis---------------------------------------------->

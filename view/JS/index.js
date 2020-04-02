@@ -5,6 +5,8 @@ const CLIENT="c";
 let token=undefined;
 let user;
 $('#navigation_bar').hide();
+$("#success-notification").hide();
+$("#error-notification").hide();
 
 
 function encodeImagetoBase64(element) {
@@ -19,6 +21,18 @@ function encodeImagetoBase64(element) {
           
         }
         reader.readAsDataURL(file);        
+}
+function checkInput(data,message){
+        var element;
+        for(element in data){
+                if(!data[element]){
+                        
+                        $("#error-notification").fadeIn('slow').delay(1000).fadeOut('slow');
+                        $("#error-notification").text(message);
+                        return false;
+                }
+        }
+        return true;
 }
 
 $(document).ready(e=>{
@@ -42,18 +56,17 @@ $(document).ready(e=>{
                 }
                 });
  
-    
+    $("#homePage").click(viewHomePage);
     $("#btn-connexion").click(e=>{
             console.log($("#login-email").val());
             let data={};
             data.mail=$("#login-email").val();
             data.mdp=$("#login-pwd").val();
+            if(!checkInput(data,"veuillez remplir tous les champs pour la connexion")) return;
             postData("/login",data,token,onPostLogin,onError);
             
     });
     $("#btn-register").click(e=>{
-        console.log($("#Register-email").val());
-        console.log($("#Register-city").val());
         let data={};
         data.firstname=$("#Register-firstname").val();
         data.lastname=$("#Register-lastname").val();
@@ -61,6 +74,7 @@ $(document).ready(e=>{
         data.mdp=$("#Register-pwd").val();
         data.city=$("#Register-city").val();
         data.pseudo=$("#Register-pseudo").val();
+        if(!checkInput(data,"veuillez remplir tous les champs du nouveau clients")) return;
         postData("/register",data,token,onPostRegister,onError);
         
     });
@@ -89,34 +103,35 @@ $(document).ready(e=>{
             console.log($("#imageQuote").attr("src"));
         
         
-        if($("#Quote-Form-firstName").val())
-        var dataUser={
-                firstname:$("#Quote-Form-firstName").val(),
-                lastname:$("#Quote-Form-name").val(),
-                street:$("#Quote-Form-street").val(),
-                number:$("#Quote-Form-number").val(),
-                boite:$("#Quote-Form-boite").val(),
-                postalCode:$("#Quote-Form-postalCode").val(),
-                city:$("#Quote-Form-city").val(),
-                mail:$("#Quote-Form-email").val(),
-                phone:$("#Quote-Form-phoneNumber").val()
-        };
+        if($("#Quote-Form-firstName").val()||$("#Quote-Form-email").val()){//changer ne prends pas tous les cas en considération
+                var dataUser={
+                        firstname:$("#Quote-Form-firstName").val(),
+                        lastname:$("#Quote-Form-name").val(),
+                        street:$("#Quote-Form-street").val(),
+                        number:$("#Quote-Form-number").val(),
+                        boite:$("#Quote-Form-boite").val(),
+                        postalCode:$("#Quote-Form-postalCode").val(),
+                        city:$("#Quote-Form-city").val(),
+                        mail:$("#Quote-Form-email").val(),
+                        phone:$("#Quote-Form-phoneNumber").val()
+                };
+                if(checkInput(dataUser,"veuillez remplir tous les champs pour le nouveau client")) return;
+        
+        }
         var type=[];
         var amenagementList=document.getElementsByClassName("form-check");
         for(var i=0;i<amenagementList.length;i++){
                 var element=amenagementList[i].firstChild;
-                console.log(i);
-
                 if(element.checked){
-                        type[i]=element.id;
-                        
+                        type[i]=element.id;    
                 }
         }
-
-        if(type.length==0){
-                return ;
-        }
         
+        if(type.length==0){
+                $("#error-notification").fadeIn('slow').delay(1000).fadeOut('slow');
+                $("#error-notification").text("veillez introduire un type d'aménagement");
+                return;
+        }
         var dataQuote={
                 "client":$("#Quote-Form-Client-items").val(),
                 "date":$("#Quote-Form-quoteDate").val(),
@@ -126,6 +141,7 @@ $(document).ready(e=>{
                 
 
         };
+        if(!checkInput(dataQuote,"veuillez remplir tous les champs du devis"));//à voir si image peut être null;
         var data={
                 "dataUser":dataUser,
                 "dataQuote":dataQuote,
@@ -199,7 +215,14 @@ $(document).ready(e=>{
     });
 });
 function onPostIntroductionQuote(response){
-
+        if(response.success=="true"){
+                $("#success-notification").fadeIn('slow').delay(1000).fadeOut('slow');
+                $("#success-notification").text(response.message);
+        }else{
+                $("#error-notification").fadeIn('slow').delay(1000).fadeOut('slow');
+                $("#error-notification").text(response.message);
+        }
+        viewIntroductionQuote();
 }
 function filterSearchClient(element){
         var value = $(element).val().toLowerCase();
@@ -215,6 +238,8 @@ function allHide(){
         $("#test1").hide();
         $("#carousel").hide();
         $("#Register-confirmation").hide();
+        $("#success-notification").hide();
+        $("#error-notification").hide();
 }
 function viewIntroductionQuote(){
         $("#login").hide();
@@ -224,6 +249,7 @@ function viewIntroductionQuote(){
         $("#carousel").hide();
         $("#Register-confirmation").hide();
         $("#introductionQuoteForm").show();
+       
 }
 function viewRegisterConfirmation(){
         $("#login").hide();
@@ -233,6 +259,7 @@ function viewRegisterConfirmation(){
         $("#carousel").hide();
         $("#Register-confirmation").show();
         $("#introductionQuoteForm").hide();
+       
 }
 
 function viewLogin(){
@@ -259,8 +286,7 @@ function viewHomePage(){
         $("#voir-clients").hide();
         $("#voir-details-devis").hide();
         $("#mesDevis").hide();
-        $("#success-notification").hide();
-        $("#error-notification").hide();
+        
         //$("#search-homepage").hide();
 }
 
@@ -294,6 +320,7 @@ function viewAuthentification(){
         $("#voir-devis").hide();
         $("#voir-devis-client").hide();
         $("#voir-details-devis").hide();
+
          
 }
 
@@ -302,7 +329,7 @@ function authentificationToken(token){
         if(token){
                 if(user==undefined){
                       //  getData("/login",token,onPostLogin,onError);
-                      alert();
+                      
                 }    
                 viewAuthentification();
         }
@@ -313,7 +340,7 @@ function authentificationToken(token){
 //Authentificaiton réussis
 function onPostLogin(response){
         if(response.success=="true"){
-                $("#success-notification").show();
+                $("#success-notification").fadeIn('slow').delay(1000).fadeOut('slow');
                 $("#success-notification").text(response.message);
                 console.log( $("#success-notification").text());
                 token=response.token;
@@ -326,8 +353,12 @@ function onPostLogin(response){
                 console.log(localStorage.getItem("token"));
                 viewAuthentification();
         }else{
-                console.log("erreur");
-                $("#wrong_passwd").show();
+                console.log(response.message);
+                $("#error-notification").fadeIn('slow').delay(1000).fadeOut('slow');
+                $("#error-notification").text(response.message);
+                
+
+                
         }
 }
 function onGetClientQuoteForm(response){
@@ -453,21 +484,31 @@ function onGetClientRegisterConfirmationForm(response){
 function onClickRegisterConfirmation(element){
         var btn=element.target;
         var data={};
-        console.log(element)
         btn.parentNode.parentNode.childNodes.forEach(e => {
+                console.log(e.getAttribute("valueof")+":"+e.value);
                 console.log(e);
-                console.log("valeur:"+e.value);
+                if(e.getAttribute("valueof")!=null)
                 data[e.getAttribute("valueof")]=e.value+"";
-                
-                
         });
-        console.log(data.client);
+        if(data.status==="undefined"){
+                $("#error-notification").fadeIn('slow').delay(1000).fadeOut('slow');
+                $("#error-notification").text("veuillez choisir un roles");
+                return;
+
+        }
+        
         
 
         postData("/confirmation",data,token,onPostRegisterConfirmation,onError);
 }
 function onPostRegisterConfirmation(response){
-        alert("passage");
+        if(response.success=="true"){
+                $("#success-notification").fadeIn('slow').delay(1000).fadeOut('slow');
+                $("#success-notification").text(response.message);
+        }else{
+                $("#error-notification").fadeIn('slow').delay(1000).fadeOut('slow');
+                $("#error-notification").text(response.message);
+        }
 }
 
 function onClickStatusItem(element){
@@ -489,13 +530,20 @@ function creatHTMLFromString(htmlString){
         return div.firstChild; 
 }
 function onPostRegister(response){
-        if(response.success){
-                alert();
+        if(response.success=="true"){
+                $("#success-notification").fadeIn('slow').delay(1000).fadeOut('slow');
+                $("#success-notification").text(response.message);
+        }else{ 
+                console.log(response.message);
+                $("#error-notification").fadeIn('slow').delay(1000).fadeOut('slow');
+                $("#error-notification").text(response.message);
         }
 }
 
 function onError(response){
-	console.log("Erreur");
+        console.log("Erreur");
+        $("#error-notification").fadeIn('slow').delay(1000).fadeOut('slow');
+        $("#error-notification").text(response.message);
 }
 /////////////////////////////////////////////////////////////////////////////////////////////test////////////////////////
 

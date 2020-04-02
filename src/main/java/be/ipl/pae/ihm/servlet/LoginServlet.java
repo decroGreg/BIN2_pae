@@ -3,6 +3,7 @@ package be.ipl.pae.ihm.servlet;
 import be.ipl.pae.biz.config.Config;
 import be.ipl.pae.biz.dto.UserDto;
 import be.ipl.pae.biz.interfaces.UserUcc;
+import be.ipl.pae.exceptions.BizException;
 
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
@@ -78,39 +79,41 @@ public class LoginServlet extends HttpServlet {
 
       try {
         userDto = userUcc.login(mail, mdp);
-      } catch (Exception e) {
+
+        // verification du pseudo
+        // verification du mdp
+        if (userDto != null) {
+          Map<String, Object> claims = new HashMap<String, Object>();
+          claims.put("id", userDto.getIdUser());
+          claims.put("ip", req.getRemoteAddr());
+          Algorithm algorithm = Algorithm.HMAC256(JWTSECRET);
+
+          String ltoken =
+              JWT.create().withIssuer("auth0").withClaim("claims", claims).sign(algorithm);
+          String userData = genson.serialize(userDto);
+
+          String json = "{\"success\":\"true\", \"token\":\"" + ltoken + "\", \"userData\":"
+              + userData + ",\"message\":\"" + "login reussit" + "\"}";
+          System.out.println("JSON generated :" + json);
+          resp.setContentType("application/json");
+
+          resp.setCharacterEncoding("UTF-8");
+
+          resp.setStatus(HttpServletResponse.SC_OK);
+          resp.getWriter().write(json);
+        }
+      } catch (BizException biz) {
         // TODO: handle exception
         System.out.println("mdp incorrect");
-        e.printStackTrace();
+        biz.printStackTrace();
         resp.setContentType("application/json");
         resp.setCharacterEncoding("UTF-8");
-        resp.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
-        String json = "{\"success\":\"false\"}";
+        resp.setStatus(HttpServletResponse.SC_OK);
+        String json = "{\"success\":\"false\",\"message\":\""
+            + "mot de passe/email incorrect/enregistrement non-confirmé" + "\"}";
+        System.out.println(json);
         resp.getWriter().write(json);
-        return;
-      }
-      // verification du pseudo
-      // verification du mdp
-      if (userDto != null) {
-        Map<String, Object> claims = new HashMap<String, Object>();
-        claims.put("id", userDto.getIdUser());
-        claims.put("ip", req.getRemoteAddr());
-        userDto.setStatut('e');
-        Algorithm algorithm = Algorithm.HMAC256(JWTSECRET);
 
-        String ltoken =
-            JWT.create().withIssuer("auth0").withClaim("claims", claims).sign(algorithm);
-        String userData = genson.serialize(userDto);
-
-        String json = "{\"success\":\"true\", \"token\":\"" + ltoken + "\", \"userData\":"
-            + userData + ",\"message\":\"" + "login reussit" + "\"}";
-        System.out.println("JSON generated :" + json);
-        resp.setContentType("application/json");
-
-        resp.setCharacterEncoding("UTF-8");
-
-        resp.setStatus(HttpServletResponse.SC_OK);;
-        resp.getWriter().write(json);
       }
 
     } catch (Exception e) {
@@ -118,7 +121,7 @@ public class LoginServlet extends HttpServlet {
       resp.setContentType("application/json");
       resp.setCharacterEncoding("UTF-8");
       resp.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
-      String json = "{\"error\":\"false\"}";
+      String json = "{\"error\":\"false\",\"message\":\"" + e.getMessage() + "\"}";
       resp.getWriter().write(json);
     }
 

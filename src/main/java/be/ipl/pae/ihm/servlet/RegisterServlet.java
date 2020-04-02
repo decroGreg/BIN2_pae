@@ -31,40 +31,36 @@ public class RegisterServlet extends HttpServlet {
     try {
       Genson genson = new Genson();
       Map<String, String> data = genson.deserialize(req.getReader(), Map.class);
-      this.userDto.setEmail(data.get("mail"));
-      this.userDto.setMotDePasse(data.get("mdp"));
-      this.userDto.setPrenom(data.get("firstname"));
-      this.userDto.setNom(data.get("lastname"));
-      this.userDto.setVille(data.get("city"));
-      this.userDto.setPseudo(data.get("pseudo"));
+      try {
+        this.userDto.setEmail(data.get("mail"));
+        this.userDto.setMotDePasse(data.get("mdp"));
+        this.userDto.setPrenom(data.get("firstname"));
+        this.userDto.setNom(data.get("lastname"));
+        this.userDto.setVille(data.get("city"));
+        this.userDto.setPseudo(data.get("pseudo"));
 
-
-      try {// vérification
         this.userUcc.sinscrire(userDto);
 
-      } catch (Exception e) {
-        e.printStackTrace();
-        String json = "{\"success\":\false\"}";
+        String json = "{\"success\":\"true\",\"message\":\"" + "inscription reussit" + "\"}";
+        System.out.println("JSON generated :" + json);
         resp.setContentType("application/json");
         resp.setCharacterEncoding("UTF-8");
-        resp.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+        resp.setStatus(HttpServletResponse.SC_OK);
         resp.getWriter().write(json);
-        return;
+      } catch (Exception e) {
+        e.printStackTrace();
+        String json = "{\"success\":\"false\",\"message\":\"" + e.getMessage() + "\"}";
+        System.out.println("JSON" + json);
+        resp.setContentType("application/json");
+        resp.setCharacterEncoding("UTF-8");
+        resp.setStatus(HttpServletResponse.SC_OK);
+        resp.getWriter().write(json);
+
 
       }
-      String json = "{\"success\":\"true\"}";
-      System.out.println("JSON generated :" + json);
-      resp.setContentType("application/json");
-
-      resp.setCharacterEncoding("UTF-8");
-
-      resp.setStatus(HttpServletResponse.SC_OK);;
-      resp.getWriter().write(json);
-
-
     } catch (Exception e) {
       e.printStackTrace();
-      String json = "{\"error\":\false\"}";
+      String json = "{\"error\":\false\",\"message\":\"" + e.getMessage() + "\"}";
       resp.setContentType("application/json");
       resp.setCharacterEncoding("UTF-8");
       resp.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);

@@ -57,9 +57,9 @@ public class IntroduireDevisServlet extends HttpServlet {
       }
 
 
-    } catch (Exception e) {
-      e.printStackTrace();
-      String json = "{\"error\":\false\"}";
+    } catch (Exception exce) {
+      exce.printStackTrace();
+      String json = "{\"error\":\"false\",\"message\":\"" + exce.getMessage() + "\"}";
       resp.setContentType("application/json");
       resp.setCharacterEncoding("UTF-8");
       resp.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
@@ -90,42 +90,55 @@ public class IntroduireDevisServlet extends HttpServlet {
           clientDto.setEmail(dataUser.get("mail").toString());
           clientDto.setTelephone(dataUser.get("phone").toString());
         }
-
-        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss.SSS");
-        Date parsedDate = dateFormat.parse(dataQuote.get("date").toString() + " 00:00:00.000");
-        Timestamp timestamp = new Timestamp(parsedDate.getTime());
-        devisDto.setDate(timestamp);
-        devisDto.setMontant(Double.parseDouble(dataQuote.get("price").toString()));
-        devisDto.setDureeTravaux(dataQuote.get("duration"));
+        try {
+          SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss.SSS");
+          Date parsedDate = dateFormat.parse(dataQuote.get("date").toString() + " 00:00:00.000");
+          Timestamp timestamp = new Timestamp(parsedDate.getTime());
+          devisDto.setDate(timestamp);
+          devisDto.setMontant(Double.parseDouble(dataQuote.get("price").toString()));
+          devisDto.setDureeTravaux(dataQuote.get("duration"));
+        } catch (Exception exc) {
+          throw new IllegalArgumentException("veuillez introduire une date");
+        }
 
         int idClient = 0;
         if (!dataQuote.get("client").toString().equals("")) {
           idClient = Integer.parseInt(dataQuote.get("client").toString());
         }
+        if (idClient == 0 && dataUser == null) {// si aucun client est lier et si il n'y a pas de
+                                                // nouvaux client introduit
+          throw new IllegalArgumentException(
+              "veuillez introduire lié un client ou un nouveau client");
+        }
+        System.out.println(dataQuote.get("image"));
 
         devisUcc.introduireDevis(clientDto, idClient, devisDto, (List<String>) data.get("type"));
 
-      } catch (Exception e) {
-        e.printStackTrace();
-        String json = "{\"success\":\false\"}";
+      } catch (Exception exce) {
+        exce.printStackTrace();
+        String json = "{\"success\":\"false\",\"message\":\"" + "échec de l'introduction du devis: "
+            + exce.getMessage() + "\"}";
+        System.out.println("JSON:" + json);
         resp.setContentType("application/json");
         resp.setCharacterEncoding("UTF-8");
-        resp.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+        resp.setStatus(HttpServletResponse.SC_OK);
         resp.getWriter().write(json);
         return;
       }
-      String json = "{\"success\":\"true\"}";
+      String json =
+          "{\"success\":\"true\",\"message\":\"" + "l'introduction du devis reussit" + "\"}";
       System.out.println("JSON generated :" + json);
       resp.setContentType("application/json");
 
       resp.setCharacterEncoding("UTF-8");
 
-      resp.setStatus(HttpServletResponse.SC_OK);;
+      resp.setStatus(HttpServletResponse.SC_OK);
       resp.getWriter().write(json);
 
-    } catch (Exception e) {
-      e.printStackTrace();
-      String json = "{\"error\":\false\"}";
+    } catch (Exception exce) {
+      exce.printStackTrace();
+
+      String json = "{\"error\":\"false\",\"message\":\"" + exce.getMessage() + "\"}";
       resp.setContentType("application/json");
       resp.setCharacterEncoding("UTF-8");
       resp.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
