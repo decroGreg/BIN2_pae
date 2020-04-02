@@ -23,7 +23,7 @@ public class Config {
   }
 
   /**
-   * Renvoie une instance de la propriete demandee
+   * Renvoie une instance de la propriete demandee.
    * 
    * @param property la propriete a laquelle on veut acceder
    * @return
@@ -42,7 +42,7 @@ public class Config {
   }
 
   /**
-   * Renvoie la propriete demandee
+   * Renvoie la propriete demandee.
    * 
    * @param property la propriete a laquelle on veut acceder
    * @return

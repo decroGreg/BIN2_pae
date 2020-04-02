@@ -1,5 +1,7 @@
 package be.ipl.pae.biz.ucc;
 
+import java.util.Collections;
+import java.util.List;
 import be.ipl.pae.biz.dto.ClientDto;
 import be.ipl.pae.biz.dto.DevisDto;
 import be.ipl.pae.biz.impl.DevisImpl.Etat;
@@ -12,9 +14,6 @@ import be.ipl.pae.dal.interfaces.DevisDao;
 import be.ipl.pae.dal.interfaces.UserDao;
 import be.ipl.pae.exceptions.BizException;
 import be.ipl.pae.exceptions.DalException;
-
-import java.util.Collections;
-import java.util.List;
 
 public class DevisUccImpl implements DevisUcc {
 

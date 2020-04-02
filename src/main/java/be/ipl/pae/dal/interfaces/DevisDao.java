@@ -2,7 +2,6 @@ package be.ipl.pae.dal.interfaces;
 
 import be.ipl.pae.biz.dto.ClientDto;
 import be.ipl.pae.biz.dto.DevisDto;
-
 import java.sql.Timestamp;
 import java.util.List;
 
