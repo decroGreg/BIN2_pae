@@ -1,6 +1,7 @@
 package be.ipl.pae.dal.impl;
 
 import be.ipl.pae.biz.dto.ClientDto;
+import be.ipl.pae.biz.factory.FactoryStub;
 import be.ipl.pae.biz.interfaces.Factory;
 import be.ipl.pae.dal.interfaces.ClientDao;
 import be.ipl.pae.exceptions.DalException;
@@ -18,12 +19,12 @@ public class ClientDaoMock implements ClientDao {
 
 
   public ClientDaoMock(boolean voirTousClient, boolean createClien, boolean getClientMail,
-      boolean testDalException, Factory factory) {
+      boolean testDalException) {
     this.voirTousClient = voirTousClient;
     this.createClient = createClien;
     this.getClientMail = getClientMail;
     this.testDalException = testDalException;
-    this.factory = factory;
+    this.factory = new FactoryStub();
   }
 
   @Override

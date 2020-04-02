@@ -32,7 +32,7 @@ public class Config {
    * @param property la propriete a laquelle on veut acceder
    * @return object
    */
-  public Object getConfigPropertyClass(String property) {
+  public static Object getConfigPropertyClass(String property) {
     Object objetRenvoye;
     try {
       String prop = props.getProperty(property);
@@ -51,7 +51,7 @@ public class Config {
    * @param property la propriete a laquelle on veut acceder
    * @return string
    */
-  public String getConfigPropertyAttribute(String property) {
+  public static String getConfigPropertyAttribute(String property) {
     String prop;
     try {
       prop = props.getProperty(property);
