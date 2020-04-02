@@ -1,7 +1,7 @@
 "use-strict";
 import {postData,getData,deleteData,putData} from "./util.js" ;
-const OUVRIER="e";
-const CLIENT="c";
+const OUVRIER="O";
+const CLIENT="C";
 let token=undefined;
 let user;
 $('#navigation_bar').hide();
@@ -10,7 +10,6 @@ $("#error-notification").hide();
 
 
 function encodeImagetoBase64(element) {
-        
         var file = element.files[0];
 
         var reader = new FileReader();
@@ -141,7 +140,7 @@ $(document).ready(e=>{
                 
 
         };
-        if(!checkInput(dataQuote,"veuillez remplir tous les champs du devis"));//à voir si image peut être null;
+        if(!checkInput(dataQuote,"veuillez remplir tous les champs du devis")) return;//à voir si image peut être null;
         var data={
                 "dataUser":dataUser,
                 "dataQuote":dataQuote,

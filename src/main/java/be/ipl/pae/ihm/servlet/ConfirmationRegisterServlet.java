@@ -53,18 +53,18 @@ public class ConfirmationRegisterServlet extends HttpServlet {
         resp.getWriter().write(json);
       } else {
         System.err.println("token est NULL");
-        String json = "{\"success\":\false\"}";
         resp.setContentType("application/json");
         resp.setCharacterEncoding("UTF-8");
         resp.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+        String json = "{\"success\":\false\"}";
         resp.getWriter().write(json);
       }
-    } catch (Exception e) {
-      e.printStackTrace();
-      String json = "{\"error\":\"false\",\"message\":\"" + e.getMessage() + "\"}";
+    } catch (Exception exce) {
+      exce.printStackTrace();
       resp.setContentType("application/json");
       resp.setCharacterEncoding("UTF-8");
       resp.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+      String json = "{\"error\":\"false\",\"message\":\"" + exce.getMessage() + "\"}";
       resp.getWriter().write(json);
     }
 
@@ -86,8 +86,8 @@ public class ConfirmationRegisterServlet extends HttpServlet {
         if (token != null) {
           try {
             idClient = Integer.parseInt(data.get("client"));
-          } catch (Exception e) {
-            e.printStackTrace();
+          } catch (Exception exce) {
+            exce.printStackTrace();
           }
 
           userDto.setIdUser(idUtilConfirm);
@@ -114,15 +114,17 @@ public class ConfirmationRegisterServlet extends HttpServlet {
         System.err.println("token est NULL");
         String json = "{\"success\":\false\",\"message\":\"" + "echec de la confirmation:"
             + exc.getMessage() + "\"}";
+        System.out.println("JSON generated :" + json);
         resp.setContentType("application/json");
         resp.setCharacterEncoding("UTF-8");
         resp.setStatus(HttpServletResponse.SC_OK);
         resp.getWriter().write(json);
       }
 
-    } catch (Exception e) {
-      e.printStackTrace();
-      String json = "{\"error\":\"false\",\"message\":\"" + e.getMessage() + "\"}";
+    } catch (Exception exce) {
+      exce.printStackTrace();
+      String json = "{\"error\":\"false\",\"message\":\"" + exce.getMessage() + "\"}";
+      System.out.println("JSON generated :" + json);
       resp.setContentType("application/json");
       resp.setCharacterEncoding("UTF-8");
       resp.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);

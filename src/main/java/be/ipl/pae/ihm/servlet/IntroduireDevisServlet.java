@@ -60,6 +60,7 @@ public class IntroduireDevisServlet extends HttpServlet {
     } catch (Exception exce) {
       exce.printStackTrace();
       String json = "{\"error\":\"false\",\"message\":\"" + exce.getMessage() + "\"}";
+      System.out.println("JSON generated :" + json);
       resp.setContentType("application/json");
       resp.setCharacterEncoding("UTF-8");
       resp.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
@@ -98,6 +99,7 @@ public class IntroduireDevisServlet extends HttpServlet {
           devisDto.setMontant(Double.parseDouble(dataQuote.get("price").toString()));
           devisDto.setDureeTravaux(dataQuote.get("duration"));
         } catch (Exception exc) {
+          exc.printStackTrace();
           throw new IllegalArgumentException("veuillez introduire une date");
         }
 
@@ -107,8 +109,9 @@ public class IntroduireDevisServlet extends HttpServlet {
         } else {
           idClient = -1;
         }
-        if (idClient == -1 && dataUser == null) {// si aucun client est lier et si il n'y a pas de
-                                                 // nouvaux client introduit
+
+        // si aucun client est lier et si il n'y a pas de nouvaux client introduit
+        if (idClient == -1 && dataUser == null) {
           throw new IllegalArgumentException(
               "veuillez introduire lie un client ou un nouveau client");
         }
@@ -141,6 +144,7 @@ public class IntroduireDevisServlet extends HttpServlet {
       exce.printStackTrace();
 
       String json = "{\"error\":\"false\",\"message\":\"" + exce.getMessage() + "\"}";
+      System.out.println("JSON generated :" + json);
       resp.setContentType("application/json");
       resp.setCharacterEncoding("UTF-8");
       resp.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);

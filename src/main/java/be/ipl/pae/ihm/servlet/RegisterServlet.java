@@ -47,9 +47,9 @@ public class RegisterServlet extends HttpServlet {
         resp.setCharacterEncoding("UTF-8");
         resp.setStatus(HttpServletResponse.SC_OK);
         resp.getWriter().write(json);
-      } catch (Exception e) {
-        e.printStackTrace();
-        String json = "{\"success\":\"false\",\"message\":\"" + e.getMessage() + "\"}";
+      } catch (Exception exce) {
+        exce.printStackTrace();
+        String json = "{\"success\":\"false\",\"message\":\"" + exce.getMessage() + "\"}";
         System.out.println("JSON" + json);
         resp.setContentType("application/json");
         resp.setCharacterEncoding("UTF-8");
@@ -58,9 +58,10 @@ public class RegisterServlet extends HttpServlet {
 
 
       }
-    } catch (Exception e) {
-      e.printStackTrace();
-      String json = "{\"error\":\false\",\"message\":\"" + e.getMessage() + "\"}";
+    } catch (Exception exce) {
+      exce.printStackTrace();
+      String json = "{\"error\":\false\",\"message\":\"" + exce.getMessage() + "\"}";
+      System.out.println("Json :" + json);
       resp.setContentType("application/json");
       resp.setCharacterEncoding("UTF-8");
       resp.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
