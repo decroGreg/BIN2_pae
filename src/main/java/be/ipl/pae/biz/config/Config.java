@@ -2,12 +2,16 @@ package be.ipl.pae.biz.config;
 
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStream;
+import java.nio.file.FileSystems;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.util.Properties;
 
 
 public class Config {
 
-  private Properties props;
+  private static Properties props;
 
   /**
    * Cree un objet Config.
@@ -55,6 +59,14 @@ public class Config {
       throw new InternalError();
     }
     return prop;
+  }
+
+  public static void init(String path) throws IOException {
+    props = new Properties();
+    Path pathProp = FileSystems.getDefault().getPath(path);
+    try (InputStream in = Files.newInputStream(pathProp)) {
+      props.load(in);
+    }
   }
 
 }
