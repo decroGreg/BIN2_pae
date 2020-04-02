@@ -97,9 +97,6 @@ INSERT INTO init.devis VALUES(DEFAULT, 1, '2018-12-15', 18306, NULL, '25 jours',
 INSERT INTO init.devis VALUES(DEFAULT, 1, '2019-12-11', 8540, NULL, '10 jours', 'DDI', '2020-03-30');
 INSERT INTO init.devis VALUES(DEFAULT, 2, '2020-01-10', 6123, NULL, '7 jours', 'FF', '2020-03-03');
 
-
-
-
 --Insert aménagements--
 
 INSERT INTO init.amenagements VALUES(DEFAULT, 6, 1);
