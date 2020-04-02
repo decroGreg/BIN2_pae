@@ -1,24 +1,43 @@
 package be.ipl.pae.dal.impl;
 
 import be.ipl.pae.biz.dto.TypeDAmenagementDto;
+import be.ipl.pae.biz.factory.FactoryStub;
+import be.ipl.pae.biz.interfaces.Factory;
 import be.ipl.pae.dal.interfaces.TypeDAmenagementDao;
+import be.ipl.pae.exceptions.DalException;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class TypeDAmenagementMock implements TypeDAmenagementDao {
 
   private boolean voirTypeDAmenagement;
+  private boolean testDalException;
+  private Factory factory;
 
-  public TypeDAmenagementMock(boolean voirTypeDAmenagement) {
+  public TypeDAmenagementMock(boolean voirTypeDAmenagement, boolean testDalException) {
     this.voirTypeDAmenagement = voirTypeDAmenagement;
+    this.testDalException = testDalException;
+    this.factory = new FactoryStub();
   }
 
   @Override
   public List<TypeDAmenagementDto> voirTypeDAmenagement() {
-    // TODO Auto-generated method stub
+    testDalException();
+    if (voirTypeDAmenagement) {
+      List<TypeDAmenagementDto> types = new ArrayList<TypeDAmenagementDto>();
+      types.add(factory.getTypeDAmenagementDto());
+      return types;
+    }
     return null;
   }
 
+
+  private void testDalException() {
+    if (testDalException) {
+      throw new DalException();
+    }
+  }
 
 
 }

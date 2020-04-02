@@ -8,6 +8,7 @@ import be.ipl.pae.dal.interfaces.DevisDao;
 import be.ipl.pae.exceptions.DalException;
 
 import java.sql.Timestamp;
+import java.util.ArrayList;
 import java.util.List;
 
 public class DevisDaoMock implements DevisDao {
@@ -20,17 +21,9 @@ public class DevisDaoMock implements DevisDao {
   private boolean testDalException;
   private Factory factory;
 
-  public DevisDaoMock(boolean createDevis, boolean voirTousDevis, boolean getDevisClient,
-      boolean confirmerDateDevis) {
-    this.createDevis = createDevis;
-    this.voirTousDevis = voirTousDevis;
-    this.getDevisClient = getDevisClient;
-    this.confirmerDateDevis = confirmerDateDevis;
-  }
 
   public DevisDaoMock(boolean createDevis, boolean voirTousDevis, boolean getDevisClient,
       boolean confirmerDateDevis, boolean getIdDernierDevis, boolean testDalException) {
-    super();
     this.createDevis = createDevis;
     this.voirTousDevis = voirTousDevis;
     this.getDevisClient = getDevisClient;
@@ -43,30 +36,44 @@ public class DevisDaoMock implements DevisDao {
 
   @Override
   public boolean createDevis(int idClient, DevisDto devis) {
-    // TODO Auto-generated method stub
-    return false;
+    testDalException();
+    return createDevis;
   }
 
   @Override
   public List<DevisDto> voirTousDevis() {
-    // TODO Auto-generated method stub
+    testDalException();
+    if (voirTousDevis) {
+      List<DevisDto> devis = new ArrayList<DevisDto>();
+      devis.add(factory.getDevisDto());
+      return devis;
+    }
     return null;
   }
 
   @Override
   public List<DevisDto> getDevisClient(ClientDto client) {
-    // TODO Auto-generated method stub
+    testDalException();
+    if (getDevisClient) {
+      List<DevisDto> devis = new ArrayList<DevisDto>();
+      devis.add(factory.getDevisDto());
+      return devis;
+    }
     return null;
   }
 
   @Override
   public boolean confirmerDateDevis(int idDevis, Timestamp dateDebutTravaux) {
-    // TODO Auto-generated method stub
-    return false;
+    testDalException();
+    return confirmerDateDevis;
   }
 
   public int getIdDernierDevis() {
-    return 0;
+    testDalException();
+    if (getIdDernierDevis) {
+      return 1;
+    }
+    return -1;
   }
 
   private void testDalException() {
