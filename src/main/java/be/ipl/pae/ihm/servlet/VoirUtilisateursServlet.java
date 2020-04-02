@@ -1,6 +1,5 @@
 package be.ipl.pae.ihm.servlet;
 
-import be.ipl.pae.biz.config.Config;
 import be.ipl.pae.biz.dto.UserDto;
 import be.ipl.pae.biz.interfaces.UserUcc;
 
@@ -9,7 +8,6 @@ import com.owlike.genson.Genson;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -18,7 +16,7 @@ import javax.servlet.http.HttpServletResponse;
 
 public class VoirUtilisateursServlet extends HttpServlet {
 
-  private static final String JWTSECRET = new Config().getConfigPropertyAttribute("jwt.secret");
+
   private UserUcc userUcc;
   private List<UserDto> utilisateursDto;
   private UserDto userDto;
@@ -43,7 +41,6 @@ public class VoirUtilisateursServlet extends HttpServlet {
       utilisateursDto = userUcc.getUtilisateurs();
       System.out.println("passage = " + utilisateursDto);
       Genson genson = new Genson();
-      Map<String, Object> data = genson.deserialize(req.getReader(), Map.class);
       String token = req.getHeader("Authorization");
       System.out.println(token);
       if (token != null) {
@@ -56,7 +53,7 @@ public class VoirUtilisateursServlet extends HttpServlet {
 
         resp.setCharacterEncoding("UTF-8");
 
-        resp.setStatus(HttpServletResponse.SC_OK);;
+        resp.setStatus(HttpServletResponse.SC_OK);
         resp.getWriter().write(json);
 
       }

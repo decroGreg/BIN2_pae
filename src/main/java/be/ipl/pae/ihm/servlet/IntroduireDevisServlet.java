@@ -52,7 +52,7 @@ public class IntroduireDevisServlet extends HttpServlet {
 
         resp.setCharacterEncoding("UTF-8");
 
-        resp.setStatus(HttpServletResponse.SC_OK);;
+        resp.setStatus(HttpServletResponse.SC_OK);
         resp.getWriter().write(json);
       }
 

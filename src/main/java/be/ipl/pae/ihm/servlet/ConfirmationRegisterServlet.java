@@ -1,6 +1,5 @@
 package be.ipl.pae.ihm.servlet;
 
-import be.ipl.pae.biz.config.Config;
 import be.ipl.pae.biz.dto.ClientDto;
 import be.ipl.pae.biz.dto.UserDto;
 import be.ipl.pae.biz.interfaces.UserUcc;
@@ -19,7 +18,7 @@ public class ConfirmationRegisterServlet extends HttpServlet {
   private UserUcc userUcc;
   private UserDto userDto;
   private ClientDto clientDto;
-  private static final String JWTSECRET = new Config().getConfigPropertyAttribute("jwt.secret");
+
 
   public ConfirmationRegisterServlet(UserUcc userUcc, UserDto userDto, ClientDto clientDto) {
     // TODO Auto-generated constructor stub
@@ -35,7 +34,6 @@ public class ConfirmationRegisterServlet extends HttpServlet {
     // TODO Auto-generated method stub
     try {
       Genson genson = new Genson();
-      Map<String, Object> data = genson.deserialize(req.getReader(), Map.class);
       String token = req.getHeader("Authorization");
       String usersJson = null;
       if (token != null) {
@@ -49,7 +47,7 @@ public class ConfirmationRegisterServlet extends HttpServlet {
 
         resp.setCharacterEncoding("UTF-8");
 
-        resp.setStatus(HttpServletResponse.SC_OK);;
+        resp.setStatus(HttpServletResponse.SC_OK);
         resp.getWriter().write(json);
       } else {
         System.err.println("token est NULL");

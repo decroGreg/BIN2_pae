@@ -50,7 +50,7 @@ public class DetailsDevisServlet extends HttpServlet {
       System.out.println("idDevis = " + idDevis);
 
       DevisDto devisDto = null;
-      int idAmenagement;
+
       try {
         for (DevisDto e : devisUcc.voirDevis()) {
           if (e.getIdDevis() == idDevis) {
@@ -79,7 +79,7 @@ public class DetailsDevisServlet extends HttpServlet {
 
         resp.setCharacterEncoding("UTF-8");
 
-        resp.setStatus(HttpServletResponse.SC_OK);;
+        resp.setStatus(HttpServletResponse.SC_OK);
         resp.getWriter().write(json);
       }
 
@@ -127,7 +127,7 @@ public class DetailsDevisServlet extends HttpServlet {
 
         resp.setCharacterEncoding("UTF-8");
 
-        resp.setStatus(HttpServletResponse.SC_OK);;
+        resp.setStatus(HttpServletResponse.SC_OK);
         resp.getWriter().write(json);
       }
 

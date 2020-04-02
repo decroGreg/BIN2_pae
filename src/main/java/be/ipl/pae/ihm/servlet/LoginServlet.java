@@ -38,15 +38,14 @@ public class LoginServlet extends HttpServlet {
       throws ServletException, IOException {
 
     Genson genson = new Genson();
-    Map<String, Object> data = genson.deserialize(req.getReader(), Map.class);
     String token = req.getHeader("Authorization");
-    Algorithm algorithm = Algorithm.HMAC256(JWTSECRET);
     DecodedJWT decode = JWT.decode(token);
     int id = (int) decode.getClaim("claims").asMap().get("id");
     /*
      * try {
      * 
-     * // methode permettant de récupérer l'utilisateur via l'id; } catch (Exception e) {
+     * // methode permettant de récupérer l'utilisateur via l'id; } catch (Exception e) { methode
+     * a venir
      * 
      * }
      */
@@ -59,7 +58,7 @@ public class LoginServlet extends HttpServlet {
 
     resp.setCharacterEncoding("UTF-8");
 
-    resp.setStatus(HttpServletResponse.SC_OK);;
+    resp.setStatus(HttpServletResponse.SC_OK);
     resp.getWriter().write(json);
 
 
@@ -118,12 +117,12 @@ public class LoginServlet extends HttpServlet {
 
       }
 
-    } catch (Exception e) {
-      e.printStackTrace();
+    } catch (Exception exc) {
+      exc.printStackTrace();
       resp.setContentType("application/json");
       resp.setCharacterEncoding("UTF-8");
       resp.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
-      String json = "{\"error\":\"false\",\"message\":\"" + e.getMessage() + "\"}";
+      String json = "{\"error\":\"false\",\"message\":\"" + exc.getMessage() + "\"}";
       resp.getWriter().write(json);
     }
 

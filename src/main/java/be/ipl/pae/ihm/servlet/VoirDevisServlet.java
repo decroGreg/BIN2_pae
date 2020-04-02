@@ -9,7 +9,6 @@ import com.owlike.genson.Genson;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -41,7 +40,7 @@ public class VoirDevisServlet extends HttpServlet {
     try {
       listeDevisDto = devisUcc.voirDevis();
       Genson genson = new Genson();
-      Map<String, Object> data = genson.deserialize(req.getReader(), Map.class);
+
       String token = req.getHeader("Authorization");
 
       if (token != null) {
@@ -53,7 +52,7 @@ public class VoirDevisServlet extends HttpServlet {
 
         resp.setCharacterEncoding("UTF-8");
 
-        resp.setStatus(HttpServletResponse.SC_OK);;
+        resp.setStatus(HttpServletResponse.SC_OK);
         resp.getWriter().write(json);
 
       }
