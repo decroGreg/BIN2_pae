@@ -105,6 +105,7 @@ public class DevisUccImpl implements DevisUcc {
         }
       }
     } catch (DalException de) {
+      de.printStackTrace();
       daoServicesUcc.rollback();
       throw new IllegalArgumentException();
     }

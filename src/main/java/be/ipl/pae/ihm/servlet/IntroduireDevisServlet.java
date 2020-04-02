@@ -115,6 +115,7 @@ public class IntroduireDevisServlet extends HttpServlet {
           throw new IllegalArgumentException(
               "veuillez introduire lie un client ou un nouveau client");
         }
+        System.out.println("idClient" + idClient);
         System.out.println(dataQuote.get("image"));
 
         devisUcc.introduireDevis(clientDto, idClient, devisDto, (List<String>) data.get("type"));
