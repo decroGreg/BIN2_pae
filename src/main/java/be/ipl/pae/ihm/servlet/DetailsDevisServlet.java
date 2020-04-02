@@ -112,7 +112,7 @@ public class DetailsDevisServlet extends HttpServlet {
         }
 
         // Changement d'etat dans la db
-        // devisUcc.confirmerDateDebut(devis);
+        devisUcc.confirmerDateDebut(devis);
 
         devis.setEtat(Etat.DC);
 
