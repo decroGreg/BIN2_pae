@@ -1,18 +1,21 @@
 package be.ipl.pae.ihm.servlet;
 
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import javax.servlet.ServletException;
-import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import com.owlike.genson.Genson;
 import be.ipl.pae.biz.dto.ClientDto;
 import be.ipl.pae.biz.dto.DevisDto;
 import be.ipl.pae.biz.interfaces.ClientUcc;
 import be.ipl.pae.biz.interfaces.DevisUcc;
+
+import com.owlike.genson.Genson;
+
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 public class VoirDevisClientServlet extends HttpServlet {
 
@@ -21,6 +24,13 @@ public class VoirDevisClientServlet extends HttpServlet {
   private ClientDto clientDto;
   private List<DevisDto> listeDevisDto;
 
+  /**
+   * Cree un VoirDevisClientServlet.
+   * 
+   * @param clientUcc un clientUcc
+   * @param devisUcc un devisUcc
+   * @param clientDto un clientDto
+   */
   public VoirDevisClientServlet(ClientUcc clientUcc, DevisUcc devisUcc, ClientDto clientDto) {
     super();
     this.clientUcc = clientUcc;
@@ -36,7 +46,6 @@ public class VoirDevisClientServlet extends HttpServlet {
       Genson genson = new Genson();
       Map<String, Object> data = genson.deserialize(req.getReader(), Map.class);
       String token = req.getHeader("Authorization");
-      // token = "t";
       int idUtilisateur = Integer.parseInt(data.get("idUser").toString());
       for (ClientDto c : clientUcc.getClients()) {
         if (c.getIdUtilisateur() == idUtilisateur) {
@@ -60,8 +69,8 @@ public class VoirDevisClientServlet extends HttpServlet {
 
       }
 
-    } catch (Exception e) {
-      e.printStackTrace();
+    } catch (Exception ex) {
+      ex.printStackTrace();
       String json = "{\"error\":\"false\"}";
       System.out.println(json);
       resp.setContentType("application/json");

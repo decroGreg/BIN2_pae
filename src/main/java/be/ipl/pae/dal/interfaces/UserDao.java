@@ -1,8 +1,9 @@
 package be.ipl.pae.dal.interfaces;
 
-import java.util.List;
 import be.ipl.pae.biz.dto.ClientDto;
 import be.ipl.pae.biz.dto.UserDto;
+
+import java.util.List;
 
 
 public interface UserDao {
@@ -13,7 +14,11 @@ public interface UserDao {
 
   public List<UserDto> voirTousUser();
 
-  public boolean lierUserUtilisateur(ClientDto client, UserDto user, Character etat);
+  public boolean lierUserUtilisateur(ClientDto idClient, UserDto idUtilisateur, Character etat);
 
   List<UserDto> voirUserPasConfirmer();
+
+  boolean lierClientUser(int client, int user);
+
+  boolean confirmerUtilisateur(UserDto user, Character etat);
 }

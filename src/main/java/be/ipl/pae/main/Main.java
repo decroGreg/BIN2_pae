@@ -41,6 +41,13 @@ import org.eclipse.jetty.webapp.WebAppContext;
 import javax.servlet.http.HttpServlet;
 
 public class Main {
+
+  /**
+   * Main.
+   * 
+   * @param args les arguments
+   * @throws Exception une exception
+   */
   public static void main(String[] args) throws Exception {
     // Lecture du fichier properties
     Config conf = new Config();
@@ -55,17 +62,17 @@ public class Main {
     DevisDao devisDao = new DevisDaoImpl(daoServices);
     TypeDAmenagementDao typeAmenagementDao = new TypeDAmenagementDaoImpl(daoServices);
     UserUcc userUcc = new UserUccImpl(factory, userDao, daoServices);
+
     UserDto userDto = factory.getUserDto();
     ClientDto clientDto = factory.getClientDto();
     ClientUcc clientUcc = new ClientUccImpl(factory, clientDao, daoServices);
-    DevisUcc devisUcc = new DevisUccImpl(factory, devisDao, clientDao, amenagementDao, daoServices);
+    DevisUcc devisUcc =
+        new DevisUccImpl(factory, devisDao, userDao, clientDao, amenagementDao, daoServices);
     DevisDto devisDto = factory.getDevisDto();
     TypeDAmenagementUcc typeAmenagmentUcc =
         new TypeDAmenagementUccImpl(factory, typeAmenagementDao, daoServices);
     Server server = new Server(8080);
     WebAppContext context = new WebAppContext();
-
-
 
     System.out.println(context.getContextPath());
     context.setContextPath("/");
@@ -93,8 +100,6 @@ public class Main {
 
     HttpServlet listeClientsServlet = new VoirClientsServlet(clientUcc, userDto);
     context.addServlet(new ServletHolder(listeClientsServlet), "/listeClients");
-
-
 
     HttpServlet introDevisServlet =
         new IntroduireDevisServlet(devisUcc, clientDto, devisDto, typeAmenagmentUcc);

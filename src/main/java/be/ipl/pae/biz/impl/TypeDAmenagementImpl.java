@@ -8,12 +8,14 @@ public class TypeDAmenagementImpl implements TypeDAmenagement, TypeDAmenagementD
   private String description;
 
   /**
-   * Cree un objet TypeDAmenagementImpl
+   * Cree un objet TypeDAmenagementImpl.
    * 
+   * @param id id du type d'amenagement.
    * @param description description du type d'amenagement.
    */
   public TypeDAmenagementImpl(int id, String description) {
     super();
+    this.id = id;
     this.description = description;
   }
 

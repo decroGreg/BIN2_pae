@@ -1,8 +1,9 @@
 package be.ipl.pae.dal.impl;
 
-import java.util.List;
 import be.ipl.pae.biz.dto.ClientDto;
 import be.ipl.pae.dal.interfaces.ClientDao;
+
+import java.util.List;
 
 public class ClientDaoMock implements ClientDao {
 
@@ -24,4 +25,7 @@ public class ClientDaoMock implements ClientDao {
     return true;
   }
 
+  public ClientDto getClientMail(String email) {
+    return null;
+  }
 }

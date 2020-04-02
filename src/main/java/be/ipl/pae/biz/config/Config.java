@@ -9,34 +9,49 @@ public class Config {
 
   private Properties props;
 
+  /**
+   * Cree un objet Config.
+   */
   public Config() {
     super();
     props = new Properties();
     try {
       props.load(new FileInputStream("./dependencies.properties"));
-    } catch (IOException e) {
-      e.printStackTrace();
+    } catch (IOException ie) {
+      ie.printStackTrace();
     }
   }
 
+  /**
+   * Renvoie une instance de la propriete demandee.
+   * 
+   * @param property la propriete a laquelle on veut acceder
+   * @return object
+   */
   public Object getConfigPropertyClass(String property) {
-    Object aRenvoyer;
+    Object objetRenvoye;
     try {
       String prop = props.getProperty(property);
       Class<?> cls = Class.forName(prop);
-      aRenvoyer = cls.getDeclaredConstructor().newInstance();
-    } catch (Exception e) {
-      e.printStackTrace();
+      objetRenvoye = cls.getDeclaredConstructor().newInstance();
+    } catch (Exception ex) {
+      ex.printStackTrace();
       throw new InternalError();
     }
-    return aRenvoyer;
+    return objetRenvoye;
   }
 
+  /**
+   * Renvoie la propriete demandee.
+   * 
+   * @param property la propriete a laquelle on veut acceder
+   * @return string
+   */
   public String getConfigPropertyAttribute(String property) {
     String prop;
     try {
       prop = props.getProperty(property);
-    } catch (Exception e) {
+    } catch (Exception ex) {
       throw new InternalError();
     }
     return prop;

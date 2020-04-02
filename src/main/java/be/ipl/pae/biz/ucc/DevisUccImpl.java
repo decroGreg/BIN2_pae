@@ -1,5 +1,7 @@
 package be.ipl.pae.biz.ucc;
 
+import java.util.Collections;
+import java.util.List;
 import be.ipl.pae.biz.dto.ClientDto;
 import be.ipl.pae.biz.dto.DevisDto;
 import be.ipl.pae.biz.impl.DevisImpl.Etat;
@@ -9,16 +11,15 @@ import be.ipl.pae.dal.daoservices.DaoServicesUcc;
 import be.ipl.pae.dal.interfaces.AmenagementDao;
 import be.ipl.pae.dal.interfaces.ClientDao;
 import be.ipl.pae.dal.interfaces.DevisDao;
+import be.ipl.pae.dal.interfaces.UserDao;
 import be.ipl.pae.exceptions.BizException;
 import be.ipl.pae.exceptions.DalException;
-
-import java.util.Collections;
-import java.util.List;
 
 public class DevisUccImpl implements DevisUcc {
 
   private DevisDao devisDao;
   private ClientDao clientDao;
+  private UserDao userDao;
   private AmenagementDao amenagementDao;
   private Factory bizFactory;
   private DaoServicesUcc daoServicesUcc;
@@ -27,16 +28,17 @@ public class DevisUccImpl implements DevisUcc {
   /**
    * Cree un objet DevisUccImpl.
    * 
-   * @param userFactory la factory.
+   * @param bizFactory la factory.
    * @param devisDao le dao du devis.
    * @param daoServicesUcc le dao services.
    */
-  public DevisUccImpl(Factory bizFactory, DevisDao devisDao, ClientDao clientDao,
+  public DevisUccImpl(Factory bizFactory, DevisDao devisDao, UserDao userDao, ClientDao clientDao,
       AmenagementDao amenagementDao, DaoServicesUcc daoServicesUcc) {
     super();
     this.bizFactory = bizFactory;
     this.devisDao = devisDao;
     this.clientDao = clientDao;
+    this.userDao = userDao;
     this.amenagementDao = amenagementDao;
     this.daoServicesUcc = daoServicesUcc;
   }
@@ -72,17 +74,27 @@ public class DevisUccImpl implements DevisUcc {
   }
 
   @Override
-  public void introduireDevis(ClientDto nouveauClient, int idClient, DevisDto devis,
+  public void introduireDevis(ClientDto nouveauClient, int idUtilisateur, DevisDto devis,
       List<String> listeIdTypeAmenagement) {
     int idDevis = 0;
     try {
       daoServicesUcc.demarrerTransaction();
       if (nouveauClient == null) {
-        devisDao.createDevis(idClient, devis);
+        devisDao.createDevis(idUtilisateur, devis);
       } else {
+        // Email deja utilisé
+        ClientDto client = clientDao.getClientMail(nouveauClient.getEmail());
+        if (client != null) {
+          daoServicesUcc.commit();
+          throw new BizException("Email deja utilisé");
+        }
         if (!clientDao.createClient(nouveauClient)) {
           daoServicesUcc.commit();
           throw new BizException("Impossible de créer un client");
+        }
+        if (idUtilisateur > 0) {
+          client = clientDao.getClientMail(nouveauClient.getEmail());
+          userDao.lierClientUser(client.getIdClient(), idUtilisateur);
         }
         devisDao.createDevis(nouveauClient.getIdClient(), devis);
         idDevis = devisDao.getIdDernierDevis();

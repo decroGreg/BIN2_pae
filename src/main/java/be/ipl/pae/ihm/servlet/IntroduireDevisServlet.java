@@ -104,6 +104,8 @@ public class IntroduireDevisServlet extends HttpServlet {
         int idClient = 0;
         if (!dataQuote.get("client").toString().equals("")) {
           idClient = Integer.parseInt(dataQuote.get("client").toString());
+        } else {
+          idClient = -1;
         }
         if (idClient == 0 && dataUser == null) {// si aucun client est lier et si il n'y a pas de
                                                 // nouvaux client introduit

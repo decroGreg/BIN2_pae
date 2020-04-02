@@ -12,4 +12,5 @@ public interface User extends UserDto {
 
   boolean checkUser();
 
+  boolean checkStatut(char statut);
 }

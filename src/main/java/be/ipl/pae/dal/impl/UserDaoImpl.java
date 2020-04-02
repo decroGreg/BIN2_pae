@@ -1,10 +1,5 @@
 package be.ipl.pae.dal.impl;
 
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.List;
 import be.ipl.pae.biz.dto.ClientDto;
 import be.ipl.pae.biz.dto.UserDto;
 import be.ipl.pae.biz.factory.FactoryImpl;
@@ -12,6 +7,12 @@ import be.ipl.pae.biz.interfaces.Factory;
 import be.ipl.pae.dal.daoservices.DaoServices;
 import be.ipl.pae.dal.interfaces.UserDao;
 import be.ipl.pae.exceptions.DalException;
+
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class UserDaoImpl implements UserDao {
 
@@ -135,6 +136,7 @@ public class UserDaoImpl implements UserDao {
         try {
           ps.setInt(1, user.getIdUser());
           ps.setInt(2, client.getIdClient());
+          ps.execute();
         } catch (SQLException ex) {
           throw new DalException("Erreur lors de liaison dans la table client" + ex.getMessage());
         }
@@ -149,6 +151,39 @@ public class UserDaoImpl implements UserDao {
           "Erreur lors de la liaison dans la table utilisateurs" + ex.getMessage());
     }
     return true;
+  }
+
+  @Override
+  public boolean lierClientUser(int client, int user) {
+    String requeteSql = "UPDATE init.clients SET id_utilisateur=? WHERE id_client=?";
+    ps = services.getPreparedSatement(requeteSql);
+    try {
+      ps.setInt(1, user);
+      ps.setInt(2, client);
+      ps.execute();
+    } catch (SQLException ex) {
+      throw new DalException("Erreur lors de liaison dans la table client" + ex.getMessage());
+    }
+    return true;
+  }
+
+  public boolean confirmerUtilisateur(UserDto user, Character etat) {
+    String requeteSql;
+    if (etat == 'O') {
+      requeteSql = "UPDATE init.utilisateurs SET statut='O' WHERE id_utilisateur=?";
+    } else {
+      requeteSql = "UPDATE init.utilisateurs SET statut='C' WHERE id_utilisateur=?";
+    }
+    ps = services.getPreparedSatement(requeteSql);
+    try {
+      ps.setInt(1, user.getIdUser());
+      ps.execute();
+    } catch (SQLException ex) {
+      throw new DalException(
+          "Erreur lors de la liaison dans la table utilisateurs" + ex.getMessage());
+    }
+    return true;
+
   }
 
   public List<UserDto> voirUserPasConfirmer() {

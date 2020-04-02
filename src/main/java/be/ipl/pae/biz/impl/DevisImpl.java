@@ -117,6 +117,7 @@ public class DevisImpl implements Devis {
 
   }
 
+  @Override
   public boolean checkEtat() {
     if (etat.equals(Etat.I) || etat.equals(Etat.DDI) || etat.equals(Etat.ANP)
         || etat.equals(Etat.DC) || etat.equals(Etat.A) || etat.equals(Etat.EC)

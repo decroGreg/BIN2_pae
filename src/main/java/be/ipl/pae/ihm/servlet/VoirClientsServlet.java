@@ -1,17 +1,20 @@
 package be.ipl.pae.ihm.servlet;
 
+import be.ipl.pae.biz.dto.ClientDto;
+import be.ipl.pae.biz.dto.UserDto;
+import be.ipl.pae.biz.interfaces.ClientUcc;
+
+import com.owlike.genson.Genson;
+
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import com.owlike.genson.Genson;
-import be.ipl.pae.biz.dto.ClientDto;
-import be.ipl.pae.biz.dto.UserDto;
-import be.ipl.pae.biz.interfaces.ClientUcc;
 
 public class VoirClientsServlet extends HttpServlet {
 
@@ -19,6 +22,12 @@ public class VoirClientsServlet extends HttpServlet {
   private List<ClientDto> clientsDto;
   private UserDto userDto;
 
+  /**
+   * Cree un VoirClientsServlet.
+   * 
+   * @param clientUcc un clientUcc
+   * @param userDto un userDto
+   */
   public VoirClientsServlet(ClientUcc clientUcc, UserDto userDto) {
     super();
     this.clientUcc = clientUcc;
@@ -52,8 +61,8 @@ public class VoirClientsServlet extends HttpServlet {
 
       }
 
-    } catch (Exception e) {
-      e.printStackTrace();
+    } catch (Exception ex) {
+      ex.printStackTrace();
       String json = "{\"error\":\"false\"}";
       System.out.println(json);
       resp.setContentType("application/json");
