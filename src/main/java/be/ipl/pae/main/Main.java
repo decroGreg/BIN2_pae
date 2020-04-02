@@ -41,6 +41,13 @@ import org.eclipse.jetty.webapp.WebAppContext;
 import javax.servlet.http.HttpServlet;
 
 public class Main {
+
+  /**
+   * Main
+   * 
+   * @param args
+   * @throws Exception
+   */
   public static void main(String[] args) throws Exception {
     // Lecture du fichier properties
     Config conf = new Config();
@@ -55,6 +62,7 @@ public class Main {
     DevisDao devisDao = new DevisDaoImpl(daoServices);
     TypeDAmenagementDao typeAmenagementDao = new TypeDAmenagementDaoImpl(daoServices);
     UserUcc userUcc = new UserUccImpl(factory, userDao, daoServices);
+
     UserDto userDto = factory.getUserDto();
     ClientDto clientDto = factory.getClientDto();
     ClientUcc clientUcc = new ClientUccImpl(factory, clientDao, daoServices);
@@ -92,8 +100,6 @@ public class Main {
 
     HttpServlet listeClientsServlet = new VoirClientsServlet(clientUcc, userDto);
     context.addServlet(new ServletHolder(listeClientsServlet), "/listeClients");
-
-
 
     HttpServlet introDevisServlet =
         new IntroduireDevisServlet(devisUcc, clientDto, devisDto, typeAmenagmentUcc);

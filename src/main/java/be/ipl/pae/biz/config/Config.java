@@ -22,6 +22,12 @@ public class Config {
     }
   }
 
+  /**
+   * Renvoie une instance de la propriete demandee
+   * 
+   * @param property la propriete a laquelle on veut acceder
+   * @return
+   */
   public Object getConfigPropertyClass(String property) {
     Object objetRenvoye;
     try {
@@ -35,6 +41,12 @@ public class Config {
     return objetRenvoye;
   }
 
+  /**
+   * Renvoie la propriete demandee
+   * 
+   * @param property la propriete a laquelle on veut acceder
+   * @return
+   */
   public String getConfigPropertyAttribute(String property) {
     String prop;
     try {
