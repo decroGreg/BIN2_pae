@@ -41,23 +41,19 @@ public class UserDaoImpl implements UserDao {
       ps.setString(1, email);
       try (ResultSet rs = ps.executeQuery()) {
         while (rs.next()) {
-          id = rs.getInt(1);
-          System.out.println(id);
-          pseudo = rs.getString(2);
-          nom = rs.getString(3);
-          prenom = rs.getString(4);
-          ville = rs.getString(5);
-          mail = rs.getString(6);
-          motDePasse = rs.getString(8);
+
+          userD.setIdUser(rs.getInt(1));
+          userD.setPseudo(rs.getString(2));
+          userD.setNom(rs.getString(3));
+          userD.setPrenom(rs.getString(4));
+          userD.setVille(rs.getString(5));
+          userD.setEmail(rs.getString(6));
+          userD.setMotDePasse(rs.getString(8));
+          String status = rs.getString(9);
+          if (status != null) {
+            userD.setStatut(status.charAt(0));
+          }
         }
-        userD.setPseudo(pseudo);
-        System.out.println(pseudo);
-        userD.setNom(nom);
-        userD.setPrenom(prenom);
-        userD.setVille(ville);
-        userD.setEmail(mail);
-        userD.setMotDePasse(motDePasse);
-        userD.setIdUser(id);
       } catch (SQLException ex) {
         ex.printStackTrace();
       }
