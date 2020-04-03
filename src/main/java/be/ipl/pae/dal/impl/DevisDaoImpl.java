@@ -22,6 +22,11 @@ public class DevisDaoImpl implements DevisDao {
   private DaoServices services;
   private Factory bizfactory;
 
+  /**
+   * Constructeur Devis Dao
+   * 
+   * @param daoService
+   */
   public DevisDaoImpl(DaoServices daoService) {
     this.services = daoService;
     this.bizfactory = new FactoryImpl();

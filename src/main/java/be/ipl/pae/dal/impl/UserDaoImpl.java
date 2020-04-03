@@ -27,6 +27,11 @@ public class UserDaoImpl implements UserDao {
   private Factory factory;
   private int id;
 
+  /**
+   * Constructeur User Dao
+   * 
+   * @param daoServices
+   */
   public UserDaoImpl(DaoServices daoServices) {
     this.services = daoServices;
     factory = new FactoryImpl();

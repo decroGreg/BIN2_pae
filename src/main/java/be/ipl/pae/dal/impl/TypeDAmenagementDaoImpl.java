@@ -19,6 +19,11 @@ public class TypeDAmenagementDaoImpl implements TypeDAmenagementDao {
   private DaoServices services;
   private Factory factory;
 
+  /**
+   * Constructeur Type D'amenagement Dao
+   * 
+   * @param daoServices
+   */
   public TypeDAmenagementDaoImpl(DaoServices daoServices) {
     this.services = daoServices;
     this.factory = new FactoryImpl();

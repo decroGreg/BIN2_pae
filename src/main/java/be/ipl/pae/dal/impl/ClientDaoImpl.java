@@ -19,6 +19,11 @@ public class ClientDaoImpl implements ClientDao {
   private DaoServices services;
   private Factory factory;
 
+  /**
+   * Constructeur Client Dao Impl
+   * 
+   * @param daoServices
+   */
   public ClientDaoImpl(DaoServices daoServices) {
     this.services = daoServices;
     this.factory = new FactoryImpl();

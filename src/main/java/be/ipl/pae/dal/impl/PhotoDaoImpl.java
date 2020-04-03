@@ -13,6 +13,11 @@ public class PhotoDaoImpl implements PhotoDao {
   private DaoServices services;
   private Factory factory;
 
+  /**
+   * Constructeur Photo Dao
+   * 
+   * @param daoService
+   */
   public PhotoDaoImpl(DaoServices daoService) {
     this.services = daoService;
     this.factory = new FactoryImpl();
