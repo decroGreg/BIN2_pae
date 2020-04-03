@@ -43,7 +43,7 @@ class TestTypeDAmenagementUcc {
 
     typeDAmenagementDaoConstruct =
         Class.forName(Config.getConfigPropertyAttribute(TypeDAmenagementDao.class.getName()))
-            .getConstructor(boolean.class);
+            .getConstructor(boolean.class, boolean.class);
     typeDAmenagementUccConstruct =
         Class.forName(Config.getConfigPropertyAttribute(TypeDAmenagementUcc.class.getName()))
             .getConstructor(Factory.class, TypeDAmenagementDao.class, DaoServicesUcc.class);

@@ -47,7 +47,8 @@ class TestUserUcc {
     userDto.setMotDePasse(hashPassword);
 
     userDaoConstruct = Class.forName(Config.getConfigPropertyAttribute(UserDao.class.getName()))
-        .getConstructor(boolean.class, boolean.class, boolean.class, boolean.class, boolean.class);
+        .getConstructor(boolean.class, boolean.class, boolean.class, boolean.class, boolean.class,
+            boolean.class, boolean.class, boolean.class);
     userUccConstruct = Class.forName(Config.getConfigPropertyAttribute(UserUcc.class.getName()))
         .getConstructor(Factory.class, UserDao.class, DaoServicesUcc.class);
   }

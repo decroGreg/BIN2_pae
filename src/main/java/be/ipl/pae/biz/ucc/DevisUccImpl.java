@@ -47,7 +47,7 @@ public class DevisUccImpl implements DevisUcc {
   // Afficher les devis d'un client
   @Override
   public List<DevisDto> voirDevis(ClientDto client) {
-    List<DevisDto> devis = null;
+    List<DevisDto> devis;
     try {
       daoServicesUcc.demarrerTransaction();
       devis = devisDao.getDevisClient(client);
@@ -62,7 +62,7 @@ public class DevisUccImpl implements DevisUcc {
   // Afficher tous les devis
   @Override
   public List<DevisDto> voirDevis() {
-    List<DevisDto> devis = null;
+    List<DevisDto> devis;
     try {
       daoServicesUcc.demarrerTransaction();
       devis = devisDao.voirTousDevis();

@@ -136,7 +136,7 @@ public class UserUccImpl implements UserUcc {
 
   @Override
   public List<UserDto> voirUtilisateurEnAttente() {
-    List<UserDto> listeUtilisateursNonConfirmes = null;
+    List<UserDto> listeUtilisateursNonConfirmes;
     try {
       daoServicesUcc.demarrerTransaction();
       listeUtilisateursNonConfirmes = userDao.voirUserPasConfirmer();
