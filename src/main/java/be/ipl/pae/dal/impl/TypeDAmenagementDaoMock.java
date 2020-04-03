@@ -15,6 +15,12 @@ public class TypeDAmenagementDaoMock implements TypeDAmenagementDao {
   private boolean testDalException;
   private Factory factory;
 
+  /**
+   * Constructeur de type d'amenagement mock.
+   * 
+   * @param voirTypeDAmenagement methode boolean.
+   * @param testDalException methode boolean.
+   */
   public TypeDAmenagementDaoMock(boolean voirTypeDAmenagement, boolean testDalException) {
     this.voirTypeDAmenagement = voirTypeDAmenagement;
     this.testDalException = testDalException;

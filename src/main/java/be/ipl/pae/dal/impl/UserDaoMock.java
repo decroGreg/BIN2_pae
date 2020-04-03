@@ -21,16 +21,16 @@ public class UserDaoMock implements UserDao {
   private boolean confirmerUtilisateur;
 
   /**
-   * Constructeur Mock User
+   * Constructeur Mock User.
    * 
-   * @param getUserConnexion
-   * @param createInscription
-   * @param voirTousUser
-   * @param lierUserUtilisateur
-   * @param voirUserPasConfirmer
-   * @param lierClientUser
-   * @param confirmerUtilisateur
-   * @param testDalException
+   * @param getUserConnexion methode boolean.
+   * @param createInscription methode boolean.
+   * @param voirTousUser methode boolean.
+   * @param lierUserUtilisateur methode boolean.
+   * @param voirUserPasConfirmer methode boolean.
+   * @param lierClientUser methode boolean.
+   * @param confirmerUtilisateur methode boolean.
+   * @param testDalException methode boolean.
    */
   public UserDaoMock(boolean getUserConnexion, boolean createInscription, boolean voirTousUser,
       boolean voirUserPasConfirmer, boolean lierClientUser, boolean confirmerUtilisateur,
@@ -55,7 +55,7 @@ public class UserDaoMock implements UserDao {
   }
 
   @Override
-  public boolean createInscription(UserDto userDTO) {
+  public boolean createInscription(UserDto userDto) {
     testDalException();
     return createInscription;
   }
