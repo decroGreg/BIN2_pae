@@ -18,14 +18,7 @@ public class UserDaoImpl implements UserDao {
 
   private PreparedStatement ps;
   private DaoServices services;
-  private String pseudo;
-  private String nom;
-  private String prenom;
-  private String ville;
-  private String mail;
-  private String motDePasse;
   private Factory factory;
-  private int id;
 
   /**
    * Constructeur User Dao .
@@ -125,6 +118,7 @@ public class UserDaoImpl implements UserDao {
     }
   }
 
+  @Override
   public boolean lierUserUtilisateur(ClientDto client, UserDto user, Character etat) {
 
     String requeteSql1;

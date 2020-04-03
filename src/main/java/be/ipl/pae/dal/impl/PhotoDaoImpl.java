@@ -4,9 +4,12 @@ import be.ipl.pae.dal.daoservices.DaoServices;
 import be.ipl.pae.dal.interfaces.PhotoDao;
 
 public class PhotoDaoImpl implements PhotoDao {
-  /**
-   * private PreparedStatement ps; private DaoServices services; private Factory factory;
-   **/
+
+  // private PreparedStatement ps;
+  // private DaoServices services;
+  // private Factory factory;
+
+
   /**
    * Constructeur Photo Dao.
    * 
