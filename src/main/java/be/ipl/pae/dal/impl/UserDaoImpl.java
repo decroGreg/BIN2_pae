@@ -28,9 +28,9 @@ public class UserDaoImpl implements UserDao {
   private int id;
 
   /**
-   * Constructeur User Dao
+   * Constructeur User Dao .
    * 
-   * @param daoServices
+   * @param daoServices classe service.
    */
   public UserDaoImpl(DaoServices daoServices) {
     this.services = daoServices;

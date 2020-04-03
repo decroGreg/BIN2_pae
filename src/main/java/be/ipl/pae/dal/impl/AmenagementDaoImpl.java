@@ -15,9 +15,9 @@ public class AmenagementDaoImpl implements AmenagementDao {
   private Factory factory;
 
   /**
-   * Constructeur Amenagement Dao
+   * Constructeur Amenagement Dao.
    * 
-   * @param daoServices
+   * @param daoServices classe service.
    */
   public AmenagementDaoImpl(DaoServices daoServices) {
     this.services = daoServices;

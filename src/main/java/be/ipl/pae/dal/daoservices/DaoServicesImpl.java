@@ -26,7 +26,7 @@ public class DaoServicesImpl implements DaoServices, DaoServicesUcc {
 
 
   /**
-   * Constructeur Dao Services
+   * Constructeur Dao Services.
    */
   public DaoServicesImpl() {
     connections = new ThreadLocal<Connection>();

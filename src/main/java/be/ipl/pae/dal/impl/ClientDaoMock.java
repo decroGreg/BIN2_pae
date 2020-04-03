@@ -17,7 +17,14 @@ public class ClientDaoMock implements ClientDao {
   private boolean testDalException;
   private Factory factory;
 
-
+  /**
+   * Constructeur Client Mock.
+   * 
+   * @param voirTousClient methode boolean.
+   * @param createClien methode boolean.
+   * @param getClientMail methode boolean.
+   * @param testDalException methode boolean.
+   */
   public ClientDaoMock(boolean voirTousClient, boolean createClien, boolean getClientMail,
       boolean testDalException) {
     this.voirTousClient = voirTousClient;
