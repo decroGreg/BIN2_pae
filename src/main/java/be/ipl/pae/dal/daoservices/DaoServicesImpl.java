@@ -26,7 +26,7 @@ public class DaoServicesImpl implements DaoServices, DaoServicesUcc {
 
 
   /**
-   * Constructeur Dao Services
+   * Constructeur Dao Services.
    */
   public DaoServicesImpl() {
     connections = new ThreadLocal<Connection>();
@@ -37,19 +37,10 @@ public class DaoServicesImpl implements DaoServices, DaoServicesUcc {
       ds.setUsername(login);
       ds.setPassword(mdp);
       // Class.forName("org.postgresql.Driver");
-    } catch (Exception e) {
+    } catch (Exception ex) {
       System.out.println("Impossible de joindre le server !");
       System.exit(1);
     }
-    /**
-     * try { // conn = DriverManager.getConnection(url, "postgres", "Greg171598"); // conn =
-     * DriverManager.getConnection(url, "mariabouraga", "S3CIMX1NU"); conn =
-     * DriverManager.getConnection(url, login, mdp);
-     * 
-     * } catch (SQLException e) { System.out.println("Impossible de joindre le server !");
-     * System.exit(1); }
-     **/
-
   }
 
   @Override
@@ -63,8 +54,8 @@ public class DaoServicesImpl implements DaoServices, DaoServicesUcc {
       connections.set(conn);
       System.out.println(connections.get());
       conn.setAutoCommit(false);
-    } catch (SQLException e) {
-      e.printStackTrace();
+    } catch (SQLException ex) {
+      ex.printStackTrace();
     }
   }
 
@@ -76,8 +67,8 @@ public class DaoServicesImpl implements DaoServices, DaoServicesUcc {
       }
       conn.commit();
       conn.setAutoCommit(true);
-    } catch (SQLException e) {
-      e.printStackTrace();
+    } catch (SQLException ex) {
+      ex.printStackTrace();
     } finally {
       connections.remove();
     }
@@ -91,7 +82,7 @@ public class DaoServicesImpl implements DaoServices, DaoServicesUcc {
       }
       conn.rollback();
       conn.setAutoCommit(true);
-    } catch (SQLException e) {
+    } catch (SQLException ex) {
       throw new DalException("Erreur dans le rollback");
     } finally {
       connections.remove();
@@ -99,11 +90,11 @@ public class DaoServicesImpl implements DaoServices, DaoServicesUcc {
   }
 
   @Override
-  public PreparedStatement getPreparedSatement(String requeteSQL) {
+  public PreparedStatement getPreparedSatement(String requeteSql) {
     try {
       System.out.println("test1:" + connections.toString());
-      return connections.get().prepareStatement(requeteSQL);
-    } catch (SQLException e) {
+      return connections.get().prepareStatement(requeteSql);
+    } catch (SQLException ex) {
       throw new DalException("Erreur dans le prepared statement");
     }
   }

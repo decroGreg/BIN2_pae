@@ -66,8 +66,8 @@ class TestDevisUcc {
             .newInstance(false, false, false, false);
     userDao = (UserDao) Class.forName(Config.getConfigPropertyAttribute(UserDao.class.getName()))
         .getConstructor(boolean.class, boolean.class, boolean.class, boolean.class, boolean.class,
-            boolean.class, boolean.class, boolean.class)
-        .newInstance(false, false, false, false, false, false, false, false);
+            boolean.class, boolean.class)
+        .newInstance(false, false, false, false, false, false, false);
     /**
      * amenagementDao = (AmenagementDao) Class
      * .forName(Config.getConfigPropertyAttribute(AmenagementDao.class.getName()))

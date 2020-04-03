@@ -23,9 +23,9 @@ public class DevisDaoImpl implements DevisDao {
   private Factory bizfactory;
 
   /**
-   * Constructeur Devis Dao
+   * Constructeur Devis Dao.
    * 
-   * @param daoService
+   * @param daoService classe service.
    */
   public DevisDaoImpl(DaoServices daoService) {
     this.services = daoService;
@@ -119,6 +119,7 @@ public class DevisDaoImpl implements DevisDao {
     return true;
   }
 
+  @Override
   public int getIdDernierDevis() {
     int idDevis = 0;
     String requeteSql = "SELECT MAX(id_devis) FROM init.devis";

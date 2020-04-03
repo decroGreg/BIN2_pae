@@ -21,7 +21,16 @@ public class DevisDaoMock implements DevisDao {
   private boolean testDalException;
   private Factory factory;
 
-
+  /**
+   * Constructeur Devis Mock
+   * 
+   * @param createDevis methode boolean.
+   * @param voirTousDevis methode boolean.
+   * @param getDevisClient methode boolean.
+   * @param confirmerDateDevis methode boolean.
+   * @param getIdDernierDevis methode boolean.
+   * @param testDalException methode boolean.
+   */
   public DevisDaoMock(boolean createDevis, boolean voirTousDevis, boolean getDevisClient,
       boolean confirmerDateDevis, boolean getIdDernierDevis, boolean testDalException) {
     this.createDevis = createDevis;
@@ -68,6 +77,7 @@ public class DevisDaoMock implements DevisDao {
     return confirmerDateDevis;
   }
 
+  @Override
   public int getIdDernierDevis() {
     testDalException();
     if (getIdDernierDevis) {

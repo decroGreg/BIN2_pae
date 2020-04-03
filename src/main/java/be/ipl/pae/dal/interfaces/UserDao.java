@@ -9,9 +9,9 @@ public interface UserDao {
 
   UserDto getUserConnexion(String email);
 
-  boolean createInscription(UserDto userDTO);
+  boolean createInscription(UserDto userDto);
 
-  public List<UserDto> voirTousUser();
+  List<UserDto> voirTousUser();
 
   List<UserDto> voirUserPasConfirmer();
 

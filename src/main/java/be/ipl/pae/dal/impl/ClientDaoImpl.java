@@ -20,15 +20,16 @@ public class ClientDaoImpl implements ClientDao {
   private Factory factory;
 
   /**
-   * Constructeur Client Dao Impl
+   * Constructeur Client Dao Impl.
    * 
-   * @param daoServices
+   * @param daoServices classe service.
    */
   public ClientDaoImpl(DaoServices daoServices) {
     this.services = daoServices;
     this.factory = new FactoryImpl();
   }
 
+  @Override
   public List<ClientDto> voirTousClient() {
     List<ClientDto> listeClient = new ArrayList<ClientDto>();
     String requeteSql = "SELECT * FROM init.clients";
@@ -57,6 +58,7 @@ public class ClientDaoImpl implements ClientDao {
     }
   }
 
+  @Override
   public boolean createClient(ClientDto clientDto) {
     String requeteSql =
         "INSERT INTO init.clients VALUES (DEFAULT, ?, ?, ?, ?, ?, ?, ?, ?, ?, null)";
@@ -78,6 +80,7 @@ public class ClientDaoImpl implements ClientDao {
     return true;
   }
 
+  @Override
   public ClientDto getClientMail(String email) {
     ClientDto clientDto = factory.getClientDto();
     String requeteSql = "SELECT * FROM init.clients WHERE email = ?";

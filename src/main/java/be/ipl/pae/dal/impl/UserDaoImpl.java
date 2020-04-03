@@ -1,6 +1,5 @@
 package be.ipl.pae.dal.impl;
 
-import be.ipl.pae.biz.dto.ClientDto;
 import be.ipl.pae.biz.dto.UserDto;
 import be.ipl.pae.biz.factory.FactoryImpl;
 import be.ipl.pae.biz.interfaces.Factory;
@@ -18,19 +17,12 @@ public class UserDaoImpl implements UserDao {
 
   private PreparedStatement ps;
   private DaoServices services;
-  private String pseudo;
-  private String nom;
-  private String prenom;
-  private String ville;
-  private String mail;
-  private String motDePasse;
   private Factory factory;
-  private int id;
 
   /**
-   * Constructeur User Dao
+   * Constructeur User Dao .
    * 
-   * @param daoServices
+   * @param daoServices classe service.
    */
   public UserDaoImpl(DaoServices daoServices) {
     this.services = daoServices;
@@ -72,6 +64,7 @@ public class UserDaoImpl implements UserDao {
     return userD;
   }
 
+  @Override
   public boolean createInscription(UserDto user) {
     String requestSql = "INSERT INTO init.utilisateurs VALUES (DEFAULT, ?, ?, ?, ?, ?, ?, ?, ?)";
     ps = services.getPreparedSatement(requestSql);
@@ -94,6 +87,7 @@ public class UserDaoImpl implements UserDao {
   }
 
 
+  @Override
   public List<UserDto> voirTousUser() {
     List<UserDto> listeUser = new ArrayList<UserDto>();
     String requeteSql = "SELECT * FROM init.utilisateurs";
@@ -123,36 +117,7 @@ public class UserDaoImpl implements UserDao {
     }
   }
 
-  public boolean lierUserUtilisateur(ClientDto client, UserDto user, Character etat) {
 
-    String requeteSql1;
-    String requeteSql2;
-    if (etat == 'O') {
-      requeteSql1 = "UPDATE init.utilisateurs SET statut='O' WHERE id_utilisateur=?";
-    } else {
-      requeteSql1 = "UPDATE init.utilisateurs SET statut='C' WHERE id_utilisateur=?";
-      if (client != null) {
-        requeteSql2 = "UPDATE init.clients SET id_utilisateur=? WHERE id_client=?";
-        ps = services.getPreparedSatement(requeteSql2);
-        try {
-          ps.setInt(1, user.getIdUser());
-          ps.setInt(2, client.getIdClient());
-          ps.execute();
-        } catch (SQLException ex) {
-          throw new DalException("Erreur lors de liaison dans la table client" + ex.getMessage());
-        }
-      }
-    }
-    ps = services.getPreparedSatement(requeteSql1);
-    try {
-      ps.setInt(1, user.getIdUser());
-      ps.execute();
-    } catch (SQLException ex) {
-      throw new DalException(
-          "Erreur lors de la liaison dans la table utilisateurs" + ex.getMessage());
-    }
-    return true;
-  }
 
   @Override
   public boolean lierClientUser(int client, int user) {
@@ -168,6 +133,7 @@ public class UserDaoImpl implements UserDao {
     return true;
   }
 
+  @Override
   public boolean confirmerUtilisateur(UserDto user, Character etat) {
     String requeteSql;
     if (etat == 'O') {
@@ -187,6 +153,7 @@ public class UserDaoImpl implements UserDao {
 
   }
 
+  @Override
   public List<UserDto> voirUserPasConfirmer() {
     List<UserDto> listeUser = new ArrayList<UserDto>();
     String requestSql = "SELECT * FROM init.utilisateurs WHERE statut IS NULL ";
