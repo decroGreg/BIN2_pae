@@ -28,9 +28,8 @@ public class FactoryStub implements Factory {
 
   @Override
   public UserDto getUserDto() {
-    String motDePasse = "testMotDePasse";
     return new UserImpl(1, "testPseudo", "testNom", "testPrenom", "testVille", "testEmail",
-        motDePasse);
+        "$2a$10$PFufDLXls/2hw1wzMkZmz.AdaQcI3DYUaj8hOLrwz4SFuqYxGwSHK");
   }
 
   @Override

@@ -1,5 +1,8 @@
 package be.ipl.pae.biz;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+
 import be.ipl.pae.biz.config.Config;
 import be.ipl.pae.biz.dto.TypeDAmenagementDto;
 import be.ipl.pae.biz.interfaces.Factory;
@@ -9,9 +12,12 @@ import be.ipl.pae.dal.daoservices.DaoServicesUcc;
 import be.ipl.pae.dal.interfaces.TypeDAmenagementDao;
 
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
 import java.lang.reflect.Constructor;
+import java.lang.reflect.InvocationTargetException;
 
 class TestTypeDAmenagementUcc {
 
@@ -49,8 +55,38 @@ class TestTypeDAmenagementUcc {
             .getConstructor(Factory.class, TypeDAmenagementDao.class, DaoServicesUcc.class);
   }
 
-  /**
-   * @Test void testVoirTypeDAmenagement() { fail("Not yet implemented"); }
-   */
 
+  @Test
+  @DisplayName("liste de type d'amenagement null")
+  void testVoirTypeDAmenagement() throws InstantiationException, IllegalAccessException,
+      IllegalArgumentException, InvocationTargetException {
+    typeDAmenagementDao =
+        (TypeDAmenagementDao) typeDAmenagementDaoConstruct.newInstance(false, false);
+    typeDAmenagementUcc = (TypeDAmenagementUcc) typeDAmenagementUccConstruct.newInstance(bizFactory,
+        typeDAmenagementDao, dalServices);
+    assertThrows(NullPointerException.class, () -> typeDAmenagementUcc.voirTypeDAmenagement());
+  }
+
+  @Test
+  @DisplayName("liste de type d'amenagement ok")
+  void testVoirTypeDAmenagement2() throws InstantiationException, IllegalAccessException,
+      IllegalArgumentException, InvocationTargetException {
+    typeDAmenagementDao =
+        (TypeDAmenagementDao) typeDAmenagementDaoConstruct.newInstance(true, false);
+    typeDAmenagementUcc = (TypeDAmenagementUcc) typeDAmenagementUccConstruct.newInstance(bizFactory,
+        typeDAmenagementDao, dalServices);
+    assertEquals(typeDAmenagementUcc.voirTypeDAmenagement().get(0).getId(),
+        typeDAmenagementDto.getId());
+  }
+
+  @Test
+  @DisplayName("test dalException")
+  void testVoirTypeDAmenagement3() throws InstantiationException, IllegalAccessException,
+      IllegalArgumentException, InvocationTargetException {
+    typeDAmenagementDao =
+        (TypeDAmenagementDao) typeDAmenagementDaoConstruct.newInstance(false, true);
+    typeDAmenagementUcc = (TypeDAmenagementUcc) typeDAmenagementUccConstruct.newInstance(bizFactory,
+        typeDAmenagementDao, dalServices);
+    assertThrows(IllegalArgumentException.class, () -> typeDAmenagementUcc.voirTypeDAmenagement());
+  }
 }

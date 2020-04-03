@@ -9,4 +9,6 @@ public interface TypeDAmenagementDto {
   void setDescription(String description);
 
   void setId(int id);
+
+  int getId();
 }

@@ -9,13 +9,13 @@ import be.ipl.pae.exceptions.DalException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class TypeDAmenagementMock implements TypeDAmenagementDao {
+public class TypeDAmenagementDaoMock implements TypeDAmenagementDao {
 
   private boolean voirTypeDAmenagement;
   private boolean testDalException;
   private Factory factory;
 
-  public TypeDAmenagementMock(boolean voirTypeDAmenagement, boolean testDalException) {
+  public TypeDAmenagementDaoMock(boolean voirTypeDAmenagement, boolean testDalException) {
     this.voirTypeDAmenagement = voirTypeDAmenagement;
     this.testDalException = testDalException;
     this.factory = new FactoryStub();
