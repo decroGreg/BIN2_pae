@@ -29,6 +29,9 @@ public class ClientDaoImpl implements ClientDao {
     this.factory = new FactoryImpl();
   }
 
+  /**
+   * voir tous les clients.
+   */
   public List<ClientDto> voirTousClient() {
     List<ClientDto> listeClient = new ArrayList<ClientDto>();
     String requeteSql = "SELECT * FROM init.clients";
@@ -57,6 +60,9 @@ public class ClientDaoImpl implements ClientDao {
     }
   }
 
+  /**
+   * creer un nouveau client dans la db.
+   */
   public boolean createClient(ClientDto clientDto) {
     String requeteSql =
         "INSERT INTO init.clients VALUES (DEFAULT, ?, ?, ?, ?, ?, ?, ?, ?, ?, null)";
@@ -78,6 +84,9 @@ public class ClientDaoImpl implements ClientDao {
     return true;
   }
 
+  /**
+   * recois le client qui a le meme email.
+   */
   public ClientDto getClientMail(String email) {
     ClientDto clientDto = factory.getClientDto();
     String requeteSql = "SELECT * FROM init.clients WHERE email = ?";

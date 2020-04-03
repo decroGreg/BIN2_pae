@@ -5,6 +5,6 @@ import java.sql.PreparedStatement;
 
 public interface DaoServices {
 
-  PreparedStatement getPreparedSatement(String requeteSQL);
+  PreparedStatement getPreparedSatement(String requeteSql);
 
 }
