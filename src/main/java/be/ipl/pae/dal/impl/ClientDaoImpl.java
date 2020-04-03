@@ -60,9 +60,7 @@ public class ClientDaoImpl implements ClientDao {
     }
   }
 
-  /**
-   * creer un nouveau client dans la db.
-   */
+  @Override
   public boolean createClient(ClientDto clientDto) {
     String requeteSql =
         "INSERT INTO init.clients VALUES (DEFAULT, ?, ?, ?, ?, ?, ?, ?, ?, ?, null)";
@@ -84,9 +82,7 @@ public class ClientDaoImpl implements ClientDao {
     return true;
   }
 
-  /**
-   * recois le client qui a le meme email.
-   */
+  @Override
   public ClientDto getClientMail(String email) {
     ClientDto clientDto = factory.getClientDto();
     String requeteSql = "SELECT * FROM init.clients WHERE email = ?";

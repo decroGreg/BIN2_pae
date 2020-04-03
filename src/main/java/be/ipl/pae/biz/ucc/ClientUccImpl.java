@@ -13,7 +13,6 @@ import java.util.List;
 public class ClientUccImpl implements ClientUcc {
 
   private ClientDao clientDao;
-  private Factory bizFactory;
   private DaoServicesUcc daoServicesUcc;
 
   /**
@@ -26,7 +25,6 @@ public class ClientUccImpl implements ClientUcc {
   public ClientUccImpl(Factory bizFactory, ClientDao clientDao, DaoServicesUcc daoServicesUcc) {
     super();
     this.clientDao = clientDao;
-    this.bizFactory = bizFactory;
     this.daoServicesUcc = daoServicesUcc;
   }
 

@@ -119,6 +119,7 @@ public class DevisDaoImpl implements DevisDao {
     return true;
   }
 
+  @Override
   public int getIdDernierDevis() {
     int idDevis = 0;
     String requeteSql = "SELECT MAX(id_devis) FROM init.devis";

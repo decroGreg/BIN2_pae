@@ -77,6 +77,7 @@ public class DevisDaoMock implements DevisDao {
     return confirmerDateDevis;
   }
 
+  @Override
   public int getIdDernierDevis() {
     testDalException();
     if (getIdDernierDevis) {

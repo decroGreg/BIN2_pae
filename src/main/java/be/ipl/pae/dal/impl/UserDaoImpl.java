@@ -72,6 +72,7 @@ public class UserDaoImpl implements UserDao {
     return userD;
   }
 
+  @Override
   public boolean createInscription(UserDto user) {
     String requestSql = "INSERT INTO init.utilisateurs VALUES (DEFAULT, ?, ?, ?, ?, ?, ?, ?, ?)";
     ps = services.getPreparedSatement(requestSql);
@@ -94,6 +95,7 @@ public class UserDaoImpl implements UserDao {
   }
 
 
+  @Override
   public List<UserDto> voirTousUser() {
     List<UserDto> listeUser = new ArrayList<UserDto>();
     String requeteSql = "SELECT * FROM init.utilisateurs";
@@ -168,6 +170,7 @@ public class UserDaoImpl implements UserDao {
     return true;
   }
 
+  @Override
   public boolean confirmerUtilisateur(UserDto user, Character etat) {
     String requeteSql;
     if (etat == 'O') {
@@ -187,6 +190,7 @@ public class UserDaoImpl implements UserDao {
 
   }
 
+  @Override
   public List<UserDto> voirUserPasConfirmer() {
     List<UserDto> listeUser = new ArrayList<UserDto>();
     String requestSql = "SELECT * FROM init.utilisateurs WHERE statut IS NULL ";

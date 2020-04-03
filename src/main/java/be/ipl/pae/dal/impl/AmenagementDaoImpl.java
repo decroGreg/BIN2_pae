@@ -1,7 +1,5 @@
 package be.ipl.pae.dal.impl;
 
-import be.ipl.pae.biz.factory.FactoryImpl;
-import be.ipl.pae.biz.interfaces.Factory;
 import be.ipl.pae.dal.daoservices.DaoServices;
 import be.ipl.pae.dal.interfaces.AmenagementDao;
 import be.ipl.pae.exceptions.DalException;
@@ -12,7 +10,7 @@ import java.sql.SQLException;
 public class AmenagementDaoImpl implements AmenagementDao {
   private PreparedStatement ps;
   private DaoServices services;
-  private Factory factory;
+  // private Factory factory;
 
   /**
    * Constructeur Amenagement Dao.
@@ -21,7 +19,7 @@ public class AmenagementDaoImpl implements AmenagementDao {
    */
   public AmenagementDaoImpl(DaoServices daoServices) {
     this.services = daoServices;
-    this.factory = new FactoryImpl();
+    // this.factory = new FactoryImpl();
   }
 
   @Override

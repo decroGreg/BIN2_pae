@@ -51,6 +51,7 @@ public class ClientDaoMock implements ClientDao {
     return createClient;
   }
 
+  @Override
   public ClientDto getClientMail(String email) {
     testDalException();
     if (getClientMail) {

@@ -12,9 +12,9 @@ public interface UserDao {
 
   boolean createInscription(UserDto userDTO);
 
-  public List<UserDto> voirTousUser();
+  List<UserDto> voirTousUser();
 
-  public boolean lierUserUtilisateur(ClientDto idClient, UserDto idUtilisateur, Character etat);
+  boolean lierUserUtilisateur(ClientDto idClient, UserDto idUtilisateur, Character etat);
 
   List<UserDto> voirUserPasConfirmer();
 
