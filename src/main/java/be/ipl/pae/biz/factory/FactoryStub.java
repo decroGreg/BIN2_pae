@@ -38,9 +38,9 @@ public class FactoryStub implements Factory {
     Date parsedDate = null;
     try {
       parsedDate = dateFormat.parse("2020-03-30" + " 00:00:00.000");
-    } catch (ParseException e) {
+    } catch (ParseException ex) {
       // TODO Auto-generated catch block
-      e.printStackTrace();
+      ex.printStackTrace();
     }
     Long time = parsedDate.getTime();
     Timestamp timestamp = new Timestamp(time);

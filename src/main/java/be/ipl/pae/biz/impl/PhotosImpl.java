@@ -65,6 +65,7 @@ public class PhotosImpl implements Photo {
     this.urlPhoto = urlPhoto;
   }
 
+  @Override
   public boolean checkPhoto() {
     if (this.idDevis > 0 && this.idAmenagement > 0 && !this.urlPhoto.equals(" ")) {
       return true;

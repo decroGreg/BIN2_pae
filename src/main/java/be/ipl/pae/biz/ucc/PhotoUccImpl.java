@@ -14,11 +14,11 @@ public class PhotoUccImpl implements PhotoUcc {
   private DaoServicesUcc daoServicesUcc;
 
   /**
-   * Cree un objet PhotoUccImpl
+   * Cree un objet PhotoUccImpl.
    * 
-   * @param photoDao le dao de photo
-   * @param bizFactory la biz factory
-   * @param daoServicesUcc le daoServices
+   * @param photoDao le dao de photo.
+   * @param bizFactory la biz factory.
+   * @param daoServicesUcc le daoServices.
    */
   public PhotoUccImpl(PhotoDao photoDao, Factory bizFactory, DaoServicesUcc daoServicesUcc) {
     super();
@@ -35,7 +35,7 @@ public class PhotoUccImpl implements PhotoUcc {
         daoServicesUcc.demarrerTransaction();
         // photoDao.introduirePhotoAvantAmenagement(photo);
         daoServicesUcc.commit();
-      } catch (Exception e) {
+      } catch (Exception ex) {
         daoServicesUcc.rollback();
         throw new IllegalArgumentException();
       }

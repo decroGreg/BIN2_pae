@@ -61,6 +61,12 @@ public class Config {
     return prop;
   }
 
+  /**
+   * Permet de switcher entre les factory dans les tests
+   * 
+   * @param path le chemin du fichier
+   * @throws IOException
+   */
   public static void init(String path) throws IOException {
     props = new Properties();
     Path pathProp = FileSystems.getDefault().getPath(path);
