@@ -5,6 +5,7 @@ import be.ipl.pae.biz.interfaces.Photo;
 public class PhotosImpl implements Photo {
 
   private int idPhoto;
+  private String urlPhoto;
   private int idAmenagement;
   private int idDevis;
 
@@ -12,12 +13,14 @@ public class PhotosImpl implements Photo {
    * Cree un objet PhotoImpl
    * 
    * @param idPhoto l'id de la photo.
+   * @param urlPhoto l'url de la photo
    * @param idAmenagement l'id de l'amenagement.
    * @param idDevis l'id du devis.
    */
-  public PhotosImpl(int idPhoto, int idAmenagement, int idDevis) {
+  public PhotosImpl(int idPhoto, String urlPhoto, int idAmenagement, int idDevis) {
     super();
     this.idPhoto = idPhoto;
+    this.urlPhoto = urlPhoto;
     this.idAmenagement = idAmenagement;
     this.idDevis = idDevis;
   }
@@ -48,5 +51,24 @@ public class PhotosImpl implements Photo {
 
   public int getIdPhoto() {
     return idPhoto;
+  }
+
+  public void setIdPhoto(int idPhoto) {
+    this.idPhoto = idPhoto;
+  }
+
+  public String getUrlPhoto() {
+    return urlPhoto;
+  }
+
+  public void setUrlPhoto(String urlPhoto) {
+    this.urlPhoto = urlPhoto;
+  }
+
+  public boolean checkPhoto() {
+    if (this.idDevis > 0 && this.idAmenagement > 0 && !this.urlPhoto.equals(" ")) {
+      return true;
+    }
+    return false;
   }
 }

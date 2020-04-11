@@ -12,4 +12,10 @@ public interface PhotoDto {
 
   int getIdPhoto();
 
+  void setIdPhoto(int idPhoto);
+
+  String getUrlPhoto();
+
+  void setUrlPhoto(String urlPhoto);
+
 }
