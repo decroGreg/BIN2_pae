@@ -62,10 +62,10 @@ public class Config {
   }
 
   /**
-   * Permet de switcher entre les factory dans les tests
+   * Permet de switcher entre les factory dans les tests.
    * 
-   * @param path le chemin du fichier
-   * @throws IOException
+   * @param path le chemin du fichier.
+   * @throws IOException si pas de chemin trouver.
    */
   public static void init(String path) throws IOException {
     props = new Properties();
