@@ -1,5 +1,9 @@
 "use-strict";
-import {postData,getData,deleteData,putData} from "./util.js" ;
+import {postData,getData,deleteData,putData,creatHTMLFromString} from "./util.js" ;
+import{viewAuthentification,viewLogin,onPostRegister} from "./connexion.js"
+import{onGetRegisterConfirmation,viewRegisterConfirmation} from "./confirmerInscription.js";
+import{onGetAmenagements,onGetClientQuoteForm,filterSearchClient,viewIntroductionQuote} from "./introduireDevis.js"
+
 const OUVRIER="O";
 const CLIENT="C";
 let token=undefined;
@@ -7,15 +11,18 @@ let user;
 $('#navigation_bar').hide();
 $("#success-notification").hide();
 $("#error-notification").hide();
+var photo={};
 
 
 function encodeImagetoBase64(element) {
         var file = element.files[0];
-
+        console.log(element);
+        console.log(file);
         var reader = new FileReader();
 
         reader.onloadend = function() {
-                
+                photo="{"+reader.result+"}";
+          console.log(reader.result);
           $("img").attr("src",reader.result);
           
         }
@@ -40,26 +47,25 @@ function checkInput(data,message){
 $(document).ready(e=>{
         token=localStorage.getItem("token");
         authentificationToken(token);
-        $("#connexion").click(function (e) {
-               
+        $(".connexion").click(function (e) {
+
                viewLogin();
         });
         $("#imageMenu").click(e=>{
                 viewHomePage();
-                viewAuthentification();
+                viewAuthentification(user);
         });
                 
         $(window).bind('scroll', function() {
 
-        var navHeight = $( window ).height() - 70;
-
+                var navHeight = $( window ).height() - 70;
                 if ($(window).scrollTop() <= $("#carousel").height()/2) {
-                $('#navigation_bar').hide();
+                        $('#navigation_bar').hide();
                 }
                 else {
-                $('#navigation_bar').show();
+                        $('#navigation_bar').show();
                 }
-                });
+        });
  
     $("#homePage").click(viewHomePage);
     $("#btn-connexion").click(e=>{
@@ -83,13 +89,10 @@ $(document).ready(e=>{
         postData("/register",data,token,onPostRegister,onError);
         
     });
-    $("#introductionQuote").click(e=>{
+    $(".introductionQuote").click(e=>{
         viewIntroductionQuote();
-
         getData("/introduireServlet",token,onGetAmenagements,onError);
         getData("/listeUsers",token,onGetClientQuoteForm,onError);
-        
-        
     });
 
     /*
@@ -222,22 +225,7 @@ $(document).ready(e=>{
 		}
     });
 });
-function onPostIntroductionQuote(response){
-        if(response.success=="true"){
-                $("#success-notification").fadeIn('slow').delay(1000).fadeOut('slow');
-                $("#success-notification").text(response.message);
-        }else{
-                $("#error-notification").fadeIn('slow').delay(1000).fadeOut('slow');
-                $("#error-notification").text(response.message);
-        }
-        viewIntroductionQuote();
-}
-function filterSearchClient(element){
-        var value = $(element).val().toLowerCase();
-        $(".dropdown-menu li").filter(function() {
-          $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
-        });
-}
+
 
 function allHide(){
         $("#login").hide();
@@ -251,43 +239,17 @@ function allHide(){
         $("#success-notification").hide();
         $("#error-notification").hide();
 }
-function viewIntroductionQuote(){
-        $("#login").hide();
-        $("#btn-deconnexion").hide();
-        $("#wrong_passwd").hide();
-        $("#test1").hide();
-        $("#carousel").hide();
-        $("#Register-confirmation").hide();
-        $("#introductionQuoteForm").show();
-       
-}
-function viewRegisterConfirmation(){
-        $("#login").hide();
-        $("#btn-deconnexion").hide();
-        $("#wrong_passwd").hide();
-        $("#test1").hide();
-        $("#carousel").hide();
-        $("#Register-confirmation").show();
-        $("#introductionQuoteForm").hide();
-       
-}
 
-function viewLogin(){
-        $("#login-form").show();
-        $("#btn-deconnexion").hide();
-        $("#wrong_passwd").hide();
-        $("#carousel").hide();
-
-}
 //Home page non-connecté
 function viewHomePage(){
-        $("#test1").show();
+      
+
         $("#login-form").hide();
         $("#btn-deconnexion").hide();
         $("#wrong_passwd").hide();
         $("#carousel").show();
-        $("#Register-confirmation").hide();
-        $("#introductionQuote").hide();
+        $(".Register-confirmation-link").hide();
+        $(".introductionQuote").hide();
         $("#introductionQuoteForm").hide();
         $("#list-confirmation-link").hide(); 
         $("#voir-utilisateurs").hide();
@@ -303,270 +265,79 @@ function viewHomePage(){
 
 
 }
-
-//vue après authentification
-function viewAuthentification(){
-		$("#search-homepage").show();
-		$("#search-devis-date-link").show();
-        $("#search-devis-montant-link").show();
-        $("#search-devis-amenagement-link").show();
-        $("#search-client-link").hide();
-        $("#search-utilisateur-link").hide();
-        $("#search-amenagement-link").hide();
-        $("#mesDevis").show();
-        
-        if(user &&user.statut===OUVRIER){
-                $("#list-confirmation-link").show();
-                $("#introductionQuote").show(); 
-                $("#search-client-link").show();
-                $("#search-utilisateur-link").show();
-                $("#search-amenagement-link").show();
-                $("#search-devis-link").show();
-                $("#search-devis-date-link").hide();
-                $("#search-devis-montant-link").hide();
-                $("#search-devis-amenagement-link").hide();
-                $("#mesDevis").show();
-
-        }
-        $("#introductionQuoteForm").hide();
-        $("#connexion").hide();
-        $('#navigation_bar').hide();
-        $("#login-form").hide();
-        $("#btn-deconnexion").show();
-        $("#Register-confirmation").hide();
-        $("#voir-utilisateurs").hide();
-        $("#voir-devis").hide();
-        $("#voir-devis-client").hide();
-        $("#voir-details-devis").hide();
-        $("#voir-clients").hide();
-        $("#voir-details-devis-DDI").hide();
-    	$("#voir-details-devis-DC").hide();
-         
-}
-
 function authentificationToken(token){
         console.log("test"+token)
         if(token){
                 if(user==undefined){
-                      //  getData("/login",token,onPostLogin,onError);
-                      
+                      getData("/login",token,onPostLoginToken,onError);
                 }
-                viewAuthentification();
+                else{
+                        viewAuthentification(user);
+                }
         }
         else{
                 viewHomePage();
         }
 }
-//Authentificaiton réussis
-function onPostLogin(response){
+function onPostLoginToken(response){
         if(response.success=="true"){
+                user=response.userData;
                 $("#success-notification").fadeIn('slow').delay(1000).fadeOut('slow');
                 $("#success-notification").text(response.message);
-                console.log( $("#success-notification").text());
+        }
+        else{
+                console.log(response.message);
+                $("#error-notification").fadeIn('slow').delay(1000).fadeOut('slow');
+                $("#error-notification").text(response.message);
+                localStorage.removeItem("token");
+                token=undefined;
+        }
+    }
+    
+    //Authentificaiton réussis
+    function onPostLogin(response){
+        if(response.success==="true"){
+                $("#success-notification").fadeIn('slow').delay(1000).fadeOut('slow');
+                $("#success-notification").text(response.message);
+                console.log(response)
                 token=response.token;
                 localStorage.setItem("token",token);
-
-                console.log("data: "+response.userData.prenom);
                 user=response.userData;
                 console.log("user"+user.idUser);
-                
-                console.log(localStorage.getItem("token"));
-                viewAuthentification();
+                viewAuthentification(user);
         }else{
                 console.log(response.message);
                 $("#error-notification").fadeIn('slow').delay(1000).fadeOut('slow');
                 $("#error-notification").text(response.message);
                 
-
+    
                 
         }
-}
-function onGetClientQuoteForm(response){
-        response.usersData.forEach(element => {
-                var li=document.createElement("li");
-                var a=document.createElement("a");
-                a.href="#";
-                a.val=element.idUser;
-                a.innerText=element.prenom+" "+element.nom;
-                a.addEventListener("click",function(e){
-                        
-                        $("#Quote-Form-Client-items").val(e.target.val);
-                        $("#Quote-Form-Client-dropdown").text(e.target.innerText);
-                        console.log($("#Quote-Form-Client-items").val());
+    }
 
-                });
-                li.appendChild(a);
-                $("#Quote-Form-Client-items").append(li);
-        });
-}
 
-function onGetAmenagements(response){
-     
-     console.log(response.typeAmenagements);
-        response.typeAmenagements.forEach(element => {//changer les donnees hanger le i par l'id
-                console.log(element.id);
-                var checkbox=creatHTMLFromString('<div class="form-check col-sm-3 col-form-label" >'
-                +'<input  type="checkbox" id="'+element.id+'" value="option1">'
-                +'<label for="#'+element.id+'">'+element.description+'</label>'
-                +'</div>');
-                $("#Quote-Form-layoutType").append(checkbox);
-                
-        });
-}
-var i=0;//permet d'afficher la meme liste des clients pour des bouttonsdifférentss
-//affiche les demandes d'inscription dans un tableau
-function onGetRegisterConfirmation(response){
-        $("#Register-confirmation-body").html("");
-        
-        response.usersData.forEach(element => {
-                var tr=document.createElement("tr");
-                var prenom=document.createElement("td");
-                prenom.innerHTML=element.prenom;
-                prenom.value=element.idUser;
-                console.log(element.idUser);
-                prenom.setAttribute("valueof","id");
-                var nom=document.createElement("td");
-                nom.innerHTML=element.nom;
 
-                nom.setAttribute("valueof","lastname");
-                var btnStatus=document.createElement("td");
-                btnStatus.setAttribute("valueof","status");
-                var btnConfirmation=document.createElement("td");
-                tr.appendChild(prenom);
-                tr.appendChild(nom);
-                //creation du boutton status
-                
-                var btnStatusEvent=creatHTMLFromString('<td><div class="btn-group">'
-                +'<button type="button" id="btn-status" class="btn btn-danger dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">'
-                +'status'
-                +'</button>'
-                +'<div class="dropdown-menu">'
-                +'<a class="dropdown-item" value="c" href="#">Client</a>'
-                +'<a class="dropdown-item" value="e" href="#">Ouvrier</a>'
-                +'</div>'
-                +'</div></td>');
-                btnStatus.appendChild(btnStatusEvent);
-                btnStatusEvent.addEventListener("click",onClickStatusItem);
-               
-                tr.appendChild(btnStatus);
 
-                //lié un client à l'utilisateurs
-                var tdBtnClientLink=document.createElement("td");
-                tdBtnClientLink.setAttribute("valueof","client");
-                tdBtnClientLink.id="ClientLink"+i;
-                var btnClientLink=creatHTMLFromString('<div class="form-group col-md-3">'
-                +'<div class="dropdown-Client">'
-                + '<button class="btn btn-secondary dropdown-toggle" id="RegisterConfirmation-Form-Client-dropdown'+i+'" type="button" data-toggle="dropdown">lié à l\'utilisateur<span class="caret"></span></button>'
-                + '<ul class="dropdown-menu" id="RegisterConfirmation-Form-Client-items'+i+'">'
-                +  '<input class="form-control" id="RegisterConfirmation-Form-Client-Search'+i+'" type="text" placeholder="Search..">'
-                +'</ul></div></div>');
-                tdBtnClientLink.appendChild(btnClientLink);
-                tr.appendChild(tdBtnClientLink);
 
-                getData("/listeClients",token,onGetClientRegisterConfirmationForm,onError);
-                
-                //GetClient
-
-                //creation du boutton confirmer
-                var btnConfirmationEvent=creatHTMLFromString('<td><button id="bnt-Register-confirmation" class="btn btn-info"> Confirmer</button></td>');
-                btnConfirmation.appendChild(btnConfirmationEvent);
-                btnConfirmationEvent.addEventListener("click",onClickRegisterConfirmation);
-                tr.appendChild(btnConfirmation);
-                $("#Register-confirmation-body").append(tr);
-                
-                i++;
-        });
-        i=0;
-
-}
-function onGetClientRegisterConfirmationForm(response){
-        response.clientsData.forEach(element => {
-                var li=document.createElement("li");
-                var a=document.createElement("a");
-                a.href="#";
-                a.setAttribute("valueofI",i);
-                a.val=element.idClient;
-                a.innerText=element.prenom+" "+element.nom;
-                a.addEventListener("click",function(e){
-                        
-                        $("#ClientLink"+e.target.getAttribute("valueofI")).val(e.target.val);
-                        $("#RegisterConfirmation-Form-Client-dropdown"+e.target.getAttribute("valueofI")).text(e.target.innerText);
-                        
-                        console.log($("#ClientLink"+e.target.getAttribute("valueofI")));
-
-                });
-                li.appendChild(a);
-                $("#RegisterConfirmation-Form-Client-items"+i).append(li);
-        });
-        i++;
-
-}
-function onClickRegisterConfirmation(element){
-        var btn=element.target;
-        var data={};
-        btn.parentNode.parentNode.childNodes.forEach(e => {
-                console.log(e.getAttribute("valueof")+":"+e.value);
-                console.log(e);
-                if(e.getAttribute("valueof")!=null)
-                data[e.getAttribute("valueof")]=e.value+"";
-        });
-        if(data.status==="undefined"){
-                $("#error-notification").fadeIn('slow').delay(1000).fadeOut('slow');
-                $("#error-notification").text("veuillez choisir un roles");
-                return;
-
-        }
-        
-        
-
-        postData("/confirmation",data,token,onPostRegisterConfirmation,onError);
-}
-function onPostRegisterConfirmation(response){
-        if(response.success=="true"){
-                $("#success-notification").fadeIn('slow').delay(1000).fadeOut('slow');
-                $("#success-notification").text(response.message);
-                getData("/confirmation",token,onGetRegisterConfirmation,onError);
-
-        }else{
-                $("#error-notification").fadeIn('slow').delay(1000).fadeOut('slow');
-                $("#error-notification").text(response.message);
-        }
-}
-
-function onClickStatusItem(element){
-        
-        var btn=element.target;
-        if(btn.tagName=="A"){//vérifie si c'est un element <a>
-                console.log($(btn).attr("value"));
-                btn.parentNode.parentNode.parentNode.value=$(btn).attr("value");
-                btn.parentNode.parentNode.firstChild.innerHTML=btn.innerHTML;
-        }
-}
-
-//methode trouver sur: https://stackoverflow.com/questions/494143/creating-a-new-dom-element-from-an-html-string-using-built-in-dom-methods-or-pro
-function creatHTMLFromString(htmlString){
-        var div = document.createElement('div');
-        div.innerHTML = htmlString.trim();
-
-        // Change this to div.childNodes to support multiple top-level nodes
-        return div.firstChild; 
-}
-function onPostRegister(response){
-        if(response.success=="true"){
-                $("#success-notification").fadeIn('slow').delay(1000).fadeOut('slow');
-                $("#success-notification").text(response.message);
-        }else{ 
-                console.log(response.message);
-                $("#error-notification").fadeIn('slow').delay(1000).fadeOut('slow');
-                $("#error-notification").text(response.message);
-        }
-}
 
 function onError(response){
         console.log("Erreur");
         $("#error-notification").fadeIn('slow').delay(1000).fadeOut('slow');
         $("#error-notification").text(response.message);
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
 /////////////////////////////////////////////////////////////////////////////////////////////test////////////////////////
 
 

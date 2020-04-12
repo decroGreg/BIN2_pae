@@ -17,19 +17,27 @@
     </head>
     <body>
       <div id="success-notification" class="alert alert-success alert-dismissible fixed-top" style="text-align: center;">
-        
-        
       </div>
-      <div id="error-notification" class="alert alert-danger alert-dismissible fixed-top" style="text-align: center;">
-        
-        
+      <div id="error-notification" class="alert alert-danger alert-dismissible fixed-top" style="text-align: center;"> 
       </div>
       
       <!------------------------------------navigation static----------------------------------->
       <nav class="nav" id="menu">
-        <a id="imageMenu" href="#" style="text-align: center;">
-            <img src="./img/roses_lilas.gif" ></br>
-        </a>
+       
+        <div style="margin-left: 37%;">
+          <a  id="imageMenu" class="nav-item" href="#">
+            <img src="./image/rose.gif">
+          </a></br>
+          <ul>
+            <li><a href="#" id="homePage">HOME</a></li>
+            <li><a href="#">Categorie</a></li>
+            <li id="list-confirmation-link"><a href="#"  class="Register-confirmation-link  nav-item">Confirmer inscription</a></li>
+            <li id="connexion"><a href="?#" class="connexion nav-item" id="connexion">Connexion</a></li>
+            <li><a href="#" id="introductionQuote" class="introductionQuote nav-item">introduire un devis</a></li>
+            <li><a href="#" id="mesDevis" class="nav-item">Mes devis</a></li>
+          </ul>
+        </div>
+        
       </br>
       </nav>
       <!------------------------------------navigation non static----------------------------------->
@@ -48,70 +56,18 @@
           </select>
           <button href="#" class="btn btn-outline-success my-2 my-sm-0" type="submit" id="btn-search-category">Search</button>
         </form>
-           <ul>
-                <li>
-                    <a href="#" id="homePage">HOME</a></li>
-                <li><a href="#">Catégorie</a></li>
-                <li id="list-confirmation-link"><a href="#"  class="Register-confirmation-link">Confirmer inscription</a></li>
-                <li id="connexion">
-                    <a href="?#" class="nav-item" id="connexion">Connexion</a>
-                </li>
-                 <li><a href="#" id="introductionQuote" class="nav-item">introduire un devis</a></li>
-                 <li><a href="#" id="mesDevis" class="nav-item">Mes devis</a></li>
-                
+           <ul >
+                <li><a href="#" id="homePage" class="nav-item">HOME</a></li>
+                <li><a href="#" class="nav-item">Categorie</a></li>
+                <li id="list-confirmation-link"><a href="#"  class="Register-confirmation-link nav-item">Confirmer inscription</a></li>
+                <li id="connexion"><a href="?#" class="connexion nav-item" id="connexion">Connexion</a></li>
+                <li><a href="#" id="introductionQuote" class="introductionQuote nav-item">introduire un devis</a></li>
+                <li><a href="#" id="mesDevis" class="nav-item">Mes devis</a></li>
            </ul>
-           
         </nav>
-      
-    <!---------------------------------------Connexion/inscription-------------------------------------------------------------->
-    <div class="container login-container" id="login-form">
-      <div class="row">
-          <div class="col-md-6 login-form-1">
-              <h3>Login for Form</h3>
-              <form>
-                  <div class="form-group">
-                      <input id="login-email" type="email" class="form-control login" placeholder="Your Email *"  />
-                  </div>
-                  <div class="form-group">
-                      <input id="login-pwd" type="password" class="form-control login" placeholder="Your Password *" />
-                  </div>
-                  <div class="form-group">
-                      <button id="btn-connexion" class="btnSubmit" value="Login" >log in</button>
-                  </div>
-                  <div class="form-group">
-                      <a href="#" class="ForgetPwd">Forget Password?</a>
-                  </div>
-              </form>
-          </div>
-          <div class="col-md-6 login-form-2">
-              <h3>Register for Form</h3>
-              <form>
-                  <div class="form-group">
-                    <input id="Register-lastname" type="text" class="form-control Register" placeholder="lastname *" value="" />
-                </div>
-                  <div class="form-group">
-                      <input id="Register-firstname" type="text" class="form-control Register" placeholder="firstname *" value="" />
-                  </div>
-                  <div class="form-group">
-                    <input id="Register-email" type="email" class="form-control Register" placeholder="Your Email *" value="" />
-                  </div>
-                  <div class="form-group">
-                    <input id="Register-pseudo" type="text" class="form-control Register" placeholder="pseudo *" value="" />
-                </div>
-                  <div class="form-group">
-                      <input id="Register-pwd" type="password" class="form-control Register" placeholder="Your Password *" value="" />
-                  </div>
-                  
-                  <div class="form-group">
-                    <input id="Register-city" type="text" class="form-control Register" placeholder="ville *" value="" />
-                </div>
-                  <div class="form-group">
-                      <input id="btn-register" type="submit" class="btnSubmit" value="Register" />
-                  </div>
-              </form>
-          </div>
-      </div>
-    </div>
+    
+
+ 
     
         
     <!---------------------------------------Carousel-------------------------------------------------------------->
@@ -127,15 +83,15 @@
                 <!-- Wrapper for slides -->
                 <div class="carousel-inner">
                   <div class="item active">
-                    <img src="./img/jardin01.jpg" alt="Los Angeles">
+                    <img src="#" alt="Los Angeles" id="testImg">
                   </div>
             
                   <div class="item">
-                    <img src="./img/jardin02.jpg" alt="Chicago">
+                    <img src="#" alt="Chicago">
                   </div>
                 
                   <div class="item">
-                    <img src="./img/jardin03.jpg" alt="New york">
+                    <img src="#" alt="New york">
                   </div>
                 </div>
             
@@ -152,30 +108,21 @@
     
     
         </section>
-        
-    <!---------------------------------------Confirmer inscription-------------------------------------------------------------->
-
-        <section id="Register-confirmation">
-          <table id="Register-confirmation" class="table table-bordered" >
-            <thead>
-              <tr>
-                <th scope="col">prénom</th>
-                <th scope="col">nom</th>
-                <th scope="col">status</th>
-                <th scope="col">lier client</th>
-                <th scope="col">Confirmer</th>
-              </tr>
-            </thead>
-            <tbody id="Register-confirmation-body">
-                  <!-----------------------------lier au client --------------------------------->
-                  <!----
-                </th>
-                <th><button id="bnt-Register-confirmation" class="btn btn-info"> Confirmer</button></th>
-              </tr>--->
-              
-            </tbody>
-            </table>
-        </section>
+    <!---------------------------------------HomePage-category-------------------------------------------------------------->
+    <section style="margin-left: 15%;">
+      <div class="form-row">
+    <div class="col-md-3 border border-dark" style="margin-right:1%;">
+      Cat1
+    </div>
+    <div class="col-md-3 border border-dark" style="margin-right:1%;">
+      Cat2
+    </div>
+    <div class="col-md-3 border border-dark" >
+      Cat3
+    </div>
+      </div>
+    </section>
+   
         
 <!-----------------------------------------Voir utilisateurs---------------------------------------------->
         <section id="voir-utilisateurs">
@@ -216,108 +163,7 @@
         </section>
 
 
-<!-----------------------------------------introduire un devis---------------------------------------------->
-        
-        <section id="introductionQuoteForm" class="border border-dark" style="margin:10%; border-radius: 10px;">       
-          <div><!-----------------------------------------introduire un nouveau client---------------------------------------------->
-            <button class="btn btn-primary" data-toggle="collapse" data-target="#new-Client">nouveau client <span class="glyphicon glyphicon-chevron-down"></span></button>
-            <div id="new-Client" class="collapse border border-dark" style="margin:1%; border-radius: 10px;">
-              <form style="margin:1%; align-items: center;" >
-                <div class="form-row">
-                  <div class="form-group col-md-3">
-                    <label for="Quote-Form-firstName">Prénom</label>
-                    <input type="text" class="form-control" id="Quote-Form-firstName" placeholder="Prénom*" required>
-                  </div>
-                  <div class="form-group col-md-3">
-                    <label for="Quote-Form-name">nom</label>
-                    <input type="text" class="form-control" id="Quote-Form-name" placeholder="nom*">
-                  </div>
-                </div>
-                <div class="form-row">
-                  <div class="form-group col-md-3">
-                    <label for="Quote-Form-street">Rue</label>
-                    <input type="text" class="form-control" id="Quote-Form-street" placeholder="Rue*">
-                  </div>
-                  <div class="form-group col-md-3">
-                    <label for="Quote-Form-number">Numéro</label>
-                    <input type="text" class="form-control" id="Quote-Form-number" placeholder="Numéro*">
-                  </div>
-                  <div class="form-group col-md-3">
-                    <label for="Quote-Form-boite">Boîte</label>
-                    <input type="text" class="form-control" id="Quote-Form-boite" placeholder="Boîte*">
-                  </div>
-                </div>
-                <div class="form-row">
-                  <div class="form-group col-md-3">
-                    <label for="Quote-Form-postalCode">Code Postal</label>
-                    <input type="number" class="form-control" id="Quote-Form-postalCode" placeholder="Code Postal*">
-                  </div>
-                  <div class="form-group col-md-3">
-                    <label for="Quote-Form-city">Ville</label>
-                    <input type="text" class="form-control" id="Quote-Form-city" placeholder="Ville*">
-                  </div>
-                </div>
-                <div class="form-row">
-                  <div class="form-group col-md-3">
-                    <label for="Quote-Form-email">Email</label>
-                    <input type="email" class="form-control" id="Quote-Form-email" placeholder="Email*">
-                  </div>
-                  <div class="form-group col-md-3">
-                    <label for="Quote-Form-phoneNumber">num Telephone</label>
-                    <input type="tel" class="form-control" id="Quote-Form-phoneNumber" placeholder="num*">
-                  </div>
-                </div>
-              
-              </form>
-              
-            </div>
-            <form id="Quote-Form" style="margin:2%;">
-              <div class="form-row">
-                <div class="form-group col-md-3">
-                  <div class="dropdown-Client">
-                    <button class="btn btn-secondary dropdown-toggle" id="Quote-Form-Client-dropdown" type="button" data-toggle="dropdown">lié au client<span class="caret"></span></button>
-                    <ul class="dropdown-menu" id="Quote-Form-Client-items">
-                      <input class="form-control" id="Quote-Form-Client-Search" type="text" placeholder="Search..">
-                    </ul>
-                  </div>
-                </div>
-              </div>
-              <div class="form-row">
-                <div class="form-group col-md-3">
-                  <label for="Quote-Form-quoteDate">date du devis</label>
-                  <input type="date" class="form-control Quote" id="Quote-Form-quoteDate" placeholder="date*" required>
-                </div>
-                <div class="form-group col-md-3">
-                  <label for="Quote-Form-price">Prix</label>
-                  <input type="number" class="form-control Quote" id="Quote-Form-price" placeholder="prix*" required>
-                </div>
-              </div>
-              <div class="form-row">
-                <div class="form-group col-md-3">
-                  <label for="Quote-Form-duration">Duree</label>
-                  <input type="text" class="form-control Quote" id="Quote-Form-duration" placeholder="Duree*" required>
-                </div>
-                <div class="form-group col-md-3">
-                  <label for="Quote-Form-image">Image</label>
-                  <input type="file" name="image" id="Quote-Form-image">
-                </div>
-              </div>
-              <div class="form-row">
-                <div class="form-group col-md-8" id="div-Quote-Form-layoutType">
-                  <input type="button" class="btn btn-primary" data-toggle="collapse" data-target="#Quote-Form-layoutType" value="Type d'aménagement">
-                  <div id="Quote-Form-layoutType"></div>
-                </div>
-               
-                <div class="form-group col-md-3" style="text-align: right;">
-                  <input type="submit" id="bnt-IntroductionQuote" class="btn btn-danger"  value="Introduire">
-                </div>
 
-
-            </form>
-          </div>
-          <img id="imageQuote"src="#"/>
-        </section>
-        
 <!-----------------------------------------Voir devis---------------------------------------------->
 		<section id="voir-devis">
           <h4>Liste des devis</h4>
@@ -534,37 +380,39 @@
               </div>
             </form>
      	</section>
-     	
-        <section id="test1">
-        <h1>TEST 1</h1>
-        <h1>TEST</h1>
-        <h1>TEST</h1>
-        <h1>TEST</h1>
-        <h1>TEST</h1>
-        <h1>TEST</h1>
-        <h1>TEST</h1>
-        <h1>TEST</h1>
-        <h1>TEST</h1>
-        <h1>TEST</h1>
-        <h1>TEST</h1>
-        <h1>TEST</h1>
-        <h1>TEST</h1>
-        <h1>TEST</h1>
-        <h1>TEST</h1>
-        <h1>TEST</h1>
-        <h1>TEST</h1>
-        <h1>TEST</h1>
-        <h1>TEST</h1>
-        <h1>TEST</h1>
-        <h1>TEST</h1>
-        </section>
-    <button id="btn-deconnexion"> deconnexion</button>
-    <script src="./JS/index.js" type="module"></script>
-<!--------------------------------------------------------------ACCUEIL----------------------------------------------------------------------------------------->
+       <h1>test</h1>
+       <h1>test</h1>
+       <h1>test</h1>
+       <h1>test</h1>
+       <h1>test</h1>
+       <h1>test</h1>
+       <h1>test</h1>
+       <h1>test</h1>
+       <h1>test</h1>
+       <h1>test</h1>
+       <h1>test</h1>
+       <h1>test</h1>
+       <h1>test</h1>
+       <h1>test</h1>
+       <h1>test</h1>
+       <h1>test</h1>
+       <h1>test</h1>
+       <h1>test</h1>
+       <h1>test</h1>
+       <h1>test</h1>
+       <h1>test</h1>
+       <h1>test</h1>
+       <h1>test</h1>
+       <h1>test</h1>
+       <h1>test</h1>
+       <h1>test</h1>
+       <h1>test</h1>
+       <h1>test</h1>
 
-
-</body>
-<footer>
-    <p style="text-align: center; background-color: gray; height: 100px;">footer</p>
-  </footer>
-</html> 
+        <button id="btn-deconnexion"> deconnexion</button>
+        
+    <!--------------------------------------------------------------ACCUEIL----------------------------------------------------------------------------------------->
+    
+    
+    
+    

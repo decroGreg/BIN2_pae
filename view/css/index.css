@@ -5,7 +5,9 @@ body{
     margin-bottom: 0%;
   }
   /* navigation static bar*/
-  
+  nav div, nav div ul,nav div ul li, nav div ul li a{
+    display: inline;
+  }
   
   /*************************************navigation non static bar***************************************************/
   
@@ -20,12 +22,12 @@ body{
     margin-left: 1%;
   }
   
-  nav ul {
+  #navigation_bar nav ul {
       list-style-type: none;
-      margin-left: 15%;
+      margin:auto;
       background-color: #51df4c;
     }
-    nav{
+  nav{
         background-color: #51df4c;   
     }
    

@@ -97,4 +97,10 @@ public class UserDaoMock implements UserDao {
       throw new DalException();
     }
   }
+
+  @Override
+  public UserDto getUserViaId(int id) {
+    // TODO Auto-generated method stub
+    return null;
+  }
 }
