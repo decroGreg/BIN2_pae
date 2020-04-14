@@ -26,10 +26,32 @@ public class IndexServlet extends DefaultServlet {
         String indexFile = new String(Files.readAllBytes(Paths.get("./view/index.html")));
         String confirmerInscriptionFile =
             new String(Files.readAllBytes(Paths.get("./view/html/confirmerInscription.html")));
-        String connexionFile = new String(Files.readAllBytes(Paths.get("./view/html/connexion.html")));
+        String connexionFile =
+            new String(Files.readAllBytes(Paths.get("./view/html/connexion.html")));
         String introduireDevisFile =
             new String(Files.readAllBytes(Paths.get("./view/html/introduireDevis.html")));
-        resp.getOutputStream().println(indexFile + connexionFile + introduireDevisFile + confirmerInscriptionFile);
+        String voirClientsFile =
+            new String(Files.readAllBytes(Paths.get("./view/html/voirClients.html")));
+        String voirDevisFile =
+            new String(Files.readAllBytes(Paths.get("./view/html/voirDevis.html")));
+        String voirDetailsDevisFile =
+            new String(Files.readAllBytes(Paths.get("./view/html/voirDetailsDevis.html")));
+        String voirDetailsDevisDCFile =
+            new String(Files.readAllBytes(Paths.get("./view/html/voirDetailsDevisDC.html")));
+        String voirDetailsDevisDDIFile =
+            new String(Files.readAllBytes(Paths.get("./view/html/voirDetailsDevisDDI.html")));
+        String voirDevisClientFile =
+            new String(Files.readAllBytes(Paths.get("./view/html/voirDevisClient.html")));
+        String voirUtilisateursFile =
+            new String(Files.readAllBytes(Paths.get("./view/html/voirUtilisateurs.html")));
+        resp.getOutputStream()
+            .println(indexFile + connexionFile + introduireDevisFile + confirmerInscriptionFile);
+        /*
+         * resp.getOutputStream() .println(indexFile + connexionFile + introduireDevisFile +
+         * confirmerInscriptionFile + voirClientsFile + voirDevisFile + voirDetailsDevisFile +
+         * voirDetailsDevisDCFile + voirDetailsDevisDDIFile + voirDevisClientFile +
+         * voirUtilisateursFile);
+         */
       } catch (Exception e) {
 
       }
