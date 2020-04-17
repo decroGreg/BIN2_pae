@@ -145,6 +145,7 @@ public class DevisUccImpl implements DevisUcc {
     }
   }
 
+  @Override
   public void choisirPhotoPreferee(DevisDto devisDto, int idPhoto) {
     try {
       daoServicesUcc.demarrerTransaction();
