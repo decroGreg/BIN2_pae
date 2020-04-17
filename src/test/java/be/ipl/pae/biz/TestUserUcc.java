@@ -1,6 +1,7 @@
 package be.ipl.pae.biz;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import be.ipl.pae.biz.config.Config;
@@ -11,6 +12,7 @@ import be.ipl.pae.dal.daoservices.DaoServices;
 import be.ipl.pae.dal.daoservices.DaoServicesUcc;
 import be.ipl.pae.dal.interfaces.UserDao;
 import be.ipl.pae.exceptions.BizException;
+import be.ipl.pae.exceptions.FatalException;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -93,7 +95,7 @@ class TestUserUcc {
     userDao =
         (UserDao) userDaoConstruct.newInstance(false, false, false, false, false, false, true);
     userUcc = (UserUcc) userUccConstruct.newInstance(bizFactory, userDao, dalServices);
-    assertThrows(IllegalArgumentException.class,
+    assertThrows(FatalException.class,
         () -> userUcc.login(userDto.getEmail(), userDto.getMotDePasse()));
   }
 
@@ -115,7 +117,7 @@ class TestUserUcc {
     userDao =
         (UserDao) userDaoConstruct.newInstance(true, false, false, false, false, false, false);
     userUcc = (UserUcc) userUccConstruct.newInstance(bizFactory, userDao, dalServices);
-    assertThrows(BizException.class, () -> userUcc.login(userDto.getEmail(), "test"));
+    assertNull(userUcc.login(userDto.getEmail(), "test"));
   }
 
   @Test
@@ -134,8 +136,7 @@ class TestUserUcc {
       InvocationTargetException {
     userDao = (UserDao) userDaoConstruct.newInstance(true, false, false, false, false, false, true);
     userUcc = (UserUcc) userUccConstruct.newInstance(bizFactory, userDao, dalServices);
-    assertThrows(IllegalArgumentException.class,
-        () -> userUcc.login(userDto.getEmail(), "Jaune;10."));
+    assertThrows(FatalException.class, () -> userUcc.login(userDto.getEmail(), "Jaune;10."));
   }
 
 
@@ -197,7 +198,7 @@ class TestUserUcc {
     userDao = (UserDao) userDaoConstruct.newInstance(false, true, false, false, false, false, true);
     userUcc = (UserUcc) userUccConstruct.newInstance(bizFactory, userDao, dalServices);
     userDto.setEmail("samuel.vancampenhout@student.vinci.be");
-    assertThrows(IllegalArgumentException.class, () -> userUcc.sinscrire(userDto));
+    assertThrows(FatalException.class, () -> userUcc.sinscrire(userDto));
   }
 
   @Test
@@ -246,7 +247,7 @@ class TestUserUcc {
     userDao =
         (UserDao) userDaoConstruct.newInstance(false, false, false, false, false, false, true);
     userUcc = (UserUcc) userUccConstruct.newInstance(bizFactory, userDao, dalServices);
-    assertThrows(IllegalArgumentException.class,
+    assertThrows(FatalException.class,
         () -> userUcc.confirmerInscription(userDto, bizFactory.getClientDto(), 'C'));
   }
 
@@ -277,7 +278,7 @@ class TestUserUcc {
     userDao =
         (UserDao) userDaoConstruct.newInstance(false, false, false, false, false, false, true);
     userUcc = (UserUcc) userUccConstruct.newInstance(bizFactory, userDao, dalServices);
-    assertThrows(IllegalStateException.class, () -> userUcc.getUtilisateurs());
+    assertThrows(FatalException.class, () -> userUcc.getUtilisateurs());
   }
 
   @Test
@@ -309,6 +310,6 @@ class TestUserUcc {
         (UserDao) userDaoConstruct.newInstance(false, false, false, false, false, false, true);
     userUcc = (UserUcc) userUccConstruct.newInstance(bizFactory, userDao, dalServices);
     userDto.setStatut(' ');
-    assertThrows(IllegalStateException.class, () -> userUcc.voirUtilisateurEnAttente());
+    assertThrows(FatalException.class, () -> userUcc.voirUtilisateurEnAttente());
   }
 }

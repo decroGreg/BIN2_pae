@@ -10,6 +10,7 @@ import be.ipl.pae.biz.interfaces.Factory;
 import be.ipl.pae.dal.daoservices.DaoServices;
 import be.ipl.pae.dal.daoservices.DaoServicesUcc;
 import be.ipl.pae.dal.interfaces.ClientDao;
+import be.ipl.pae.exceptions.FatalException;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -81,6 +82,6 @@ class TestClientUcc {
 
     clientDao = (ClientDao) clientDaoConstruct.newInstance(false, false, false, true);
     clientUcc = (ClientUcc) clientUccConstruct.newInstance(bizFactory, clientDao, dalServices);
-    assertThrows(IllegalStateException.class, () -> clientUcc.getClients());
+    assertThrows(FatalException.class, () -> clientUcc.getClients());
   }
 }

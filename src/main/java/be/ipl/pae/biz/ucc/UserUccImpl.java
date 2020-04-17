@@ -83,7 +83,7 @@ public class UserUccImpl implements UserUcc {
       userDb = userDao.getUserViaId(id);
     } catch (DalException dal) {
       dal.printStackTrace();
-      throw new IllegalArgumentException();
+      throw new FatalException(dal.getMessage());
     }
     return userDb;
   }
@@ -107,7 +107,7 @@ public class UserUccImpl implements UserUcc {
         throw new BizException("Email incorrect");
       }
       if (!user.checkMotDePasse(userDb.getMotDePasse())) {
-        throw new BizException("Mot de passe incorrect");
+        return null;
       }
       userDb.setMotDePasse(null);
       return userDb;

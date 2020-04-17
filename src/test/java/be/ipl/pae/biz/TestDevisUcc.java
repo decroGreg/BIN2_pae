@@ -15,6 +15,7 @@ import be.ipl.pae.dal.interfaces.ClientDao;
 import be.ipl.pae.dal.interfaces.DevisDao;
 import be.ipl.pae.dal.interfaces.UserDao;
 import be.ipl.pae.exceptions.BizException;
+import be.ipl.pae.exceptions.FatalException;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -101,8 +102,7 @@ class TestDevisUcc {
     devisDao = (DevisDao) devisDaoConstruct.newInstance(false, false, false, false, false, true);
     devisUcc = (DevisUcc) devisUccConstruct.newInstance(bizFactory, devisDao, userDao, clientDao,
         amenagementDao, dalServices);
-    assertThrows(IllegalArgumentException.class,
-        () -> devisUcc.voirDevis(bizFactory.getClientDto()));
+    assertThrows(FatalException.class, () -> devisUcc.voirDevis(bizFactory.getClientDto()));
   }
 
   @Test
@@ -133,7 +133,7 @@ class TestDevisUcc {
     devisDao = (DevisDao) devisDaoConstruct.newInstance(false, false, false, false, false, true);
     devisUcc = (DevisUcc) devisUccConstruct.newInstance(bizFactory, devisDao, userDao, clientDao,
         amenagementDao, dalServices);
-    assertThrows(IllegalArgumentException.class, () -> devisUcc.voirDevis());
+    assertThrows(FatalException.class, () -> devisUcc.voirDevis());
   }
 
   @Test
@@ -179,7 +179,7 @@ class TestDevisUcc {
     devisUcc = (DevisUcc) devisUccConstruct.newInstance(bizFactory, devisDao, userDao, clientDao,
         amenagementDao, dalServices);
     List<String> listIdTypeAmenagement = new ArrayList<String>();
-    assertThrows(IllegalArgumentException.class,
+    assertThrows(FatalException.class,
         () -> devisUcc.introduireDevis(null, 0, devisDto, listIdTypeAmenagement));
   }
 
@@ -205,8 +205,8 @@ class TestDevisUcc {
     devisUcc = (DevisUcc) devisUccConstruct.newInstance(bizFactory, devisDao, userDao, clientDao,
         amenagementDao, dalServices);
     List<String> listIdTypeAmenagement = new ArrayList<String>();
-    assertThrows(IllegalArgumentException.class, () -> devisUcc
-        .introduireDevis(bizFactory.getClientDto(), 1, devisDto, listIdTypeAmenagement));
+    assertThrows(FatalException.class, () -> devisUcc.introduireDevis(bizFactory.getClientDto(), 1,
+        devisDto, listIdTypeAmenagement));
   }
 
   /**
@@ -262,6 +262,6 @@ class TestDevisUcc {
     devisDao = (DevisDao) devisDaoConstruct.newInstance(false, false, false, false, false, true);
     devisUcc = (DevisUcc) devisUccConstruct.newInstance(bizFactory, devisDao, userDao, clientDao,
         amenagementDao, dalServices);
-    assertThrows(IllegalArgumentException.class, () -> devisUcc.confirmerDateDebut(devisDto));
+    assertThrows(FatalException.class, () -> devisUcc.confirmerDateDebut(devisDto));
   }
 }

@@ -10,6 +10,7 @@ import be.ipl.pae.biz.interfaces.TypeDAmenagementUcc;
 import be.ipl.pae.dal.daoservices.DaoServices;
 import be.ipl.pae.dal.daoservices.DaoServicesUcc;
 import be.ipl.pae.dal.interfaces.TypeDAmenagementDao;
+import be.ipl.pae.exceptions.FatalException;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -87,6 +88,6 @@ class TestTypeDAmenagementUcc {
         (TypeDAmenagementDao) typeDAmenagementDaoConstruct.newInstance(false, true);
     typeDAmenagementUcc = (TypeDAmenagementUcc) typeDAmenagementUccConstruct.newInstance(bizFactory,
         typeDAmenagementDao, dalServices);
-    assertThrows(IllegalArgumentException.class, () -> typeDAmenagementUcc.voirTypeDAmenagement());
+    assertThrows(FatalException.class, () -> typeDAmenagementUcc.voirTypeDAmenagement());
   }
 }
