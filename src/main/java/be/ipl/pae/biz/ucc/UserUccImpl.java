@@ -9,6 +9,7 @@ import be.ipl.pae.dal.daoservices.DaoServicesUcc;
 import be.ipl.pae.dal.interfaces.UserDao;
 import be.ipl.pae.exceptions.BizException;
 import be.ipl.pae.exceptions.DalException;
+import be.ipl.pae.exceptions.FatalException;
 
 import java.sql.Timestamp;
 import java.time.LocalDate;
@@ -47,7 +48,7 @@ public class UserUccImpl implements UserUcc {
         throw new BizException("Format de l'email incorrect");
       }
       if (!user.encryptMotDePasse()) {
-        throw new IllegalArgumentException("Erreur lors du cryptage du mot de passe");
+        throw new FatalException("Erreur lors du cryptage du mot de passe");
       }
       try {
         daoServicesUcc.demarrerTransaction();
@@ -66,7 +67,7 @@ public class UserUccImpl implements UserUcc {
 
       } catch (DalException de) {
         daoServicesUcc.rollback();
-        throw new IllegalArgumentException();
+        throw new FatalException(de.getMessage());
       }
     } else {
       throw new BizException("Inscription impossible, infos manquantes");
@@ -85,7 +86,7 @@ public class UserUccImpl implements UserUcc {
         userDb = userDao.getUserConnexion(user.getEmail());
       } catch (DalException de) {
         daoServicesUcc.rollback();
-        throw new IllegalArgumentException();
+        throw new FatalException(de.getMessage());
       }
       daoServicesUcc.commit();
       if (userDb == null) {
@@ -109,7 +110,7 @@ public class UserUccImpl implements UserUcc {
       utilisateurs = userDao.voirTousUser();
     } catch (DalException de) {
       daoServicesUcc.rollback();
-      throw new IllegalStateException();
+      throw new FatalException(de.getMessage());
     }
     daoServicesUcc.commit();
     return Collections.unmodifiableList(utilisateurs);
@@ -128,7 +129,7 @@ public class UserUccImpl implements UserUcc {
       userDao.lierClientUser(client.getIdClient(), utilisateur.getIdUser());
     } catch (DalException de) {
       daoServicesUcc.rollback();
-      throw new IllegalArgumentException();
+      throw new FatalException(de.getMessage());
     }
     daoServicesUcc.commit();
   }
@@ -141,7 +142,7 @@ public class UserUccImpl implements UserUcc {
       listeUtilisateursNonConfirmes = userDao.voirUserPasConfirmer();
     } catch (DalException de) {
       daoServicesUcc.rollback();
-      throw new IllegalStateException();
+      throw new FatalException(de.getMessage());
     }
     daoServicesUcc.commit();
     return Collections.unmodifiableList(listeUtilisateursNonConfirmes);

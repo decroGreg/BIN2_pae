@@ -6,6 +6,8 @@ import be.ipl.pae.biz.interfaces.PhotoUcc;
 import be.ipl.pae.dal.daoservices.DaoServicesUcc;
 import be.ipl.pae.dal.interfaces.PhotoDao;
 import be.ipl.pae.exceptions.BizException;
+import be.ipl.pae.exceptions.DalException;
+import be.ipl.pae.exceptions.FatalException;
 
 public class PhotoUccImpl implements PhotoUcc {
 
@@ -35,9 +37,9 @@ public class PhotoUccImpl implements PhotoUcc {
         daoServicesUcc.demarrerTransaction();
         // photoDao.introduirePhotoAvantAmenagement(photo);
         daoServicesUcc.commit();
-      } catch (Exception ex) {
+      } catch (DalException de) {
         daoServicesUcc.rollback();
-        throw new IllegalArgumentException();
+        throw new FatalException(de.getMessage());
       }
     } else {
       throw new BizException("Ajout de photo impossible, infos manquantes");

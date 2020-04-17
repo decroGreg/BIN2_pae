@@ -6,6 +6,7 @@ import be.ipl.pae.biz.interfaces.TypeDAmenagementUcc;
 import be.ipl.pae.dal.daoservices.DaoServicesUcc;
 import be.ipl.pae.dal.interfaces.TypeDAmenagementDao;
 import be.ipl.pae.exceptions.DalException;
+import be.ipl.pae.exceptions.FatalException;
 
 import java.util.Collections;
 import java.util.List;
@@ -39,7 +40,7 @@ public class TypeDAmenagementUccImpl implements TypeDAmenagementUcc {
       typeDAmenagement = typeDAmenagementDao.voirTypeDAmenagement();
     } catch (DalException de) {
       daoServicesUcc.rollback();
-      throw new IllegalArgumentException();
+      throw new FatalException(de.getMessage());
     }
     daoServicesUcc.commit();
     return Collections.unmodifiableList(typeDAmenagement);

@@ -6,6 +6,7 @@ import be.ipl.pae.biz.interfaces.Factory;
 import be.ipl.pae.dal.daoservices.DaoServicesUcc;
 import be.ipl.pae.dal.interfaces.ClientDao;
 import be.ipl.pae.exceptions.DalException;
+import be.ipl.pae.exceptions.FatalException;
 
 import java.util.Collections;
 import java.util.List;
@@ -38,7 +39,7 @@ public class ClientUccImpl implements ClientUcc {
       clients = clientDao.voirTousClient();
     } catch (DalException de) {
       daoServicesUcc.rollback();
-      throw new IllegalStateException();
+      throw new FatalException(de.getMessage());
     }
     daoServicesUcc.commit();
     return Collections.unmodifiableList(clients);

@@ -18,4 +18,6 @@ public interface DevisUcc {
       List<String> listeIdTypeAmenagement);
 
   void confirmerDateDebut(DevisDto devis);
+
+  void changerEtat(DevisDto devis);
 }

@@ -12,6 +12,7 @@ import be.ipl.pae.dal.interfaces.DevisDao;
 import be.ipl.pae.dal.interfaces.UserDao;
 import be.ipl.pae.exceptions.BizException;
 import be.ipl.pae.exceptions.DalException;
+import be.ipl.pae.exceptions.FatalException;
 
 import java.util.Collections;
 import java.util.List;
@@ -53,7 +54,7 @@ public class DevisUccImpl implements DevisUcc {
       devis = devisDao.getDevisClient(client);
     } catch (DalException de) {
       daoServicesUcc.rollback();
-      throw new IllegalArgumentException();
+      throw new FatalException(de.getMessage());
     }
     daoServicesUcc.commit();
     return Collections.unmodifiableList(devis);
@@ -68,7 +69,7 @@ public class DevisUccImpl implements DevisUcc {
       devis = devisDao.voirTousDevis();
     } catch (DalException de) {
       daoServicesUcc.rollback();
-      throw new IllegalArgumentException();
+      throw new FatalException(de.getMessage());
     }
     daoServicesUcc.commit();
     return Collections.unmodifiableList(devis);
@@ -108,7 +109,7 @@ public class DevisUccImpl implements DevisUcc {
     } catch (DalException de) {
       de.printStackTrace();
       daoServicesUcc.rollback();
-      throw new IllegalArgumentException();
+      throw new FatalException(de.getMessage());
     }
     daoServicesUcc.commit();
   }
@@ -122,8 +123,12 @@ public class DevisUccImpl implements DevisUcc {
       }
     } catch (DalException de) {
       daoServicesUcc.rollback();
-      throw new IllegalArgumentException();
+      throw new FatalException(de.getMessage());
     }
     daoServicesUcc.commit();
+  }
+
+  public void changerEtat(DevisDto devis) {
+
   }
 }
