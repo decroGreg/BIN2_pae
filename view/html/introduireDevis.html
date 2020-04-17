@@ -1,0 +1,102 @@
+<!-----------------------------------------introduire un devis---------------------------------------------->
+        
+<section id="introductionQuoteForm" class="border border-dark" style="margin:10%; border-radius: 10px;">       
+    <div><!-----------------------------------------introduire un nouveau client---------------------------------------------->
+      <button class="btn btn-primary" data-toggle="collapse" data-target="#new-Client">nouveau client <span class="glyphicon glyphicon-chevron-down"></span></button>
+      <div id="new-Client" class="collapse border border-dark" style="margin:1%; border-radius: 10px;">
+        <form style="margin:1%; align-items: center;" >
+          <div class="form-row">
+            <div class="form-group col-md-3">
+              <label for="Quote-Form-firstName">Prénom</label>
+              <input type="text" class="form-control" id="Quote-Form-firstName" placeholder="Prénom*" required>
+            </div>
+            <div class="form-group col-md-3">
+              <label for="Quote-Form-name">nom</label>
+              <input type="text" class="form-control" id="Quote-Form-name" placeholder="nom*">
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group col-md-3">
+              <label for="Quote-Form-street">Rue</label>
+              <input type="text" class="form-control" id="Quote-Form-street" placeholder="Rue*">
+            </div>
+            <div class="form-group col-md-3">
+              <label for="Quote-Form-number">Numéro</label>
+              <input type="text" class="form-control" id="Quote-Form-number" placeholder="Numéro*">
+            </div>
+            <div class="form-group col-md-3">
+              <label for="Quote-Form-boite">Boîte</label>
+              <input type="text" class="form-control" id="Quote-Form-boite" placeholder="Boîte*">
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group col-md-3">
+              <label for="Quote-Form-postalCode">Code Postal</label>
+              <input type="number" class="form-control" id="Quote-Form-postalCode" placeholder="Code Postal*">
+            </div>
+            <div class="form-group col-md-3">
+              <label for="Quote-Form-city">Ville</label>
+              <input type="text" class="form-control" id="Quote-Form-city" placeholder="Ville*">
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group col-md-3">
+              <label for="Quote-Form-email">Email</label>
+              <input type="email" class="form-control" id="Quote-Form-email" placeholder="Email*">
+            </div>
+            <div class="form-group col-md-3">
+              <label for="Quote-Form-phoneNumber">num Telephone</label>
+              <input type="tel" class="form-control" id="Quote-Form-phoneNumber" placeholder="num*">
+            </div>
+          </div>
+        
+        </form>
+        
+      </div>
+      <form id="Quote-Form" style="margin:2%;">
+        <div class="form-row">
+          <div class="form-group col-md-3">
+            <div class="dropdown-Client">
+              <button class="btn btn-secondary dropdown-toggle" id="Quote-Form-Client-dropdown" type="button" data-toggle="dropdown">lié au client<span class="caret"></span></button>
+              <ul class="dropdown-menu" id="Quote-Form-Client-items">
+                <input class="form-control" id="Quote-Form-Client-Search" type="text" placeholder="Search..">
+              </ul>
+            </div>
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group col-md-3">
+            <label for="Quote-Form-quoteDate">date du devis</label>
+            <input type="date" class="form-control Quote" id="Quote-Form-quoteDate" placeholder="date*" required>
+          </div>
+          <div class="form-group col-md-3">
+            <label for="Quote-Form-price">Prix</label>
+            <input type="number" class="form-control Quote" id="Quote-Form-price" placeholder="prix*" required>
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group col-md-3">
+            <label for="Quote-Form-duration">Duree</label>
+            <input type="text" class="form-control Quote" id="Quote-Form-duration" placeholder="Duree*" required>
+          </div>
+          <div class="form-group col-md-3">
+            <label for="Quote-Form-image">Image</label>
+            <input type="file" name="image" id="Quote-Form-image">
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group col-md-8" id="div-Quote-Form-layoutType">
+            <input type="button" class="btn btn-primary" data-toggle="collapse" data-target="#Quote-Form-layoutType" value="Type d'aménagement">
+            <div id="Quote-Form-layoutType"></div>
+          </div>
+         
+          <div class="form-group col-md-3" style="text-align: right;">
+            <input type="submit" id="bnt-IntroductionQuote" class="btn btn-danger"  value="Introduire">
+          </div>
+
+
+      </form>
+    </div>
+    <img id="imageQuote"src="#"/>
+  </section>
+  

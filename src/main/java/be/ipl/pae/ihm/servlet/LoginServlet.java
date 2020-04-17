@@ -39,20 +39,31 @@ public class LoginServlet extends HttpServlet {
 
     Genson genson = new Genson();
     String token = req.getHeader("Authorization");
+    token = token.replace("Bearer", "");
+
+    System.out.println(token);
     DecodedJWT decode = JWT.decode(token);
     int id = (int) decode.getClaim("claims").asMap().get("id");
-    /*
-     * try {
-     * 
-     * // methode permettant de récupérer l'utilisateur via l'id; } catch (Exception e) { methode
-     * a venir
-     * 
-     * }
-     */
+    try {
+      userDto = userUcc.loginViaToken(id);
+
+    } catch (Exception e) {
+      e.printStackTrace();
+      String json = "{\"success\":\"false\"}";
+      System.out.println("JSON generated :" + json);
+      resp.setContentType("application/json");
+      resp.setCharacterEncoding("UTF-8");
+
+      resp.setStatus(HttpServletResponse.SC_OK);
+      resp.getWriter().write(json);
+      return;
+    }
+
     String userData = genson.serialize(userDto);
 
-    String json =
-        "{\"success\":\"true\", \"token\":\"" + token + "\", \"userData\":\"" + userData + "\"}";
+
+    String json = "{\"success\":\"true\",\"userData\":" + userData + ",\"message\":\""
+        + "login reussit" + "\"}";
     System.out.println("JSON generated :" + json);
     resp.setContentType("application/json");
 
@@ -91,16 +102,14 @@ public class LoginServlet extends HttpServlet {
               JWT.create().withIssuer("auth0").withClaim("claims", claims).sign(algorithm);
 
           String userData = genson.serialize(userDto);
-
+          // *********************************************
 
           String json = "{\"success\":\"true\", \"token\":\"" + ltoken + "\", \"userData\":"
               + userData + ",\"message\":\"" + "login reussit" + "\"}";
           System.out.println("JSON generated :" + json);
           resp.setContentType("application/json");
-
-          resp.setCharacterEncoding("UTF-8");
-
           resp.setStatus(HttpServletResponse.SC_OK);
+
           resp.getWriter().write(json);
         }
       } catch (BizException biz) {
@@ -122,9 +131,11 @@ public class LoginServlet extends HttpServlet {
       resp.setContentType("application/json");
       resp.setCharacterEncoding("UTF-8");
       resp.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
-      String json = "{\"error\":\"false\",\"message\":\"" + exc.getMessage() + "\"}";
+      String json = "{\"error\":\"false\",\"message\":\""
+          + HttpServletResponse.SC_INTERNAL_SERVER_ERROR + exc.getMessage() + "\"}";
       resp.getWriter().write(json);
     }
+
 
 
   }

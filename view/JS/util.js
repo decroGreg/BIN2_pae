@@ -89,4 +89,13 @@ function putData(url="",token,data={},onGet,onError){
       });
       
 }
-export{postData,getData,deleteData,putData};
+//methode trouver sur: https://stackoverflow.com/questions/494143/creating-a-new-dom-element-from-an-html-string-using-built-in-dom-methods-or-pro
+function creatHTMLFromString(htmlString){
+  var div = document.createElement('div');
+  div.innerHTML = htmlString.trim();
+
+  // Change this to div.childNodes to support multiple top-level nodes
+  return div.firstChild; 
+}
+
+export{postData,getData,deleteData,putData,creatHTMLFromString};

@@ -9,6 +9,8 @@ public interface UserDao {
 
   UserDto getUserConnexion(String email);
 
+  public UserDto getUserViaId(int id);
+
   boolean createInscription(UserDto userDto);
 
   List<UserDto> voirTousUser();

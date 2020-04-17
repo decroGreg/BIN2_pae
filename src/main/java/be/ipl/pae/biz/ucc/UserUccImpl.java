@@ -75,6 +75,20 @@ public class UserUccImpl implements UserUcc {
   }
 
   @Override
+  public UserDto loginViaToken(int id) {
+    User user = (User) bizFactory.getUserDto();
+    UserDto userDb = null;
+    try {
+      daoServicesUcc.demarrerTransaction();
+      userDb = userDao.getUserViaId(id);
+    } catch (DalException dal) {
+      dal.printStackTrace();
+      throw new IllegalArgumentException();
+    }
+    return userDb;
+  }
+
+  @Override
   public UserDto login(String email, String motDePasse) {
     User user = (User) bizFactory.getUserDto();
     user.setEmail(email);

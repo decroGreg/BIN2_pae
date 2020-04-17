@@ -29,6 +29,35 @@ public class UserDaoImpl implements UserDao {
     factory = new FactoryImpl();
   }
 
+  public UserDto getUserViaId(int id) {
+    UserDto userD = factory.getUserDto();
+    String requeteSql = "SELECT * FROM init.utilisateurs WHERE id_utilisateur=?";
+    ps = services.getPreparedSatement(requeteSql);
+    try {
+      ps.setInt(1, id);
+      try (ResultSet rs = ps.executeQuery()) {
+        while (rs.next()) {
+          userD.setIdUser(rs.getInt(1));
+          userD.setPseudo(rs.getString(2));
+          userD.setNom(rs.getString(3));
+          userD.setPrenom(rs.getString(4));
+          userD.setVille(rs.getString(5));
+          userD.setEmail(rs.getString(6));
+          String status = rs.getString(9);
+          if (status != null) {
+            userD.setStatut(status.charAt(0));
+          }
+        }
+      } catch (SQLException sql) {
+        sql.printStackTrace();
+      }
+    } catch (SQLException sql) {
+      sql.printStackTrace();
+      System.exit(1);
+    }
+    return userD;
+  }
+
   @Override
   public UserDto getUserConnexion(String email) {
     UserDto userD = factory.getUserDto();
