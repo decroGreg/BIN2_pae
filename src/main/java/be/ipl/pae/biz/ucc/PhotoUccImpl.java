@@ -1,5 +1,6 @@
 package be.ipl.pae.biz.ucc;
 
+import be.ipl.pae.biz.dto.AmenagementDto;
 import be.ipl.pae.biz.interfaces.Factory;
 import be.ipl.pae.biz.interfaces.Photo;
 import be.ipl.pae.biz.interfaces.PhotoUcc;
@@ -36,13 +37,32 @@ public class PhotoUccImpl implements PhotoUcc {
       try {
         daoServicesUcc.demarrerTransaction();
         // photoDao.introduirePhotoAvantAmenagement(photo);
-        daoServicesUcc.commit();
       } catch (DalException de) {
         daoServicesUcc.rollback();
         throw new FatalException(de.getMessage());
       }
+      daoServicesUcc.commit();
     } else {
       throw new BizException("Ajout de photo impossible, infos manquantes");
     }
+  }
+
+  @Override
+  public void ajouterPhotoApresAmenagement(AmenagementDto amenagementDto, String urlPhoto) {
+    try {
+      daoServicesUcc.demarrerTransaction();
+      // DevisDto devis = devisDao.findUserById(amenagementDto.getIdDevis());
+      /**
+       * if(devis == null) { throw new BizException("Pas devis trouvé pour cette id"); }
+       */
+      /**
+       * if(devis.getEtat().equals(Etat.V){
+       * photoDao.introduirePhotoApresAmenagement(amenagementDto,urlPhoto); }
+       */
+    } catch (DalException de) {
+      daoServicesUcc.rollback();
+      throw new FatalException(de.getMessage());
+    }
+    daoServicesUcc.commit();
   }
 }

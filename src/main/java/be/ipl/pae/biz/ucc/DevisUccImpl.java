@@ -3,6 +3,7 @@ package be.ipl.pae.biz.ucc;
 import be.ipl.pae.biz.dto.ClientDto;
 import be.ipl.pae.biz.dto.DevisDto;
 import be.ipl.pae.biz.impl.DevisImpl.Etat;
+import be.ipl.pae.biz.interfaces.Devis;
 import be.ipl.pae.biz.interfaces.DevisUcc;
 import be.ipl.pae.biz.interfaces.Factory;
 import be.ipl.pae.dal.daoservices.DaoServicesUcc;
@@ -128,7 +129,32 @@ public class DevisUccImpl implements DevisUcc {
     daoServicesUcc.commit();
   }
 
-  public void changerEtat(DevisDto devis) {
+  @Override
+  public void changerEtat(DevisDto devisDto) {
+    Devis devis = (Devis) devisDto;
+    if (devis.checkEtat()) {
+      try {
+        // devisDto.changerEtat(devisDto);
+      } catch (DalException de) {
+        daoServicesUcc.rollback();
+        throw new FatalException(de.getMessage());
+      }
+      daoServicesUcc.commit();
+    } else {
+      throw new BizException("L'etat de devis est incorrect");
+    }
+  }
 
+  public void choisirPhotoPreferee(DevisDto devisDto, int idPhoto) {
+    try {
+      daoServicesUcc.demarrerTransaction();
+      if (devisDto.getEtat().equals(Etat.V)) {
+        // devisDao.ajouterPhotoPreferee(devisDto,idPhoto);
+      }
+    } catch (DalException de) {
+      daoServicesUcc.rollback();
+      throw new FatalException(de.getMessage());
+    }
+    daoServicesUcc.commit();
   }
 }
