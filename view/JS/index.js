@@ -74,7 +74,6 @@ $(document).ready(e=>{
  
     $("#homePage").click(viewHomePage);
     $("#btn-connexion").click(e=>{
-            console.log($("#login-email").val());
             let data={};
             data.mail=$("#login-email").val();
             data.mdp=$("#login-pwd").val();
@@ -310,7 +309,7 @@ function onPostLoginToken(response){
                 user=response.userData;
                 console.log("user"+user.idUser);
                 viewAuthentification(user);
-        }else{
+        }else{ 
                 console.log(response.message);
                 $("#error-notification").fadeIn('slow').delay(1000).fadeOut('slow');
                 $("#error-notification").text(response.message);
