@@ -111,6 +111,7 @@ public class LoginServlet extends HttpServlet {
           resp.setStatus(HttpServletResponse.SC_OK);
 
           resp.getWriter().write(json);
+
         }
       } catch (BizException biz) {
         // TODO: handle exception
