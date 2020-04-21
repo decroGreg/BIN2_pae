@@ -24,6 +24,7 @@ import be.ipl.pae.dal.interfaces.ClientDao;
 import be.ipl.pae.dal.interfaces.DevisDao;
 import be.ipl.pae.dal.interfaces.TypeDAmenagementDao;
 import be.ipl.pae.dal.interfaces.UserDao;
+import be.ipl.pae.ihm.servlet.ChangementEtatDevisServlet;
 import be.ipl.pae.ihm.servlet.ConfirmationRegisterServlet;
 import be.ipl.pae.ihm.servlet.DetailsDevisServlet;
 import be.ipl.pae.ihm.servlet.IndexServlet;
@@ -111,9 +112,13 @@ public class Main {
     context.addServlet(new ServletHolder(confirmationServlet), "/confirmation");
 
 
-
     HttpServlet detailsDevis = new DetailsDevisServlet(userUcc, userDto, devisUcc);
     context.addServlet(new ServletHolder(detailsDevis), "/detailsDevis");
+
+    HttpServlet changementEtatDevis = new ChangementEtatDevisServlet(devisDto, devisUcc);
+    context.addServlet(new ServletHolder(changementEtatDevis), "/changementEtatDevis");
+
+
     context.setWelcomeFiles(new String[] {"index.html"});
     context.setResourceBase("view");
     server.setHandler(context);

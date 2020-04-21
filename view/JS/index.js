@@ -1,12 +1,12 @@
 "use-strict";
 import {postData,getData,deleteData,putData,creatHTMLFromString} from "./util.js" ;
-import{viewAuthentification,viewLogin,onPostRegister} from "./connexion.js"
+import{viewAuthentification,viewLogin,onPostRegister} from "./connexion.js";
 import{onGetRegisterConfirmation,viewRegisterConfirmation} from "./confirmerInscription.js";
-import{onGetAmenagements,onGetClientQuoteForm,filterSearchClient,viewIntroductionQuote} from "./introduireDevis.js"
-import{afficherClients} from "./afficherClients.js";
-import{afficherDevis, afficherDevisClient} from "./afficherDevis.js";
-import{afficherUtilisateurs} from "./afficherUtilisateurs.js";
-import{afficherDetailsDevis, viewDevisDC, viewDevisDDI, changerEtat, changerValeurBouton} from "./detailsDevis.js";
+import{onGetAmenagements,onGetClientQuoteForm,filterSearchClient,viewIntroductionQuote} from "./introduireDevis.js";
+import{afficherClients, viewListeClients} from "./afficherClients.js";
+import{afficherDevis, afficherDevisClient, viewListeDevis} from "./afficherDevis.js";
+import{afficherUtilisateurs, viewListeUtilisateurs} from "./afficherUtilisateurs.js";
+import{afficherDetailsDevis, changerEtat, changerValeurBouton} from "./detailsDevis.js";
 
 
 const OUVRIER="O";
@@ -196,18 +196,18 @@ $(document).ready(e=>{
     $("#btn-search-category").click(e=>{
     	e.preventDefault();
         if($("#search-option-category").val()=="utilisateur"){
-            allHide();
-            $("#voir-utilisateurs").show();
+        	viewListeUtilisateurs();
+            //$("#voir-utilisateurs").show();
             getData("/listeUsers",token,afficherUtilisateurs,onError);
         }
         if($("#search-option-category").val()=="devis"){
-        	allHide();
-        	$("#voir-devis").show();
+        	viewListeDevis();
+        	//$("#voir-devis").show();
         	getData("/listeDevis",token,afficherDevis,onError);
         }
         if($("#search-option-category").val()=="client"){
-        	allHide();
-        	$("#voir-clients").show();
+        	viewListeClients();
+        	//$("#voir-clients").show();
             getData("/listeClients",token,afficherClients,onError);
         }
         

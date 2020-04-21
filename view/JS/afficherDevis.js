@@ -19,7 +19,6 @@ function afficherDevis(response){
         data.idDevis=$(e.target).text();
         console.log("Reference devis : " + data.idDevis);
         postData("/detailsDevis",data,token, afficherDetailsDevis, onError);
-        //getData("/detailsDevis", token, afficherDetailDevis, onError);
     });
 }
 
@@ -37,4 +36,21 @@ function afficherDevisClient(response){
 	});
 }
 
-export{afficherDevis, afficherDevisClient};
+function viewListeDevis(){
+	$("#login").hide();
+    $("#btn-deconnexion").hide();
+    $("#wrong_passwd").hide();
+    $("#test1").hide();
+    $("#carousel").hide();
+    $("#Register-confirmation").hide();
+    $("#introductionQuoteForm").hide();
+    $("#voir-details-devis").hide();
+    $("#voir-details-devis-DC").hide();
+    $("#voir-details-devis-DDI").hide();
+    $("#voir-clients").hide();
+    $("#voir-devis-client").hide();
+    $("#voir-utilisateurs").hide();
+    $("#voir-devis").show();
+}
+
+export{afficherDevis, afficherDevisClient, viewListeDevis};

@@ -46,12 +46,14 @@ public class IndexServlet extends DefaultServlet {
             new String(Files.readAllBytes(Paths.get("./view/html/voirUtilisateurs.html")));
         resp.getOutputStream()
             .println(indexFile + connexionFile + introduireDevisFile + confirmerInscriptionFile);
+
         /*
          * resp.getOutputStream() .println(indexFile + connexionFile + introduireDevisFile +
          * confirmerInscriptionFile + voirClientsFile + voirDevisFile + voirDetailsDevisFile +
          * voirDetailsDevisDCFile + voirDetailsDevisDDIFile + voirDevisClientFile +
          * voirUtilisateursFile);
          */
+
       } catch (Exception e) {
 
       }

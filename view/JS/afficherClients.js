@@ -13,4 +13,21 @@ function afficherClients(response){
 	});
 }
 
-export{afficherClients};
+function viewListeClients(){
+	$("#login").hide();
+    $("#btn-deconnexion").hide();
+    $("#wrong_passwd").hide();
+    $("#test1").hide();
+    $("#carousel").hide();
+    $("#Register-confirmation").hide();
+    $("#introductionQuoteForm").hide();
+    $("#voir-details-devis").hide();
+    $("#voir-details-devis-DC").hide();
+    $("#voir-details-devis-DDI").hide();
+    $("#voir-devis").hide();
+    $("#voir-devis-client").hide();
+    $("#voir-utilisateurs").hide();
+    $("#voir-clients").show();
+}
+
+export{afficherClients, viewListeClients};
