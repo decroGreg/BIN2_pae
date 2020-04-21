@@ -1,5 +1,5 @@
-import {postData,getData,deleteData,putData} from "./util.js" ;
-
+import {putData,onError} from "./util.js" ;
+import {allHide} from "./index.js";
 function afficherDetailsDevis(response){
 	console.log(JSON.stringify(response.devisData));
     allHide();

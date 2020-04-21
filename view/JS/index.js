@@ -1,12 +1,12 @@
 "use-strict";
-import {postData,getData,deleteData,putData,creatHTMLFromString} from "./util.js" ;
+import {postData,getData,onError} from "./util.js" ;
 import{viewAuthentification,viewLogin,onPostRegister} from "./connexion.js"
 import{onGetRegisterConfirmation,viewRegisterConfirmation} from "./confirmerInscription.js";
 import{onGetAmenagements,onGetClientQuoteForm,filterSearchClient,viewIntroductionQuote} from "./introduireDevis.js"
 import{afficherClients} from "./afficherClients.js";
 import{afficherDevis, afficherDevisClient} from "./afficherDevis.js";
 import{afficherUtilisateurs} from "./afficherUtilisateurs.js";
-import{afficherDetailsDevis, viewDevisDC, viewDevisDDI, changerEtat, changerValeurBouton} from "./detailsDevis.js";
+//import{afficherDetailsDevis, viewDevisDC, viewDevisDDI, changerEtat, changerValeurBouton} from "./detailsDevis.js";
 
 
 const OUVRIER="O";
@@ -324,12 +324,6 @@ function onPostLoginToken(response){
 
 
 
-function onError(response){
-        console.log("Erreur");
-        $("#error-notification").fadeIn('slow').delay(1000).fadeOut('slow');
-        $("#error-notification").text(response.message);
-}
-
 function mesDevis(){
 	$("#voir-devis-client").show();	
 	let data={};
@@ -338,5 +332,6 @@ function mesDevis(){
 	postData("/listeDevisClient",data,token,afficherDevisClient,onError);
 }
 
+export{token,allHide};
 /////////////////////////////////////////////////////////////////////////////////////////////test////////////////////////
 

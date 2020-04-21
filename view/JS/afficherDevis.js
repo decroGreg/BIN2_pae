@@ -1,5 +1,6 @@
+import{token} from "./index.js";
 import{afficherDetailsDevis} from "./detailsDevis.js";
-import {postData,getData,deleteData,putData} from "./util.js" ;
+import {postData,onError} from "./util.js" ;
 
 function afficherDevis(response){
 	Object.keys(response.devisData).forEach(data => {

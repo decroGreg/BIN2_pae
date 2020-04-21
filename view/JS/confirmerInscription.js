@@ -1,4 +1,4 @@
-import {creatHTMLFromString} from "./util.js" ;
+import {creatHTMLFromString,onError} from "./util.js" ;
 var i=0;//permet d'afficher la meme liste des clients pour des bouttonsdifférentss
 //affiche les demandes d'inscription dans un tableau
 function onGetRegisterConfirmation(response){
