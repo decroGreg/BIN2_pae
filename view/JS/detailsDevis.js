@@ -60,7 +60,7 @@ function afficherDetailsDevis(response){
 	});
 	$("btn-ajouter-photo").click(e=>{
 		e.preventDefault();
-		ajouterPhoto();
+		//ajouterPhoto();
 	});
 	$("btn-photo-preferee").click(e=>{
 		e.preventDefault();
