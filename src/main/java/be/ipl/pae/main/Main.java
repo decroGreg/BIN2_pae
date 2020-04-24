@@ -112,10 +112,10 @@ public class Main {
     context.addServlet(new ServletHolder(confirmationServlet), "/confirmation");
 
 
-    HttpServlet detailsDevis = new DetailsDevisServlet(userUcc, userDto, devisUcc);
+    HttpServlet detailsDevis = new DetailsDevisServlet(userUcc, userDto, devisUcc, clientUcc);
     context.addServlet(new ServletHolder(detailsDevis), "/detailsDevis");
 
-    HttpServlet changementEtatDevis = new ChangementEtatDevisServlet(devisDto, devisUcc);
+    HttpServlet changementEtatDevis = new ChangementEtatDevisServlet(devisDto, devisUcc, clientUcc);
     context.addServlet(new ServletHolder(changementEtatDevis), "/changementEtatDevis");
 
 

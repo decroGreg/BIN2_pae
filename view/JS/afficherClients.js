@@ -1,4 +1,5 @@
 function afficherClients(response){
+	viewListeClients();
 	Object.keys(response.clientsData).forEach(data => {
 		console.log(response.clientsData[data].prenom);
 	    var html = "<tr>";
@@ -28,6 +29,8 @@ function viewListeClients(){
     $("#voir-devis-client").hide();
     $("#voir-utilisateurs").hide();
     $("#voir-clients").show();
+	$("#rendreVisible").hide();
+	$("#ajouterPhoto").hide();
 }
 
 export{afficherClients, viewListeClients};

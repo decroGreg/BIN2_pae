@@ -1,14 +1,18 @@
 package be.ipl.pae.ihm.servlet;
 
+import be.ipl.pae.biz.dto.ClientDto;
 import be.ipl.pae.biz.dto.DevisDto;
 import be.ipl.pae.biz.impl.DevisImpl.Etat;
+import be.ipl.pae.biz.interfaces.ClientUcc;
 import be.ipl.pae.biz.interfaces.DevisUcc;
 
 import com.owlike.genson.Genson;
 
 import java.io.IOException;
 import java.sql.Timestamp;
-import java.time.LocalDateTime;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.ServletException;
@@ -20,6 +24,7 @@ public class ChangementEtatDevisServlet extends HttpServlet {
 
   private DevisDto devisDto;
   private DevisUcc devisUcc;
+  private ClientUcc clientUcc;
 
   /**
    * Cree un objet ChangementEtatDevisServlet.
@@ -27,10 +32,11 @@ public class ChangementEtatDevisServlet extends HttpServlet {
    * @param devisDto un devisDto
    * @param devisUcc un devisUcc
    */
-  public ChangementEtatDevisServlet(DevisDto devisDto, DevisUcc devisUcc) {
+  public ChangementEtatDevisServlet(DevisDto devisDto, DevisUcc devisUcc, ClientUcc clientUcc) {
     super();
     this.devisDto = devisDto;
     this.devisUcc = devisUcc;
+    this.clientUcc = clientUcc;
   }
 
   @Override
@@ -44,6 +50,7 @@ public class ChangementEtatDevisServlet extends HttpServlet {
       int idDevis = Integer.parseInt(data.get("idDevis").toString());
 
       DevisDto devis = null;
+      ClientDto clientDto = null;
       try {
         for (DevisDto e : devisUcc.voirDevis()) {
           if (e.getIdDevis() == idDevis) {
@@ -51,6 +58,11 @@ public class ChangementEtatDevisServlet extends HttpServlet {
             // requete pour avoir tous les types d'amenagements
           }
 
+        }
+        for (ClientDto c : clientUcc.getClients()) {
+          if (c.getIdClient() == devis.getIdClient()) {
+            clientDto = c;
+          }
         }
       } catch (Exception ex) {
         ex.printStackTrace();
@@ -61,11 +73,15 @@ public class ChangementEtatDevisServlet extends HttpServlet {
         resp.getWriter().write(json);
       }
 
-      if (devis != null) {
+      if (devis != null && clientDto != null) {
+
         // Si on a une nouvelle date de début travaux, on change la valeur dans le devis
-        if (data.get("dateDebutTravaux").toString() != null) {
-          devis.setDateDebutTravaux(
-              Timestamp.valueOf(LocalDateTime.parse(data.get("dateDebutTravaux").toString())));
+        if (data.get("dateDebutTravaux") != null) {
+          DateTimeFormatter dateformatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+          LocalDate ld = LocalDate.parse(data.get("dateDebutTravaux").toString(), dateformatter);
+
+          System.out.println("Date = " + Timestamp.valueOf(ld.atStartOfDay()));
+          devis.setDateDebutTravaux(Timestamp.valueOf(ld.atStartOfDay()));
         }
         String etatDevis = data.get("etatDevis").toString();
         switch (etatDevis) {
@@ -100,9 +116,27 @@ public class ChangementEtatDevisServlet extends HttpServlet {
             break;
         }
 
-        String devisData = genson.serialize(devis);
-        String json =
-            "{\"success\":\"true\", \"token\":\"" + token + "\", \"devisData\":" + devisData + "}";
+        // Je vais chercher le devisDTO mis a jour
+        for (DevisDto e : devisUcc.voirDevis()) {
+          if (e.getIdDevis() == idDevis) {
+            devis = e;
+            // requete pour avoir tous les types d'amenagements
+          }
+        }
+
+        String devisData;
+        String clientData;
+        if (etatDevis != "A") {
+          devisData = genson.serialize(devis);
+          clientData = genson.serialize(clientDto);
+        } else {
+          List<DevisDto> listeDevis = devisUcc.voirDevis();
+          devisData = genson.serialize(listeDevis);
+          clientData = "";
+        }
+
+        String json = "{\"success\":\"true\", \"token\":\"" + token + "\", \"devisData\":"
+            + devisData + ", \"clientData\":" + clientData + "}";
         System.out.println("JSON generated :" + json);
         resp.setContentType("application/json");
 

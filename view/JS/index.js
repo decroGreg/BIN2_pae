@@ -1,11 +1,11 @@
 "use-strict";
-import {postData,getData,deleteData,putData,creatHTMLFromString} from "./util.js" ;
-import{viewAuthentification,viewLogin,onPostRegister} from "./connexion.js";
+import {postData,getData,onError} from "./util.js" ;
+import{viewAuthentification,viewLogin,onPostRegister} from "./connexion.js"
 import{onGetRegisterConfirmation,viewRegisterConfirmation} from "./confirmerInscription.js";
-import{onGetAmenagements,onGetClientQuoteForm,filterSearchClient,viewIntroductionQuote} from "./introduireDevis.js";
-import{afficherClients, viewListeClients} from "./afficherClients.js";
-import{afficherDevis, afficherDevisClient, viewListeDevis} from "./afficherDevis.js";
-import{afficherUtilisateurs, viewListeUtilisateurs} from "./afficherUtilisateurs.js";
+import{onGetAmenagements,onGetClientQuoteForm,filterSearchClient,viewIntroductionQuote} from "./introduireDevis.js"
+import{afficherClients} from "./afficherClients.js";
+import{afficherDevis, afficherDevisClient} from "./afficherDevis.js";
+import{afficherUtilisateurs} from "./afficherUtilisateurs.js";
 import{afficherDetailsDevis, changerEtat, changerValeurBouton} from "./detailsDevis.js";
 
 
@@ -74,7 +74,6 @@ $(document).ready(e=>{
  
     $("#homePage").click(viewHomePage);
     $("#btn-connexion").click(e=>{
-            console.log($("#login-email").val());
             let data={};
             data.mail=$("#login-email").val();
             data.mdp=$("#login-pwd").val();
@@ -196,36 +195,30 @@ $(document).ready(e=>{
     $("#btn-search-category").click(e=>{
     	e.preventDefault();
         if($("#search-option-category").val()=="utilisateur"){
-        	viewListeUtilisateurs();
-            //$("#voir-utilisateurs").show();
+            allHide();
             getData("/listeUsers",token,afficherUtilisateurs,onError);
         }
         if($("#search-option-category").val()=="devis"){
-        	viewListeDevis();
-        	//$("#voir-devis").show();
+        	allHide();
         	getData("/listeDevis",token,afficherDevis,onError);
         }
         if($("#search-option-category").val()=="client"){
-        	viewListeClients();
-        	//$("#voir-clients").show();
+        	allHide();
             getData("/listeClients",token,afficherClients,onError);
         }
         
         if($("#search-option-category").val()=="date"){
         	allHide();
-        	$("#voir-devis-client").show();
         	getData("/listeDevisClient",token,afficherDevisClient,onError);
         }
         
 		if($("#search-option-category").val()=="montant"){
 			allHide();
-        	$("#voir-devis-client").show();
         	getData("/listeDevisClient",token,afficherDevisClient,onError);
 		}
 		
 		if($("#search-option-category").val()=="type_amenagement"){
 			allHide();
-        	$("#voir-devis-client").show();
         	getData("/listeDevisClient",token,afficherDevisClient,onError);
 		}
     });
@@ -267,6 +260,8 @@ function viewHomePage(){
         //$("#search-homepage").hide();
     	$("#voir-details-devis-DDI").hide();
     	$("#voir-details-devis-DC").hide();
+    	$("#rendreVisible").hide();
+    	$("#ajouterPhoto").hide();
 
 
 }
@@ -310,7 +305,7 @@ function onPostLoginToken(response){
                 user=response.userData;
                 console.log("user"+user.idUser);
                 viewAuthentification(user);
-        }else{
+        }else{ 
                 console.log(response.message);
                 $("#error-notification").fadeIn('slow').delay(1000).fadeOut('slow');
                 $("#error-notification").text(response.message);
@@ -321,16 +316,6 @@ function onPostLoginToken(response){
     }
 
 
-
-
-
-
-function onError(response){
-        console.log("Erreur");
-        $("#error-notification").fadeIn('slow').delay(1000).fadeOut('slow');
-        $("#error-notification").text(response.message);
-}
-
 function mesDevis(){
 	$("#voir-devis-client").show();	
 	let data={};
@@ -339,5 +324,5 @@ function mesDevis(){
 	postData("/listeDevisClient",data,token,afficherDevisClient,onError);
 }
 
-/////////////////////////////////////////////////////////////////////////////////////////////test////////////////////////
+export{token,allHide};
 

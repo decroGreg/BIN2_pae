@@ -1,7 +1,10 @@
+import{token, allHide} from "./index.js";
 import{afficherDetailsDevis} from "./detailsDevis.js";
-import {postData,getData,deleteData,putData} from "./util.js" ;
+import {postData,onError} from "./util.js" ;
 
 function afficherDevis(response){
+	allHide();
+	viewListeDevis();
 	Object.keys(response.devisData).forEach(data => {
 	    var html = "<tr>";
 	    html+="<td><a href=\"#\" class=\"reference-devis\">"
@@ -23,6 +26,8 @@ function afficherDevis(response){
 }
 
 function afficherDevisClient(response){
+	allHide();
+	viewListeDevis();
 	Object.keys(response.devisData).forEach(data => {
 	    var html = "<tr>";
 	    html+="<td><a href='#' class='reference-devis'>"
@@ -51,6 +56,8 @@ function viewListeDevis(){
     $("#voir-devis-client").hide();
     $("#voir-utilisateurs").hide();
     $("#voir-devis").show();
+    $("#rendreVisible").hide();
+	$("#ajouterPhoto").hide();
 }
 
 export{afficherDevis, afficherDevisClient, viewListeDevis};

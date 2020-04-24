@@ -1,4 +1,8 @@
+import{token, allHide} from "./index.js";
+
 function afficherUtilisateurs(response){
+	allHide();
+	viewListeUtilisateurs();
 	Object.keys(response.usersData).forEach(data => {
 	    var html = "<tr>";
 	    html+="<td>" 
@@ -28,5 +32,7 @@ function viewListeUtilisateurs(){
     $("#voir-devis-client").hide();
     $("#voir-devis").hide();
     $("#voir-utilisateurs").show();
+    $("#rendreVisible").hide();
+	$("#ajouterPhoto").hide();
 }
 export{afficherUtilisateurs, viewListeUtilisateurs};
