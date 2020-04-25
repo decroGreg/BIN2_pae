@@ -94,7 +94,7 @@ public class DevisDaoMock implements DevisDao {
 
 
   @Override
-  public boolean annulerDevis(int idDevis) {
+  public boolean changerEtatDevis(DevisDto devis) {
     // TODO Auto-generated method stub
     return false;
   }
@@ -104,5 +104,12 @@ public class DevisDaoMock implements DevisDao {
   public DevisDto getDevisViaId(int idDevis) {
     // TODO Auto-generated method stub
     return null;
+  }
+
+
+  @Override
+  public boolean ajouterPhotoPrefereeDevis(DevisDto devis, int idPhoto) {
+    // TODO Auto-generated method stub
+    return false;
   }
 }

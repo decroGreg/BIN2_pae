@@ -32,6 +32,7 @@ public class DevisDaoImpl implements DevisDao {
     this.bizfactory = new FactoryImpl();
   }
 
+
   @Override
   public boolean createDevis(int idClient, DevisDto devis) {
     String requestSql = "INSERT INTO init.devis VALUES (DEFAULT,?,?,?,null,?,?,?)";
@@ -119,14 +120,32 @@ public class DevisDaoImpl implements DevisDao {
     return true;
   }
 
-  public boolean annulerDevis(int idDevis) {
-    String requeteSql = "UPDATE init.devis SET etat = 'A' WHERE id_devis = ?";
+  public boolean changerEtatDevis(DevisDto devis) {
+    String requeteSql = "UPDATE init.devis SET etat = '?' WHERE id_devis = ?";
+    int idDevis = devis.getIdDevis();
     ps = services.getPreparedSatement(requeteSql);
+    String etat = devis.getEtat().name();
     try {
-      ps.setInt(1, idDevis);
+      ps.setString(1, etat);
+      ps.setInt(2, idDevis);
       ps.execute();
     } catch (SQLException ex) {
-      throw new DalException("Erreur lors de l'annulation d'un devis" + ex.getMessage());
+      throw new DalException("Erreur lors du changement d'etat d'un devis" + ex.getMessage());
+    }
+    return true;
+  }
+
+  public boolean ajouterPhotoPrefereeDevis(DevisDto devis, int idPhoto) {
+    String requeteSql = "UPDATE init.devis SET photo_preferee = '?' WHERE id_devis = ?";
+    int idDevis = devis.getIdDevis();
+    ps = services.getPreparedSatement(requeteSql);
+    String etat = devis.getEtat().name();
+    try {
+      ps.setInt(1, idPhoto);
+      ps.setInt(2, idDevis);
+      ps.execute();
+    } catch (SQLException ex) {
+      throw new DalException("Erreur lors du changement d'etat d'un devis" + ex.getMessage());
     }
     return true;
   }

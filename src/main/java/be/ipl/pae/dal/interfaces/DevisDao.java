@@ -19,7 +19,9 @@ public interface DevisDao {
 
   DevisDto getDevisViaId(int idDevis);
 
-  boolean annulerDevis(int idDevis);
+  boolean ajouterPhotoPrefereeDevis(DevisDto devis, int idPhoto);
+
+  boolean changerEtatDevis(DevisDto devis);
 
   int getIdDernierDevis();
 }
