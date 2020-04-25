@@ -134,14 +134,14 @@ public class DevisUccImpl implements DevisUcc {
     Devis devis = (Devis) devisDto;
     if (devis.checkEtat()) {
       try {
-        // devisDto.changerEtat(devisDto);
+        devisDao.changerEtatDevis(devisDto);
       } catch (DalException de) {
         daoServicesUcc.rollback();
         throw new FatalException(de.getMessage());
       }
       daoServicesUcc.commit();
     } else {
-      throw new BizException("L'etat de devis est incorrect");
+      throw new BizException("L'etat du devis est incorrect");
     }
   }
 
@@ -150,7 +150,7 @@ public class DevisUccImpl implements DevisUcc {
     try {
       daoServicesUcc.demarrerTransaction();
       if (devisDto.getEtat().equals(Etat.V)) {
-        // devisDao.ajouterPhotoPreferee(devisDto,idPhoto);
+        devisDao.ajouterPhotoPrefereeDevis(devisDto, idPhoto);
       }
     } catch (DalException de) {
       daoServicesUcc.rollback();

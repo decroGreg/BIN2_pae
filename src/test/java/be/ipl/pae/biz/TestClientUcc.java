@@ -67,7 +67,7 @@ class TestClientUcc {
 
   @Test
   @DisplayName("clients ok")
-  final void testGetUsers2() throws InstantiationException, IllegalAccessException,
+  final void testGetClients2() throws InstantiationException, IllegalAccessException,
       IllegalArgumentException, InvocationTargetException {
 
     clientDao = (ClientDao) clientDaoConstruct.newInstance(true, false, false, false);
@@ -77,7 +77,7 @@ class TestClientUcc {
 
   @Test
   @DisplayName("test dalException")
-  final void testGetUsers3() throws InstantiationException, IllegalAccessException,
+  final void testGetClients3() throws InstantiationException, IllegalAccessException,
       IllegalArgumentException, InvocationTargetException {
 
     clientDao = (ClientDao) clientDaoConstruct.newInstance(false, false, false, true);
