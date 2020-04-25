@@ -32,6 +32,7 @@ public class AmenagementUccImpl implements AmenagementUcc {
     this.daoServicesUcc = daoServicesUcc;
   }
 
+  @Override
   public void ajouterAmenagement(List<String> listeIdTypeAmenagement, int idDevis) {
     if (idDevis >= 1) {
       try {

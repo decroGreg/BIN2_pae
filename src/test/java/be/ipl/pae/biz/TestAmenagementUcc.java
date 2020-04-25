@@ -23,7 +23,7 @@ import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.List;
 
-class testAmenagementUcc {
+class TestAmenagementUcc {
   AmenagementDao amenagementDao;
   Constructor<?> amenagementDaoConstruct;
   AmenagementUcc amenagementUcc;

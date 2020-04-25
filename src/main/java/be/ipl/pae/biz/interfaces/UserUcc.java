@@ -10,7 +10,7 @@ public interface UserUcc {
 
   UserDto login(String email, String motDePasse);
 
-  public UserDto loginViaToken(int id);
+  UserDto loginViaToken(int id);
 
   UserDto sinscrire(UserDto userDto);
 
