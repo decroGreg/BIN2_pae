@@ -48,14 +48,7 @@ public class IndexServlet extends DefaultServlet {
             new String(Files.readAllBytes(Paths.get("./view/html/ajouterPhoto.html")));
         String photoPrefereeFile =
             new String(Files.readAllBytes(Paths.get("./view/html/choisirPhotoPreferee.html")));
-
-
-
-        /*
-         * resp.getOutputStream() .println(indexFile + connexionFile + introduireDevisFile +
-         * confirmerInscriptionFile);
-         */
-
+        String footer = new String(Files.readAllBytes(Paths.get("./view/html/footer.html")));
 
         resp.getOutputStream()
             .println(indexFile + connexionFile + introduireDevisFile + confirmerInscriptionFile

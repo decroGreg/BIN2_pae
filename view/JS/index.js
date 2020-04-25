@@ -4,7 +4,7 @@ import{viewAuthentification,viewLogin,onPostRegister} from "./connexion.js"
 import{onGetRegisterConfirmation,viewRegisterConfirmation} from "./confirmerInscription.js";
 import{onGetAmenagements,onGetClientQuoteForm,filterSearchClient,viewIntroductionQuote} from "./introduireDevis.js"
 import{afficherClients} from "./afficherClients.js";
-import{afficherDevis, afficherDevisClient} from "./afficherDevis.js";
+import{afficherDevis, afficherDevisClient,onGetAmenagementDevis,onGetAmenagementDevisClient,searchDevis} from "./afficherDevis.js";
 import{afficherUtilisateurs} from "./afficherUtilisateurs.js";
 import{afficherDetailsDevis, changerEtat, changerValeurBouton} from "./detailsDevis.js";
 
@@ -189,7 +189,8 @@ $(document).ready(e=>{
     $("#mesDevis").click(e=>{
     	e.preventDefault();
     	allHide();
-    	mesDevis();
+            mesDevis();
+            getData("/introduireServlet",token,onGetAmenagementDevisClient,onError);
     });
     
     $("#btn-search-category").click(e=>{
@@ -199,7 +200,8 @@ $(document).ready(e=>{
             getData("/listeUsers",token,afficherUtilisateurs,onError);
         }
         if($("#search-option-category").val()=="devis"){
-        	allHide();
+                allHide();
+                getData("/introduireServlet",token,onGetAmenagementDevis,onError);
         	getData("/listeDevis",token,afficherDevis,onError);
         }
         if($("#search-option-category").val()=="client"){
@@ -222,6 +224,20 @@ $(document).ready(e=>{
         	getData("/listeDevisClient",token,afficherDevisClient,onError);
 		}
     });
+    $("#btn-search-devis-client").click(e=>{
+        searchDevis(document.getElementById("amenagements-devis-client"),user.idUser);
+    });
+    $("#btn-search-devis").click(e=>{
+        searchDevis(document.getElementById("amenagements-devis"));
+    });
+
+    $(".myInput").on("keyup", function() {
+        var value = $(this).val().toLowerCase();
+        $(".dropdown-menu li").filter(function() {
+          $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+        });
+      });
+    
 });
 
 

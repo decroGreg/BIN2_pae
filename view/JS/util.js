@@ -22,7 +22,6 @@ function postData(url="",data={},token,onSuccess,onError){
         success: onSuccess,
         error:onError
     });
-  
     
 }
 function getData(url="",token,onSuccess,onError){
