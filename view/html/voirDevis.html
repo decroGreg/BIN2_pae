@@ -2,6 +2,22 @@
 <section id="voir-devis">
     <h4>Liste des devis</h4>
     <br/>
+    <div class="form-inline" id="search-homepage">
+      <input class="form-control mr-sm-2" name="name" id="searchDevisName" type="search" placeholder="nom Client">
+      <input class="form-control mr-sm-2" name="date" id="searchDevisDate" type="date">
+      <input class="form-control mr-sm-2" name="min" id="searchDevisMin"type="number" placeholder="min prix">
+      <input class="form-control mr-sm-2" name="max" id="searchDevisMax" type="number" placeholder="max prix">
+      <div class="dropdown">
+        <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Dropdown Example
+        <span class="caret"></span></button>
+        <ul class="dropdown-menu" id="amenagements-devis">
+          <input class="form-control myInput" id="myInputSearch" type="text" placeholder="Search..">
+         
+        </ul>
+      </div>
+
+      <button href="#" class="btn btn-outline-success my-2 my-sm-0" type="submit" id="btn-search-devis">Search</button>
+    </div>
     <div class="" id="voir-devis">
       <table class="table table-bordered">
         <thead>

@@ -97,5 +97,9 @@ function creatHTMLFromString(htmlString){
   // Change this to div.childNodes to support multiple top-level nodes
   return div.firstChild; 
 }
+function onError(response){
+  $("#error-notification").fadeIn('slow').delay(1000).fadeOut('slow');
+  $("#error-notification").text(response.message);
+}
 
-export{postData,getData,deleteData,putData,creatHTMLFromString};
+export{postData,getData,deleteData,putData,creatHTMLFromString,onError};
