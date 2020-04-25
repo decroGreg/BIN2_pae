@@ -88,6 +88,7 @@ public class ChoisirPhotoPrefereeServlet extends HttpServlet {
       String token = req.getHeader("Authorization");
       int idDevis = Integer.parseInt(data.get("idDevis").toString());
       int idPhoto = Integer.parseInt(data.get("idPhoto").toString());
+
       for (DevisDto d : devisUcc.voirDevis()) {
         if (d.getIdDevis() == idDevis) {
           devisDto = d;
