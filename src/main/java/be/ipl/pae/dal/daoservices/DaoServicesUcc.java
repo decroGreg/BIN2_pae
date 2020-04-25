@@ -10,6 +10,5 @@ public interface DaoServicesUcc {
 
   void rollback();
 
-  ThreadLocal<Connection> getConnections();
 
 }

@@ -17,5 +17,9 @@ public interface DevisDao {
 
   boolean confirmerDateDevis(int idDevis, Timestamp dateDebutTravaux);
 
+  DevisDto getDevisViaId(int idDevis);
+
+  boolean annulerDevis(int idDevis);
+
   int getIdDernierDevis();
 }

@@ -1,7 +1,5 @@
 package be.ipl.pae.dal.daoservices;
 
-import java.sql.Connection;
-
 public class DaoServicesMock implements DaoServicesUcc {
 
   @Override
@@ -21,13 +19,5 @@ public class DaoServicesMock implements DaoServicesUcc {
     // TODO Auto-generated method stub
 
   }
-
-  @Override
-  public ThreadLocal<Connection> getConnections() {
-    // TODO Auto-generated method stub
-    return null;
-  }
-
-
 
 }

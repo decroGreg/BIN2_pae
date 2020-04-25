@@ -119,6 +119,45 @@ public class DevisDaoImpl implements DevisDao {
     return true;
   }
 
+  public boolean annulerDevis(int idDevis) {
+    String requeteSql = "UPDATE init.devis SET etat = 'A' WHERE id_devis = ?";
+    ps = services.getPreparedSatement(requeteSql);
+    try {
+      ps.setInt(1, idDevis);
+      ps.execute();
+    } catch (SQLException ex) {
+      throw new DalException("Erreur lors de l'annulation d'un devis" + ex.getMessage());
+    }
+    return true;
+  }
+
+  public DevisDto getDevisViaId(int idDevis) {
+    DevisDto devisDto = bizfactory.getDevisDto();
+    String requeteSql = "SELECT * FROM init.devis WHERE id_devis=?";
+    ps = services.getPreparedSatement(requeteSql);
+    try {
+      ps.setInt(1, idDevis);
+      try (ResultSet rs = ps.executeQuery()) {
+        while (rs.next()) {
+          devisDto.setIdDevis(rs.getInt(1));
+          devisDto.setIdClient(rs.getInt(2));
+          devisDto.setDate(rs.getTimestamp(3));
+          devisDto.setMontant(rs.getDouble(4));
+          devisDto.setIdPhotoPreferee(rs.getInt(5));
+          devisDto.setDureeTravaux(rs.getString(6));
+          devisDto.setEtat(Etat.valueOf(rs.getString(7)));
+          devisDto.setDateDebutTravaux(rs.getTimestamp(8));
+        }
+      } catch (SQLException sql) {
+        sql.printStackTrace();
+      }
+    } catch (SQLException sql) {
+      sql.printStackTrace();
+      System.exit(1);
+    }
+    return devisDto;
+  }
+
   @Override
   public int getIdDernierDevis() {
     int idDevis = 0;

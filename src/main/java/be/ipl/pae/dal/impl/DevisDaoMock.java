@@ -91,4 +91,18 @@ public class DevisDaoMock implements DevisDao {
       throw new DalException();
     }
   }
+
+
+  @Override
+  public boolean annulerDevis(int idDevis) {
+    // TODO Auto-generated method stub
+    return false;
+  }
+
+
+  @Override
+  public DevisDto getDevisViaId(int idDevis) {
+    // TODO Auto-generated method stub
+    return null;
+  }
 }
