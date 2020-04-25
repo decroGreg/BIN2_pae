@@ -75,8 +75,8 @@ public class Main {
     PhotoDao photoDao = new PhotoDaoImpl();
     UserUcc userUcc = new UserUccImpl(factory, userDao, daoServices);
     PhotoDto photoDto = factory.getPhotoDto();
-    AmenagementUcc amenagementUcc = new AmenagementUccImpl();
-    PhotoUcc photoUcc = new PhotoUccImpl(photoDao, factory, daoServices);
+    AmenagementUcc amenagementUcc = new AmenagementUccImpl(amenagementDao, factory, daoServices);
+    PhotoUcc photoUcc = new PhotoUccImpl(photoDao, devisDao, factory, daoServices);
 
     UserDto userDto = factory.getUserDto();
     ClientDto clientDto = factory.getClientDto();

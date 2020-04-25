@@ -18,11 +18,14 @@ public class DevisDaoMock implements DevisDao {
   private boolean getDevisClient;
   private boolean confirmerDateDevis;
   private boolean getIdDernierDevis;
+  private boolean changerEtatDevis;
+  private boolean getDevisViaId;
+  private boolean ajouterPhotoPrefereeDevis;
   private boolean testDalException;
   private Factory factory;
 
   /**
-   * Constructeur Devis Mock
+   * Constructeur Devis Mock.
    * 
    * @param createDevis methode boolean.
    * @param voirTousDevis methode boolean.
@@ -32,12 +35,16 @@ public class DevisDaoMock implements DevisDao {
    * @param testDalException methode boolean.
    */
   public DevisDaoMock(boolean createDevis, boolean voirTousDevis, boolean getDevisClient,
-      boolean confirmerDateDevis, boolean getIdDernierDevis, boolean testDalException) {
+      boolean confirmerDateDevis, boolean getIdDernierDevis, boolean changerEtatDevis,
+      boolean getDevisViaId, boolean ajouterPhotoPrefereeDevis, boolean testDalException) {
     this.createDevis = createDevis;
     this.voirTousDevis = voirTousDevis;
     this.getDevisClient = getDevisClient;
     this.confirmerDateDevis = confirmerDateDevis;
     this.getIdDernierDevis = getIdDernierDevis;
+    this.changerEtatDevis = changerEtatDevis;
+    this.getDevisViaId = getDevisViaId;
+    this.ajouterPhotoPrefereeDevis = ajouterPhotoPrefereeDevis;
     this.testDalException = testDalException;
     this.factory = new FactoryStub();
   }
@@ -81,7 +88,7 @@ public class DevisDaoMock implements DevisDao {
   public int getIdDernierDevis() {
     testDalException();
     if (getIdDernierDevis) {
-      return 1;
+      return factory.getUserDto().getIdUser();
     }
     return -1;
   }
@@ -95,21 +102,24 @@ public class DevisDaoMock implements DevisDao {
 
   @Override
   public boolean changerEtatDevis(DevisDto devis) {
-    // TODO Auto-generated method stub
-    return false;
+    testDalException();
+    return changerEtatDevis;
   }
 
 
   @Override
   public DevisDto getDevisViaId(int idDevis) {
-    // TODO Auto-generated method stub
+    testDalException();
+    if (getDevisViaId) {
+      return factory.getDevisDto();
+    }
     return null;
   }
 
 
   @Override
   public boolean ajouterPhotoPrefereeDevis(DevisDto devis, int idPhoto) {
-    // TODO Auto-generated method stub
-    return false;
+    testDalException();
+    return ajouterPhotoPrefereeDevis;
   }
 }

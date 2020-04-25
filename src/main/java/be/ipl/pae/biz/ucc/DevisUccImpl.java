@@ -134,14 +134,13 @@ public class DevisUccImpl implements DevisUcc {
     Devis devis = (Devis) devisDto;
     if (devis.checkEtat()) {
       try {
+        daoServicesUcc.demarrerTransaction();
         devisDao.changerEtatDevis(devisDto);
       } catch (DalException de) {
         daoServicesUcc.rollback();
         throw new FatalException(de.getMessage());
       }
       daoServicesUcc.commit();
-    } else {
-      throw new BizException("L'etat du devis est incorrect");
     }
   }
 

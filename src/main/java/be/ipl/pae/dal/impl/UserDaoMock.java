@@ -16,9 +16,10 @@ public class UserDaoMock implements UserDao {
   private boolean voirTousUser;
   private boolean voirUserPasConfirmer;
   private boolean testDalException;
-  private Factory factory;
   private boolean lierClientUser;
   private boolean confirmerUtilisateur;
+  private boolean getUserViaId;
+  private Factory factory;
 
   /**
    * Constructeur Mock User.
@@ -34,7 +35,7 @@ public class UserDaoMock implements UserDao {
    */
   public UserDaoMock(boolean getUserConnexion, boolean createInscription, boolean voirTousUser,
       boolean voirUserPasConfirmer, boolean lierClientUser, boolean confirmerUtilisateur,
-      boolean testDalException) {
+      boolean getUserViaId, boolean testDalException) {
     this.getUserConnexion = getUserConnexion;
     this.createInscription = createInscription;
     this.voirTousUser = voirTousUser;
@@ -42,6 +43,7 @@ public class UserDaoMock implements UserDao {
     this.testDalException = testDalException;
     this.lierClientUser = lierClientUser;
     this.confirmerUtilisateur = confirmerUtilisateur;
+    this.getUserViaId = getUserViaId;
     this.factory = new FactoryStub();
   }
 
@@ -82,11 +84,13 @@ public class UserDaoMock implements UserDao {
     return null;
   }
 
+  @Override
   public boolean lierClientUser(int client, int user) {
     testDalException();
     return lierClientUser;
   }
 
+  @Override
   public boolean confirmerUtilisateur(UserDto user, Character etat) {
     testDalException();
     return confirmerUtilisateur;
@@ -100,7 +104,10 @@ public class UserDaoMock implements UserDao {
 
   @Override
   public UserDto getUserViaId(int id) {
-    // TODO Auto-generated method stub
+    testDalException();
+    if (getUserViaId) {
+      return factory.getUserDto();
+    }
     return null;
   }
 }

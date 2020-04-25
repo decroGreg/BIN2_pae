@@ -76,17 +76,25 @@ public class UserUccImpl implements UserUcc {
 
   @Override
   public UserDto loginViaToken(int id) {
-    UserDto userDb = null;
-    try {
-      daoServicesUcc.demarrerTransaction();
-      userDb = userDao.getUserViaId(id);
-    } catch (DalException dal) {
-      dal.printStackTrace();
-      daoServicesUcc.rollback();
-      throw new FatalException(dal.getMessage());
+    UserDto userDb;
+    if (id >= 1) {
+      try {
+        daoServicesUcc.demarrerTransaction();
+        userDb = userDao.getUserViaId(id);
+        if (userDb == null) {
+          daoServicesUcc.commit();
+          throw new BizException("Aucun utilisateur n'a cette id : " + id);
+        }
+      } catch (DalException dal) {
+        dal.printStackTrace();
+        daoServicesUcc.rollback();
+        throw new FatalException(dal.getMessage());
+      }
+      daoServicesUcc.commit();
+      return userDb;
+    } else {
+      throw new BizException("L'id utilisateur " + id + " est incorrect");
     }
-    daoServicesUcc.commit();
-    return userDb;
   }
 
   @Override
