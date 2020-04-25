@@ -12,4 +12,5 @@ public interface AmenagementDto {
 
   int getIdAmenagement();
 
+  void setIdAmenagement(int idAmenagement);
 }

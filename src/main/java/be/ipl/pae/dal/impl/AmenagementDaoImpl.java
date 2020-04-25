@@ -1,16 +1,22 @@
 package be.ipl.pae.dal.impl;
 
+import be.ipl.pae.biz.dto.AmenagementDto;
+import be.ipl.pae.biz.factory.FactoryImpl;
+import be.ipl.pae.biz.interfaces.Factory;
 import be.ipl.pae.dal.daoservices.DaoServices;
 import be.ipl.pae.dal.interfaces.AmenagementDao;
 import be.ipl.pae.exceptions.DalException;
 
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class AmenagementDaoImpl implements AmenagementDao {
   private PreparedStatement ps;
   private DaoServices services;
-  // private Factory factory;
+  private Factory factory;
 
   /**
    * Constructeur Amenagement Dao.
@@ -19,7 +25,7 @@ public class AmenagementDaoImpl implements AmenagementDao {
    */
   public AmenagementDaoImpl(DaoServices daoServices) {
     this.services = daoServices;
-    // this.factory = new FactoryImpl();
+    this.factory = new FactoryImpl();
   }
 
   @Override
@@ -34,5 +40,25 @@ public class AmenagementDaoImpl implements AmenagementDao {
       throw new DalException("Erreur lors de la creation d'un amenagement : " + ex.getMessage());
     }
     return true;
+  }
+
+  public List<AmenagementDto> voirTousAmenagement() {
+    List<AmenagementDto> listeAmenagement = new ArrayList<AmenagementDto>();
+    String requeteSql = "SELECT * FROM init.amenagements";
+    ps = services.getPreparedSatement(requeteSql);
+    try {
+      try (ResultSet rs = ps.executeQuery()) {
+        while (rs.next()) {
+          AmenagementDto amenagement = factory.getAmenagementDto();
+          amenagement.setIdAmenagement(rs.getInt(1));
+          amenagement.setIdTypeAmenagement(rs.getInt(2));
+          amenagement.setIdDevis(rs.getInt(3));
+          listeAmenagement.add(amenagement);
+        }
+        return listeAmenagement;
+      }
+    } catch (SQLException ex) {
+      throw new DalException(ex.getMessage());
+    }
   }
 }
