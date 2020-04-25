@@ -21,6 +21,10 @@ public class AmenagementImpl implements Amenagement {
     this.idDevis = idDevis;
   }
 
+  public void setIdAmenagement(int idAmenagement) {
+    this.idAmenagement = idAmenagement;
+  }
+
   public AmenagementImpl() {
     super();
   }
