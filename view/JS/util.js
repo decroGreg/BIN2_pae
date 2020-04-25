@@ -89,6 +89,14 @@ function putData(url="",token,data={},onGet,onError){
       });
       
 }
+
+function onError(response){
+  console.log("Erreur : " + JSON.stringify(response));
+  $("#error-notification").fadeIn('slow').delay(1000).fadeOut('slow');
+  $("#error-notification").text(response.message);
+}
+
+
 //methode trouver sur: https://stackoverflow.com/questions/494143/creating-a-new-dom-element-from-an-html-string-using-built-in-dom-methods-or-pro
 function creatHTMLFromString(htmlString){
   var div = document.createElement('div');
@@ -98,4 +106,4 @@ function creatHTMLFromString(htmlString){
   return div.firstChild; 
 }
 
-export{postData,getData,deleteData,putData,creatHTMLFromString};
+export{postData,getData,deleteData,putData,creatHTMLFromString,onError};

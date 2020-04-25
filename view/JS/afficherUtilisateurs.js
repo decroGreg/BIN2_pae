@@ -32,7 +32,7 @@ function viewListeUtilisateurs(){
     $("#voir-devis-client").hide();
     $("#voir-devis").hide();
     $("#voir-utilisateurs").show();
-    $("#rendreVisible").hide();
+    $("#choisirPhotoPreferee").hide();
 	$("#ajouterPhoto").hide();
 }
 export{afficherUtilisateurs, viewListeUtilisateurs};

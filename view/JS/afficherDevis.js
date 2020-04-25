@@ -1,6 +1,52 @@
 import{token, allHide} from "./index.js";
 import{afficherDetailsDevis} from "./detailsDevis.js";
-import {postData,onError} from "./util.js" ;
+import {postData,onError,creatHTMLFromString} from "./util.js" ;
+
+
+function onGetAmenagementDevis(response){
+	afficherAmenagementDropDown(response,document.getElementById("amenagements-devis"));
+}
+function onGetAmenagementDevisClient(response){
+	afficherAmenagementDropDown(response,document.getElementById("amenagements-devis-client"));
+}
+
+function afficherAmenagementDropDown(response,dropdown){
+	console.log(response.typeAmenagements);
+		response.typeAmenagements.forEach(element=>{
+			var checkbox=creatHTMLFromString(' <li><input type="checkbox" value="'+element.id+'">'+element.description+'</li>');
+			dropdown.append(checkbox);
+		});
+		
+}
+
+function searchDevis(dropdown,idUser){
+	var amenagements={};
+	
+	dropdown.childNodes.forEach(element=>{
+		if(element.firstChild&&element.firstChild.checked){
+			element=element.firstChild;
+			amenagements[element.value]=element.value;
+		}
+	})
+	var data={}
+	dropdown.parentNode.parentNode.childNodes.forEach(e=>{
+		if(e.name)
+		data[e.name]=e.value;
+	});
+	if(idUser){
+		data["idUser"]=idUser;
+	}
+
+	console.log(amenagements);
+	console.log(data);
+	var send={
+		"data":data,
+		"amenagements":amenagements
+	}
+}
+
+
+
 
 function afficherDevis(response){
 	allHide();
@@ -56,8 +102,8 @@ function viewListeDevis(){
     $("#voir-devis-client").hide();
     $("#voir-utilisateurs").hide();
     $("#voir-devis").show();
-    $("#rendreVisible").hide();
+    $("#choisirPhotoPreferee").hide();
 	$("#ajouterPhoto").hide();
 }
 
-export{afficherDevis, afficherDevisClient, viewListeDevis};
+export{afficherDevis, afficherDevisClient, viewListeDevis,onGetAmenagementDevis,onGetAmenagementDevisClient,searchDevis};
