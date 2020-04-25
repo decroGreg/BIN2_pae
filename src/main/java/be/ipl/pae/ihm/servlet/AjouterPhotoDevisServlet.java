@@ -1,9 +1,13 @@
 package be.ipl.pae.ihm.servlet;
 
 import be.ipl.pae.biz.dto.AmenagementDto;
+import be.ipl.pae.biz.dto.DevisDto;
 import be.ipl.pae.biz.dto.PhotoDto;
+import be.ipl.pae.biz.dto.TypeDAmenagementDto;
 import be.ipl.pae.biz.interfaces.AmenagementUcc;
+import be.ipl.pae.biz.interfaces.DevisUcc;
 import be.ipl.pae.biz.interfaces.PhotoUcc;
+import be.ipl.pae.biz.interfaces.TypeDAmenagementUcc;
 
 import com.owlike.genson.Genson;
 
@@ -21,14 +25,19 @@ public class AjouterPhotoDevisServlet extends HttpServlet {
   private PhotoDto photoDto;
   private PhotoUcc photoUcc;
   private AmenagementUcc amenagementUcc;
+  private TypeDAmenagementUcc typeDAmenagementUcc;
+  private DevisUcc devisUcc;
   private ArrayList<AmenagementDto> amenagementsDevis = new ArrayList<>();
+  private ArrayList<String> descriptionsTypeAmenagement = new ArrayList<>();
 
   public AjouterPhotoDevisServlet(PhotoDto photoDto, PhotoUcc photoUcc,
-      AmenagementUcc amenagementUcc) {
+      AmenagementUcc amenagementUcc, TypeDAmenagementUcc typeDAmenagementUcc, DevisUcc devisUcc) {
     super();
     this.photoDto = photoDto;
     this.photoUcc = photoUcc;
     this.amenagementUcc = amenagementUcc;
+    this.typeDAmenagementUcc = typeDAmenagementUcc;
+    this.devisUcc = devisUcc;
   }
 
   @Override
@@ -48,9 +57,21 @@ public class AjouterPhotoDevisServlet extends HttpServlet {
        * { amenagementsDevis.add(a); } }
        */
 
+      // Je remplis une liste de descriptions du type amenagement de chaque amenagement
+      for (int i = 0; i < amenagementsDevis.size(); i++) {
+        for (TypeDAmenagementDto t : typeDAmenagementUcc.voirTypeDAmenagement()) {
+          if (t.getId() == amenagementsDevis.get(i).getIdTypeAmenagement()) {
+            descriptionsTypeAmenagement.add(t.getDescription());
+          }
+        }
+      }
+
+
       if (token != null) {
         String amenagementsData = genson.serialize(amenagementsDevis);
-        String json = "{\"success\":\"true\", \"amenagementsData\":" + amenagementsData + "}";
+        String typesAmenagementData = genson.serialize(descriptionsTypeAmenagement);
+        String json = "{\"success\":\"true\", \"amenagementsData\":" + amenagementsData
+            + ", \"typesAmenagementData\":" + typesAmenagementData + "}";
         System.out.println("JSON generated :" + json);
         resp.setContentType("application/json");
         resp.setCharacterEncoding("UTF-8");
@@ -72,36 +93,65 @@ public class AjouterPhotoDevisServlet extends HttpServlet {
 
 
   // @Override
-  /*
-   * protected void doPut(HttpServletRequest req, HttpServletResponse resp) throws ServletException,
-   * IOException { // Rajoute une photo au devis
-   * 
-   * try { Genson genson = new Genson(); Map<String, Object> data =
-   * genson.deserialize(req.getReader(), Map.class); String token = req.getHeader("Authorization");
-   * int idAmenagement = Integer.parseInt(data.get("idAmenagement").toString()); String urlPhoto =
-   * data.get("urlPhoto").toString(); AmenagementDto amenagementDto = null;
-   * 
-   * try { for (AmenagementDto a : amenagementUcc.voirAmenagements()) { if (a.getIdAmenagement() ==
-   * idAmenagement) { amenagementDto = a; break; } }
-   * 
-   * } catch (Exception ex) { ex.printStackTrace(); resp.setContentType("application/json");
-   * resp.setCharacterEncoding("UTF-8");
-   * resp.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR); String json =
-   * "{\"error\":\"false\"}"; resp.getWriter().write(json); }
-   * 
-   * if (amenagementDto != null) { photoUcc.ajouterPhotoApresAmenagement(amenagementDto, urlPhoto);
-   * String json = "{\"success\":\"true\",\"message\":\"" + "ajout de la photo réussi" + "\"}";
-   * System.out.println("JSON generated :" + json); resp.setContentType("application/json");
-   * resp.setCharacterEncoding("UTF-8"); resp.setStatus(HttpServletResponse.SC_OK);
-   * resp.getWriter().write(json);
-   * 
-   * }
-   * 
-   * } catch (Exception ex) { ex.printStackTrace(); String json = "{\"error\":\"false\"}";
-   * System.out.println(json); resp.setContentType("application/json");
-   * resp.setCharacterEncoding("UTF-8");
-   * resp.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR); resp.getWriter().write(json); } }
-   */
+
+  protected void doPut(HttpServletRequest req, HttpServletResponse resp)
+      throws ServletException, IOException { // Rajoute une photo au devis
+
+    try {
+      Genson genson = new Genson();
+      Map<String, Object> data = genson.deserialize(req.getReader(), Map.class);
+      String token = req.getHeader("Authorization");
+      int idAmenagement = Integer.parseInt(data.get("idAmenagement").toString());
+      String urlPhoto = data.get("urlPhoto").toString();
+      AmenagementDto amenagementDto = null;
+
+      try {
+        /*
+         * for (AmenagementDto a : amenagementUcc.voirAmenagements()) { if (a.getIdAmenagement() ==
+         * idAmenagement) { amenagementDto = a; break; } }
+         */
+
+      } catch (Exception ex) {
+        ex.printStackTrace();
+        resp.setContentType("application/json");
+        resp.setCharacterEncoding("UTF-8");
+        resp.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+        String json = "{\"error\":\"false\"}";
+        resp.getWriter().write(json);
+      }
+
+      // Je renvoie le devis pour revenir sur la page detailsDevis
+      if (amenagementDto != null) {
+        photoUcc.ajouterPhotoApresAmenagement(amenagementDto, urlPhoto);
+        DevisDto devisDto = null;
+        for (DevisDto d : devisUcc.voirDevis()) {
+          if (amenagementDto.getIdDevis() == d.getIdDevis()) {
+            devisDto = d;
+            break;
+          }
+        }
+        String devisData = genson.serialize(devisDto);
+        String json =
+            "{\"success\":\"true\", \"token\":\"" + token + "\", \"devisData\":" + devisData + "}";
+        System.out.println("JSON generated :" + json);
+        resp.setContentType("application/json");
+        resp.setCharacterEncoding("UTF-8");
+        resp.setStatus(HttpServletResponse.SC_OK);
+        resp.getWriter().write(json);
+
+      }
+
+    } catch (Exception ex) {
+      ex.printStackTrace();
+      String json = "{\"error\":\"false\"}";
+      System.out.println(json);
+      resp.setContentType("application/json");
+      resp.setCharacterEncoding("UTF-8");
+      resp.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+      resp.getWriter().write(json);
+    }
+  }
+
 
 
 }

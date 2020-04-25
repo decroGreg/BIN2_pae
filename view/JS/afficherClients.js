@@ -29,7 +29,7 @@ function viewListeClients(){
     $("#voir-devis-client").hide();
     $("#voir-utilisateurs").hide();
     $("#voir-clients").show();
-	$("#rendreVisible").hide();
+	$("#choisirPhotoPreferee").hide();
 	$("#ajouterPhoto").hide();
 }
 

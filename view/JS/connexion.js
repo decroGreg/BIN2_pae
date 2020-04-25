@@ -41,6 +41,7 @@ function viewAuthentification(user){
 }
 
 function viewLogin(){
+
     console.log($("#login-form").target);
     $("#login-form").show();
     $("#btn-deconnexion").hide();

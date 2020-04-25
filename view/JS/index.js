@@ -260,7 +260,7 @@ function viewHomePage(){
         //$("#search-homepage").hide();
     	$("#voir-details-devis-DDI").hide();
     	$("#voir-details-devis-DC").hide();
-    	$("#rendreVisible").hide();
+    	$("#choisirPhotoPreferee").hide();
     	$("#ajouterPhoto").hide();
 
 
