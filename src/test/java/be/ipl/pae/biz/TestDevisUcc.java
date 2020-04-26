@@ -375,6 +375,7 @@ class TestDevisUcc {
         false, false, false, false);
     devisUcc = (DevisUcc) devisUccConstruct.newInstance(bizFactory, devisDao, userDao, clientDao,
         amenagementDao, dalServices);
+    devisDto.setEtat(Etat.FF);
     assertThrows(BizException.class, () -> devisUcc.repousserDateDebut(devisDto));
   }
 
@@ -386,7 +387,6 @@ class TestDevisUcc {
         false, false, true, false);
     devisUcc = (DevisUcc) devisUccConstruct.newInstance(bizFactory, devisDao, userDao, clientDao,
         amenagementDao, dalServices);
-    devisDto.setEtat(Etat.I);
     devisUcc.repousserDateDebut(devisDto);
   }
 
@@ -398,7 +398,7 @@ class TestDevisUcc {
         false, false, true, true);
     devisUcc = (DevisUcc) devisUccConstruct.newInstance(bizFactory, devisDao, userDao, clientDao,
         amenagementDao, dalServices);
-    devisDto.setEtat(Etat.I);
+    devisDto.setEtat(Etat.FD);
     assertThrows(FatalException.class, () -> devisUcc.repousserDateDebut(devisDto));
   }
 }

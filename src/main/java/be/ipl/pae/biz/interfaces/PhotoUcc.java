@@ -4,7 +4,7 @@ import be.ipl.pae.biz.dto.AmenagementDto;
 
 public interface PhotoUcc {
 
-  void ajouterPhotoAvantAmenagement(int idDevis, String urlPhoto, int idAmenagement);
+  void ajouterPhotoAvantAmenagement(int idDevis, String urlPhoto);
 
   void ajouterPhotoApresAmenagement(AmenagementDto amenagementDto, String urlPhoto);
 }

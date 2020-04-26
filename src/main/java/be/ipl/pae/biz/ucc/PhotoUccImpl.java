@@ -37,10 +37,9 @@ public class PhotoUccImpl implements PhotoUcc {
   }
 
   @Override
-  public void ajouterPhotoAvantAmenagement(int idDevis, String urlPhoto, int idAmenagement) {
+  public void ajouterPhotoAvantAmenagement(int idDevis, String urlPhoto) {
     Photo photo = (Photo) bizFactory.getPhotoDto();
     photo.setIdDevis(idDevis);
-    photo.setIdAmenagement(idAmenagement);
     photo.setUrlPhoto(urlPhoto);
     if (photo.checkPhoto()) {
       try {
