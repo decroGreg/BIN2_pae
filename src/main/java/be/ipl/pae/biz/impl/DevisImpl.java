@@ -34,7 +34,7 @@ public class DevisImpl implements Devis {
    * @param etat l'etat du devis.
    */
   public DevisImpl(int idDevis, int idClient, Timestamp date, Timestamp dateDebutTravaux,
-      double montant, String dureeTravaux, Etat etat) {
+      double montant, String dureeTravaux, int idPhotoPreferee, Etat etat) {
     super();
     this.idDevis = idDevis;
     this.idClient = idClient;
@@ -42,6 +42,7 @@ public class DevisImpl implements Devis {
     this.dateDebutTravaux = dateDebutTravaux;
     this.montant = montant;
     this.dureeTravaux = dureeTravaux;
+    this.idPhotoPreferee = idPhotoPreferee;
     this.etat = etat;
   }
 

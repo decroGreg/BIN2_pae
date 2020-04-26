@@ -103,7 +103,7 @@ function viewListeDevis(){
     $("#voir-devis-client").hide();
     $("#voir-utilisateurs").hide();
     $("#voir-devis").show();
-    $("#rendreVisible").hide();
+    $("#choisirPhotoPreferee").hide();
 	$("#ajouterPhoto").hide();
 }
 

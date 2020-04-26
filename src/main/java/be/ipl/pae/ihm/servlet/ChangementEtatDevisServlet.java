@@ -89,28 +89,28 @@ public class ChangementEtatDevisServlet extends HttpServlet {
             devis.setEtat(Etat.I);
             break;
           case "FD":
-            // devisUcc.confirmerCommande(devis);
             devis.setEtat(Etat.FD);
+            devisUcc.changerEtat(devis);
             break;
           case "DC":
             devisUcc.confirmerDateDebut(devis);
             devis.setEtat(Etat.DC);
             break;
           case "A":
-            // devisUcc.annulerDevis(devis);
             devis.setEtat(Etat.A);
+            devisUcc.changerEtat(devis);
             break;
           case "FM":
-            // devisUcc.factureMilieuChantierEnvoyee(devis);
             devis.setEtat(Etat.FM);
+            devisUcc.changerEtat(devis);
             break;
           case "FF":
-            // devisUcc.factureFinChantierEnvoyee(devis);
             devis.setEtat(Etat.FF);
+            devisUcc.changerEtat(devis);
             break;
           case "V":
-            // devisUcc.rendreVisible(devis);
             devis.setEtat(Etat.V);
+            devisUcc.changerEtat(devis);
             break;
           default:
             break;

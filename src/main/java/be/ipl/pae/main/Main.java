@@ -3,28 +3,37 @@ package be.ipl.pae.main;
 import be.ipl.pae.biz.config.Config;
 import be.ipl.pae.biz.dto.ClientDto;
 import be.ipl.pae.biz.dto.DevisDto;
+import be.ipl.pae.biz.dto.PhotoDto;
 import be.ipl.pae.biz.dto.UserDto;
+import be.ipl.pae.biz.interfaces.AmenagementUcc;
 import be.ipl.pae.biz.interfaces.ClientUcc;
 import be.ipl.pae.biz.interfaces.DevisUcc;
 import be.ipl.pae.biz.interfaces.Factory;
+import be.ipl.pae.biz.interfaces.PhotoUcc;
 import be.ipl.pae.biz.interfaces.TypeDAmenagementUcc;
 import be.ipl.pae.biz.interfaces.UserUcc;
+import be.ipl.pae.biz.ucc.AmenagementUccImpl;
 import be.ipl.pae.biz.ucc.ClientUccImpl;
 import be.ipl.pae.biz.ucc.DevisUccImpl;
+import be.ipl.pae.biz.ucc.PhotoUccImpl;
 import be.ipl.pae.biz.ucc.TypeDAmenagementUccImpl;
 import be.ipl.pae.biz.ucc.UserUccImpl;
 import be.ipl.pae.dal.daoservices.DaoServicesImpl;
 import be.ipl.pae.dal.impl.AmenagementDaoImpl;
 import be.ipl.pae.dal.impl.ClientDaoImpl;
 import be.ipl.pae.dal.impl.DevisDaoImpl;
+import be.ipl.pae.dal.impl.PhotoDaoImpl;
 import be.ipl.pae.dal.impl.TypeDAmenagementDaoImpl;
 import be.ipl.pae.dal.impl.UserDaoImpl;
 import be.ipl.pae.dal.interfaces.AmenagementDao;
 import be.ipl.pae.dal.interfaces.ClientDao;
 import be.ipl.pae.dal.interfaces.DevisDao;
+import be.ipl.pae.dal.interfaces.PhotoDao;
 import be.ipl.pae.dal.interfaces.TypeDAmenagementDao;
 import be.ipl.pae.dal.interfaces.UserDao;
+import be.ipl.pae.ihm.servlet.AjouterPhotoDevisServlet;
 import be.ipl.pae.ihm.servlet.ChangementEtatDevisServlet;
+import be.ipl.pae.ihm.servlet.ChoisirPhotoPrefereeServlet;
 import be.ipl.pae.ihm.servlet.ConfirmationRegisterServlet;
 import be.ipl.pae.ihm.servlet.DetailsDevisServlet;
 import be.ipl.pae.ihm.servlet.IndexServlet;
@@ -64,7 +73,11 @@ public class Main {
     ClientDao clientDao = new ClientDaoImpl(daoServices);
     DevisDao devisDao = new DevisDaoImpl(daoServices);
     TypeDAmenagementDao typeAmenagementDao = new TypeDAmenagementDaoImpl(daoServices);
+    PhotoDao photoDao = new PhotoDaoImpl(daoServices);
     UserUcc userUcc = new UserUccImpl(factory, userDao, daoServices);
+    PhotoDto photoDto = factory.getPhotoDto();
+    AmenagementUcc amenagementUcc = new AmenagementUccImpl(amenagementDao, factory, daoServices);
+    PhotoUcc photoUcc = new PhotoUccImpl(photoDao, devisDao, factory, daoServices);
 
     UserDto userDto = factory.getUserDto();
     ClientDto clientDto = factory.getClientDto();
@@ -121,6 +134,14 @@ public class Main {
 
     HttpServlet rechercheDevis = new RechercheDevisServlet(devisUcc, devisDto);
     context.addServlet(new ServletHolder(rechercheDevis), "/rechercheDevis");
+
+    HttpServlet ajouterPhoto = new AjouterPhotoDevisServlet(photoDto, photoUcc, amenagementUcc,
+        typeAmenagmentUcc, devisUcc);
+    context.addServlet(new ServletHolder(ajouterPhoto), "/ajouterPhoto");
+
+    HttpServlet photoPreferee = new ChoisirPhotoPrefereeServlet(devisUcc, devisDto, photoUcc);
+    context.addServlet(new ServletHolder(photoPreferee), "/photoPreferee");
+
 
 
     context.setWelcomeFiles(new String[] {"index.html"});

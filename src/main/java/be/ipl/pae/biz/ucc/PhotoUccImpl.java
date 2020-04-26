@@ -1,10 +1,12 @@
 package be.ipl.pae.biz.ucc;
 
 import be.ipl.pae.biz.dto.AmenagementDto;
+import be.ipl.pae.biz.dto.DevisDto;
 import be.ipl.pae.biz.interfaces.Factory;
 import be.ipl.pae.biz.interfaces.Photo;
 import be.ipl.pae.biz.interfaces.PhotoUcc;
 import be.ipl.pae.dal.daoservices.DaoServicesUcc;
+import be.ipl.pae.dal.interfaces.DevisDao;
 import be.ipl.pae.dal.interfaces.PhotoDao;
 import be.ipl.pae.exceptions.BizException;
 import be.ipl.pae.exceptions.DalException;
@@ -13,6 +15,7 @@ import be.ipl.pae.exceptions.FatalException;
 public class PhotoUccImpl implements PhotoUcc {
 
   private PhotoDao photoDao;
+  private DevisDao devisDao;
   private Factory bizFactory;
   private DaoServicesUcc daoServicesUcc;
 
@@ -23,9 +26,11 @@ public class PhotoUccImpl implements PhotoUcc {
    * @param bizFactory la biz factory.
    * @param daoServicesUcc le daoServices.
    */
-  public PhotoUccImpl(PhotoDao photoDao, Factory bizFactory, DaoServicesUcc daoServicesUcc) {
+  public PhotoUccImpl(PhotoDao photoDao, DevisDao devisDao, Factory bizFactory,
+      DaoServicesUcc daoServicesUcc) {
     super();
     this.photoDao = photoDao;
+    this.devisDao = devisDao;
     this.bizFactory = bizFactory;
     this.daoServicesUcc = daoServicesUcc;
   }
@@ -51,10 +56,10 @@ public class PhotoUccImpl implements PhotoUcc {
   public void ajouterPhotoApresAmenagement(AmenagementDto amenagementDto, String urlPhoto) {
     try {
       daoServicesUcc.demarrerTransaction();
-      // DevisDto devis = devisDao.findUserById(amenagementDto.getIdDevis());
-      /**
-       * if(devis == null) { throw new BizException("Pas devis trouvé pour cette id"); }
-       */
+      DevisDto devis = devisDao.getDevisViaId(amenagementDto.getIdDevis());
+      if (devis == null) {
+        throw new BizException("Pas devis trouvé pour cette id");
+      }
       /**
        * if(devis.getEtat().equals(Etat.V){
        * photoDao.introduirePhotoApresAmenagement(amenagementDto,urlPhoto); }

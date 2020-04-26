@@ -1,7 +1,7 @@
 import {postData,getData,deleteData,putData, onError} from "./util.js" ;
 import{afficherDevis} from "./afficherDevis.js";
 import {allHide, token} from "./index.js";
-import {ajouterPhoto} from "./rendreDevisVisible.js";
+import {ajouterPhoto, choisirPhotoPreferee} from "./rendreDevisVisible.js";
 
 
 function afficherDetailsDevis(response){
@@ -10,6 +10,8 @@ function afficherDetailsDevis(response){
 	$("#btn-ajouter-photo").hide();
 	$("#btn-photo-preferee").hide();
 	$("#btn-rendre-visible").hide();
+	$("#ajouterPhoto").hide();
+	$("#choisirPhotoPreferee").hide();
 	//Remplir donnees client
 	$("#voir-details-devis #nomClient").attr("value", response.clientData.nom);
 	$("#voir-details-devis #mailClient").attr("value", response.clientData.email);
@@ -61,11 +63,15 @@ function afficherDetailsDevis(response){
 	});
 	$("btn-ajouter-photo").click(e=>{
 		e.preventDefault();
-		//ajouterPhoto();
+		let data={};
+		data.idDevis = response.devisData.idDevis;
+		postData("/ajouterPhoto", data, token, ajouterPhoto, onError);
 	});
 	$("btn-photo-preferee").click(e=>{
 		e.preventDefault();
-		//choisirPhotoPreferee();
+		let data={};
+		data.idDevis = response.devisData.idDevis;
+		postData("/ajouterPhoto", data, token, choisirPhotoPreferee, onError);
 	});
 	$("btn-rendre-visible").click(e=>{
 		e.preventDefault();
