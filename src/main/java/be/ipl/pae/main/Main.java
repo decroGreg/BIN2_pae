@@ -72,7 +72,7 @@ public class Main {
     ClientDao clientDao = new ClientDaoImpl(daoServices);
     DevisDao devisDao = new DevisDaoImpl(daoServices);
     TypeDAmenagementDao typeAmenagementDao = new TypeDAmenagementDaoImpl(daoServices);
-    PhotoDao photoDao = new PhotoDaoImpl();
+    PhotoDao photoDao = new PhotoDaoImpl(daoServices);
     UserUcc userUcc = new UserUccImpl(factory, userDao, daoServices);
     PhotoDto photoDto = factory.getPhotoDto();
     AmenagementUcc amenagementUcc = new AmenagementUccImpl(amenagementDao, factory, daoServices);

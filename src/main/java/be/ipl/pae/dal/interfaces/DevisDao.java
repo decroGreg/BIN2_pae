@@ -23,5 +23,7 @@ public interface DevisDao {
 
   boolean changerEtatDevis(DevisDto devis);
 
+  boolean repousserDateDebut(DevisDto devis);
+
   int getIdDernierDevis();
 }

@@ -122,4 +122,11 @@ public class DevisDaoMock implements DevisDao {
     testDalException();
     return ajouterPhotoPrefereeDevis;
   }
+
+
+  @Override
+  public boolean repousserDateDebut(DevisDto devis) {
+    // TODO Auto-generated method stub
+    return false;
+  }
 }
