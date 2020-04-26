@@ -1,38 +1,20 @@
 "use-strict";
-import {postData,getData,onError} from "./util.js" ;
+import {postData,getData,onError, putData} from "./util.js" ;
 import{viewAuthentification,viewLogin,onPostRegister} from "./connexion.js"
-import{onGetRegisterConfirmation,viewRegisterConfirmation} from "./confirmerInscription.js";
-import{onGetAmenagements,onGetClientQuoteForm,filterSearchClient,viewIntroductionQuote} from "./introduireDevis.js"
 import{afficherClients} from "./afficherClients.js";
 import{afficherDevis, afficherDevisClient,onGetAmenagementDevis,onGetAmenagementDevisClient,searchDevis} from "./afficherDevis.js";
 import{afficherUtilisateurs} from "./afficherUtilisateurs.js";
 import{afficherDetailsDevis, changerEtat, changerValeurBouton} from "./detailsDevis.js";
 
-
-const OUVRIER="O";
-const CLIENT="C";
 let token=undefined;
 let user;
 $('#navigation_bar').hide();
 $("#success-notification").hide();
 $("#error-notification").hide();
-var photo={};
 
 
-function encodeImagetoBase64(element) {
-        var file = element.files[0];
-        console.log(element);
-        console.log(file);
-        var reader = new FileReader();
 
-        reader.onloadend = function() {
-                photo="{"+reader.result+"}";
-          console.log(reader.result);
-          $("img").attr("src",reader.result);
-          
-        }
-        reader.readAsDataURL(file);        
-}
+
 function checkInput(data,message){
         var element;
         console.log(data);
@@ -93,86 +75,6 @@ $(document).ready(e=>{
         postData("/register",data,token,onPostRegister,onError);
         
     });
-    $(".introductionQuote").click(e=>{
-        viewIntroductionQuote();
-        getData("/introduireServlet",token,onGetAmenagements,onError);
-        getData("/listeUsers",token,onGetClientQuoteForm,onError);
-    });
-
-    /*
-    filtre dropdow lié client
-    */
-    $("#Quote-Form-Client-Search").on("keyup", function() {
-                filterSearchClient(this);
-      });
-
-      $("#Quote-Form-image").change(e=>{
-              encodeImagetoBase64(e.target);
-      })
-
-      //envoyé donné Introduction devis
-    $("#bnt-IntroductionQuote").click(e=>{
-            console.log($("#imageQuote").attr("src"));
-        
-        
-        if($("#Quote-Form-firstName").val()||$("#Quote-Form-email").val()){//changer ne prends pas tous les cas en considération
-                var dataUser={
-                        firstname:$("#Quote-Form-firstName").val(),
-                        lastname:$("#Quote-Form-name").val(),
-                        street:$("#Quote-Form-street").val(),
-                        number:$("#Quote-Form-number").val(),
-                        boite:$("#Quote-Form-boite").val(),
-                        postalCode:$("#Quote-Form-postalCode").val(),
-                        city:$("#Quote-Form-city").val(),
-                        mail:$("#Quote-Form-email").val(),
-                        phone:$("#Quote-Form-phoneNumber").val()
-                };
-                if(!checkInput(dataUser,"veuillez remplir tous les champs pour le nouveau client")) {
-                        console.log("ne passe pas la methode");
-                        return;
-                }
-                console.log(dataUser);
-        
-        }
-        var type=[];
-        var amenagementList=document.getElementsByClassName("form-check");
-        for(var i=0;i<amenagementList.length;i++){
-                var element=amenagementList[i].firstChild;
-                if(element.checked){
-                        type[i]=element.id;    
-                }
-        }
-        var dataQuote={
-                "client":$("#Quote-Form-Client-items").val(),
-                "date":$("#Quote-Form-quoteDate").val(),
-                "price":$("#Quote-Form-price").val(),
-                "duration":$("#Quote-Form-duration").val(),
-                "image":$("#imageQuote").attr("src")
-                
-
-        };
-        if(!checkInput(dataQuote,"veuillez remplir tous les champs du devis")) return;//à voir si image peut être null;
-        if(type.length==0){
-                $("#error-notification").fadeIn('slow').delay(1000).fadeOut('slow');
-                $("#error-notification").text("veillez introduire un type d'aménagement");
-                return;
-        }
-        var data={
-                "dataUser":dataUser,
-                "dataQuote":dataQuote,
-                "type":type
-        }
-        console.log(data.dataQuote.type);
-        postData("/introduireServlet",data,token,onPostIntroductionQuote,onError);
-        
-    });
-
-    $(".Register-confirmation-link").click(e=>{
-            viewRegisterConfirmation();
-            
-            getData("/confirmation",token,onGetRegisterConfirmation,onError);
-        
-    });
    
 
     $("#btn-deconnexion").click(e=>{
@@ -224,6 +126,7 @@ $(document).ready(e=>{
         	getData("/listeDevisClient",token,afficherDevisClient,onError);
 		}
     });
+
     $("#btn-search-devis-client").click(e=>{
         searchDevis(document.getElementById("amenagements-devis-client"),user.idUser);
     });
@@ -231,12 +134,22 @@ $(document).ready(e=>{
         searchDevis(document.getElementById("amenagements-devis"));
     });
 
+    $("#btn-devis-repousserDate").click(e=>{
+        let data={
+                "date":$("#dateDebutTravaux").val(),
+                "idDevis":$("#btn-devis-repousserDate").attr("idDevis")
+        };
+        console.log("id devis-->"+$("#btn-devis-repousserDate").attr("idDevis"));
+        //putData("",token,data,,onError); si reussis alors changer la date detailsDevis
+
+    });
+
     $(".myInput").on("keyup", function() {
         var value = $(this).val().toLowerCase();
         $(".dropdown-menu li").filter(function() {
           $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
         });
-      });
+        });
     
 });
 
@@ -295,6 +208,7 @@ function authentificationToken(token){
                 viewHomePage();
         }
 }
+//identification via le token
 function onPostLoginToken(response){
         if(response.success=="true"){
                 user=response.userData;

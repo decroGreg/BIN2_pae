@@ -1,5 +1,8 @@
 const OUVRIER="O";
 const CLIENT="C";
+
+
+
 //vue après authentification
 function viewAuthentification(user){
     $("#search-homepage").show();

@@ -28,6 +28,7 @@ function afficherDetailsDevis(response){
 	}
 	else if(response.devisData.etat=="FD"){
 		$("#voir-details-devis #dateDebutTravaux").attr("value", response.devisData.dateDebutTravaux.substring(0,10));
+		$("#btn-devis-repousserDate").attr("idDevis", response.devisData.idDevis);
 	}
 	else if(response.devisData.etat=="DC"){
 		$("#voir-details-devis #dateDebutTravaux").attr("value", response.devisData.dateDebutTravaux.substring(0,10));

@@ -1,4 +1,17 @@
-import {creatHTMLFromString} from "./util.js" ;
+import {creatHTMLFromString,getData,postData,onError} from "./util.js" ;
+import {token} from "./index.js";
+
+
+
+$(document).ready(function () {
+        $(".Register-confirmation-link").click(e=>{
+                viewRegisterConfirmation();
+                
+                getData("/confirmation",token,onGetRegisterConfirmation,onError);
+            
+        });
+});
+
 var i=0;//permet d'afficher la meme liste des clients pour des bouttonsdifférentss
 //affiche les demandes d'inscription dans un tableau
 function onGetRegisterConfirmation(response){

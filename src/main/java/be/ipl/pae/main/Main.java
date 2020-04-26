@@ -30,6 +30,7 @@ import be.ipl.pae.ihm.servlet.DetailsDevisServlet;
 import be.ipl.pae.ihm.servlet.IndexServlet;
 import be.ipl.pae.ihm.servlet.IntroduireDevisServlet;
 import be.ipl.pae.ihm.servlet.LoginServlet;
+import be.ipl.pae.ihm.servlet.RechercheDevisServlet;
 import be.ipl.pae.ihm.servlet.RegisterServlet;
 import be.ipl.pae.ihm.servlet.VoirClientsServlet;
 import be.ipl.pae.ihm.servlet.VoirDevisClientServlet;
@@ -117,6 +118,9 @@ public class Main {
 
     HttpServlet changementEtatDevis = new ChangementEtatDevisServlet(devisDto, devisUcc, clientUcc);
     context.addServlet(new ServletHolder(changementEtatDevis), "/changementEtatDevis");
+
+    HttpServlet rechercheDevis = new RechercheDevisServlet(devisUcc, devisDto);
+    context.addServlet(new ServletHolder(rechercheDevis), "/rechercheDevis");
 
 
     context.setWelcomeFiles(new String[] {"index.html"});

@@ -43,6 +43,7 @@ function searchDevis(dropdown,idUser){
 		"data":data,
 		"amenagements":amenagements
 	}
+	postData("rechercheDevis",token,data,afficherDevis,onError)
 }
 
 
