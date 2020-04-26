@@ -4,5 +4,5 @@ import be.ipl.pae.biz.dto.PhotoDto;
 
 public interface PhotoDao {
 
-  boolean createPhoto(PhotoDto photoDto);
+  boolean introduirePhoto(PhotoDto photoDto);
 }

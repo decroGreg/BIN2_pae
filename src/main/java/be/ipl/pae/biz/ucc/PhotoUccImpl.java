@@ -2,6 +2,7 @@ package be.ipl.pae.biz.ucc;
 
 import be.ipl.pae.biz.dto.AmenagementDto;
 import be.ipl.pae.biz.dto.DevisDto;
+import be.ipl.pae.biz.impl.DevisImpl.Etat;
 import be.ipl.pae.biz.interfaces.Factory;
 import be.ipl.pae.biz.interfaces.Photo;
 import be.ipl.pae.biz.interfaces.PhotoUcc;
@@ -38,10 +39,13 @@ public class PhotoUccImpl implements PhotoUcc {
   @Override
   public void ajouterPhotoAvantAmenagement(int idDevis, String urlPhoto, int idAmenagement) {
     Photo photo = (Photo) bizFactory.getPhotoDto();
+    photo.setIdDevis(idDevis);
+    photo.setIdAmenagement(idAmenagement);
+    photo.setUrlPhoto(urlPhoto);
     if (photo.checkPhoto()) {
       try {
         daoServicesUcc.demarrerTransaction();
-        // photoDao.introduirePhotoAvantAmenagement(photo);
+        photoDao.introduirePhoto(photo);
       } catch (DalException de) {
         daoServicesUcc.rollback();
         throw new FatalException(de.getMessage());
@@ -60,10 +64,13 @@ public class PhotoUccImpl implements PhotoUcc {
       if (devis == null) {
         throw new BizException("Pas devis trouvé pour cette id");
       }
-      /**
-       * if(devis.getEtat().equals(Etat.V){
-       * photoDao.introduirePhotoApresAmenagement(amenagementDto,urlPhoto); }
-       */
+      Photo photo = (Photo) bizFactory.getPhotoDto();
+      photo.setIdDevis(amenagementDto.getIdDevis());
+      photo.setIdAmenagement(amenagementDto.getIdAmenagement());
+      photo.setUrlPhoto(urlPhoto);
+      if (devis.getEtat().equals(Etat.V) && photo.checkPhoto()) {
+        photoDao.introduirePhoto(photo);
+      }
     } catch (DalException de) {
       daoServicesUcc.rollback();
       throw new FatalException(de.getMessage());

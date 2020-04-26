@@ -22,4 +22,6 @@ public interface DevisUcc {
   void changerEtat(DevisDto devis);
 
   void choisirPhotoPreferee(DevisDto devisDto, int idPhoto);
+
+  void repousserDateDebut(DevisDto devisDto);
 }
