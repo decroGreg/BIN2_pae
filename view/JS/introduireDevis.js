@@ -162,4 +162,4 @@ function viewIntroductionQuote(){
     $("#introductionQuoteForm").show();
    
 }
-export{onGetAmenagements,onGetClientQuoteForm,onPostIntroductionQuote,filterSearchClient,viewIntroductionQuote};
+export{onGetAmenagements,onGetClientQuoteForm,onPostIntroductionQuote,filterSearchClient,viewIntroductionQuote, encodeImagetoBase64};

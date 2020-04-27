@@ -1,5 +1,6 @@
 function afficherClients(response){
 	viewListeClients();
+	$("#voir-clients tbody").html("");
 	Object.keys(response.clientsData).forEach(data => {
 		console.log(response.clientsData[data].prenom);
 	    var html = "<tr>";
