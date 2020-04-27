@@ -3,6 +3,7 @@ import{token, allHide} from "./index.js";
 function afficherUtilisateurs(response){
 	allHide();
 	viewListeUtilisateurs();
+	$("#voir-utilisateurs tbody").html("");
 	Object.keys(response.usersData).forEach(data => {
 	    var html = "<tr>";
 	    html+="<td>" 

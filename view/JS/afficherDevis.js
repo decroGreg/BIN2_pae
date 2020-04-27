@@ -1,5 +1,5 @@
 import{token, allHide} from "./index.js";
-import{afficherDetailsDevis} from "./detailsDevis.js";
+import{afficherDetailsDevis,afficherDetailsDevisClient} from "./detailsDevis.js";
 import {postData,onError,creatHTMLFromString,filterDropdown} from "./util.js" ;
 
 
@@ -99,6 +99,8 @@ function searchDevis(dropdown,idUser){
 function afficherDevis(response){
 	allHide();
 	viewListeDevis();
+	$("#voir-devis").show("");
+	$("#voir-devis tbody").html("");
 	Object.keys(response.devisData).forEach(data => {
 	    var html = "<tr>";
 	    html+="<td><a href=\"#\" class=\"reference-devis\">"
@@ -122,6 +124,8 @@ function afficherDevis(response){
 function afficherDevisClient(response){
 	allHide();
 	viewListeDevis();
+    $("#voir-devis-client").show();
+    $("#voir-devis-client tbody").html("");
 	Object.keys(response.devisData).forEach(data => {
 	    var html = "<tr>";
 	    html+="<td><a href='#' class='reference-devis'>"
@@ -133,6 +137,12 @@ function afficherDevisClient(response){
 	    	+ response.devisData[data].etat + "</td></tr>";	    
 	    $("#voir-devis-client tbody").append(html);
 	});
+	$("a.reference-devis").click(e=>{
+    	let data={};
+        data.idDevis=$(e.target).text();
+        console.log("Reference devis : " + data.idDevis);
+        postData("/detailsDevis",data,token, afficherDetailsDevisClient, onError);
+    });
 }
 
 function viewListeDevis(){
@@ -149,9 +159,9 @@ function viewListeDevis(){
     $("#voir-clients").hide();
     $("#voir-devis-client").hide();
     $("#voir-utilisateurs").hide();
-    $("#voir-devis").show();
+    $("#voir-devis").hide();
     $("#choisirPhotoPreferee").hide();
 	$("#ajouterPhoto").hide();
 }
 
-export{afficherDevis, afficherDevisClient, viewListeDevis,onGetAmenagementDevis,onGetAmenagementDevisClient,onGetClientDevis,onGetClientDevisClient};
+export{afficherDevis, afficherDevisClient, viewListeDevis,onGetAmenagementDevis,onGetAmenagementDevisClient,searchDevis};

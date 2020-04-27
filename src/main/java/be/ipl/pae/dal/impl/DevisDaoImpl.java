@@ -121,13 +121,13 @@ public class DevisDaoImpl implements DevisDao {
   }
 
   public boolean changerEtatDevis(DevisDto devis) {
-    String requeteSql = "UPDATE init.devis SET etat = '?' WHERE id_devis = ?";
-    int idDevis = devis.getIdDevis();
+    String requeteSql = "UPDATE init.devis SET etat = ? WHERE id_devis = ?";
+    // int idDevis = devis.getIdDevis();
     ps = services.getPreparedSatement(requeteSql);
-    String etat = devis.getEtat().name();
+    // String etat = devis.getEtat().name();
     try {
-      ps.setString(1, etat);
-      ps.setInt(2, idDevis);
+      ps.setString(1, devis.getEtat().name());
+      ps.setInt(2, devis.getIdDevis());
       ps.execute();
     } catch (SQLException ex) {
       throw new DalException("Erreur lors du changement d'etat d'un devis" + ex.getMessage());
@@ -136,7 +136,7 @@ public class DevisDaoImpl implements DevisDao {
   }
 
   public boolean ajouterPhotoPrefereeDevis(DevisDto devis, int idPhoto) {
-    String requeteSql = "UPDATE init.devis SET photo_preferee = '?' WHERE id_devis = ?";
+    String requeteSql = "UPDATE init.devis SET photo_preferee = ? WHERE id_devis = ?";
     int idDevis = devis.getIdDevis();
     ps = services.getPreparedSatement(requeteSql);
     String etat = devis.getEtat().name();
@@ -178,7 +178,7 @@ public class DevisDaoImpl implements DevisDao {
   }
 
   public boolean repousserDateDebut(DevisDto devis) {
-    String requeteSql = "UPDATE init.devis SET date_debut_travaux = '?' WHERE id_devis = ?";
+    String requeteSql = "UPDATE init.devis SET date_debut_travaux = ? WHERE id_devis = ?";
     int idDevis = devis.getIdDevis();
     Timestamp dateDebut = devis.getDateDebutTravaux();
     ps = services.getPreparedSatement(requeteSql);
