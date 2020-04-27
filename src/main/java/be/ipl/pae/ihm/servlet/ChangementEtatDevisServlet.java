@@ -90,11 +90,11 @@ public class ChangementEtatDevisServlet extends HttpServlet {
             break;
           case "FD":
             devis.setEtat(Etat.FD);
-            devisUcc.changerEtat(devis);
+            devisUcc.modifierDateDevis(devis);
             break;
           case "DC":
-            devisUcc.confirmerDateDebut(devis);
             devis.setEtat(Etat.DC);
+            devisUcc.modifierDateDevis(devis);
             break;
           case "A":
             devis.setEtat(Etat.A);

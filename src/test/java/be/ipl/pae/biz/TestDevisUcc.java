@@ -240,46 +240,47 @@ class TestDevisUcc {
 
   @Test
   @DisplayName("devis null")
-  void testConfirmerDateDebut() throws InstantiationException, IllegalAccessException,
+  void modifierDateDevis() throws InstantiationException, IllegalAccessException,
       IllegalArgumentException, InvocationTargetException {
     devisDao = (DevisDao) devisDaoConstruct.newInstance(false, false, false, true, false, false,
         false, false, false, false);
     devisUcc = (DevisUcc) devisUccConstruct.newInstance(bizFactory, devisDao, userDao, clientDao,
         amenagementDao, dalServices);
-    assertThrows(NullPointerException.class, () -> devisUcc.confirmerDateDebut(null));
+    assertThrows(NullPointerException.class, () -> devisUcc.modifierDateDevis(null));
   }
 
   @Test
-  @DisplayName("devis ok")
-  void testConfirmerDateDebut2() throws InstantiationException, IllegalAccessException,
+  @DisplayName("devis ok et etat = FD")
+  void modifierDateDevis2() throws InstantiationException, IllegalAccessException,
       IllegalArgumentException, InvocationTargetException {
     devisDao = (DevisDao) devisDaoConstruct.newInstance(false, false, false, true, false, false,
         false, false, false, false);
     devisUcc = (DevisUcc) devisUccConstruct.newInstance(bizFactory, devisDao, userDao, clientDao,
         amenagementDao, dalServices);
-    devisUcc.confirmerDateDebut(devisDto);
+    devisUcc.modifierDateDevis(devisDto);
   }
 
   @Test
-  @DisplayName("etat != FD")
-  void testConfirmerDateDebut3() throws InstantiationException, IllegalAccessException,
+  @DisplayName("devis ok et etat = DC")
+  void modifierDateDevis3() throws InstantiationException, IllegalAccessException,
       IllegalArgumentException, InvocationTargetException {
     devisDao = (DevisDao) devisDaoConstruct.newInstance(false, false, false, true, false, false,
         false, false, false, false);
     devisUcc = (DevisUcc) devisUccConstruct.newInstance(bizFactory, devisDao, userDao, clientDao,
         amenagementDao, dalServices);
-    assertEquals(Etat.FD, devisDto.getEtat());
+    devisDto.setEtat(Etat.DC);
+    devisUcc.modifierDateDevis(devisDto);
   }
 
   @Test
   @DisplayName("test dalException")
-  void testConfirmerDateDebut4() throws InstantiationException, IllegalAccessException,
+  void modifierDateDevis4() throws InstantiationException, IllegalAccessException,
       IllegalArgumentException, InvocationTargetException {
     devisDao = (DevisDao) devisDaoConstruct.newInstance(false, false, false, false, false, false,
         false, false, false, true);
     devisUcc = (DevisUcc) devisUccConstruct.newInstance(bizFactory, devisDao, userDao, clientDao,
         amenagementDao, dalServices);
-    assertThrows(FatalException.class, () -> devisUcc.confirmerDateDebut(devisDto));
+    assertThrows(FatalException.class, () -> devisUcc.modifierDateDevis(devisDto));
   }
 
   @Test

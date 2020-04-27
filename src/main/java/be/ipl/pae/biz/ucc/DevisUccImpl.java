@@ -116,11 +116,11 @@ public class DevisUccImpl implements DevisUcc {
   }
 
   @Override
-  public void confirmerDateDebut(DevisDto devis) {
+  public void modifierDateDevis(DevisDto devis) {
     try {
       daoServicesUcc.demarrerTransaction();
-      if (devis.getEtat().equals(Etat.FD)) {
-        devisDao.confirmerDateDevis(devis.getIdDevis(), devis.getDateDebutTravaux());
+      if (devis.getEtat().equals(Etat.FD) || devis.getEtat().equals(Etat.DC)) {
+        devisDao.confirmerDateDevis(devis);
       }
     } catch (DalException de) {
       daoServicesUcc.rollback();

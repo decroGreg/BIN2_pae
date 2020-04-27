@@ -7,7 +7,6 @@ import be.ipl.pae.biz.interfaces.Factory;
 import be.ipl.pae.dal.interfaces.DevisDao;
 import be.ipl.pae.exceptions.DalException;
 
-import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -82,7 +81,7 @@ public class DevisDaoMock implements DevisDao {
   }
 
   @Override
-  public boolean confirmerDateDevis(int idDevis, Timestamp dateDebutTravaux) {
+  public boolean confirmerDateDevis(DevisDto devis) {
     testDalException();
     return confirmerDateDevis;
   }

@@ -17,7 +17,7 @@ public interface DevisUcc {
   void introduireDevis(ClientDto nouveauClient, int idClient, DevisDto devis,
       List<String> listeIdTypeAmenagement);
 
-  void confirmerDateDebut(DevisDto devis);
+  void modifierDateDevis(DevisDto devis);
 
   void changerEtat(DevisDto devis);
 
