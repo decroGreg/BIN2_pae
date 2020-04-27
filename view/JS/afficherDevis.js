@@ -1,6 +1,51 @@
 import{token, allHide} from "./index.js";
 import{afficherDetailsDevis} from "./detailsDevis.js";
-import {postData,onError,creatHTMLFromString} from "./util.js" ;
+import {postData,onError,creatHTMLFromString,filterDropdown} from "./util.js" ;
+
+
+$(document).ready(function () {
+	$("#btn-search-devis-client").click(e=>{
+        searchDevis(document.getElementById("amenagements-devis-client"),user.idUser);
+    });
+    $("#btn-search-devis").click(e=>{
+        searchDevis(document.getElementById("amenagements-devis"));
+    });
+	$("#inputClientNameSearch").on("keyup", function(){
+			filterDropdown(this);
+	});
+	
+	$("#inputDevisClientNameSearch").on("keyup", function(){
+		filterDropdown(this);
+});
+});
+
+function onGetClientDevis(response){
+	afficherNomClientDropdown(response,document.getElementById("clientNameSearch"));	
+}
+function onGetClientDevisClient(response){
+	afficherNomClientDropdown(response,document.getElementById("devisClientNameSearch"));
+}
+
+function afficherNomClientDropdown(response,dropdown){
+	
+	response.usersData.forEach(element=>{
+		var li=document.createElement("li");
+		li.value=element.idUser;
+		var a=document.createElement("a");
+		a.addEventListener("click",function(){
+			console.log(li.value);
+			$("#searchDevisNameDropdown").html(element.nom+" "+element.prenom);
+			$("#dropdownClientName").val(li.value);
+			document.getElementById("dropdownClientName").name="name";
+		});
+		a.innerHTML=element.nom+" "+element.prenom;
+		li.appendChild(a);
+		dropdown.appendChild(li);
+	});
+	console.log(document.getElementById('search-devisClient'));
+}
+
+
 
 
 function onGetAmenagementDevis(response){
@@ -11,7 +56,8 @@ function onGetAmenagementDevisClient(response){
 }
 
 function afficherAmenagementDropDown(response,dropdown){
-	console.log(response.typeAmenagements);
+
+	console.log(dropdown);
 		response.typeAmenagements.forEach(element=>{
 			var checkbox=creatHTMLFromString(' <li><input type="checkbox" value="'+element.id+'">'+element.description+'</li>');
 			dropdown.append(checkbox);
@@ -30,6 +76,7 @@ function searchDevis(dropdown,idUser){
 	})
 	var data={}
 	dropdown.parentNode.parentNode.childNodes.forEach(e=>{
+		console.log(e);
 		if(e.name)
 		data[e.name]=e.value;
 	});
@@ -43,7 +90,7 @@ function searchDevis(dropdown,idUser){
 		"data":data,
 		"amenagements":amenagements
 	}
-	postData("rechercheDevis",token,data,afficherDevis,onError)
+	//postData("/rechercheDevis",token,data,afficherDevis,onError)
 }
 
 
@@ -107,4 +154,4 @@ function viewListeDevis(){
 	$("#ajouterPhoto").hide();
 }
 
-export{afficherDevis, afficherDevisClient, viewListeDevis,onGetAmenagementDevis,onGetAmenagementDevisClient,searchDevis};
+export{afficherDevis, afficherDevisClient, viewListeDevis,onGetAmenagementDevis,onGetAmenagementDevisClient,onGetClientDevis,onGetClientDevisClient};

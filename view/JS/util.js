@@ -105,5 +105,11 @@ function creatHTMLFromString(htmlString){
   // Change this to div.childNodes to support multiple top-level nodes
   return div.firstChild; 
 }
+function filterDropdown(element){
+  var value = $(element).val().toLowerCase();
+  $(".dropdown-menu li").filter(function() {
+    $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+  });
+}
 
-export{postData,getData,deleteData,putData,creatHTMLFromString,onError};
+export{postData,getData,deleteData,putData,creatHTMLFromString,onError,filterDropdown};

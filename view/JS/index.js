@@ -2,7 +2,7 @@
 import {postData,getData,onError, putData} from "./util.js" ;
 import{viewAuthentification,viewLogin,onPostRegister} from "./connexion.js"
 import{afficherClients} from "./afficherClients.js";
-import{afficherDevis, afficherDevisClient,onGetAmenagementDevis,onGetAmenagementDevisClient,searchDevis} from "./afficherDevis.js";
+import{afficherDevis, afficherDevisClient,onGetAmenagementDevis,onGetAmenagementDevisClient,onGetClientDevis,onGetClientDevisClient} from "./afficherDevis.js";
 import{afficherUtilisateurs} from "./afficherUtilisateurs.js";
 import{afficherDetailsDevis, changerEtat, changerValeurBouton} from "./detailsDevis.js";
 
@@ -89,10 +89,14 @@ $(document).ready(e=>{
     });
     
     $("#mesDevis").click(e=>{
-    	e.preventDefault();
+            e.preventDefault();
+            alert();
     	allHide();
-            mesDevis();
-            getData("/introduireServlet",token,onGetAmenagementDevisClient,onError);
+        mesDevis();
+        console.log("passage");
+        getData("/listeUsers",token,onGetClientDevisClient,onError);
+        alert();
+        getData("/introduireServlet",token,onGetAmenagementDevisClient,onError);
     });
     
     $("#btn-search-category").click(e=>{
@@ -103,6 +107,7 @@ $(document).ready(e=>{
         }
         if($("#search-option-category").val()=="devis"){
                 allHide();
+                getData("/listeUsers",token,onGetClientDevis,onError);
                 getData("/introduireServlet",token,onGetAmenagementDevis,onError);
         	getData("/listeDevis",token,afficherDevis,onError);
         }
@@ -127,13 +132,7 @@ $(document).ready(e=>{
 		}
     });
 
-    $("#btn-search-devis-client").click(e=>{
-        searchDevis(document.getElementById("amenagements-devis-client"),user.idUser);
-    });
-    $("#btn-search-devis").click(e=>{
-        searchDevis(document.getElementById("amenagements-devis"));
-    });
-
+   
     $("#btn-devis-repousserDate").click(e=>{
         let data={
                 "date":$("#dateDebutTravaux").val(),
@@ -155,13 +154,10 @@ $(document).ready(e=>{
 
 
 function allHide(){
-        $("#login").hide();
-        $("#btn-deconnexion").hide();
+        $("#login-form").hide();
         $("#wrong_passwd").hide();
-        $("#test1").hide();
         $("#carousel").hide();
         $("#introductionQuoteForm").hide();
-        
         $("#Register-confirmation").hide();
         $("#success-notification").hide();
         $("#error-notification").hide();

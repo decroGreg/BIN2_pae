@@ -1,4 +1,4 @@
-import {creatHTMLFromString,getData,postData,onError} from "./util.js" ;
+import {creatHTMLFromString,getData,postData,onError,filterDropdown} from "./util.js" ;
 import {token} from "./index.js";
 var photo={};
 function checkInput(data,message){
@@ -40,7 +40,7 @@ $(document).ready(function () {
                 getData("/listeUsers",token,onGetClientQuoteForm,onError);
             });
         $("#Quote-Form-Client-Search").on("keyup", function() {
-                filterSearchClient(this);
+                filterDropdown(this);
       });
       $("#Quote-Form-image").change(e=>{
               encodeImagetoBase64(e.target);
@@ -146,12 +146,6 @@ function onPostIntroductionQuote(response){
     }
     viewIntroductionQuote();
 }
-function filterSearchClient(element){
-    var value = $(element).val().toLowerCase();
-    $(".dropdown-menu li").filter(function() {
-      $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
-    });
-}
 function viewIntroductionQuote(){
     $("#login").hide();
     $("#btn-deconnexion").hide();
@@ -162,4 +156,4 @@ function viewIntroductionQuote(){
     $("#introductionQuoteForm").show();
    
 }
-export{onGetAmenagements,onGetClientQuoteForm,onPostIntroductionQuote,filterSearchClient,viewIntroductionQuote};
+export{onGetAmenagements,onGetClientQuoteForm,onPostIntroductionQuote,viewIntroductionQuote};
