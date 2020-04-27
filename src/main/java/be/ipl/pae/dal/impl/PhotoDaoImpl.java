@@ -22,7 +22,7 @@ public class PhotoDaoImpl implements PhotoDao {
   }
 
 
-  public boolean createPhoto(PhotoDto photoDto) {
+  public boolean introduirePhoto(PhotoDto photoDto) {
     String requeteSql = "INSERT INTO init.photos VALUES(DEFAULT, null, ?, ?, ?)";
     ps = services.getPreparedSatement(requeteSql);
     try {

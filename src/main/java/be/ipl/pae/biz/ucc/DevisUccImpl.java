@@ -157,4 +157,20 @@ public class DevisUccImpl implements DevisUcc {
     }
     daoServicesUcc.commit();
   }
+
+  @Override
+  public void repousserDateDebut(DevisDto devisDto) {
+    if (devisDto.getEtat().equals(Etat.FD)) {
+      try {
+        daoServicesUcc.demarrerTransaction();
+        devisDao.repousserDateDebut(devisDto);
+      } catch (DalException de) {
+        daoServicesUcc.rollback();
+        throw new FatalException(de.getMessage());
+      }
+      daoServicesUcc.commit();
+    } else {
+      throw new BizException("L'etat du devis est incorrect");
+    }
+  }
 }
