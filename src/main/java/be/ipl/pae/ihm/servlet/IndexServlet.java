@@ -54,7 +54,7 @@ public class IndexServlet extends DefaultServlet {
             .println(indexFile + connexionFile + introduireDevisFile + confirmerInscriptionFile
                 + voirClientsFile + voirDevisFile + voirDetailsDevisFile + voirDetailsDevisDCFile
                 + voirDetailsDevisDDIFile + voirDevisClientFile + voirUtilisateursFile
-                + ajouterPhotoFile + photoPrefereeFile);
+                + ajouterPhotoFile + photoPrefereeFile + footer);
 
       } catch (Exception exce) {
 
