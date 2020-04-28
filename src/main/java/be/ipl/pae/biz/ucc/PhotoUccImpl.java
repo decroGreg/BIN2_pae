@@ -2,6 +2,7 @@ package be.ipl.pae.biz.ucc;
 
 import be.ipl.pae.biz.dto.AmenagementDto;
 import be.ipl.pae.biz.dto.DevisDto;
+import be.ipl.pae.biz.dto.PhotoDto;
 import be.ipl.pae.biz.impl.DevisImpl.Etat;
 import be.ipl.pae.biz.interfaces.Factory;
 import be.ipl.pae.biz.interfaces.Photo;
@@ -12,6 +13,9 @@ import be.ipl.pae.dal.interfaces.PhotoDao;
 import be.ipl.pae.exceptions.BizException;
 import be.ipl.pae.exceptions.DalException;
 import be.ipl.pae.exceptions.FatalException;
+
+import java.util.Collections;
+import java.util.List;
 
 public class PhotoUccImpl implements PhotoUcc {
 
@@ -75,5 +79,19 @@ public class PhotoUccImpl implements PhotoUcc {
       throw new FatalException(de.getMessage());
     }
     daoServicesUcc.commit();
+  }
+
+  @Override
+  public List<PhotoDto> voirPhotos() {
+    List<PhotoDto> photos;
+    try {
+      daoServicesUcc.demarrerTransaction();
+      photos = photoDao.voirTousPhotos();
+    } catch (DalException de) {
+      daoServicesUcc.rollback();
+      throw new FatalException(de.getMessage());
+    }
+    daoServicesUcc.commit();
+    return Collections.unmodifiableList(photos);
   }
 }
