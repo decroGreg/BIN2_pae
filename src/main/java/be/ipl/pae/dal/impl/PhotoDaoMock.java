@@ -20,9 +20,9 @@ public class PhotoDaoMock implements PhotoDao {
   /**
    * Cree un mock de photoDao.
    * 
-   * @param introduirePhoto
-   * @param voirTousPhotos
-   * @param testDalException
+   * @param introduirePhoto boolean.
+   * @param voirTousPhotos liste de photos;
+   * @param testDalException boolean.
    */
   public PhotoDaoMock(boolean introduirePhoto, boolean voirTousPhotos, boolean testDalException) {
     super();
