@@ -55,6 +55,7 @@ function afficherDevis(response){
 	$("#voir-devis").show("");
 	$("#voir-devis tbody").html("");
 	Object.keys(response.devisData).forEach(data => {
+		console.log("Etat devis = " + response.devisData[data].etat );
 	    var html = "<tr>";
 	    html+="<td><a href=\"#\" class=\"reference-devis\">"
 	    	+ response.devisData[data].idDevis + "</a></td>\n<td>" 
@@ -107,8 +108,6 @@ function viewListeDevis(){
     $("#Register-confirmation").hide();
     $("#introductionQuoteForm").hide();
     $("#voir-details-devis").hide();
-    $("#voir-details-devis-DC").hide();
-    $("#voir-details-devis-DDI").hide();
     $("#voir-clients").hide();
     $("#voir-devis-client").hide();
     $("#voir-utilisateurs").hide();

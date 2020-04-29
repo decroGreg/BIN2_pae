@@ -36,10 +36,6 @@ public class IndexServlet extends DefaultServlet {
             new String(Files.readAllBytes(Paths.get("./view/html/voirDevis.html")));
         String voirDetailsDevisFile =
             new String(Files.readAllBytes(Paths.get("./view/html/voirDetailsDevis.html")));
-        String voirDetailsDevisDCFile =
-            new String(Files.readAllBytes(Paths.get("./view/html/voirDetailsDevisDC.html")));
-        String voirDetailsDevisDDIFile =
-            new String(Files.readAllBytes(Paths.get("./view/html/voirDetailsDevisDDI.html")));
         String voirDevisClientFile =
             new String(Files.readAllBytes(Paths.get("./view/html/voirDevisClient.html")));
         String voirUtilisateursFile =
@@ -52,9 +48,8 @@ public class IndexServlet extends DefaultServlet {
 
         resp.getOutputStream()
             .println(indexFile + connexionFile + introduireDevisFile + confirmerInscriptionFile
-                + voirClientsFile + voirDevisFile + voirDetailsDevisFile + voirDetailsDevisDCFile
-                + voirDetailsDevisDDIFile + voirDevisClientFile + voirUtilisateursFile
-                + ajouterPhotoFile + photoPrefereeFile + footer);
+                + voirClientsFile + voirDevisFile + voirDetailsDevisFile + voirDevisClientFile
+                + voirUtilisateursFile + ajouterPhotoFile + photoPrefereeFile + footer);
 
       } catch (Exception exce) {
 

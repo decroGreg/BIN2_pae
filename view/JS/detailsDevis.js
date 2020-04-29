@@ -24,7 +24,14 @@ function afficherDetailsDevis(response){
 	$("#voir-details-devis #dateDevis").attr("value", response.devisData.date.substring(0,10));
 	$("#voir-details-devis #montantDevis").attr("value", response.devisData.montant);
 	$("#voir-details-devis #etatDevis").attr("value", response.devisData.etat);
-	$("#voir-details-devis #typeAmenagementDevis").attr("value", response.devisData.typeAmenagement);
+	//Remplir types d'amenagement
+	var html = " ";
+	$("#voir-details-devis #typeAmenagementDevis").html("");
+	Object.keys(response.typesAmenagementData).forEach(data=>{
+		html = html +  response.typesAmenagementData[data] + "\n";
+	});
+	$("#voir-details-devis #typeAmenagementDevis").append(html);
+	
 	//Pour voir si on peut changer la value de dateDebutTravaux
 	if(response.devisData.etat=="I"){
 		$("#voir-details-devis #dateDebutTravaux").attr("value", " ");
@@ -65,11 +72,11 @@ function afficherDetailsDevis(response){
 		let data={};
 		data.idDevis = response.devisData.idDevis;
 		data.etatDevis = 'A';
-		postData("/changementEtatDevis", data, token, afficherDevis,onError);	
+		postData("/changementEtatDevis", data, token, afficherDetailsDevis,onError);	
 	});
 	
 	//click sur ajouter photo
-	$("#voir-details-devis #btn-ajouter-photo").click(e=>{
+	$("#voir-details-devis #btn-ajouter-photo").off().click(e=>{
 		e.preventDefault();
 		console.log("CLICK AJOUTER PHOTO");
 		let data={};
@@ -113,6 +120,7 @@ function changerValeurBouton(etat){
 		  $("#voir-details-devis #btn-devis-annuler").show();
 		  break;
 	  case 'A':
+		  $("#voir-details-devis #btn-devis-etat").hide();
 		  $("#voir-details-devis #btn-devis-annuler").hide();
 		  break;
 	  case 'FM':

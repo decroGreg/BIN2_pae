@@ -24,8 +24,6 @@ function viewListeClients(){
     $("#Register-confirmation").hide();
     $("#introductionQuoteForm").hide();
     $("#voir-details-devis").hide();
-    $("#voir-details-devis-DC").hide();
-    $("#voir-details-devis-DDI").hide();
     $("#voir-devis").hide();
     $("#voir-devis-client").hide();
     $("#voir-utilisateurs").hide();
