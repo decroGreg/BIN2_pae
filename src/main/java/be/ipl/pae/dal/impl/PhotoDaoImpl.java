@@ -49,10 +49,9 @@ public class PhotoDaoImpl implements PhotoDao {
         while (rs.next()) {
           PhotoDto photo = factory.getPhotoDto();
           photo.setIdPhoto(rs.getInt(1));
-          // photo.setPhoto(rs.getString(2));
+          photo.setUrlPhoto(rs.getString(2));
           photo.setIdAmenagement(rs.getInt(3));
           photo.setIdDevis(rs.getInt(4));
-          photo.setUrlPhoto(rs.getString(5));
           listePhoto.add(photo);
         }
         return listePhoto;

@@ -11,5 +11,7 @@ public interface ClientDao {
 
   ClientDto getClientMail(String email);
 
+  List<ClientDto> voirClientAvecCritere(String nom, String ville, int codePostal);
+
 }
 

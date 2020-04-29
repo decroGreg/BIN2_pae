@@ -65,4 +65,10 @@ public class ClientDaoMock implements ClientDao {
       throw new DalException();
     }
   }
+
+  @Override
+  public List<ClientDto> voirClientAvecCritere(String nom, String ville, int codePostal) {
+    // TODO Auto-generated method stub
+    return null;
+  }
 }
