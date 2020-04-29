@@ -62,14 +62,14 @@ class TestDevisUcc {
         .newInstance();
     devisDto = bizFactory.getDevisDto();
 
-    clientDao =
-        (ClientDao) Class.forName(Config.getConfigPropertyAttribute(ClientDao.class.getName()))
-            .getConstructor(boolean.class, boolean.class, boolean.class, boolean.class)
-            .newInstance(false, false, false, false);
+    clientDao = (ClientDao) Class
+        .forName(Config.getConfigPropertyAttribute(ClientDao.class.getName()))
+        .getConstructor(boolean.class, boolean.class, boolean.class, boolean.class, boolean.class)
+        .newInstance(false, false, false, false, false);
     userDao = (UserDao) Class.forName(Config.getConfigPropertyAttribute(UserDao.class.getName()))
         .getConstructor(boolean.class, boolean.class, boolean.class, boolean.class, boolean.class,
-            boolean.class, boolean.class, boolean.class)
-        .newInstance(false, false, false, false, false, false, false, false);
+            boolean.class, boolean.class, boolean.class, boolean.class)
+        .newInstance(false, false, false, false, false, false, false, false, false);
 
     amenagementDao = (AmenagementDao) Class
         .forName(Config.getConfigPropertyAttribute(AmenagementDao.class.getName()))
@@ -77,7 +77,7 @@ class TestDevisUcc {
         .newInstance(false, false, false);
 
     clientDaoConstruct = Class.forName(Config.getConfigPropertyAttribute(ClientDao.class.getName()))
-        .getConstructor(boolean.class, boolean.class, boolean.class, boolean.class);
+        .getConstructor(boolean.class, boolean.class, boolean.class, boolean.class, boolean.class);
     devisDaoConstruct = Class.forName(Config.getConfigPropertyAttribute(DevisDao.class.getName()))
         .getConstructor(boolean.class, boolean.class, boolean.class, boolean.class, boolean.class,
             boolean.class, boolean.class, boolean.class, boolean.class, boolean.class);
@@ -160,7 +160,7 @@ class TestDevisUcc {
       IllegalArgumentException, InvocationTargetException {
     devisDao = (DevisDao) devisDaoConstruct.newInstance(false, false, false, false, false, false,
         false, false, false, false);
-    clientDao = (ClientDao) clientDaoConstruct.newInstance(false, false, true, false);
+    clientDao = (ClientDao) clientDaoConstruct.newInstance(false, false, true, false, false);
     devisUcc = (DevisUcc) devisUccConstruct.newInstance(bizFactory, devisDao, userDao, clientDao,
         amenagementDao, dalServices);
     List<String> listIdTypeAmenagement = new ArrayList<String>();
@@ -200,7 +200,7 @@ class TestDevisUcc {
       IllegalArgumentException, InvocationTargetException {
     devisDao = (DevisDao) devisDaoConstruct.newInstance(true, false, false, false, false, false,
         false, false, false, false);
-    clientDao = (ClientDao) clientDaoConstruct.newInstance(false, false, false, false);
+    clientDao = (ClientDao) clientDaoConstruct.newInstance(false, false, false, false, false);
     devisUcc = (DevisUcc) devisUccConstruct.newInstance(bizFactory, devisDao, userDao, clientDao,
         amenagementDao, dalServices);
     List<String> listIdTypeAmenagement = new ArrayList<String>();
@@ -214,7 +214,7 @@ class TestDevisUcc {
       IllegalArgumentException, InvocationTargetException {
     devisDao = (DevisDao) devisDaoConstruct.newInstance(true, false, false, false, false, false,
         false, false, false, false);
-    clientDao = (ClientDao) clientDaoConstruct.newInstance(false, false, false, true);
+    clientDao = (ClientDao) clientDaoConstruct.newInstance(false, false, false, false, true);
     devisUcc = (DevisUcc) devisUccConstruct.newInstance(bizFactory, devisDao, userDao, clientDao,
         amenagementDao, dalServices);
     List<String> listIdTypeAmenagement = new ArrayList<String>();
