@@ -173,4 +173,10 @@ public class DevisUccImpl implements DevisUcc {
       throw new BizException("L'etat du devis est incorrect");
     }
   }
+
+  @Override
+  public List<DevisDto> rechercheSurDevis(DevisDto devisDto, double prixMin, double prixMax) {
+    // TODO Auto-generated method stub
+    return null;
+  }
 }
