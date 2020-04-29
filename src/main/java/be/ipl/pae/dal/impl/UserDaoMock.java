@@ -110,4 +110,10 @@ public class UserDaoMock implements UserDao {
     }
     return null;
   }
+
+  @Override
+  public List<UserDto> voirUserAvecCritere(String nom, String ville) {
+    // TODO Auto-generated method stub
+    return null;
+  }
 }
