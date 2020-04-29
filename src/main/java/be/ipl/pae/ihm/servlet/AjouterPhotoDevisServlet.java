@@ -145,7 +145,7 @@ public class AjouterPhotoDevisServlet extends HttpServlet {
         String json =
             "{\"success\":\"true\", \"token\":\"" + token + "\", \"devisData\":" + devisData + "}";
         System.out.println("JSON generated :" + json);
-        System.out.println("ICI = " + urlPhoto.length());
+        System.out.println("Length urlPhoto = " + urlPhoto.length());
         resp.setContentType("application/json");
         resp.setCharacterEncoding("UTF-8");
         resp.setStatus(HttpServletResponse.SC_OK);
