@@ -176,7 +176,7 @@ public class UserUccImpl implements UserUcc {
     List<UserDto> utilisateursCorrespondants = null;
     try {
       daoServicesUcc.demarrerTransaction();
-      // utilisateursCorrespondants = userDao.rechercherUtilisateurs(nom,ville);
+      utilisateursCorrespondants = userDao.voirUserAvecCritere(nom, ville);
     } catch (DalException de) {
       daoServicesUcc.rollback();
       throw new FatalException(de.getMessage());
