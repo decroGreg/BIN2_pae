@@ -47,7 +47,7 @@ public class ClientUccImpl implements ClientUcc {
 
   @Override
   public List<ClientDto> rechercherClients(String nom, String ville, int codePostal) {
-    List<ClientDto> clientsCorrespondants = null;
+    List<ClientDto> clientsCorrespondants;
     try {
       daoServicesUcc.demarrerTransaction();
       clientsCorrespondants = clientDao.voirClientAvecCritere(nom, ville, codePostal);

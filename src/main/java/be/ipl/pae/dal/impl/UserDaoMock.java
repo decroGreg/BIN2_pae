@@ -19,6 +19,7 @@ public class UserDaoMock implements UserDao {
   private boolean lierClientUser;
   private boolean confirmerUtilisateur;
   private boolean getUserViaId;
+  private boolean voirUserAvecCritere;
   private Factory factory;
 
   /**
@@ -35,7 +36,7 @@ public class UserDaoMock implements UserDao {
    */
   public UserDaoMock(boolean getUserConnexion, boolean createInscription, boolean voirTousUser,
       boolean voirUserPasConfirmer, boolean lierClientUser, boolean confirmerUtilisateur,
-      boolean getUserViaId, boolean testDalException) {
+      boolean getUserViaId, boolean voirUserAvecCritere, boolean testDalException) {
     this.getUserConnexion = getUserConnexion;
     this.createInscription = createInscription;
     this.voirTousUser = voirTousUser;
@@ -44,6 +45,7 @@ public class UserDaoMock implements UserDao {
     this.lierClientUser = lierClientUser;
     this.confirmerUtilisateur = confirmerUtilisateur;
     this.getUserViaId = getUserViaId;
+    this.voirUserAvecCritere = voirUserAvecCritere;
     this.factory = new FactoryStub();
   }
 
@@ -113,7 +115,12 @@ public class UserDaoMock implements UserDao {
 
   @Override
   public List<UserDto> voirUserAvecCritere(String nom, String ville) {
-    // TODO Auto-generated method stub
+    testDalException();
+    if (voirUserAvecCritere) {
+      List<UserDto> usersAvecCritere = new ArrayList<UserDto>();
+      usersAvecCritere.add(factory.getUserDto());
+      return usersAvecCritere;
+    }
     return null;
   }
 }
