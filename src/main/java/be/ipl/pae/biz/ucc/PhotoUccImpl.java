@@ -71,7 +71,7 @@ public class PhotoUccImpl implements PhotoUcc {
       photo.setIdDevis(amenagementDto.getIdDevis());
       photo.setIdAmenagement(amenagementDto.getIdAmenagement());
       photo.setUrlPhoto(urlPhoto);
-      if (devis.getEtat().equals(Etat.V) && photo.checkPhoto()) {
+      if (devis.getEtat().equals(Etat.FF) && photo.checkPhoto()) {
         photoDao.introduirePhoto(photo);
       }
     } catch (DalException de) {

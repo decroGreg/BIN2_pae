@@ -95,11 +95,12 @@ public class AjouterPhotoDevisServlet extends HttpServlet {
 
 
   @Override
-
-
   protected void doPut(HttpServletRequest req, HttpServletResponse resp)
       throws ServletException, IOException {
     // Rajoute une photo au devis
+
+    System.out.println("ICI OK");
+
 
     try {
       Genson genson = new Genson();
@@ -107,6 +108,7 @@ public class AjouterPhotoDevisServlet extends HttpServlet {
       String token = req.getHeader("Authorization");
       int idAmenagement = Integer.parseInt(data.get("idAmenagement").toString());
       String urlPhoto = data.get("urlPhoto").toString();
+      System.out.println("ID am = " + idAmenagement);
       AmenagementDto amenagementDto = null;
 
       try {
@@ -129,6 +131,7 @@ public class AjouterPhotoDevisServlet extends HttpServlet {
       }
 
       // Je renvoie le devis pour revenir sur la page detailsDevis
+      System.out.println("ICI OK");
       if (amenagementDto != null) {
         photoUcc.ajouterPhotoApresAmenagement(amenagementDto, urlPhoto);
         DevisDto devisDto = null;
@@ -142,6 +145,7 @@ public class AjouterPhotoDevisServlet extends HttpServlet {
         String json =
             "{\"success\":\"true\", \"token\":\"" + token + "\", \"devisData\":" + devisData + "}";
         System.out.println("JSON generated :" + json);
+        System.out.println("ICI = " + urlPhoto.length());
         resp.setContentType("application/json");
         resp.setCharacterEncoding("UTF-8");
         resp.setStatus(HttpServletResponse.SC_OK);
@@ -149,9 +153,7 @@ public class AjouterPhotoDevisServlet extends HttpServlet {
 
       }
 
-    } catch (
-
-    Exception ex) {
+    } catch (Exception ex) {
       ex.printStackTrace();
       String json = "{\"error\":\"false\"}";
       System.out.println(json);
