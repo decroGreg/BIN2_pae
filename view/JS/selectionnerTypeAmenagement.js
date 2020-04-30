@@ -7,7 +7,6 @@ function remplirListeTypesAmenagement(response){
 	$("#navBarStaticTypesAmenagements").html("");
 	$("#myCarousel #carousel-indicators").html("");
 	$("#myCarousel #carousel-inner").html("");
-	 //$('.carousel-inner,.carousel-indicators,.carousel-control-prev,.carousel-control-next').empty();
 
 	
 	//Remplit la liste des types d'amenagement
@@ -36,13 +35,12 @@ function changerCarrousel(response){
 	//Remplit le carrousel avec les photos apres amenagement
 	$("#myCarousel #carousel-indicators").html("");
 	$("#myCarousel #carousel-inner").html("");
-	 //$(".carousel-inner,.carousel-indicators,.carousel-control-prev,.carousel-control-next").empty();
 	var compteurSlides = 0;
 	Object.keys(response.photosData).forEach(data=>{
 		console.log("idPhoto = " + response.photosData[data].idPhoto);
 		var carouselIndicator = "<li data-target='#myCarousel' data-slide-to='" + compteurSlides+ "' id='"+ compteurSlides +"'></li>";
 		$("#myCarousel #carousel-indicators").append(carouselIndicator);
-		var photoCarousel = "<div class='item'><img src='"+ response.photosData[data].urlPhoto +"' id='" + response.photosData[data].idPhoto +"' alt='slide'></div>";
+		var photoCarousel = "<div class='item'><img class='d-block w-100' src='"+ response.photosData[data].urlPhoto +"' id='" + response.photosData[data].idPhoto +"' alt='slide'></div>";
 		$("#myCarousel #carousel-inner").append(photoCarousel);
 		compteurSlides++;
 	});
@@ -51,6 +49,13 @@ function changerCarrousel(response){
     $(".carousel").carousel({
     	  interval: 2000
     });
+    $('a[data-slide="prev"]').click(function() {
+    	$('#myCarousel').carousel('prev');
+	});
+
+	$('a[data-slide="next"]').click(function() {
+		$('#myCarousel').carousel('next');
+	});
 }
 
 export{remplirListeTypesAmenagement};

@@ -37,19 +37,18 @@ public class VoirTypesAmenagementServlet extends HttpServlet {
   protected void doGet(HttpServletRequest req, HttpServletResponse resp)
       throws ServletException, IOException {
     // Va chercher les types d'amenagements pour remplir les categories
-    List<PhotoDto> photos = new ArrayList<>();
+
 
     try {
-
+      Genson genson = new Genson();
+      List<PhotoDto> photos = new ArrayList<>();
       typesAmenagements = typeDAmenagementUcc.voirTypeDAmenagement();
       for (PhotoDto ph : photoUcc.voirPhotos()) {
-        if (ph.getIdAmenagement() > 0) {
-          if (ph.isVisible()) {
-            photos.add(ph);
-          }
+        if (ph.getIdAmenagement() > 0 && ph.isVisible()) {
+          photos.add(ph);
+
         }
       }
-      Genson genson = new Genson();
 
       String typesAmenagementData = genson.serialize(typesAmenagements);
       String photosData = genson.serialize(photos);
@@ -83,23 +82,12 @@ public class VoirTypesAmenagementServlet extends HttpServlet {
       throws ServletException, IOException {
     // Va chercher toutes les photos apres amenagements du type amenagement selectionne
     // Renvoie une liste de photos
-    List<PhotoDto> photos = new ArrayList<>();
 
     try {
       Genson genson = new Genson();
       Map<String, Object> data = genson.deserialize(req.getReader(), Map.class);
       int idTypeAmenagement = Integer.parseInt(data.get("idTypeAmenagement").toString());
-
-      /*
-       * // Je vais d'abord chercher tous les amenagements qui ont l'idTypeAmenagement
-       * List<AmenagementDto> amenagements = new ArrayList<>(); for (AmenagementDto am :
-       * amenagementUcc.voirAmenagement()) { if (am.getIdTypeAmenagement() == idTypeAmenagement) {
-       * amenagements.add(am); } }
-       * 
-       * // Je vais chercher toutes les photos des amenagements for (AmenagementDto am :
-       * amenagements) { for (PhotoDto ph : photoUcc.voirPhotos()) { if (ph.getIdAmenagement() ==
-       * am.getIdAmenagement()) { photos.add(ph); } } }
-       */
+      List<PhotoDto> photos = new ArrayList<>();
 
       TypeDAmenagementDto typeAmenagementDto = null;
       for (TypeDAmenagementDto type : typeDAmenagementUcc.voirTypeDAmenagement()) {
@@ -118,7 +106,7 @@ public class VoirTypesAmenagementServlet extends HttpServlet {
       // afficher dans le carrousel
       if (photos.isEmpty()) {
         for (PhotoDto ph : photoUcc.voirPhotos()) {
-          if (ph.getIdAmenagement() > 0) {
+          if (ph.getIdAmenagement() > 0 && ph.isVisible()) {
             photos.add(ph);
           }
         }

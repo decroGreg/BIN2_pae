@@ -7,6 +7,7 @@ import be.ipl.pae.biz.interfaces.Factory;
 import be.ipl.pae.dal.interfaces.DevisDao;
 import be.ipl.pae.exceptions.DalException;
 
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -136,8 +137,8 @@ public class DevisDaoMock implements DevisDao {
 
 
   @Override
-  public List<DevisDto> voirDevisAvecCritere(DevisDto devisRecherche, String nomClient, int prixMin,
-      int prixMax, int typeDAmenagementRecherche) {
+  public List<DevisDto> voirDevisAvecCritere(Timestamp dateDevis, String nomClient, double prixMin,
+      double prixMax, int typeDAmenagementRecherche) {
     // TODO Auto-generated method stub
     testDalException();
     if (voirDevisAvecCritere) {

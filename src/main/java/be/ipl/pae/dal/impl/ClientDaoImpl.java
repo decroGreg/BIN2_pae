@@ -158,4 +158,37 @@ public class ClientDaoImpl implements ClientDao {
     }
     return clientDto;
   }
+
+  @Override
+  public ClientDto getClientById(int id) {
+    ClientDto clientDto = factory.getClientDto();
+    String requeteSql = "SELECT * FROM init.clients WHERE id_client = ?";
+    ps = services.getPreparedSatement(requeteSql);
+    try {
+      ps.setInt(1, id);
+      try (ResultSet rs = ps.executeQuery()) {
+        while (rs.next()) {
+          clientDto.setIdClient(rs.getInt(1));
+          clientDto.setNom(rs.getString(2));
+          clientDto.setPrenom(rs.getString(3));
+          clientDto.setRue(rs.getString(4));
+          clientDto.setNumero(rs.getString(5));
+          clientDto.setBoite(rs.getString(6));
+          clientDto.setCodePostal(rs.getInt(7));
+          clientDto.setVille(rs.getString(8));
+          clientDto.setEmail(rs.getString(9));
+          clientDto.setTelephone(rs.getString(10));
+          clientDto.setIdUtilisateur(rs.getInt(11));
+        }
+      } catch (SQLException ex) {
+        throw new DalException(ex.getMessage());
+      }
+    } catch (SQLException ex) {
+      throw new DalException(ex.getMessage());
+    }
+    if (clientDto.getEmail() == null) {
+      return null;
+    }
+    return clientDto;
+  }
 }

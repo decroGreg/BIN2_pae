@@ -40,7 +40,7 @@ function choisirPhotoPreferee(response){
 	$("#choisirPhotoPreferee").show();
 	$("#formPhotoPreferee").html(" ");
 	Object.keys(response.photosData).forEach(data=>{
-		var html = "<div class='radio'><label><input type='radio' name='radioButton' id='" + response.photosData[data].idPhoto + "'>" + "<img src='"+ response.photosData[data].urlPhoto +"'>"  +"</label></div>";
+		var html = "<div class='radio'><label><input type='radio' name='radioButton' id='" + response.photosData[data].idPhoto + "'>" + "<img src='"+ response.photosData[data].urlPhoto +"' width='193' height='130'>"  +"</label></div>";
 		$("#formPhotoPreferee").append(html);
 	});
 	var boutonValider = "<div class='form-group col-md-3' style='text-align: right;'><input type='submit' id='btn-valider-preferee' class='btn btn-danger'  value='Valider'></div>";

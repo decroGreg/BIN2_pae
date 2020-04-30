@@ -175,8 +175,24 @@ public class DevisUccImpl implements DevisUcc {
   }
 
   @Override
-  public List<DevisDto> rechercheSurDevis(DevisDto devisDto, double prixMin, double prixMax) {
-    // TODO Auto-generated method stub
-    return null;
+  public List<DevisDto> rechercheSurDevis(DevisDto devisDto, double prixMin, double prixMax,
+      int idAmenagement) {
+    List<DevisDto> devisCorrespondants = null;
+    try {
+      daoServicesUcc.demarrerTransaction();
+      ClientDto clientRecherche;
+      String nomClient = null;
+      clientRecherche = clientDao.getClientById(devisDto.getIdClient());
+      if (clientRecherche != null) {
+        nomClient = clientRecherche.getNom();
+      }
+      devisCorrespondants = devisDao.voirDevisAvecCritere(devisDto.getDate(), nomClient, prixMin,
+          prixMax, idAmenagement);
+    } catch (DalException de) {
+      daoServicesUcc.rollback();
+      throw new FatalException(de.getMessage());
+    }
+    daoServicesUcc.commit();
+    return Collections.unmodifiableList(devisCorrespondants);
   }
 }

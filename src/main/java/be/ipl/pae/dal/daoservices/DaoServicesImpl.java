@@ -16,11 +16,6 @@ public class DaoServicesImpl implements DaoServices, DaoServicesUcc {
   // private String url = "jdbc:postgresql://172.24.2.6:5432/dbmariabouraga";
   // private String url = "jdbc:postgresql://127.0.0.1/init";
 
-
-  Config conf = new Config();
-  private String url = (String) conf.getConfigPropertyAttribute("db.url");
-  private String login = (String) conf.getConfigPropertyAttribute("db.login");
-  private String mdp = (String) conf.getConfigPropertyAttribute("db.mdp");
   private BasicDataSource ds;
   private ThreadLocal<Connection> connections;
 
@@ -33,9 +28,9 @@ public class DaoServicesImpl implements DaoServices, DaoServicesUcc {
     try {
       ds = new BasicDataSource();
       ds.setDriverClassName("org.postgresql.Driver");
-      ds.setUrl(url);
-      ds.setUsername(login);
-      ds.setPassword(mdp);
+      ds.setUrl(Config.getConfigPropertyAttribute("db.url"));
+      ds.setUsername(Config.getConfigPropertyAttribute("db.login"));
+      ds.setPassword(Config.getConfigPropertyAttribute("db.mdp"));
       // Class.forName("org.postgresql.Driver");
     } catch (Exception ex) {
       System.out.println("Impossible de joindre le server !");
@@ -54,7 +49,7 @@ public class DaoServicesImpl implements DaoServices, DaoServicesUcc {
       System.out.println(connections.get());
       conn.setAutoCommit(false);
     } catch (SQLException ex) {
-      ex.printStackTrace();
+      throw new DalException("Erreur dans le demarrage de la transaction ");
     }
   }
 
@@ -67,7 +62,7 @@ public class DaoServicesImpl implements DaoServices, DaoServicesUcc {
       conn.commit();
       conn.setAutoCommit(true);
     } catch (SQLException ex) {
-      ex.printStackTrace();
+      throw new DalException("Erreur dans le commit");
     } finally {
       connections.remove();
     }
