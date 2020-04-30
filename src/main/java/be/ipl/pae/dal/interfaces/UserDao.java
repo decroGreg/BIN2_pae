@@ -22,4 +22,5 @@ public interface UserDao {
   List<UserDto> voirUserAvecCritere(String nom, String ville);
 
   boolean confirmerUtilisateur(UserDto user, Character etat);
+
 }

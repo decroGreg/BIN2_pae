@@ -53,7 +53,7 @@ public class DevisDaoImpl implements DevisDao {
   @Override
   public List<DevisDto> voirTousDevis() {
     List<DevisDto> listeDevis = new ArrayList<DevisDto>();
-    String requeteSql = "SELECT * FROM init.devis";
+    String requeteSql = "SELECT * FROM init.devis ORDER BY id_devis ASC";
     ps = services.getPreparedSatement(requeteSql);
     try {
       try (ResultSet rs = ps.executeQuery()) {

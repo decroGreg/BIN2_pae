@@ -112,4 +112,26 @@ public class PhotoDaoImpl implements PhotoDao {
     }
   }
 
+  @Override
+  public PhotoDto getPhotoById(int idPhoto) {
+    PhotoDto photo = factory.getPhotoDto();
+    String requeteSql = "SELECT * FROM init.photos WHERE id_photo = ?";
+    ps = services.getPreparedSatement(requeteSql);
+    try {
+      ps.setInt(1, idPhoto);
+      try (ResultSet rs = ps.executeQuery()) {
+        while (rs.next()) {
+          photo.setIdPhoto(rs.getInt(1));
+          photo.setUrlPhoto(rs.getString(2));
+          photo.setIdAmenagement(rs.getInt(3));
+          photo.setIdDevis(rs.getInt(4));
+          photo.setVisible(rs.getBoolean(5));
+        }
+      }
+    } catch (SQLException ex) {
+      throw new DalException(ex.getMessage());
+    }
+    return null;
+  }
+
 }

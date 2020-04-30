@@ -13,4 +13,6 @@ public interface PhotoDao {
   List<PhotoDto> voirPhotoTypeDAmenagement(int idTypeAmenagement);
 
   List<PhotoDto> voirPhotoSonJardin(int idClient);
+
+  PhotoDto getPhotoById(int idPhoto);
 }
