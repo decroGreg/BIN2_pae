@@ -2,7 +2,6 @@ package be.ipl.pae.dal.impl;
 
 import be.ipl.pae.biz.dto.ClientDto;
 import be.ipl.pae.biz.dto.DevisDto;
-import be.ipl.pae.biz.factory.FactoryImpl;
 import be.ipl.pae.biz.impl.DevisImpl.Etat;
 import be.ipl.pae.biz.interfaces.Factory;
 import be.ipl.pae.dal.daoservices.DaoServices;
@@ -27,9 +26,9 @@ public class DevisDaoImpl implements DevisDao {
    * 
    * @param daoService classe service.
    */
-  public DevisDaoImpl(DaoServices daoService) {
+  public DevisDaoImpl(DaoServices daoService, Factory factory) {
     this.services = daoService;
-    this.bizfactory = new FactoryImpl();
+    this.bizfactory = factory;
   }
 
 

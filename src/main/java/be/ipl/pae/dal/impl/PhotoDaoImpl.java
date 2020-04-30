@@ -1,7 +1,6 @@
 package be.ipl.pae.dal.impl;
 
 import be.ipl.pae.biz.dto.PhotoDto;
-import be.ipl.pae.biz.factory.FactoryImpl;
 import be.ipl.pae.biz.interfaces.Factory;
 import be.ipl.pae.dal.daoservices.DaoServices;
 import be.ipl.pae.dal.interfaces.PhotoDao;
@@ -19,9 +18,9 @@ public class PhotoDaoImpl implements PhotoDao {
   private DaoServices services;
   private Factory factory;
 
-  public PhotoDaoImpl(DaoServices daoService) {
+  public PhotoDaoImpl(DaoServices daoService, Factory factory) {
     this.services = daoService;
-    this.factory = new FactoryImpl();
+    this.factory = factory;
   }
 
 

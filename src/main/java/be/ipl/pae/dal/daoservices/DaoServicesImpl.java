@@ -50,7 +50,6 @@ public class DaoServicesImpl implements DaoServices, DaoServicesUcc {
     }
     try {
       Connection conn = this.ds.getConnection();
-
       connections.set(conn);
       System.out.println(connections.get());
       conn.setAutoCommit(false);
