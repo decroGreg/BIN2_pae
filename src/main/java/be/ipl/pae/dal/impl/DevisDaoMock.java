@@ -38,7 +38,7 @@ public class DevisDaoMock implements DevisDao {
   public DevisDaoMock(boolean createDevis, boolean voirTousDevis, boolean getDevisClient,
       boolean confirmerDateDevis, boolean getIdDernierDevis, boolean changerEtatDevis,
       boolean getDevisViaId, boolean ajouterPhotoPrefereeDevis, boolean repousserDateDebut,
-      boolean voirDevisAvecCritere, boolean testDalException) {
+      boolean testDalException) {
     this.createDevis = createDevis;
     this.voirTousDevis = voirTousDevis;
     this.getDevisClient = getDevisClient;
