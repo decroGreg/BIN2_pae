@@ -132,7 +132,7 @@ public class AjouterPhotoDevisServlet extends HttpServlet {
 
       // Je renvoie le devis pour revenir sur la page detailsDevis
       if (amenagementDto != null) {
-        photoUcc.ajouterPhotoApresAmenagement(amenagementDto, urlPhoto);
+        // photoUcc.ajouterPhotoApresAmenagement(amenagementDto, urlPhoto);
         DevisDto devisDto = null;
         for (DevisDto d : devisUcc.voirDevis()) {
           if (amenagementDto.getIdDevis() == d.getIdDevis()) {

@@ -10,7 +10,8 @@ public interface PhotoUcc {
 
   void ajouterPhotoAvantAmenagement(int idDevis, String urlPhoto);
 
-  void ajouterPhotoApresAmenagement(AmenagementDto amenagementDto, String urlPhoto);
+  void ajouterPhotoApresAmenagement(AmenagementDto amenagementDto, String urlPhoto,
+      boolean visible);
 
   List<PhotoDto> voirPhotos();
 
