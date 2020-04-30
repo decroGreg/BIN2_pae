@@ -63,13 +63,13 @@ public class PhotoDaoImpl implements PhotoDao {
     }
   }
 
-  public List<PhotoDto> voirPhotoSonJardin(int id_client) {
+  public List<PhotoDto> voirPhotoSonJardin(int idClient) {
     List<PhotoDto> listePhoto = new ArrayList<PhotoDto>();
     String requeteSql = "SELECT p.* FROM init.photos p , init.devis d"
         + "            WHERE p.id_devis = d.id_devis AND d.id_client = ?";
     ps = services.getPreparedSatement(requeteSql);
     try {
-      ps.setInt(1, id_client);
+      ps.setInt(1, idClient);
       try (ResultSet rs = ps.executeQuery()) {
         while (rs.next()) {
           PhotoDto photo = factory.getPhotoDto();

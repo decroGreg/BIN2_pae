@@ -113,6 +113,20 @@ public class PhotoUccImpl implements PhotoUcc {
       daoServicesUcc.rollback();
       throw new FatalException(de.getMessage());
     }
+    daoServicesUcc.commit();
     return Collections.unmodifiableList(photoParTypeAmenagement);
+  }
+
+  public List<PhotoDto> voirPhotoSonJardin(int idClient) {
+    List<PhotoDto> photoDeTonJardin;
+    try {
+      daoServicesUcc.demarrerTransaction();
+      photoDeTonJardin = photoDao.voirPhotoSonJardin(idClient);
+    } catch (DalException de) {
+      daoServicesUcc.rollback();
+      throw new FatalException(de.getMessage());
+    }
+    daoServicesUcc.commit();
+    return Collections.unmodifiableList(photoDeTonJardin);
   }
 }
