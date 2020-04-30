@@ -32,7 +32,7 @@ public class PhotoDaoImpl implements PhotoDao {
       ps.setString(1, photoDto.getUrlPhoto());
       ps.setInt(2, photoDto.getIdAmenagement());
       ps.setInt(3, photoDto.getIdDevis());
-      ps.setBoolean(4, false);
+      ps.setBoolean(4, photoDto.isVisible());
       ps.execute();
     } catch (SQLException ex) {
       throw new DalException();
@@ -53,6 +53,7 @@ public class PhotoDaoImpl implements PhotoDao {
           photo.setUrlPhoto(rs.getString(2));
           photo.setIdAmenagement(rs.getInt(3));
           photo.setIdDevis(rs.getInt(4));
+          photo.setVisible(rs.getBoolean(5));
           listePhoto.add(photo);
         }
         return listePhoto;
@@ -78,6 +79,7 @@ public class PhotoDaoImpl implements PhotoDao {
           photo.setUrlPhoto(rs.getString(2));
           photo.setIdAmenagement(rs.getInt(3));
           photo.setIdDevis(rs.getInt(4));
+          photo.setVisible(rs.getBoolean(5));
           listePhoto.add(photo);
         }
         return listePhoto;
