@@ -1,8 +1,22 @@
 <!-----------------------------------------Voir clients---------------------------------------------->
 <section id="voir-clients">
     <h4>Liste des clients</h4>
+</div> <div class="form-inline" id="search-VoirDevis">
+
+    <div class="dropdown" id="dropdownSearchClientsName">
+      <button class="btn btn-light dropdown-toggle" id="searchClientsNameDropdown" type="button" data-toggle="dropdown">nom client</button>
+      <ul class="dropdown-menu"  id="clientsNameSearch">
+      </ul>
+    </div>
+
+    
+    <input class="form-control mr-sm-2" name="code_postal" id="searchClientCodePostal" type="number" placeholder="Code Postal">
+    <input class="form-control mr-sm-2" name="ville" id="searchClientsVille" type="text" placeholder="ville">
+    <button href="#" class="btn btn-outline-success my-2 my-sm-0" type="submit" id="btn-search-Clients">Search</button>
+  </div>
+
     <br/>
-    <div class="search-options">
+   <!-- <div class="search-options">
       <form class="form-inline">
         <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
         <select name="search_option" class="form-control form-control-lg">
@@ -11,7 +25,7 @@
           <option value="code_postal">Code Postal</option>
         </select>
         <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-      </form>
+      </form>-->
     </div>
     <div class="" id="voir-clients">
       <table class="table table-bordered">

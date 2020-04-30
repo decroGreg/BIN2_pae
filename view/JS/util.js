@@ -111,5 +111,32 @@ function filterDropdown(element){
     $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
   });
 }
+/*
+function afficherNomDropdown(response,baliseUl,idInput,dropdown,object){ 
+  baliseUl.innerHTML="";
+	var input=document.createElement("input");
+	input.id=idInput;
+	input.type="text";
+	input.placeholder="Search..";
+	input.className="form-control";
+	input.addEventListener("keyup",function(){
+		filterDropdown(this);
+	});
+
+	baliseUl.append(input);
+
+	response[object].forEach(e=>{
+		var li=document.createElement("li");
+		var a=document.createElement("a");
+		a.innerHTML=e.nom+" "+e.prenom;
+		a.addEventListener("click",function(){
+			dropdown.text(a.innerHTML);
+		});
+		li.appendChild(a);
+		baliseUl.append(li);
+	});
+
+}*/
+
 
 export{postData,getData,deleteData,putData,creatHTMLFromString,onError,filterDropdown};

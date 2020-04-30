@@ -51,7 +51,7 @@ CREATE TABLE init.amenagements(
 
 CREATE TABLE init.photos(
     id_photo SERIAL PRIMARY KEY,
-	photo JSON NOT NULL,
+	photo VARCHAR NOT NULL,
     id_amenagement INTEGER REFERENCES init.amenagements(id_amenagement),
     id_devis INTEGER REFERENCES init.devis(id_devis),
     url_photo VARCHAR(300) NOT NULL

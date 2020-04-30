@@ -1,4 +1,52 @@
 import{token, allHide} from "./index.js";
+import{filterDropdown, postData} from "./util.js";
+
+$(document).ready(function () {
+		$("#btn-search-utilisateurs").click(e=>{
+			var data={
+				"name":$("#searchUtilisateursNameDropdown").text(),
+				"city":$("#searchUtilisateursVille").val()
+			};
+			
+			console.log(data);
+			//postData("",token,data,afficherUtilisateurs,onError);
+		})
+});
+/*
+function afficherUtilisateursDropdown(response){
+	afficherNomDropdown(response,document.getElementById("utilisateursNameSearch"),"inputUtilisateursNameSearch",document.getElementById("searchUtilisateursNameDropdown"),"usersData");
+}
+*/
+
+
+
+function afficherUtilisateursDropdown(response){ //(response,balise ul,id input,balise dropdown)
+	console.log("passage");
+	$("#utilisateursNameSearch").html("");
+	var input=document.createElement("input");
+	input.id="inputUtilisateursNameSearch";
+	input.type="text";
+	input.placeholder="Search..";
+	input.className="form-control";
+	input.addEventListener("keyup",function(){
+		filterDropdown(this);
+	});
+
+	$("#utilisateursNameSearch").append(input);
+
+	response.usersData.forEach(e=>{
+		var li=document.createElement("li");
+		var a=document.createElement("a");
+		a.innerHTML=e.nom+" "+e.prenom;
+		a.addEventListener("click",function(){
+			$("#searchUtilisateursNameDropdown").text(a.innerHTML);
+		});
+		li.appendChild(a);
+		$("#utilisateursNameSearch").append(li);
+	});
+
+}
+
 
 function afficherUtilisateurs(response){
 	allHide();
@@ -36,4 +84,4 @@ function viewListeUtilisateurs(){
     $("#choisirPhotoPreferee").hide();
 	$("#ajouterPhoto").hide();
 }
-export{afficherUtilisateurs, viewListeUtilisateurs};
+export{afficherUtilisateurs, viewListeUtilisateurs,afficherUtilisateursDropdown};

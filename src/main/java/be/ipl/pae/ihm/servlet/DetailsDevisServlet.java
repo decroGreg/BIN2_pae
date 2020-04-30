@@ -104,6 +104,44 @@ public class DetailsDevisServlet extends HttpServlet {
   }
 
 
+
+  @Override
+  protected void doPut(HttpServletRequest req, HttpServletResponse resp)
+      throws ServletException, IOException {
+    // TODO Auto-generated method stub
+    try {
+      Genson genson = new Genson();
+      String token = req.getHeaders("Authorization").toString();
+      Map<String, String> data = genson.deserialize(req.getReader(), Map.class);
+      try {
+
+      } catch (Exception exce) {
+
+
+        exce.printStackTrace();
+        String json = "{\"success\":\"false\", \"token\":\"" + token
+            + "\", \"message\":\"message d'erreur\"}";
+        System.out.println("JSON generated :" + json);
+        resp.setContentType("application/json");
+        resp.setCharacterEncoding("UTF-8");
+        resp.setStatus(HttpServletResponse.SC_OK);
+        resp.getWriter().write(json);
+
+
+      }
+
+    } catch (Exception exc) {
+      exc.printStackTrace();
+      resp.setContentType("application/json");
+      resp.setCharacterEncoding("UTF-8");
+      resp.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+      String json = "{\"error\":\"false\"}";
+      resp.getWriter().write(json);
+    }
+
+  }
+
+
   /*
    * @Override protected void doPut(HttpServletRequest req, HttpServletResponse resp) throws
    * ServletException, IOException { try { Genson genson = new Genson(); Map<String, Object> data =
@@ -132,6 +170,7 @@ public class DetailsDevisServlet extends HttpServlet {
    * resp.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR); String json =
    * "{\"error\":\"false\"}"; resp.getWriter().write(json); } }
    */
+
 
 
 }

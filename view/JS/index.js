@@ -1,9 +1,9 @@
 "use-strict";
 import {postData,getData,onError, putData} from "./util.js" ;
 import{viewAuthentification,viewLogin,onPostRegister} from "./connexion.js"
-import{afficherClients} from "./afficherClients.js";
+import{afficherClients,afficherClientsDropdown} from "./afficherClients.js";
 import{afficherDevis, afficherDevisClient,onGetAmenagementDevis,onGetAmenagementDevisClient,onGetClientDevis,onGetClientDevisClient} from "./afficherDevis.js";
-import{afficherUtilisateurs} from "./afficherUtilisateurs.js";
+import{afficherUtilisateurs,afficherUtilisateursDropdown} from "./afficherUtilisateurs.js";
 import{afficherDetailsDevis, changerEtat, changerValeurBouton} from "./detailsDevis.js";
 
 let token=undefined;
@@ -103,6 +103,9 @@ $(document).ready(e=>{
     	e.preventDefault();
         if($("#search-option-category").val()=="utilisateur"){
             allHide();
+
+            
+            getData("/listeUsers",token,afficherUtilisateursDropdown,onError);
             getData("/listeUsers",token,afficherUtilisateurs,onError);
         }
         if($("#search-option-category").val()=="devis"){
@@ -112,7 +115,8 @@ $(document).ready(e=>{
         	getData("/listeDevis",token,afficherDevis,onError);
         }
         if($("#search-option-category").val()=="client"){
-        	allHide();
+                allHide();
+            getData("/listeClients",token,afficherClientsDropdown,onError);
             getData("/listeClients",token,afficherClients,onError);
         }
         

@@ -56,7 +56,7 @@ function onGetAmenagementDevisClient(response){
 }
 
 function afficherAmenagementDropDown(response,dropdown){
-
+	
 	console.log(dropdown);
 		response.typeAmenagements.forEach(element=>{
 			var checkbox=creatHTMLFromString(' <li><input type="checkbox" value="'+element.id+'">'+element.description+'</li>');
@@ -164,4 +164,4 @@ function viewListeDevis(){
 	$("#ajouterPhoto").hide();
 }
 
-export{afficherDevis, afficherDevisClient, viewListeDevis,onGetAmenagementDevis,onGetAmenagementDevisClient,searchDevis};
+export{afficherDevis, afficherDevisClient, viewListeDevis,onGetAmenagementDevis,onGetAmenagementDevisClient,searchDevis,onGetClientDevis,onGetClientDevisClient};
