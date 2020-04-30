@@ -45,11 +45,12 @@ public class ChoisirPhotoPrefereeServlet extends HttpServlet {
         }
       }
 
-      /*
-       * for (PhotoDto p : photoUcc.voirPhotos()) { // Si la photo a un idDevis et un idAmenagement,
-       * c'est une photo apres amenagement if (p.getIdDevis() == idDevis && p.getIdAmenagement() >
-       * 0) { photosDevis.add(p); } }
-       */
+      for (PhotoDto p : photoUcc.voirPhotos()) {
+        // Si la photo a un idDevis et un idAmenagement,c'est une photo apres amenagement
+        if (p.getIdDevis() == idDevis && p.getIdAmenagement() > 0) {
+          photosDevis.add(p);
+        }
+      }
 
       if (token != null) {
         String photosData = genson.serialize(photosDevis);

@@ -187,8 +187,6 @@ function viewHomePage(){
         $("#mesDevis").hide();
         
         //$("#search-homepage").hide();
-    	$("#voir-details-devis-DDI").hide();
-    	$("#voir-details-devis-DC").hide();
     	$("#choisirPhotoPreferee").hide();
     	$("#ajouterPhoto").hide();
 

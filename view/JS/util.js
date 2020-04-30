@@ -69,14 +69,14 @@ function deleteData(url="",token,data={},onGet,onError){
 }
 function putData(url="",token,data={},onGet,onError){
   let headers;
+  console.log("Bearer " +token);
   if(token)
       headers ={
         "Content-Type": "application/json",
-        Authorization:token
-      };
-      else headers={
-        "Content-Type": "application/json"
-      };
+        Authorization:token};
+  else 
+	  headers={
+		  "Content-Type": "application/json"};
       $.ajax({
         contentType:"json",
         type:"put",

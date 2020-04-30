@@ -14,6 +14,7 @@ public class ClientDaoMock implements ClientDao {
   private boolean voirTousClient;
   private boolean createClient;
   private boolean getClientMail;
+  private boolean voirClientAvecCritere;
   private boolean testDalException;
   private Factory factory;
 
@@ -26,10 +27,11 @@ public class ClientDaoMock implements ClientDao {
    * @param testDalException methode boolean.
    */
   public ClientDaoMock(boolean voirTousClient, boolean createClien, boolean getClientMail,
-      boolean testDalException) {
+      boolean voirClientAvecCritere, boolean testDalException) {
     this.voirTousClient = voirTousClient;
     this.createClient = createClien;
     this.getClientMail = getClientMail;
+    this.voirClientAvecCritere = voirClientAvecCritere;
     this.testDalException = testDalException;
     this.factory = new FactoryStub();
   }
@@ -64,5 +66,16 @@ public class ClientDaoMock implements ClientDao {
     if (testDalException) {
       throw new DalException();
     }
+  }
+
+  @Override
+  public List<ClientDto> voirClientAvecCritere(String nom, String ville, int codePostal) {
+    testDalException();
+    if (voirClientAvecCritere) {
+      List<ClientDto> clientsAvecCritere = new ArrayList<ClientDto>();
+      clientsAvecCritere.add(factory.getClientDto());
+      return clientsAvecCritere;
+    }
+    return null;
   }
 }

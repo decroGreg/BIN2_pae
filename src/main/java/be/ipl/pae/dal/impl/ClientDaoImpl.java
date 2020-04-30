@@ -81,6 +81,53 @@ public class ClientDaoImpl implements ClientDao {
   }
 
   @Override
+  public List<ClientDto> voirClientAvecCritere(String nom, String ville, int codePostal) {
+
+    String villeSql = "%" + ville + "%";
+    String nomSql = "%" + nom + "%";
+    String codePostalSql = "%" + codePostal + "%";
+    String requestSql =
+        "SELECT * FROM init.clients WHERE nom LIKE ? AND ville LIKE ? AND code_postal LIKE ?";
+    List<ClientDto> listeClient = new ArrayList<ClientDto>();
+    if (ville == "") {
+      villeSql = "%";
+    }
+    if (nom == "") {
+      nomSql = "%";
+    }
+    if (codePostal == 0) {
+      codePostalSql = "%";
+    }
+    ps = services.getPreparedSatement(requestSql);
+    try {
+      ps.setString(1, nomSql);
+      ps.setString(2, villeSql);
+      ps.setString(3, codePostalSql);
+      try (ResultSet rs = ps.executeQuery()) {
+        while (rs.next()) {
+          ClientDto client = factory.getClientDto();
+          client.setIdClient(rs.getInt(1));
+          client.setNom(rs.getString(2));
+          client.setPrenom(rs.getString(3));
+          client.setRue(rs.getString(4));
+          client.setNumero(rs.getString(5));
+          client.setBoite(rs.getString(6));
+          client.setCodePostal(rs.getInt(7));
+          client.setVille(rs.getString(8));
+          client.setEmail(rs.getString(9));
+          client.setTelephone(rs.getString(10));
+          client.setIdUtilisateur(rs.getInt(11));
+          listeClient.add(client);
+        }
+        return listeClient;
+      }
+    } catch (SQLException ex) {
+      throw new DalException(
+          "Erreur lors de la prise des utilisateurs avec criteres : " + ex.getMessage());
+    }
+  }
+
+  @Override
   public ClientDto getClientMail(String email) {
     ClientDto clientDto = factory.getClientDto();
     String requeteSql = "SELECT * FROM init.clients WHERE email = ?";

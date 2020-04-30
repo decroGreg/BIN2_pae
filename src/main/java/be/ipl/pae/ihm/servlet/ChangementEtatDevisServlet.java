@@ -1,10 +1,14 @@
 package be.ipl.pae.ihm.servlet;
 
+import be.ipl.pae.biz.dto.AmenagementDto;
 import be.ipl.pae.biz.dto.ClientDto;
 import be.ipl.pae.biz.dto.DevisDto;
+import be.ipl.pae.biz.dto.TypeDAmenagementDto;
 import be.ipl.pae.biz.impl.DevisImpl.Etat;
+import be.ipl.pae.biz.interfaces.AmenagementUcc;
 import be.ipl.pae.biz.interfaces.ClientUcc;
 import be.ipl.pae.biz.interfaces.DevisUcc;
+import be.ipl.pae.biz.interfaces.TypeDAmenagementUcc;
 
 import com.owlike.genson.Genson;
 
@@ -12,7 +16,7 @@ import java.io.IOException;
 import java.sql.Timestamp;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.util.List;
+import java.util.ArrayList;
 import java.util.Map;
 
 import javax.servlet.ServletException;
@@ -25,6 +29,8 @@ public class ChangementEtatDevisServlet extends HttpServlet {
   private DevisDto devisDto;
   private DevisUcc devisUcc;
   private ClientUcc clientUcc;
+  private AmenagementUcc amenagementUcc;
+  private TypeDAmenagementUcc typeDAmenagementUcc;
 
   /**
    * Cree un objet ChangementEtatDevisServlet.
@@ -32,11 +38,14 @@ public class ChangementEtatDevisServlet extends HttpServlet {
    * @param devisDto un devisDto
    * @param devisUcc un devisUcc
    */
-  public ChangementEtatDevisServlet(DevisDto devisDto, DevisUcc devisUcc, ClientUcc clientUcc) {
+  public ChangementEtatDevisServlet(DevisDto devisDto, DevisUcc devisUcc, ClientUcc clientUcc,
+      AmenagementUcc amenagementUcc, TypeDAmenagementUcc typeDAmenagementUcc) {
     super();
     this.devisDto = devisDto;
     this.devisUcc = devisUcc;
     this.clientUcc = clientUcc;
+    this.amenagementUcc = amenagementUcc;
+    this.typeDAmenagementUcc = typeDAmenagementUcc;
   }
 
   @Override
@@ -51,17 +60,36 @@ public class ChangementEtatDevisServlet extends HttpServlet {
 
       DevisDto devis = null;
       ClientDto clientDto = null;
+      ArrayList<String> descriptionsTypeAmenagement = new ArrayList<>();
+      ArrayList<AmenagementDto> amenagementsDevis = new ArrayList<>();
+
       try {
         for (DevisDto e : devisUcc.voirDevis()) {
           if (e.getIdDevis() == idDevis) {
             devis = e;
-            // requete pour avoir tous les types d'amenagements
           }
 
         }
         for (ClientDto c : clientUcc.getClients()) {
           if (c.getIdClient() == devis.getIdClient()) {
             clientDto = c;
+          }
+        }
+
+        // Liste des amenagements pour le devis
+        for (AmenagementDto a : amenagementUcc.voirAmenagement()) {
+          if (a.getIdDevis() == idDevis) {
+            amenagementsDevis.add(a);
+          }
+        }
+
+
+        // Je remplis une liste de descriptions du type amenagement de chaque amenagement
+        for (int i = 0; i < amenagementsDevis.size(); i++) {
+          for (TypeDAmenagementDto t : typeDAmenagementUcc.voirTypeDAmenagement()) {
+            if (t.getId() == amenagementsDevis.get(i).getIdTypeAmenagement()) {
+              descriptionsTypeAmenagement.add(t.getDescription());
+            }
           }
         }
       } catch (Exception ex) {
@@ -90,11 +118,11 @@ public class ChangementEtatDevisServlet extends HttpServlet {
             break;
           case "FD":
             devis.setEtat(Etat.FD);
-            devisUcc.changerEtat(devis);
+            devisUcc.modifierDateDevis(devis);
             break;
           case "DC":
-            devisUcc.confirmerDateDebut(devis);
             devis.setEtat(Etat.DC);
+            devisUcc.modifierDateDevis(devis);
             break;
           case "A":
             devis.setEtat(Etat.A);
@@ -126,17 +154,18 @@ public class ChangementEtatDevisServlet extends HttpServlet {
 
         String devisData;
         String clientData;
-        if (etatDevis != "A") {
-          devisData = genson.serialize(devis);
-          clientData = genson.serialize(clientDto);
-        } else {
-          List<DevisDto> listeDevis = devisUcc.voirDevis();
-          devisData = genson.serialize(listeDevis);
-          clientData = "";
-        }
+        // if (etatDevis != "A") {
+        devisData = genson.serialize(devis);
+        clientData = genson.serialize(clientDto);
+        // } else {
+        // List<DevisDto> listeDevis = devisUcc.voirDevis();
+        // devisData = genson.serialize(listeDevis);
+        String typesAmenagementData = genson.serialize(descriptionsTypeAmenagement);
 
+        // }
         String json = "{\"success\":\"true\", \"token\":\"" + token + "\", \"devisData\":"
-            + devisData + ", \"clientData\":" + clientData + "}";
+            + devisData + ", \"clientData\":" + clientData + ", \"typesAmenagementData\":"
+            + typesAmenagementData + "}";
         System.out.println("JSON generated :" + json);
         resp.setContentType("application/json");
 

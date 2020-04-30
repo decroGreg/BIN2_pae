@@ -29,6 +29,7 @@ public class UserDaoImpl implements UserDao {
     factory = new FactoryImpl();
   }
 
+  @Override
   public UserDto getUserViaId(int id) {
     UserDto userD = factory.getUserDto();
     String requeteSql = "SELECT * FROM init.utilisateurs WHERE id_utilisateur=?";
@@ -208,5 +209,43 @@ public class UserDaoImpl implements UserDao {
           "Erreur lors de la prise des utilisateurs non confirmer : " + ex.getMessage());
     }
 
+  }
+
+  @Override
+  public List<UserDto> voirUserAvecCritere(String nom, String ville) {
+
+    String villeSql = "%" + ville + "%";
+    String nomSql = "%" + nom + "%";
+    String requestSql = "SELECT * FROM init.utilisateurs WHERE nom LIKE ? AND ville LIKE ? ";
+    List<UserDto> listeUser = new ArrayList<UserDto>();
+    if (ville == null) {
+      villeSql = "%";
+    }
+    if (nomSql == null) {
+      nomSql = "%";
+    }
+    ps = services.getPreparedSatement(requestSql);
+    try {
+      ps.setString(1, nomSql);
+      ps.setString(2, villeSql);
+      try (ResultSet rs = ps.executeQuery()) {
+        while (rs.next()) {
+          UserDto user = factory.getUserDto();
+          user.setIdUser(rs.getInt(1));
+          user.setPseudo(rs.getString(2));
+          user.setNom(rs.getString(3));
+          user.setPrenom(rs.getString(4));
+          user.setVille(rs.getString(5));
+          user.setEmail(rs.getString(6));
+          user.setDateInscription(rs.getTimestamp(7));
+          user.setMotDePasse(null);
+          listeUser.add(user);
+        }
+        return listeUser;
+      }
+    } catch (SQLException ex) {
+      throw new DalException(
+          "Erreur lors de la prise des utilisateurs avec criteres : " + ex.getMessage());
+    }
   }
 }

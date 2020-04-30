@@ -8,7 +8,10 @@ import be.ipl.pae.dal.interfaces.PhotoDao;
 import be.ipl.pae.exceptions.DalException;
 
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class PhotoDaoImpl implements PhotoDao {
 
@@ -35,6 +38,27 @@ public class PhotoDaoImpl implements PhotoDao {
       throw new DalException();
     }
     return true;
+  }
+
+  public List<PhotoDto> voirTousPhotos() {
+    List<PhotoDto> listePhoto = new ArrayList<PhotoDto>();
+    String requeteSql = "SELECT * FROM init.photos";
+    ps = services.getPreparedSatement(requeteSql);
+    try {
+      try (ResultSet rs = ps.executeQuery()) {
+        while (rs.next()) {
+          PhotoDto photo = factory.getPhotoDto();
+          photo.setIdPhoto(rs.getInt(1));
+          photo.setUrlPhoto(rs.getString(2));
+          photo.setIdAmenagement(rs.getInt(3));
+          photo.setIdDevis(rs.getInt(4));
+          listePhoto.add(photo);
+        }
+        return listePhoto;
+      }
+    } catch (SQLException ex) {
+      throw new DalException(ex.getMessage());
+    }
   }
 
 }

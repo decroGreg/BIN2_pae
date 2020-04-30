@@ -106,13 +106,13 @@ public class DevisDaoImpl implements DevisDao {
   }
 
   @Override
-  public boolean confirmerDateDevis(int idDevis, Timestamp dateDebutTravaux) {
-    String requeteSql =
-        "UPDATE init.devis SET etat = 'DC',date_debut_travaux = ? WHERE id_devis = ?";
+  public boolean confirmerDateDevis(DevisDto devis) {
+    String requeteSql = "UPDATE init.devis SET etat = ?,date_debut_travaux = ? WHERE id_devis = ?";
     ps = services.getPreparedSatement(requeteSql);
     try {
-      ps.setInt(2, idDevis);
-      ps.setTimestamp(1, dateDebutTravaux);
+      ps.setString(1, devis.getEtat().name());
+      ps.setInt(3, devis.getIdDevis());
+      ps.setTimestamp(2, devis.getDateDebutTravaux());
       ps.execute();
     } catch (SQLException ex) {
       throw new DalException("Erreur lors de la confirmation de la Date" + ex.getMessage());
@@ -177,6 +177,7 @@ public class DevisDaoImpl implements DevisDao {
     return devisDto;
   }
 
+  @Override
   public boolean repousserDateDebut(DevisDto devis) {
     String requeteSql = "UPDATE init.devis SET date_debut_travaux = ? WHERE id_devis = ?";
     int idDevis = devis.getIdDevis();

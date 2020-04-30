@@ -17,11 +17,13 @@ public interface DevisUcc {
   void introduireDevis(ClientDto nouveauClient, int idClient, DevisDto devis,
       List<String> listeIdTypeAmenagement);
 
-  void confirmerDateDebut(DevisDto devis);
+  void modifierDateDevis(DevisDto devis);
 
   void changerEtat(DevisDto devis);
 
   void choisirPhotoPreferee(DevisDto devisDto, int idPhoto);
 
   void repousserDateDebut(DevisDto devisDto);
+
+  List<DevisDto> rechercheSurDevis(DevisDto devisDto, double prixMin, double prixMax);
 }

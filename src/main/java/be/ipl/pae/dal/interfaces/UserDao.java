@@ -19,5 +19,7 @@ public interface UserDao {
 
   boolean lierClientUser(int client, int user);
 
+  List<UserDto> voirUserAvecCritere(String nom, String ville);
+
   boolean confirmerUtilisateur(UserDto user, Character etat);
 }

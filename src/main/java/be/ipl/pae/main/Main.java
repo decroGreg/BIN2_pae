@@ -77,7 +77,7 @@ public class Main {
     UserUcc userUcc = new UserUccImpl(factory, userDao, daoServices);
     PhotoDto photoDto = factory.getPhotoDto();
     AmenagementUcc amenagementUcc = new AmenagementUccImpl(amenagementDao, factory, daoServices);
-    PhotoUcc photoUcc = new PhotoUccImpl(photoDao, devisDao, factory, daoServices);
+    PhotoUcc photoUcc = new PhotoUccImpl(photoDao, devisDao, amenagementDao, factory, daoServices);
 
     UserDto userDto = factory.getUserDto();
     ClientDto clientDto = factory.getClientDto();
@@ -126,10 +126,12 @@ public class Main {
     context.addServlet(new ServletHolder(confirmationServlet), "/confirmation");
 
 
-    HttpServlet detailsDevis = new DetailsDevisServlet(userUcc, userDto, devisUcc, clientUcc);
+    HttpServlet detailsDevis =
+        new DetailsDevisServlet(devisUcc, clientUcc, amenagementUcc, typeAmenagmentUcc);
     context.addServlet(new ServletHolder(detailsDevis), "/detailsDevis");
 
-    HttpServlet changementEtatDevis = new ChangementEtatDevisServlet(devisDto, devisUcc, clientUcc);
+    HttpServlet changementEtatDevis = new ChangementEtatDevisServlet(devisDto, devisUcc, clientUcc,
+        amenagementUcc, typeAmenagmentUcc);
     context.addServlet(new ServletHolder(changementEtatDevis), "/changementEtatDevis");
 
     HttpServlet rechercheDevis = new RechercheDevisServlet(devisUcc, devisDto);
