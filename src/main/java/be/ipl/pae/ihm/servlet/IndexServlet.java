@@ -44,12 +44,17 @@ public class IndexServlet extends DefaultServlet {
             new String(Files.readAllBytes(Paths.get("./view/html/ajouterPhoto.html")));
         String photoPrefereeFile =
             new String(Files.readAllBytes(Paths.get("./view/html/choisirPhotoPreferee.html")));
+        String photosClientFile =
+            new String(Files.readAllBytes(Paths.get("./view/html/photosClient.html")));
+
         String footer = new String(Files.readAllBytes(Paths.get("./view/html/footer.html")));
+
 
         resp.getOutputStream()
             .println(indexFile + connexionFile + introduireDevisFile + confirmerInscriptionFile
                 + voirClientsFile + voirDevisFile + voirDetailsDevisFile + voirDevisClientFile
-                + voirUtilisateursFile + ajouterPhotoFile + photoPrefereeFile + footer);
+                + voirUtilisateursFile + ajouterPhotoFile + photoPrefereeFile + photosClientFile
+                + footer);
 
       } catch (Exception exce) {
 

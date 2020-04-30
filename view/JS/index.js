@@ -6,6 +6,7 @@ import{afficherDevis, afficherDevisClient,onGetAmenagementDevis,onGetAmenagement
 import{afficherUtilisateurs,afficherUtilisateursDropdown} from "./afficherUtilisateurs.js";
 import{afficherDetailsDevis, changerEtat, changerValeurBouton} from "./detailsDevis.js";
 import{remplirListeTypesAmenagement} from "./selectionnerTypeAmenagement.js";
+import{afficherPhotos} from "./afficherPhotosClient.js";
 
 let token=undefined;
 let user;
@@ -157,7 +158,12 @@ $(document).ready(e=>{
         $(".dropdown-menu li").filter(function() {
           $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
         });
-        });
+    });
+    
+    $("#mesPhotos").click(e=>{
+    	let data=user;
+    	postData("/mesPhotos", data, token, afficherPhotos, onError);
+    });
     
 });
 
@@ -173,6 +179,7 @@ function allHide(){
         $("#voir-utilisateurs").hide();
         $("#voir-clients").hide();
         $("#voir-devis").hide();
+        $("#ajouterPhoto").hide();
 }
 
 //Home page non-connecté
@@ -198,6 +205,7 @@ function viewHomePage(){
         //$("#search-homepage").hide();
     	$("#choisirPhotoPreferee").hide();
     	$("#ajouterPhoto").hide();
+
 
 
 }

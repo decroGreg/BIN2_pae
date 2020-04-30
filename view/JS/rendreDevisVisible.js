@@ -8,37 +8,48 @@ function ajouterPhoto(response){
 	$("#btn-ajouter-photo").hide();
 	$("#btn-photo-preferee").hide();
 	$("#btn-rendre-visible").hide();
+	$("#choisirPhotoPreferee").hide();
 	$("#ajouterPhoto").show();
+	$("#ajouterPhoto #listeTypeAmenagements").html("");
 	Object.keys(response.amenagementsData).forEach(data=>{
 		var html = "<option id="+response.amenagementsData[data].idAmenagement+">" + response.typesAmenagementData[data] + "</option>";
 		$("#ajouterPhoto #listeTypeAmenagements").append(html);
 	});
 	$("#ajouterPhoto #photoDevis").change(e=>{
         encodeImagetoBase64(e.target);
-        //photo = $("#ajouterPhoto #photoAjoutee img").attr("src");
 	});
 	$("#btn-ajout-photo").click(e=>{
 		e.preventDefault();
 		let data={};
 		var photo = $("#ajouterPhoto #photoAjoutee img").attr("src");
 		data.urlPhoto = photo;
+		if($("#visibilitePhoto").is(":checked")){
+			data.visible = 1;
+		}
+		else{
+			data.visible = 0;
+		}
 		data.idAmenagement = $("#listeTypeAmenagements option:selected").attr("id");
 		console.log(data.urlPhoto);
 		putData("/ajouterPhoto", token, data, afficherDetailsDevis, onError);
-		console.log("ICI");
 	});
 }
 
 function choisirPhotoPreferee(response){
 	//response = toutes les photos apres amenagement du devis
 	$("#choisirPhotoPreferee").show();
+	$("#formPhotoPreferee").html(" ");
 	Object.keys(response.photosData).forEach(data=>{
-		var html = "<div class='radio'><label><input type='radio' id='" + response.photosData[data].idPhoto + "'>" + "PHOTO"  +"</label></div>";
+		var html = "<div class='radio'><label><input type='radio' name='radioButton' id='" + response.photosData[data].idPhoto + "'>" + "<img src='"+ response.photosData[data].urlPhoto +"' width='193' height='130'>"  +"</label></div>";
 		$("#formPhotoPreferee").append(html);
 	});
+	var boutonValider = "<div class='form-group col-md-3' style='text-align: right;'><input type='submit' id='btn-valider-preferee' class='btn btn-danger'  value='Valider'></div>";
+	$("#formPhotoPreferee").append(boutonValider);
 	$("#btn-valider-preferee").click(e=>{
+		e.preventDefault();
 		let data={};
-		data.idPhoto = $('input[name=radioName]:checked', '#formPhotoPreferee').attr("id");
+		data.idPhoto = $('input[name=radioButton]:checked').attr("id");
+		console.log("idPhoto = " + data.idPhoto);
 		putData("/photoPreferee", token, data, afficherDetailsDevis, onError);
 	});
 }

@@ -39,6 +39,7 @@ import be.ipl.pae.ihm.servlet.DetailsDevisServlet;
 import be.ipl.pae.ihm.servlet.IndexServlet;
 import be.ipl.pae.ihm.servlet.IntroduireDevisServlet;
 import be.ipl.pae.ihm.servlet.LoginServlet;
+import be.ipl.pae.ihm.servlet.PhotosClientServlet;
 import be.ipl.pae.ihm.servlet.RechercheDevisServlet;
 import be.ipl.pae.ihm.servlet.RegisterServlet;
 import be.ipl.pae.ihm.servlet.VoirClientsServlet;
@@ -150,6 +151,8 @@ public class Main {
         new VoirTypesAmenagementServlet(typeAmenagmentUcc, photoUcc, amenagementUcc);
     context.addServlet(new ServletHolder(selectionnerTypeAmenagement), "/voirTypesAmenagement");
 
+    HttpServlet photosClient = new PhotosClientServlet(clientUcc, devisUcc, photoUcc);
+    context.addServlet(new ServletHolder(photosClient), "/mesPhotos");
 
     context.setWelcomeFiles(new String[] {"index.html"});
     context.setResourceBase("view");

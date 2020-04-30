@@ -56,7 +56,7 @@ public class ChoisirPhotoPrefereeServlet extends HttpServlet {
         String photosData = genson.serialize(photosDevis);
         String json = "{\"success\":\"true\", \"token\":\"" + token + "\", \"photosData\":"
             + photosData + "}";
-        System.out.println("JSON generated :" + json);
+        // System.out.println("JSON generated :" + json);
         resp.setContentType("application/json");
         resp.setCharacterEncoding("UTF-8");
         resp.setStatus(HttpServletResponse.SC_OK);
@@ -87,9 +87,13 @@ public class ChoisirPhotoPrefereeServlet extends HttpServlet {
       Genson genson = new Genson();
       Map<String, Object> data = genson.deserialize(req.getReader(), Map.class);
       String token = req.getHeader("Authorization");
-      int idDevis = Integer.parseInt(data.get("idDevis").toString());
       int idPhoto = Integer.parseInt(data.get("idPhoto").toString());
-
+      int idDevis = 0;
+      for (PhotoDto ph : photoUcc.voirPhotos()) {
+        if (ph.getIdPhoto() == idPhoto) {
+          idDevis = ph.getIdDevis();
+        }
+      }
       for (DevisDto d : devisUcc.voirDevis()) {
         if (d.getIdDevis() == idDevis) {
           devisDto = d;
