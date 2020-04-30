@@ -106,7 +106,7 @@ public class PhotoUccImpl implements PhotoUcc {
     List<PhotoDto> photoParTypeAmenagement = null;
     try {
       daoServicesUcc.demarrerTransaction();
-      // photoParTypeAmenagement = photoDao
+      photoParTypeAmenagement = photoDao.voirPhotoTypeDAmenagement(typeAmenagementDto.getId());
     } catch (DalException de) {
       daoServicesUcc.rollback();
       throw new FatalException(de.getMessage());
