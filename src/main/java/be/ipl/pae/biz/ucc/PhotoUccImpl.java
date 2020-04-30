@@ -131,4 +131,24 @@ public class PhotoUccImpl implements PhotoUcc {
     daoServicesUcc.commit();
     return Collections.unmodifiableList(photoDeTonJardin);
   }
+
+  @Override
+  public PhotoDto recupererPhotoPreferee(DevisDto devisDto) {
+    if (devisDto.getIdPhotoPreferee() > 0) {
+      try {
+        daoServicesUcc.demarrerTransaction();
+        PhotoDto photoDto = photoDao.getPhotoById(devisDto.getIdPhotoPreferee());
+        if (photoDto == null) {
+          throw new BizException("Aucune photo trouvé");
+        }
+        daoServicesUcc.commit();
+        return photoDto;
+      } catch (DalException de) {
+        daoServicesUcc.rollback();
+        throw new FatalException(de.getMessage());
+      }
+    } else {
+      throw new BizException("Ce devis n'a pas de photo préférée");
+    }
+  }
 }
