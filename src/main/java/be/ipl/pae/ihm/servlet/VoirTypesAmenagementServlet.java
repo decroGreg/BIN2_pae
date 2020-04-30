@@ -1,6 +1,5 @@
 package be.ipl.pae.ihm.servlet;
 
-import be.ipl.pae.biz.dto.AmenagementDto;
 import be.ipl.pae.biz.dto.PhotoDto;
 import be.ipl.pae.biz.dto.TypeDAmenagementDto;
 import be.ipl.pae.biz.interfaces.AmenagementUcc;
@@ -41,12 +40,13 @@ public class VoirTypesAmenagementServlet extends HttpServlet {
     // Va chercher les types d'amenagements pour remplir les categories
 
     try {
-      System.out.println("ICI");
 
       typesAmenagements = typeDAmenagementUcc.voirTypeDAmenagement();
       for (PhotoDto ph : photoUcc.voirPhotos()) {
         if (ph.getIdAmenagement() > 0) {
-          photos.add(ph);
+          if (ph.isVisible()) {
+            photos.add(ph);
+          }
         }
       }
       Genson genson = new Genson();
@@ -89,20 +89,27 @@ public class VoirTypesAmenagementServlet extends HttpServlet {
       Map<String, Object> data = genson.deserialize(req.getReader(), Map.class);
       int idTypeAmenagement = Integer.parseInt(data.get("idTypeAmenagement").toString());
 
-      // Je vais d'abord chercher tous les amenagements qui ont l'idTypeAmenagement
-      List<AmenagementDto> amenagements = new ArrayList<>();
-      for (AmenagementDto am : amenagementUcc.voirAmenagement()) {
-        if (am.getIdTypeAmenagement() == idTypeAmenagement) {
-          amenagements.add(am);
+      /*
+       * // Je vais d'abord chercher tous les amenagements qui ont l'idTypeAmenagement
+       * List<AmenagementDto> amenagements = new ArrayList<>(); for (AmenagementDto am :
+       * amenagementUcc.voirAmenagement()) { if (am.getIdTypeAmenagement() == idTypeAmenagement) {
+       * amenagements.add(am); } }
+       * 
+       * // Je vais chercher toutes les photos des amenagements for (AmenagementDto am :
+       * amenagements) { for (PhotoDto ph : photoUcc.voirPhotos()) { if (ph.getIdAmenagement() ==
+       * am.getIdAmenagement()) { photos.add(ph); } } }
+       */
+
+      TypeDAmenagementDto typeAmenagementDto = null;
+      for (TypeDAmenagementDto type : typeDAmenagementUcc.voirTypeDAmenagement()) {
+        if (type.getId() == idTypeAmenagement) {
+          typeAmenagementDto = type;
         }
       }
 
-      // Je vais chercher toutes les photos des amenagements
-      for (AmenagementDto am : amenagements) {
-        for (PhotoDto ph : photoUcc.voirPhotos()) {
-          if (ph.getIdAmenagement() == am.getIdAmenagement()) {
-            photos.add(ph);
-          }
+      for (PhotoDto ph : photoUcc.voirPhotoParTypeAmenagement(typeAmenagementDto)) {
+        if (ph.isVisible()) {
+          photos.add(ph);
         }
       }
 

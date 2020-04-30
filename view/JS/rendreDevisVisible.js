@@ -22,6 +22,12 @@ function ajouterPhoto(response){
 		let data={};
 		var photo = $("#ajouterPhoto #photoAjoutee img").attr("src");
 		data.urlPhoto = photo;
+		if($("#visibilitePhoto").is(":checked")){
+			data.visible = 1;
+		}
+		else{
+			data.visible = 0;
+		}
 		data.idAmenagement = $("#listeTypeAmenagements option:selected").attr("id");
 		console.log(data.urlPhoto);
 		putData("/ajouterPhoto", token, data, afficherDetailsDevis, onError);

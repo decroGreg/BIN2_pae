@@ -107,9 +107,11 @@ public class AjouterPhotoDevisServlet extends HttpServlet {
       Map<String, Object> data = genson.deserialize(req.getReader(), Map.class);
       String token = req.getHeader("Authorization");
       int idAmenagement = Integer.parseInt(data.get("idAmenagement").toString());
+      int visible = Integer.parseInt(data.get("visible").toString());
       String urlPhoto = data.get("urlPhoto").toString();
       System.out.println("ID am = " + idAmenagement);
       AmenagementDto amenagementDto = null;
+      boolean photoVisible = false;
 
       try {
 
@@ -132,6 +134,9 @@ public class AjouterPhotoDevisServlet extends HttpServlet {
 
       // Je renvoie le devis pour revenir sur la page detailsDevis
       if (amenagementDto != null) {
+        if (visible == 1) {
+          photoVisible = true;
+        }
         photoUcc.ajouterPhotoApresAmenagement(amenagementDto, urlPhoto);
         DevisDto devisDto = null;
         for (DevisDto d : devisUcc.voirDevis()) {
