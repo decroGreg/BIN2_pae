@@ -3,6 +3,7 @@ package be.ipl.pae.dal.interfaces;
 import be.ipl.pae.biz.dto.ClientDto;
 import be.ipl.pae.biz.dto.DevisDto;
 
+import java.sql.Timestamp;
 import java.util.List;
 
 
@@ -26,6 +27,6 @@ public interface DevisDao {
 
   int getIdDernierDevis();
 
-  List<DevisDto> voirDevisAvecCritere(DevisDto devisRecherche, String nomClient, int prixMin,
-      int prixMax, int typeDAmenagementRecherche);
+  List<DevisDto> voirDevisAvecCritere(Timestamp dateDevis, String nomClient, double prixMin,
+      double prixMax, int typeDAmenagementRecherche);
 }

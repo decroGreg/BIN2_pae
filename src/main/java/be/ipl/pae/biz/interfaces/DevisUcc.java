@@ -25,5 +25,6 @@ public interface DevisUcc {
 
   void repousserDateDebut(DevisDto devisDto);
 
-  List<DevisDto> rechercheSurDevis(DevisDto devisDto, double prixMin, double prixMax);
+  List<DevisDto> rechercheSurDevis(DevisDto devisDto, double prixMin, double prixMax,
+      int idAmenagement);
 }

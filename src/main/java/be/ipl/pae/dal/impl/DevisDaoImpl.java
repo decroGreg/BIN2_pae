@@ -77,13 +77,13 @@ public class DevisDaoImpl implements DevisDao {
   }
 
   @Override
-  public List<DevisDto> voirDevisAvecCritere(DevisDto devisRecherche, String nomClient, int prixMin,
-      int prixMax, int typeDAmenagementRecherche) {
+  public List<DevisDto> voirDevisAvecCritere(Timestamp dateDevis, String nomClient, double prixMin,
+      double prixMax, int typeDAmenagementRecherche) {
 
     String prixMaxSql = "";
     String nomSql = nomClient;
-    Timestamp dateSqlMin = devisRecherche.getDate();
-    Timestamp dateSqlMax = devisRecherche.getDate();
+    Timestamp dateSqlMin = dateDevis;
+    Timestamp dateSqlMax = dateDevis;
     boolean typeAmenagement = false;
     String requeteSql =
         " SELECT d.id_devis , d.id_client , d.date , d.montant , d.photo_preferee , d.duree_travaux , d.etat , d.date_debut_travaux "
@@ -113,9 +113,9 @@ public class DevisDaoImpl implements DevisDao {
       ps.setString(1, nomSql);
       ps.setTimestamp(2, dateSqlMin);
       ps.setTimestamp(3, dateSqlMax);
-      ps.setInt(4, prixMin);
+      ps.setDouble(4, prixMin);
       if (prixMaxSql.equals("")) {
-        ps.setInt(5, prixMax);
+        ps.setDouble(5, prixMax);
       } else {
         ps.setString(5, prixMaxSql);
       }
