@@ -24,7 +24,6 @@ public class VoirTypesAmenagementServlet extends HttpServlet {
   private PhotoUcc photoUcc;
   private AmenagementUcc amenagementUcc;
   private List<TypeDAmenagementDto> typesAmenagements = new ArrayList<>();
-  private List<PhotoDto> photos = new ArrayList<>();
 
   public VoirTypesAmenagementServlet(TypeDAmenagementUcc typeDAmenagementUcc, PhotoUcc photoUcc,
       AmenagementUcc amenagementUcc) {
@@ -38,6 +37,7 @@ public class VoirTypesAmenagementServlet extends HttpServlet {
   protected void doGet(HttpServletRequest req, HttpServletResponse resp)
       throws ServletException, IOException {
     // Va chercher les types d'amenagements pour remplir les categories
+    List<PhotoDto> photos = new ArrayList<>();
 
     try {
 
@@ -83,6 +83,7 @@ public class VoirTypesAmenagementServlet extends HttpServlet {
       throws ServletException, IOException {
     // Va chercher toutes les photos apres amenagements du type amenagement selectionne
     // Renvoie une liste de photos
+    List<PhotoDto> photos = new ArrayList<>();
 
     try {
       Genson genson = new Genson();
@@ -124,6 +125,7 @@ public class VoirTypesAmenagementServlet extends HttpServlet {
       }
       if (!photos.isEmpty()) {
         String photosData = genson.serialize(photos);
+        System.out.println("PHOTOS SIZE = " + photos.size());
         String json = "{\"success\":\"true\", \"photosData\":" + photosData + "}";
         // System.out.println("JSON generated :" + json);
         resp.setContentType("application/json");
