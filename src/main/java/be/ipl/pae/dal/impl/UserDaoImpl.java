@@ -115,7 +115,7 @@ public class UserDaoImpl implements UserDao {
   @Override
   public List<UserDto> voirTousUser() {
     List<UserDto> listeUser = new ArrayList<UserDto>();
-    String requeteSql = "SELECT * FROM init.utilisateurs";
+    String requeteSql = "SELECT * FROM init.utilisateurs WHERE statut IS NOT NULL";
     ps = services.getPreparedSatement(requeteSql);
     try {
       try (ResultSet rs = ps.executeQuery()) {
