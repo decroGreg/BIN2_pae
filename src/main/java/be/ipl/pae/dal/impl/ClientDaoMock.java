@@ -78,4 +78,10 @@ public class ClientDaoMock implements ClientDao {
     }
     return null;
   }
+
+  @Override
+  public ClientDto getClientById(int id) {
+    // TODO Auto-generated method stub
+    return null;
+  }
 }

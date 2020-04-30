@@ -13,5 +13,7 @@ public interface ClientDao {
 
   List<ClientDto> voirClientAvecCritere(String nom, String ville, int codePostal);
 
+  ClientDto getClientById(int id);
+
 }
 
