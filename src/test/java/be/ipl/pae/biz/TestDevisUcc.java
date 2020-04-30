@@ -351,7 +351,7 @@ class TestDevisUcc {
         false, false, false, true);
     devisUcc = (DevisUcc) devisUccConstruct.newInstance(bizFactory, devisDao, userDao, clientDao,
         amenagementDao, dalServices);
-    devisDto.setEtat(Etat.V);
+    devisDto.setEtat(Etat.FF);
     PhotoDto photoDto = bizFactory.getPhotoDto();
     assertThrows(FatalException.class,
         () -> devisUcc.choisirPhotoPreferee(devisDto, photoDto.getIdPhoto()));
