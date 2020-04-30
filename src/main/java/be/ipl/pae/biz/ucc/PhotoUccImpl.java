@@ -117,6 +117,7 @@ public class PhotoUccImpl implements PhotoUcc {
     return Collections.unmodifiableList(photoParTypeAmenagement);
   }
 
+  @Override
   public List<PhotoDto> voirPhotoSonJardin(int idClient) {
     List<PhotoDto> photoDeTonJardin;
     try {

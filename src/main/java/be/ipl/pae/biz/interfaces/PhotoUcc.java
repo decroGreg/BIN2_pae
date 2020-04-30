@@ -16,4 +16,6 @@ public interface PhotoUcc {
   List<PhotoDto> voirPhotos();
 
   List<PhotoDto> voirPhotoParTypeAmenagement(TypeDAmenagementDto typeAmenagementDto);
+
+  List<PhotoDto> voirPhotoSonJardin(int idClient);
 }
