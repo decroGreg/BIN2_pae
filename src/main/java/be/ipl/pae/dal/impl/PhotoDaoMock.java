@@ -54,4 +54,10 @@ public class PhotoDaoMock implements PhotoDao {
       throw new DalException();
     }
   }
+
+  @Override
+  public List<PhotoDto> voirPhotoTypeDAmenagement(int idTypeAmenagement) {
+    // TODO Auto-generated method stub
+    return null;
+  }
 }
