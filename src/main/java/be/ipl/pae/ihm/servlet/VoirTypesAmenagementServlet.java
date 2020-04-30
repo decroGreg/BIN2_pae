@@ -41,15 +41,23 @@ public class VoirTypesAmenagementServlet extends HttpServlet {
     // Va chercher les types d'amenagements pour remplir les categories
 
     try {
+      System.out.println("ICI");
+
       typesAmenagements = typeDAmenagementUcc.voirTypeDAmenagement();
-      photos = photoUcc.voirPhotos();
+      for (PhotoDto ph : photoUcc.voirPhotos()) {
+        if (ph.getIdAmenagement() > 0) {
+          photos.add(ph);
+        }
+      }
       Genson genson = new Genson();
 
       String typesAmenagementData = genson.serialize(typesAmenagements);
       String photosData = genson.serialize(photos);
       String json = "{\"success\":\"true\", \"photosData\":" + photosData
           + ", \"typesAmenagementData\":" + typesAmenagementData + "}";
-      System.out.println("JSON generated :" + json);
+      // String json = "{\"success\":\"true\", \"typesAmenagementData\":" + typesAmenagementData +
+      // "}";
+      // System.out.println("JSON generated :" + json);
 
       resp.setContentType("application/json");
 
@@ -101,12 +109,16 @@ public class VoirTypesAmenagementServlet extends HttpServlet {
       // Si il n'y aucune photo pour ce type d'aménagement, je renvoie toutes les photos pour les
       // afficher dans le carrousel
       if (photos.isEmpty()) {
-        photos = photoUcc.voirPhotos();
+        for (PhotoDto ph : photoUcc.voirPhotos()) {
+          if (ph.getIdAmenagement() > 0) {
+            photos.add(ph);
+          }
+        }
       }
       if (!photos.isEmpty()) {
         String photosData = genson.serialize(photos);
         String json = "{\"success\":\"true\", \"photosData\":" + photosData + "}";
-        System.out.println("JSON generated :" + json);
+        // System.out.println("JSON generated :" + json);
         resp.setContentType("application/json");
         resp.setCharacterEncoding("UTF-8");
         resp.setStatus(HttpServletResponse.SC_OK);
