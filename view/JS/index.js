@@ -35,12 +35,12 @@ $(document).ready(e=>{
         token=localStorage.getItem("token");
         authentificationToken(token);
         $(".connexion").click(function (e) {
-
                viewLogin();
         });
         $("#imageMenu").click(e=>{
-                viewHomePage();
+            if(token)
                 viewAuthentification(user);
+            else viewHomePage();
         });
                 
         $(window).bind('scroll', function() {
@@ -54,7 +54,10 @@ $(document).ready(e=>{
                 }
         });
  
-    $("#homePage").click(viewHomePage);
+    $("#homePage").click(e=>{
+            if(token) viewAuthentification(user);
+            else      viewHomePage
+        });
     $("#btn-connexion").click(e=>{
             let data={};
             data.mail=$("#login-email").val();
@@ -158,20 +161,24 @@ $(document).ready(e=>{
 
 
 function allHide(){
+        $("#voir-devis-client").hide();
+        $("#3-category").hide();
         $("#login-form").hide();
         $("#wrong_passwd").hide();
         $("#carousel").hide();
         $("#introductionQuoteForm").hide();
         $("#Register-confirmation").hide();
-        $("#success-notification").hide();
-        $("#error-notification").hide();
+        $("#voir-utilisateurs").hide();
+        $("#voir-clients").hide();
+        $("#voir-devis").hide();
 }
 
 //Home page non-connecté
 function viewHomePage(){
-      
-
+        $(".connexion").show();
+        $("#Register-confirmation").hide();
         $("#login-form").hide();
+
         $("#btn-deconnexion").hide();
         $("#wrong_passwd").hide();
         $("#carousel").show();
@@ -209,9 +216,11 @@ function authentificationToken(token){
 //identification via le token
 function onPostLoginToken(response){
         if(response.success=="true"){
+
                 user=response.userData;
                 $("#success-notification").fadeIn('slow').delay(1000).fadeOut('slow');
                 $("#success-notification").text(response.message);
+                viewAuthentification(user);
         }
         else{
                 console.log(response.message);

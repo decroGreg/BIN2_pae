@@ -1,8 +1,12 @@
+import { allHide } from "./index.js";
 
 const OUVRIER="O";
 const CLIENT="C";
 //vue après authentification
 function viewAuthentification(user){
+    allHide();
+    $("#userName").text("Bonjour! "+user.nom+" "+user.prenom);
+    $(".connexion").hide();
     $("#search-homepage").show();
     $("#search-devis-date-link").show();
     $("#search-devis-montant-link").show();
@@ -11,6 +15,8 @@ function viewAuthentification(user){
     $("#search-utilisateur-link").hide();
     $("#search-amenagement-link").hide();
     $("#mesDevis").show();
+    $("#carousel").show();
+    $("#3-category").show();
     
     if(user &&user.statut===OUVRIER){
             $(".Register-confirmation-link").show();
@@ -42,7 +48,7 @@ function viewAuthentification(user){
 }
 
 function viewLogin(){
-
+    allHide();
     console.log($("#login-form").target);
     $("#login-form").show();
     $("#btn-deconnexion").hide();
