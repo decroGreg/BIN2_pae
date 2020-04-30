@@ -1,6 +1,6 @@
 
-import {creatHTMLFromString,getData,postData,onError} from "./util.js" ;
-import {token} from "./index.js";
+import {creatHTMLFromString,getData,postData,onError, filterDropdown} from "./util.js" ;
+import {token, allHide} from "./index.js";
 var photo={};
 function checkInput(data,message){
         var element;
@@ -40,9 +40,7 @@ $(document).ready(function () {
                 getData("/introduireServlet",token,onGetAmenagements,onError);
                 getData("/listeUsers",token,onGetClientQuoteForm,onError);
             });
-        $("#Quote-Form-Client-Search").on("keyup", function() {
-                filterSearchClient(this);
-      });
+
       $("#Quote-Form-image").change(e=>{
               encodeImagetoBase64(e.target);
       })
@@ -105,26 +103,39 @@ $(document).ready(function () {
 
 
 function onGetClientQuoteForm(response){
-    response.usersData.forEach(element => {
-            var li=document.createElement("li");
-            var a=document.createElement("a");
-            a.href="#";
-            a.val=element.idUser;
-            a.innerText=element.prenom+" "+element.nom;
-            a.addEventListener("click",function(e){
-                    
-                    $("#Quote-Form-Client-items").val(e.target.val);
-                    $("#Quote-Form-Client-dropdown").text(e.target.innerText);
-                    console.log($("#Quote-Form-Client-items").val());
+                $("#Quote-Form-Client-items").text("");
+                
+                //création du input avec filtre
+        var input=document.createElement("input");
+        input.className="form-control";
+        input.id="Quote-Form-Client-Search";
+        input.type="text";
+        input.placeholder="Search..";
+        input.addEventListener("keyup",function() {
+                filterDropdown(this);
+        });
+        $("#Quote-Form-Client-items").append(input);
 
-            });
-            li.appendChild(a);
-            $("#Quote-Form-Client-items").append(li);
-    });
+        response.usersData.forEach(element => {
+                var li=document.createElement("li");
+                var a=document.createElement("a");
+                a.href="#";
+                a.val=element.idUser;
+                a.innerText=element.prenom+" "+element.nom;
+                a.addEventListener("click",function(e){
+                        
+                        $("#Quote-Form-Client-items").val(e.target.val);
+                        $("#Quote-Form-Client-dropdown").text(e.target.innerText);
+                        console.log($("#Quote-Form-Client-items").val());
+
+                });
+                li.appendChild(a);
+                $("#Quote-Form-Client-items").append(li);
+        });
 }
 
 function onGetAmenagements(response){
- 
+ $("#Quote-Form-layoutType").text("");
  console.log(response.typeAmenagements);
     response.typeAmenagements.forEach(element => {//changer les donnees hanger le i par l'id
             console.log(element.id);
@@ -147,21 +158,13 @@ function onPostIntroductionQuote(response){
     }
     viewIntroductionQuote();
 }
-function filterSearchClient(element){
-    var value = $(element).val().toLowerCase();
-    $(".dropdown-menu li").filter(function() {
-      $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
-    });
-}
+
+
 function viewIntroductionQuote(){
-    $("#login").hide();
-    $("#btn-deconnexion").hide();
-    $("#wrong_passwd").hide();
-    $("#test1").hide();
-    $("#carousel").hide();
-    $("#Register-confirmation").hide();
+    allHide();
     $("#introductionQuoteForm").show();
    
 }
-export{onGetAmenagements,onGetClientQuoteForm,onPostIntroductionQuote,filterSearchClient,viewIntroductionQuote, encodeImagetoBase64};
+
+export{onGetAmenagements,onGetClientQuoteForm,onPostIntroductionQuote,viewIntroductionQuote, encodeImagetoBase64};
 

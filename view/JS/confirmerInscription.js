@@ -1,6 +1,6 @@
 
-import {creatHTMLFromString,getData,postData,onError} from "./util.js" ;
-import {token} from "./index.js";
+import {creatHTMLFromString,getData,postData,onError,filterDropdown} from "./util.js" ;
+import {token, allHide} from "./index.js";
 
 
 
@@ -18,6 +18,7 @@ var i=0;//permet d'afficher la meme liste des clients pour des bouttonsdifféren
 //affiche les demandes d'inscription dans un tableau
 function onGetRegisterConfirmation(response){
         $("#Register-confirmation-body").html("");
+        i=0;
         
         response.usersData.forEach(element => {
                 var tr=document.createElement("tr");
@@ -43,7 +44,7 @@ function onGetRegisterConfirmation(response){
                 +'</button>'
                 +'<div class="dropdown-menu">'
                 +'<a class="dropdown-item" value="c" href="#">Client</a>'
-                +'<a class="dropdown-item" value="e" href="#">Ouvrier</a>'
+                +'<a class="dropdown-item" value="O" href="#">Ouvrier</a>'
                 +'</div>'
                 +'</div></td>');
                 btnStatus.appendChild(btnStatusEvent);
@@ -55,13 +56,52 @@ function onGetRegisterConfirmation(response){
                 var tdBtnClientLink=document.createElement("td");
                 tdBtnClientLink.setAttribute("valueof","client");
                 tdBtnClientLink.id="ClientLink"+i;
+                
+
+                var divForm=document.createElement("div");
+                divForm.className="form-group col-md-3";
+
+                var divDropdown=document.createElement("div");
+                divDropdown.className="dropdown-Client";
+
+                var button=document.createElement("button");
+                button.className="btn btn-secondary dropdown-toggle";
+                button.id="RegisterConfirmation-Form-Client-dropdown"+i;
+                button.type="button";
+                button.setAttribute("data-toggle","dropdown");
+                button["data-toggle"]="dropdown";
+                button.innerText="lie a l'utilisateur";
+                console.log(button);
+                var ul=document.createElement("ul");
+                ul.className="dropdown-menu";
+                ul.id="RegisterConfirmation-Form-Client-items"+i;
+
+                var input=document.createElement("input");
+                input.className="form-control";
+                input.id="RegisterConfirmation-Form-Client-Search"+i;
+                input.type="text";
+                input.placeholder="Search...";
+                input.addEventListener("keyup",function(){
+                        filterDropdown(this);
+                });
+
+                ul.appendChild(input);
+                divDropdown.appendChild(ul);
+                divDropdown.appendChild(button);
+                divForm.appendChild(divDropdown);
+                tdBtnClientLink.appendChild(divForm);
+
+                /*
                 var btnClientLink=creatHTMLFromString('<div class="form-group col-md-3">'
                 +'<div class="dropdown-Client">'
                 + '<button class="btn btn-secondary dropdown-toggle" id="RegisterConfirmation-Form-Client-dropdown'+i+'" type="button" data-toggle="dropdown">lié à l\'utilisateur<span class="caret"></span></button>'
                 + '<ul class="dropdown-menu" id="RegisterConfirmation-Form-Client-items'+i+'">'
-                +  '<input class="form-control" id="RegisterConfirmation-Form-Client-Search'+i+'" type="text" placeholder="Search..">'
+                +  '<input class="form-control" id="RegisterConfirmation-Form-Client-Search'+i+'" type="text" onkeyup="filterDropdown(this)" placeholder="Search..">'
                 +'</ul></div></div>');
-                tdBtnClientLink.appendChild(btnClientLink);
+                
+                tdBtnClientLink.appendChild(btnClientLink);*/
+
+
                 tr.appendChild(tdBtnClientLink);
 
                 getData("/listeClients",token,onGetClientRegisterConfirmationForm,onError);
@@ -75,13 +115,17 @@ function onGetRegisterConfirmation(response){
                 tr.appendChild(btnConfirmation);
                 $("#Register-confirmation-body").append(tr);
                 
-                i++;
+                
         });
-        i=0;
+        
 
 }
 function onGetClientRegisterConfirmationForm(response){
+        console.log(document.getElementById("RegisterConfirmation-Form-Client-items"+i))
+        console.log($("#RegisterConfirmation-Form-Client-items"+i));
+
         response.clientsData.forEach(element => {
+                console.log(element);
                 var li=document.createElement("li");
                 var a=document.createElement("a");
                 a.href="#";
@@ -102,6 +146,7 @@ function onGetClientRegisterConfirmationForm(response){
         i++;
 
 }
+
 function onClickRegisterConfirmation(element){
         var btn=element.target;
         var data={};
@@ -116,10 +161,7 @@ function onClickRegisterConfirmation(element){
                 $("#error-notification").text("veuillez choisir un roles");
                 return;
 
-        }
-        
-        
-
+        }       
         postData("/confirmation",data,token,onPostRegisterConfirmation,onError);
 }
 function onPostRegisterConfirmation(response){
@@ -144,12 +186,8 @@ function onClickStatusItem(element){
         }
 }
 function viewRegisterConfirmation(){
-    $("#login").hide();
+    allHide();
     $("#btn-deconnexion").hide();
-    $("#wrong_passwd").hide();
-    $("#test1").hide();
-    $("#carousel").hide();
     $("#Register-confirmation").show();
-    $("#introductionQuoteForm").hide();
    
 }

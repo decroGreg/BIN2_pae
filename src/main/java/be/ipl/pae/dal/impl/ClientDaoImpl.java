@@ -148,11 +148,10 @@ public class ClientDaoImpl implements ClientDao {
           clientDto.setIdUtilisateur(rs.getInt(11));
         }
       } catch (SQLException ex) {
-        ex.printStackTrace();
+        throw new DalException(ex.getMessage());
       }
     } catch (SQLException ex) {
-      ex.printStackTrace();
-      System.exit(1);
+      throw new DalException(ex.getMessage());
     }
     if (clientDto.getEmail() == null) {
       return null;

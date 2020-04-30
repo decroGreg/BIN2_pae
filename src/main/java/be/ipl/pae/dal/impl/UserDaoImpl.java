@@ -48,12 +48,11 @@ public class UserDaoImpl implements UserDao {
             userD.setStatut(status.charAt(0));
           }
         }
-      } catch (SQLException sql) {
-        sql.printStackTrace();
+      } catch (SQLException ex) {
+        throw new DalException(ex.getMessage());
       }
-    } catch (SQLException sql) {
-      sql.printStackTrace();
-      System.exit(1);
+    } catch (SQLException ex) {
+      throw new DalException(ex.getMessage());
     }
     return userD;
   }
@@ -81,11 +80,10 @@ public class UserDaoImpl implements UserDao {
           }
         }
       } catch (SQLException ex) {
-        ex.printStackTrace();
+        throw new DalException(ex.getMessage());
       }
     } catch (SQLException ex) {
-      ex.printStackTrace();
-      System.exit(1);
+      throw new DalException(ex.getMessage());
     }
     if (userD.getEmail() == null) {
       return null;
@@ -108,9 +106,7 @@ public class UserDaoImpl implements UserDao {
       ps.setString(8, null);
       ps.execute();
     } catch (SQLException ex) {
-      ex.printStackTrace();
-      System.exit(500);
-      return false;
+      throw new DalException(ex.getMessage());
     }
     return true;
   }
