@@ -10,6 +10,7 @@ import be.ipl.pae.biz.interfaces.PhotoUcc;
 import com.owlike.genson.Genson;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -23,7 +24,6 @@ public class PhotosClientServlet extends HttpServlet {
   private ClientUcc clientUcc;
   private DevisUcc devisUcc;
   private PhotoUcc photoUcc;
-  private List<PhotoDto> listePhotos;
 
   public PhotosClientServlet(ClientUcc clientUcc, DevisUcc devisUcc, PhotoUcc photoUcc) {
     super();
@@ -41,11 +41,14 @@ public class PhotosClientServlet extends HttpServlet {
       String token = req.getHeader("Authorization");
       int idUtilisateur = Integer.parseInt(data.get("idUser").toString());
       ClientDto clientDto = null;
+      List<PhotoDto> listePhotos = new ArrayList<>();
+
       for (ClientDto c : clientUcc.getClients()) {
         if (c.getIdUtilisateur() == idUtilisateur) {
           clientDto = c;
         }
       }
+
       List<DevisDto> listeDevis = devisUcc.voirDevis(clientDto);
       for (DevisDto de : listeDevis) {
         for (PhotoDto ph : photoUcc.voirPhotos()) {
@@ -59,7 +62,7 @@ public class PhotosClientServlet extends HttpServlet {
       if (token != null) {
         String photosData = genson.serialize(listePhotos);
         String json = "{\"success\":\"true\", \"photosData\":" + photosData + "}";
-        System.out.println("JSON generated :" + json);
+        // System.out.println("JSON generated :" + json);
         resp.setContentType("application/json");
         resp.setCharacterEncoding("UTF-8");
         resp.setStatus(HttpServletResponse.SC_OK);
