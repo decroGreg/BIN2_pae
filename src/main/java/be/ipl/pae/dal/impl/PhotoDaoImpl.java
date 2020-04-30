@@ -63,6 +63,30 @@ public class PhotoDaoImpl implements PhotoDao {
     }
   }
 
+  public List<PhotoDto> voirPhotoSonJardin(int id_client) {
+    List<PhotoDto> listePhoto = new ArrayList<PhotoDto>();
+    String requeteSql = "SELECT p.* FROM init.photos p , init.devis d"
+        + "            WHERE p.id_devis = d.id_devis AND d.id_client = ?";
+    ps = services.getPreparedSatement(requeteSql);
+    try {
+      ps.setInt(1, id_client);
+      try (ResultSet rs = ps.executeQuery()) {
+        while (rs.next()) {
+          PhotoDto photo = factory.getPhotoDto();
+          photo.setIdPhoto(rs.getInt(1));
+          photo.setUrlPhoto(rs.getString(2));
+          photo.setIdAmenagement(rs.getInt(3));
+          photo.setIdDevis(rs.getInt(4));
+          photo.setVisible(rs.getBoolean(5));
+          listePhoto.add(photo);
+        }
+        return listePhoto;
+      }
+    } catch (SQLException ex) {
+      throw new DalException(ex.getMessage());
+    }
+  }
+
   @Override
   public List<PhotoDto> voirPhotoTypeDAmenagement(int idTypeAmenagement) {
     List<PhotoDto> listePhoto = new ArrayList<PhotoDto>();
