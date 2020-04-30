@@ -148,7 +148,7 @@ public class DevisUccImpl implements DevisUcc {
   public void choisirPhotoPreferee(DevisDto devisDto, int idPhoto) {
     try {
       daoServicesUcc.demarrerTransaction();
-      if (devisDto.getEtat().equals(Etat.V)) {
+      if (devisDto.getEtat().equals(Etat.FF)) {
         devisDao.ajouterPhotoPrefereeDevis(devisDto, idPhoto);
       }
     } catch (DalException de) {
