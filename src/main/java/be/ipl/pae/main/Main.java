@@ -44,6 +44,7 @@ import be.ipl.pae.ihm.servlet.RegisterServlet;
 import be.ipl.pae.ihm.servlet.VoirClientsServlet;
 import be.ipl.pae.ihm.servlet.VoirDevisClientServlet;
 import be.ipl.pae.ihm.servlet.VoirDevisServlet;
+import be.ipl.pae.ihm.servlet.VoirTypesAmenagementServlet;
 import be.ipl.pae.ihm.servlet.VoirUtilisateursServlet;
 
 import org.eclipse.jetty.server.Server;
@@ -144,6 +145,9 @@ public class Main {
     HttpServlet photoPreferee = new ChoisirPhotoPrefereeServlet(devisUcc, devisDto, photoUcc);
     context.addServlet(new ServletHolder(photoPreferee), "/photoPreferee");
 
+    HttpServlet selectionnerTypeAmenagement =
+        new VoirTypesAmenagementServlet(typeAmenagmentUcc, photoUcc, amenagementUcc);
+    context.addServlet(new ServletHolder(selectionnerTypeAmenagement), "/voirTypesAmenagement");
 
 
     context.setWelcomeFiles(new String[] {"index.html"});

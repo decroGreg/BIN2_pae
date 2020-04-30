@@ -30,7 +30,10 @@
           </a></br>
           <ul>
             <li><a href="#" id="homePage">HOME</a></li>
-            <li><a href="#">Categorie</a></li>
+            <li class="nav-item dropdown">
+                	<a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Types d'amenagements</a>
+					<div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink" id="navBarStaticTypesAmenagements"></div>               
+                </li>
             <li id="list-confirmation-link"><a href="#"  class="Register-confirmation-link  nav-item">Confirmer inscription</a></li>
             <li id="connexion"><a href="#" class="connexion nav-item" id="connexion">Connexion</a></li>
             <li><a href="#" id="introductionQuote" class="introductionQuote nav-item">introduire un devis</a></li>
@@ -58,10 +61,13 @@
         </form>
            <ul >
                 <li><a href="#" id="homePage" class="nav-item">HOME</a></li>
-                <li><a href="#" class="nav-item">Categorie</a></li>
+                <li class="nav-item dropdown">
+                	<a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Types d'amenagements</a>
+					<div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink" id="navBarTypesAmenagements"></div>               
+                </li>
                 <li id="list-confirmation-link"><a href="#"  class="Register-confirmation-link nav-item">Confirmer inscription</a></li>
                 <li id="connexion"><a href="?#" class="connexion nav-item" id="connexion">Connexion</a></li>
-                <li><a href="#" id="introductionQuote" class="introductionQuote nav-item">introduire un devis</a></li>
+                <li><a href="#" id="introductionQuote" class="introductionQuote nav-item">Introduire un devis</a></li>
                 <li><a href="#" id="mesDevis" class="nav-item">Mes devis</a></li>
            </ul>
         </nav>
@@ -74,15 +80,15 @@
         <section id="carousel">
             <div id="myCarousel" class="carousel slide" data-ride="carousel">
                 <!-- Indicators -->
-                <ol class="carousel-indicators">
-                  <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+                <ol class="carousel-indicators" id="carousel-indicators">
+                <!--  <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
                   <li data-target="#myCarousel" data-slide-to="1"></li>
-                  <li data-target="#myCarousel" data-slide-to="2"></li>
+                  <li data-target="#myCarousel" data-slide-to="2"></li> -->
                 </ol>
             
                 <!-- Wrapper for slides -->
-                <div class="carousel-inner">
-                  <div class="item active">
+                <div class="carousel-inner" id="carousel-inner">
+                <!--   <div class="item active">
                     <img src="#" alt="Los Angeles" id="testImg">
                   </div>
             
@@ -92,7 +98,7 @@
                 
                   <div class="item">
                     <img src="#" alt="New york">
-                  </div>
+                  </div> -->
                 </div>
             
                 <!-- Left and right controls -->
