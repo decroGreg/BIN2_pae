@@ -21,6 +21,7 @@ public class DevisDaoMock implements DevisDao {
   private boolean getDevisViaId;
   private boolean ajouterPhotoPrefereeDevis;
   private boolean repousserDateDebut;
+  private boolean voirDevisAvecCritere;
   private boolean testDalException;
   private Factory factory;
 
@@ -37,7 +38,7 @@ public class DevisDaoMock implements DevisDao {
   public DevisDaoMock(boolean createDevis, boolean voirTousDevis, boolean getDevisClient,
       boolean confirmerDateDevis, boolean getIdDernierDevis, boolean changerEtatDevis,
       boolean getDevisViaId, boolean ajouterPhotoPrefereeDevis, boolean repousserDateDebut,
-      boolean testDalException) {
+      boolean voirDevisAvecCritere, boolean testDalException) {
     this.createDevis = createDevis;
     this.voirTousDevis = voirTousDevis;
     this.getDevisClient = getDevisClient;
@@ -47,6 +48,7 @@ public class DevisDaoMock implements DevisDao {
     this.getDevisViaId = getDevisViaId;
     this.ajouterPhotoPrefereeDevis = ajouterPhotoPrefereeDevis;
     this.repousserDateDebut = repousserDateDebut;
+    this.voirDevisAvecCritere = voirDevisAvecCritere;
     this.testDalException = testDalException;
     this.factory = new FactoryStub();
   }
@@ -130,5 +132,19 @@ public class DevisDaoMock implements DevisDao {
   public boolean repousserDateDebut(DevisDto devis) {
     testDalException();
     return repousserDateDebut;
+  }
+
+
+  @Override
+  public List<DevisDto> voirDevisAvecCritere(DevisDto devisRecherche, String nomClient, int prixMin,
+      int prixMax, int typeDAmenagementRecherche) {
+    // TODO Auto-generated method stub
+    testDalException();
+    if (voirDevisAvecCritere) {
+      List<DevisDto> devis = new ArrayList<DevisDto>();
+      devis.add(factory.getDevisDto());
+      return devis;
+    }
+    return null;
   }
 }
