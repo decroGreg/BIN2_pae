@@ -1,7 +1,6 @@
 package be.ipl.pae.dal.impl;
 
 import be.ipl.pae.biz.dto.PhotoDto;
-import be.ipl.pae.biz.factory.FactoryImpl;
 import be.ipl.pae.biz.interfaces.Factory;
 import be.ipl.pae.dal.daoservices.DaoServices;
 import be.ipl.pae.dal.interfaces.PhotoDao;
@@ -19,9 +18,9 @@ public class PhotoDaoImpl implements PhotoDao {
   private DaoServices services;
   private Factory factory;
 
-  public PhotoDaoImpl(DaoServices daoService) {
+  public PhotoDaoImpl(DaoServices daoService, Factory factory) {
     this.services = daoService;
-    this.factory = new FactoryImpl();
+    this.factory = factory;
   }
 
 
@@ -63,13 +62,13 @@ public class PhotoDaoImpl implements PhotoDao {
     }
   }
 
-  public List<PhotoDto> voirPhotoSonJardin(int id_client) {
+  public List<PhotoDto> voirPhotoSonJardin(int idClient) {
     List<PhotoDto> listePhoto = new ArrayList<PhotoDto>();
     String requeteSql = "SELECT p.* FROM init.photos p , init.devis d"
         + "            WHERE p.id_devis = d.id_devis AND d.id_client = ?";
     ps = services.getPreparedSatement(requeteSql);
     try {
-      ps.setInt(1, id_client);
+      ps.setInt(1, idClient);
       try (ResultSet rs = ps.executeQuery()) {
         while (rs.next()) {
           PhotoDto photo = factory.getPhotoDto();

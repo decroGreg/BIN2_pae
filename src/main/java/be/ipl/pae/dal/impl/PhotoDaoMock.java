@@ -60,4 +60,10 @@ public class PhotoDaoMock implements PhotoDao {
     // TODO Auto-generated method stub
     return null;
   }
+
+  @Override
+  public List<PhotoDto> voirPhotoSonJardin(int idClient) {
+    // TODO Auto-generated method stub
+    return null;
+  }
 }

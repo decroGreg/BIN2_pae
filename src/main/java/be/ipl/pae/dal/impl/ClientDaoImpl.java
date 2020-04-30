@@ -1,7 +1,6 @@
 package be.ipl.pae.dal.impl;
 
 import be.ipl.pae.biz.dto.ClientDto;
-import be.ipl.pae.biz.factory.FactoryImpl;
 import be.ipl.pae.biz.interfaces.Factory;
 import be.ipl.pae.dal.daoservices.DaoServices;
 import be.ipl.pae.dal.interfaces.ClientDao;
@@ -24,9 +23,9 @@ public class ClientDaoImpl implements ClientDao {
    * 
    * @param daoServices classe service.
    */
-  public ClientDaoImpl(DaoServices daoServices) {
+  public ClientDaoImpl(DaoServices daoServices, Factory factory) {
     this.services = daoServices;
-    this.factory = new FactoryImpl();
+    this.factory = factory;
   }
 
   @Override

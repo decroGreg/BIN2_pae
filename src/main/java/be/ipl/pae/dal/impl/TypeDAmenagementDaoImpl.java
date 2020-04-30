@@ -1,7 +1,6 @@
 package be.ipl.pae.dal.impl;
 
 import be.ipl.pae.biz.dto.TypeDAmenagementDto;
-import be.ipl.pae.biz.factory.FactoryImpl;
 import be.ipl.pae.biz.interfaces.Factory;
 import be.ipl.pae.dal.daoservices.DaoServices;
 import be.ipl.pae.dal.interfaces.TypeDAmenagementDao;
@@ -24,9 +23,9 @@ public class TypeDAmenagementDaoImpl implements TypeDAmenagementDao {
    * 
    * @param daoServices classe service.
    */
-  public TypeDAmenagementDaoImpl(DaoServices daoServices) {
+  public TypeDAmenagementDaoImpl(DaoServices daoServices, Factory factory) {
     this.services = daoServices;
-    this.factory = new FactoryImpl();
+    this.factory = factory;
   }
 
   @Override

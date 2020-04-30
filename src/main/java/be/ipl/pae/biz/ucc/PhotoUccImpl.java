@@ -79,6 +79,7 @@ public class PhotoUccImpl implements PhotoUcc {
       photo.setIdDevis(amenagementDto.getIdDevis());
       photo.setIdAmenagement(amenagementDto.getIdAmenagement());
       photo.setUrlPhoto(urlPhoto);
+      photo.setVisible(visible);
       if (devis.getEtat().equals(Etat.FF) && photo.checkPhoto()) {
         photoDao.introduirePhoto(photo);
       }
@@ -113,6 +114,21 @@ public class PhotoUccImpl implements PhotoUcc {
       daoServicesUcc.rollback();
       throw new FatalException(de.getMessage());
     }
+    daoServicesUcc.commit();
     return Collections.unmodifiableList(photoParTypeAmenagement);
+  }
+
+  @Override
+  public List<PhotoDto> voirPhotoSonJardin(int idClient) {
+    List<PhotoDto> photoDeTonJardin;
+    try {
+      daoServicesUcc.demarrerTransaction();
+      photoDeTonJardin = photoDao.voirPhotoSonJardin(idClient);
+    } catch (DalException de) {
+      daoServicesUcc.rollback();
+      throw new FatalException(de.getMessage());
+    }
+    daoServicesUcc.commit();
+    return Collections.unmodifiableList(photoDeTonJardin);
   }
 }
