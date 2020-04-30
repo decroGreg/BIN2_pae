@@ -2,9 +2,16 @@
 <section id="voir-devis">
     <h4>Liste des devis</h4>
     <br/>
-    <div class="form-inline" id="search-homepage">
+    <div class="form-inline" id="search-VoirDevis">
+      
+      <div class="dropdown" id="dropdownClientName">
+        <button class="btn btn-light dropdown-toggle" id="searchDevisNameDropdown" type="button" data-toggle="dropdown">nom client</button>
+        <ul class="dropdown-menu"  id="clientNameSearch">
+          <input class="form-control" id="inputClientNameSearch" type="text" placeholder="Search..">
+        </ul>
+      </div>
 
-        <input class="form-control mr-sm-2" name="name" id="searchDevisName" type="search" placeholder="nom Client">
+      
    
       <input class="form-control mr-sm-2" name="date" id="searchDevisDate" type="date">
       <input class="form-control mr-sm-2" name="min" id="searchDevisMin"type="number" placeholder="min prix">

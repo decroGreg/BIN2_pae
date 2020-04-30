@@ -9,4 +9,5 @@ public interface AmenagementUcc {
   List<AmenagementDto> voirAmenagement();
 
   void ajouterAmenagement(List<String> listeIdTypeAmenagement, int idDevis);
+
 }

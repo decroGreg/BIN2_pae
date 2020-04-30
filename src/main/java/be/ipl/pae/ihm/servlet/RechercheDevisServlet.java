@@ -40,6 +40,8 @@ public class RechercheDevisServlet extends HttpServlet {
       String token = req.getHeader("token");
       if (token != null) {
         if (data.containsKey("idUser")) {
+          // devisUcc.recherch(devisDto,prinMin,prixMax);
+
           // methode
         } else {
           // methode

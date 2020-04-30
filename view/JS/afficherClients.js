@@ -1,3 +1,47 @@
+import {filterDropdown}from "./util.js";
+
+
+$(document).ready(function () {
+	$("#btn-search-Clients").click(e=>{
+		var data={
+			"name":$("#searchClientsNameDropdown").text(),
+			"postalCode":$("#searchClientCodePostal").val(),
+			"city":$("#searchClientsVille").val()
+		};
+		
+		console.log(data);
+		//postData("",token,data,afficherUtilisateurs,onError);
+	})
+});
+
+function afficherClientsDropdown(response){
+
+	//afficherNomDropdown(response,document.getElementById("clientsNameSearch"),"inputClientsNameSearch",document.getElementById("searchClientsNameDropdown"),"clientsData");
+	$("#clientsNameSearch").html("");
+	var input=document.createElement("input");
+	input.id="inputClientsNameSearch";
+	input.type="text";
+	input.placeholder="Search..";
+	input.className="form-control";
+	input.addEventListener("keyup",function(){
+		filterDropdown(this);
+	});
+
+	$("#clientsNameSearch").append(input);
+
+	response.clientsData.forEach(e=>{
+		var li=document.createElement("li");
+		var a=document.createElement("a");
+		a.innerHTML=e.nom+" "+e.prenom;
+		a.addEventListener("click",function(){
+			$("#searchClientsNameDropdown").text(a.innerHTML);
+		});
+		li.appendChild(a);
+		$("#clientsNameSearch").append(li);
+	});
+
+}
+
 function afficherClients(response){
 	viewListeClients();
 	$("#voir-clients tbody").html("");
@@ -32,4 +76,4 @@ function viewListeClients(){
 	$("#ajouterPhoto").hide();
 }
 
-export{afficherClients, viewListeClients};
+export{afficherClients, viewListeClients,afficherClientsDropdown};

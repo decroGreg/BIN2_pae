@@ -8,6 +8,7 @@ import com.owlike.genson.Genson;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -68,6 +69,41 @@ public class VoirUtilisateursServlet extends HttpServlet {
       resp.getWriter().write(json);
     }
 
+  }
+
+  @Override
+  protected void doPost(HttpServletRequest req, HttpServletResponse resp)
+      throws ServletException, IOException {
+    // TODO Auto-generated method stub
+    super.doPost(req, resp);
+
+    try {
+      Genson genson = new Genson();
+      String token = req.getHeader("Authorization");
+      Map<String, String> data = genson.deserialize(req.getReader(), Map.class);
+      if (token != null) {
+
+      } else {
+        String json = "{\"success\":\"false\", \"token\":\"" + token
+            + "\", \"message\":\"vous devez etre connecte pour pouvoir effectuer cette action\"}";
+        System.out.println("JSON generated :" + json);
+        resp.setContentType("application/json");
+        resp.setCharacterEncoding("UTF-8");
+        resp.setStatus(HttpServletResponse.SC_OK);
+        resp.getWriter().write(json);
+      }
+
+    } catch (Exception exce) {
+      exce.printStackTrace();
+      String json = "{\"error\":\"false\"}";
+      System.out.println(json);
+      resp.setContentType("application/json");
+      resp.setCharacterEncoding("UTF-8");
+      resp.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+      resp.getWriter().write(json);
+
+
+    }
   }
 
 }

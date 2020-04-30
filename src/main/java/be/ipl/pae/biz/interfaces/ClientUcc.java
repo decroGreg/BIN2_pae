@@ -8,4 +8,6 @@ public interface ClientUcc {
 
   List<ClientDto> getClients();
 
+  List<ClientDto> rechercherClients(String nom, String ville, int codePostal);
+
 }

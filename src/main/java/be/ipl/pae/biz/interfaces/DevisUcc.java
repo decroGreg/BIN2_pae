@@ -24,4 +24,6 @@ public interface DevisUcc {
   void choisirPhotoPreferee(DevisDto devisDto, int idPhoto);
 
   void repousserDateDebut(DevisDto devisDto);
+
+  List<DevisDto> rechercheSurDevis(DevisDto devisDto, double prixMin, double prixMax);
 }

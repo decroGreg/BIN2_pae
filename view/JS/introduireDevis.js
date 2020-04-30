@@ -1,3 +1,4 @@
+
 import {creatHTMLFromString,getData,postData,onError} from "./util.js" ;
 import {token} from "./index.js";
 var photo={};
@@ -24,10 +25,10 @@ function encodeImagetoBase64(element) {
         var reader = new FileReader();
 
         reader.onloadend = function() {
-                photo="{"+reader.result+"}";
+
+        photo="{"+reader.result+"}";
           console.log(reader.result);
           $("img").attr("src",reader.result);
-          
         }
         reader.readAsDataURL(file);        
 }
@@ -163,3 +164,4 @@ function viewIntroductionQuote(){
    
 }
 export{onGetAmenagements,onGetClientQuoteForm,onPostIntroductionQuote,filterSearchClient,viewIntroductionQuote, encodeImagetoBase64};
+

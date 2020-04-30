@@ -3,17 +3,20 @@ package be.ipl.pae.biz.ucc;
 import be.ipl.pae.biz.dto.AmenagementDto;
 import be.ipl.pae.biz.dto.DevisDto;
 import be.ipl.pae.biz.dto.PhotoDto;
+import be.ipl.pae.biz.dto.TypeDAmenagementDto;
 import be.ipl.pae.biz.impl.DevisImpl.Etat;
 import be.ipl.pae.biz.interfaces.Factory;
 import be.ipl.pae.biz.interfaces.Photo;
 import be.ipl.pae.biz.interfaces.PhotoUcc;
 import be.ipl.pae.dal.daoservices.DaoServicesUcc;
+import be.ipl.pae.dal.interfaces.AmenagementDao;
 import be.ipl.pae.dal.interfaces.DevisDao;
 import be.ipl.pae.dal.interfaces.PhotoDao;
 import be.ipl.pae.exceptions.BizException;
 import be.ipl.pae.exceptions.DalException;
 import be.ipl.pae.exceptions.FatalException;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
@@ -21,6 +24,7 @@ public class PhotoUccImpl implements PhotoUcc {
 
   private PhotoDao photoDao;
   private DevisDao devisDao;
+  private AmenagementDao amenagementDao;
   private Factory bizFactory;
   private DaoServicesUcc daoServicesUcc;
 
@@ -28,14 +32,17 @@ public class PhotoUccImpl implements PhotoUcc {
    * Cree un objet PhotoUccImpl.
    * 
    * @param photoDao le dao de photo.
+   * @param devisDao le dao de devis.
+   * @param amenagementDao le dao d'amanagement.
    * @param bizFactory la biz factory.
    * @param daoServicesUcc le daoServices.
    */
-  public PhotoUccImpl(PhotoDao photoDao, DevisDao devisDao, Factory bizFactory,
-      DaoServicesUcc daoServicesUcc) {
+  public PhotoUccImpl(PhotoDao photoDao, DevisDao devisDao, AmenagementDao amenagementDao,
+      Factory bizFactory, DaoServicesUcc daoServicesUcc) {
     super();
     this.photoDao = photoDao;
     this.devisDao = devisDao;
+    this.amenagementDao = amenagementDao;
     this.bizFactory = bizFactory;
     this.daoServicesUcc = daoServicesUcc;
   }
@@ -93,5 +100,18 @@ public class PhotoUccImpl implements PhotoUcc {
     }
     daoServicesUcc.commit();
     return Collections.unmodifiableList(photos);
+  }
+
+  @Override
+  public List<PhotoDto> voirPhotoParTypeAmenagement(TypeDAmenagementDto typeAmenagementDto) {
+    // List<AmenagementDto> amenagements =
+    // amenagementDao.trouverAmenagementParType(typeAmenagementDto.getId());
+    List<PhotoDto> photoParTypeAmenagement = new ArrayList<PhotoDto>();
+    // for (AmenagementDto amenagement : amenagements) {
+    // List<PhotoDto> photoParAmenagement =
+    // photoDao.chercherPhotoParAmenagement(amenagement.getIdAmenagement());
+    // Tu parcours la liste de dessus et tu ajoutes chaque photo dans photoParTypeAmenagement.
+    // }
+    return photoParTypeAmenagement;
   }
 }

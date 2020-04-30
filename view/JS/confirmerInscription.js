@@ -11,6 +11,7 @@ $(document).ready(function () {
                 getData("/confirmation",token,onGetRegisterConfirmation,onError);
             
         });
+       
 });
 
 var i=0;//permet d'afficher la meme liste des clients pour des bouttonsdifférentss

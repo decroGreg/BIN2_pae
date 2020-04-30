@@ -20,4 +20,6 @@ public interface UserUcc {
 
   List<UserDto> voirUtilisateurEnAttente();
 
+  List<UserDto> rechercherUtilisateurs(String nom, String ville);
+
 }

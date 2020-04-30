@@ -105,5 +105,38 @@ function creatHTMLFromString(htmlString){
   // Change this to div.childNodes to support multiple top-level nodes
   return div.firstChild; 
 }
+function filterDropdown(element){
+  var value = $(element).val().toLowerCase();
+  $(".dropdown-menu li").filter(function() {
+    $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+  });
+}
+/*
+function afficherNomDropdown(response,baliseUl,idInput,dropdown,object){ 
+  baliseUl.innerHTML="";
+	var input=document.createElement("input");
+	input.id=idInput;
+	input.type="text";
+	input.placeholder="Search..";
+	input.className="form-control";
+	input.addEventListener("keyup",function(){
+		filterDropdown(this);
+	});
 
-export{postData,getData,deleteData,putData,creatHTMLFromString,onError};
+	baliseUl.append(input);
+
+	response[object].forEach(e=>{
+		var li=document.createElement("li");
+		var a=document.createElement("a");
+		a.innerHTML=e.nom+" "+e.prenom;
+		a.addEventListener("click",function(){
+			dropdown.text(a.innerHTML);
+		});
+		li.appendChild(a);
+		baliseUl.append(li);
+	});
+
+}*/
+
+
+export{postData,getData,deleteData,putData,creatHTMLFromString,onError,filterDropdown};
