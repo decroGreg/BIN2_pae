@@ -16,7 +16,6 @@ import be.ipl.pae.exceptions.BizException;
 import be.ipl.pae.exceptions.DalException;
 import be.ipl.pae.exceptions.FatalException;
 
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
@@ -104,14 +103,14 @@ public class PhotoUccImpl implements PhotoUcc {
 
   @Override
   public List<PhotoDto> voirPhotoParTypeAmenagement(TypeDAmenagementDto typeAmenagementDto) {
-    // List<AmenagementDto> amenagements =
-    // amenagementDao.trouverAmenagementParType(typeAmenagementDto.getId());
-    List<PhotoDto> photoParTypeAmenagement = new ArrayList<PhotoDto>();
-    // for (AmenagementDto amenagement : amenagements) {
-    // List<PhotoDto> photoParAmenagement =
-    // photoDao.chercherPhotoParAmenagement(amenagement.getIdAmenagement());
-    // Tu parcours la liste de dessus et tu ajoutes chaque photo dans photoParTypeAmenagement.
-    // }
-    return photoParTypeAmenagement;
+    List<PhotoDto> photoParTypeAmenagement = null;
+    try {
+      daoServicesUcc.demarrerTransaction();
+      // photoParTypeAmenagement = photoDao
+    } catch (DalException de) {
+      daoServicesUcc.rollback();
+      throw new FatalException(de.getMessage());
+    }
+    return Collections.unmodifiableList(photoParTypeAmenagement);
   }
 }

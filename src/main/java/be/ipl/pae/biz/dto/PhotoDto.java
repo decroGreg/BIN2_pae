@@ -18,4 +18,8 @@ public interface PhotoDto {
 
   void setUrlPhoto(String urlPhoto);
 
+  boolean isVisible();
+
+  void setVisible(boolean visible);
+
 }
