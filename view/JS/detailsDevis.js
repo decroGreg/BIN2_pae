@@ -89,7 +89,7 @@ function afficherDetailsDevis(response){
 		e.preventDefault();
 		let data={};
 		data.idDevis = response.devisData.idDevis;
-		postData("/ajouterPhoto", data, token, choisirPhotoPreferee, onError);
+		postData("/photoPreferee", data, token, choisirPhotoPreferee, onError);
 	});
 	
 	//click sur rendre visible

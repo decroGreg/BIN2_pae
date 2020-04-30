@@ -51,6 +51,7 @@ public class PhotoUccImpl implements PhotoUcc {
     Photo photo = (Photo) bizFactory.getPhotoDto();
     photo.setIdDevis(idDevis);
     photo.setUrlPhoto(urlPhoto);
+    photo.setVisible(false);
     if (photo.checkPhoto()) {
       try {
         daoServicesUcc.demarrerTransaction();
@@ -66,7 +67,8 @@ public class PhotoUccImpl implements PhotoUcc {
   }
 
   @Override
-  public void ajouterPhotoApresAmenagement(AmenagementDto amenagementDto, String urlPhoto) {
+  public void ajouterPhotoApresAmenagement(AmenagementDto amenagementDto, String urlPhoto,
+      boolean visible) {
     try {
       daoServicesUcc.demarrerTransaction();
       DevisDto devis = devisDao.getDevisViaId(amenagementDto.getIdDevis());

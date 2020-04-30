@@ -112,6 +112,7 @@ public class AjouterPhotoDevisServlet extends HttpServlet {
       System.out.println("ID am = " + idAmenagement);
       AmenagementDto amenagementDto = null;
       boolean photoVisible = false;
+      System.out.println("VISIBLE = " + visible);
 
       try {
 
@@ -136,8 +137,9 @@ public class AjouterPhotoDevisServlet extends HttpServlet {
       if (amenagementDto != null) {
         if (visible == 1) {
           photoVisible = true;
+          System.out.println("photo vis = " + photoVisible);
         }
-        photoUcc.ajouterPhotoApresAmenagement(amenagementDto, urlPhoto);
+        photoUcc.ajouterPhotoApresAmenagement(amenagementDto, urlPhoto, photoVisible);
         DevisDto devisDto = null;
         for (DevisDto d : devisUcc.voirDevis()) {
           if (amenagementDto.getIdDevis() == d.getIdDevis()) {
