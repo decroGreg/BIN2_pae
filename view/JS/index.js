@@ -5,6 +5,7 @@ import{afficherClients,afficherClientsDropdown} from "./afficherClients.js";
 import{afficherDevis, afficherDevisClient,onGetAmenagementDevis,onGetAmenagementDevisClient,onGetClientDevis,onGetClientDevisClient} from "./afficherDevis.js";
 import{afficherUtilisateurs,afficherUtilisateursDropdown} from "./afficherUtilisateurs.js";
 import{afficherDetailsDevis, changerEtat, changerValeurBouton} from "./detailsDevis.js";
+import{remplirListeTypesAmenagement} from "./selectionnerTypeAmenagement.js";
 
 let token=undefined;
 let user;
@@ -34,6 +35,7 @@ function checkInput(data,message){
 $(document).ready(e=>{
         token=localStorage.getItem("token");
         authentificationToken(token);
+        getData("/voirTypesAmenagement", token, remplirListeTypesAmenagement, onError);
         $(".connexion").click(function (e) {
                viewLogin();
         });

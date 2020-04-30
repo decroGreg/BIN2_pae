@@ -6,6 +6,7 @@ public class PhotosImpl implements Photo {
 
   private int idPhoto;
   private String urlPhoto;
+  private boolean visible;
   private int idAmenagement;
   private int idDevis;
 
@@ -17,10 +18,11 @@ public class PhotosImpl implements Photo {
    * @param idAmenagement l'id de l'amenagement.
    * @param idDevis l'id du devis.
    */
-  public PhotosImpl(int idPhoto, String urlPhoto, int idAmenagement, int idDevis) {
+  public PhotosImpl(int idPhoto, String urlPhoto, boolean visible, int idAmenagement, int idDevis) {
     super();
     this.idPhoto = idPhoto;
     this.urlPhoto = urlPhoto;
+    this.visible = visible;
     this.idAmenagement = idAmenagement;
     this.idDevis = idDevis;
   }
@@ -63,6 +65,14 @@ public class PhotosImpl implements Photo {
 
   public void setUrlPhoto(String urlPhoto) {
     this.urlPhoto = urlPhoto;
+  }
+
+  public boolean isVisible() {
+    return visible;
+  }
+
+  public void setVisible(boolean visible) {
+    this.visible = visible;
   }
 
   @Override

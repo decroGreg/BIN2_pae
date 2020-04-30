@@ -16,7 +16,6 @@ import be.ipl.pae.exceptions.BizException;
 import be.ipl.pae.exceptions.DalException;
 import be.ipl.pae.exceptions.FatalException;
 
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
@@ -52,6 +51,7 @@ public class PhotoUccImpl implements PhotoUcc {
     Photo photo = (Photo) bizFactory.getPhotoDto();
     photo.setIdDevis(idDevis);
     photo.setUrlPhoto(urlPhoto);
+    photo.setVisible(false);
     if (photo.checkPhoto()) {
       try {
         daoServicesUcc.demarrerTransaction();
@@ -67,7 +67,8 @@ public class PhotoUccImpl implements PhotoUcc {
   }
 
   @Override
-  public void ajouterPhotoApresAmenagement(AmenagementDto amenagementDto, String urlPhoto) {
+  public void ajouterPhotoApresAmenagement(AmenagementDto amenagementDto, String urlPhoto,
+      boolean visible) {
     try {
       daoServicesUcc.demarrerTransaction();
       DevisDto devis = devisDao.getDevisViaId(amenagementDto.getIdDevis());
@@ -78,6 +79,7 @@ public class PhotoUccImpl implements PhotoUcc {
       photo.setIdDevis(amenagementDto.getIdDevis());
       photo.setIdAmenagement(amenagementDto.getIdAmenagement());
       photo.setUrlPhoto(urlPhoto);
+      photo.setVisible(visible);
       if (devis.getEtat().equals(Etat.FF) && photo.checkPhoto()) {
         photoDao.introduirePhoto(photo);
       }
@@ -104,14 +106,29 @@ public class PhotoUccImpl implements PhotoUcc {
 
   @Override
   public List<PhotoDto> voirPhotoParTypeAmenagement(TypeDAmenagementDto typeAmenagementDto) {
-    // List<AmenagementDto> amenagements =
-    // amenagementDao.trouverAmenagementParType(typeAmenagementDto.getId());
-    List<PhotoDto> photoParTypeAmenagement = new ArrayList<PhotoDto>();
-    // for (AmenagementDto amenagement : amenagements) {
-    // List<PhotoDto> photoParAmenagement =
-    // photoDao.chercherPhotoParAmenagement(amenagement.getIdAmenagement());
-    // Tu parcours la liste de dessus et tu ajoutes chaque photo dans photoParTypeAmenagement.
-    // }
-    return photoParTypeAmenagement;
+    List<PhotoDto> photoParTypeAmenagement = null;
+    try {
+      daoServicesUcc.demarrerTransaction();
+      photoParTypeAmenagement = photoDao.voirPhotoTypeDAmenagement(typeAmenagementDto.getId());
+    } catch (DalException de) {
+      daoServicesUcc.rollback();
+      throw new FatalException(de.getMessage());
+    }
+    daoServicesUcc.commit();
+    return Collections.unmodifiableList(photoParTypeAmenagement);
+  }
+
+  @Override
+  public List<PhotoDto> voirPhotoSonJardin(int idClient) {
+    List<PhotoDto> photoDeTonJardin;
+    try {
+      daoServicesUcc.demarrerTransaction();
+      photoDeTonJardin = photoDao.voirPhotoSonJardin(idClient);
+    } catch (DalException de) {
+      daoServicesUcc.rollback();
+      throw new FatalException(de.getMessage());
+    }
+    daoServicesUcc.commit();
+    return Collections.unmodifiableList(photoDeTonJardin);
   }
 }

@@ -44,6 +44,7 @@ import be.ipl.pae.ihm.servlet.RegisterServlet;
 import be.ipl.pae.ihm.servlet.VoirClientsServlet;
 import be.ipl.pae.ihm.servlet.VoirDevisClientServlet;
 import be.ipl.pae.ihm.servlet.VoirDevisServlet;
+import be.ipl.pae.ihm.servlet.VoirTypesAmenagementServlet;
 import be.ipl.pae.ihm.servlet.VoirUtilisateursServlet;
 
 import org.eclipse.jetty.server.Server;
@@ -68,12 +69,13 @@ public class Main {
     Factory factory = (Factory) conf.getConfigPropertyClass("factory.Factory");
     DaoServicesImpl daoServices = new DaoServicesImpl();
 
-    UserDao userDao = new UserDaoImpl(daoServices);
-    AmenagementDao amenagementDao = new AmenagementDaoImpl(daoServices);
-    ClientDao clientDao = new ClientDaoImpl(daoServices);
-    DevisDao devisDao = new DevisDaoImpl(daoServices);
-    TypeDAmenagementDao typeAmenagementDao = new TypeDAmenagementDaoImpl(daoServices);
-    PhotoDao photoDao = new PhotoDaoImpl(daoServices);
+    UserDao userDao = new UserDaoImpl(daoServices, factory);
+    AmenagementDao amenagementDao = new AmenagementDaoImpl(daoServices, factory);
+    ClientDao clientDao = new ClientDaoImpl(daoServices, factory);
+    DevisDao devisDao = new DevisDaoImpl(daoServices, factory);
+    TypeDAmenagementDao typeAmenagementDao = new TypeDAmenagementDaoImpl(daoServices, factory);
+    PhotoDao photoDao = new PhotoDaoImpl(daoServices, factory);
+
     UserUcc userUcc = new UserUccImpl(factory, userDao, daoServices);
     PhotoDto photoDto = factory.getPhotoDto();
     AmenagementUcc amenagementUcc = new AmenagementUccImpl(amenagementDao, factory, daoServices);
@@ -144,6 +146,9 @@ public class Main {
     HttpServlet photoPreferee = new ChoisirPhotoPrefereeServlet(devisUcc, devisDto, photoUcc);
     context.addServlet(new ServletHolder(photoPreferee), "/photoPreferee");
 
+    HttpServlet selectionnerTypeAmenagement =
+        new VoirTypesAmenagementServlet(typeAmenagmentUcc, photoUcc, amenagementUcc);
+    context.addServlet(new ServletHolder(selectionnerTypeAmenagement), "/voirTypesAmenagement");
 
 
     context.setWelcomeFiles(new String[] {"index.html"});

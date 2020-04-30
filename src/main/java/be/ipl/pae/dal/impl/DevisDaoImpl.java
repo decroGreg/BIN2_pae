@@ -2,7 +2,6 @@ package be.ipl.pae.dal.impl;
 
 import be.ipl.pae.biz.dto.ClientDto;
 import be.ipl.pae.biz.dto.DevisDto;
-import be.ipl.pae.biz.factory.FactoryImpl;
 import be.ipl.pae.biz.impl.DevisImpl.Etat;
 import be.ipl.pae.biz.interfaces.Factory;
 import be.ipl.pae.dal.daoservices.DaoServices;
@@ -27,9 +26,9 @@ public class DevisDaoImpl implements DevisDao {
    * 
    * @param daoService classe service.
    */
-  public DevisDaoImpl(DaoServices daoService) {
+  public DevisDaoImpl(DaoServices daoService, Factory factory) {
     this.services = daoService;
-    this.bizfactory = new FactoryImpl();
+    this.bizfactory = factory;
   }
 
 
@@ -57,6 +56,72 @@ public class DevisDaoImpl implements DevisDao {
     String requeteSql = "SELECT * FROM init.devis";
     ps = services.getPreparedSatement(requeteSql);
     try {
+      try (ResultSet rs = ps.executeQuery()) {
+        while (rs.next()) {
+          DevisDto devis = bizfactory.getDevisDto();
+          devis.setIdDevis(rs.getInt(1));
+          devis.setIdClient(rs.getInt(2));
+          devis.setDate(rs.getTimestamp(3));
+          devis.setMontant(rs.getDouble(4));
+          devis.setIdPhotoPreferee(rs.getInt(5));
+          devis.setDureeTravaux(rs.getString(6));
+          devis.setEtat(Etat.valueOf(rs.getString(7)));
+          devis.setDateDebutTravaux(rs.getTimestamp(8));
+          listeDevis.add(devis);
+        }
+        return listeDevis;
+      }
+    } catch (SQLException ex) {
+      throw new DalException(ex.getMessage());
+    }
+  }
+
+  @Override
+  public List<DevisDto> voirDevisAvecCritere(DevisDto devisRecherche, String nomClient, int prixMin,
+      int prixMax, int typeDAmenagementRecherche) {
+
+    String prixMaxSql = "";
+    String nomSql = nomClient;
+    Timestamp dateSqlMin = devisRecherche.getDate();
+    Timestamp dateSqlMax = devisRecherche.getDate();
+    boolean typeAmenagement = false;
+    String requeteSql =
+        " SELECT d.id_devis , d.id_client , d.date , d.montant , d.photo_preferee , d.duree_travaux , d.etat , d.date_debut_travaux "
+            + "  FROM init.devis d , init.clients c"
+            + "  WHERE c.nom LIKE ? AND (d.date >= ? AND d.date <= ?) AND (d.montant >= ? OR d.montant <= ?) AND c.id_client = d.id_client";
+
+
+    if (dateSqlMin == null) {
+      dateSqlMin = java.sql.Timestamp.valueOf("1000-01-01 10:10:10.0");
+      dateSqlMax = java.sql.Timestamp.valueOf("2999-11-11 10:10:10.0");
+    }
+    if (prixMax == 0) {
+      prixMaxSql = "POWER (2,31)";
+    }
+    if (nomClient == null) {
+      nomSql = "%";
+    }
+    if (typeDAmenagementRecherche != 0) {
+      requeteSql += "  AND d.id_devis IN (SELECT id_devis FROM init.amenagements"
+          + " WHERE id_type_amenagement = ?) ";
+      typeAmenagement = true;
+    }
+
+    List<DevisDto> listeDevis = new ArrayList<DevisDto>();
+    ps = services.getPreparedSatement(requeteSql);
+    try {
+      ps.setString(1, nomSql);
+      ps.setTimestamp(2, dateSqlMin);
+      ps.setTimestamp(3, dateSqlMax);
+      ps.setInt(4, prixMin);
+      if (prixMaxSql.equals("")) {
+        ps.setInt(5, prixMax);
+      } else {
+        ps.setString(5, prixMaxSql);
+      }
+      if (typeAmenagement == true) {
+        ps.setInt(6, typeDAmenagementRecherche);
+      }
       try (ResultSet rs = ps.executeQuery()) {
         while (rs.next()) {
           DevisDto devis = bizfactory.getDevisDto();
@@ -120,6 +185,7 @@ public class DevisDaoImpl implements DevisDao {
     return true;
   }
 
+  @Override
   public boolean changerEtatDevis(DevisDto devis) {
     String requeteSql = "UPDATE init.devis SET etat = ? WHERE id_devis = ?";
     // int idDevis = devis.getIdDevis();
@@ -135,6 +201,7 @@ public class DevisDaoImpl implements DevisDao {
     return true;
   }
 
+  @Override
   public boolean ajouterPhotoPrefereeDevis(DevisDto devis, int idPhoto) {
     String requeteSql = "UPDATE init.devis SET photo_preferee = ? WHERE id_devis = ?";
     int idDevis = devis.getIdDevis();
@@ -150,6 +217,7 @@ public class DevisDaoImpl implements DevisDao {
     return true;
   }
 
+  @Override
   public DevisDto getDevisViaId(int idDevis) {
     DevisDto devisDto = bizfactory.getDevisDto();
     String requeteSql = "SELECT * FROM init.devis WHERE id_devis=?";

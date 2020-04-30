@@ -25,4 +25,7 @@ public interface DevisDao {
   boolean repousserDateDebut(DevisDto devis);
 
   int getIdDernierDevis();
+
+  List<DevisDto> voirDevisAvecCritere(DevisDto devisRecherche, String nomClient, int prixMin,
+      int prixMax, int typeDAmenagementRecherche);
 }

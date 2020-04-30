@@ -100,7 +100,7 @@ function afficherDevis(response){
 	allHide();
 	viewListeDevis();
 	$("#voir-devis").show("");
-	$("#voir-devis tbody").html("");
+	$("#navBarTypesAmenagements").html("");
 	Object.keys(response.devisData).forEach(data => {
 		console.log("Etat devis = " + response.devisData[data].etat );
 	    var html = "<tr>";

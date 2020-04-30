@@ -10,4 +10,7 @@ public interface PhotoDao {
 
   List<PhotoDto> voirTousPhotos();
 
+  List<PhotoDto> voirPhotoTypeDAmenagement(int idTypeAmenagement);
+
+  List<PhotoDto> voirPhotoSonJardin(int idClient);
 }
