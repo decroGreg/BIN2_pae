@@ -6,13 +6,14 @@ import {ajouterPhoto, choisirPhotoPreferee} from "./rendreDevisVisible.js";
 
 function afficherDetailsDevis(response){
     allHide();
+    console.log("View details devis");
 	$("#voir-devis").show();
-	$("#choisirPhotoPreferee").hide();
 	$("#voir-details-devis").show();
 	$("#btn-ajouter-photo").hide();
 	$("#btn-photo-preferee").hide();
 	$("#btn-rendre-visible").hide();
 	$("#ajouterPhoto").hide();
+	$("#choisirPhotoPreferee").hide();
 
 	//Remplir donnees client
 	$("#voir-details-devis #nomClient").attr("value", response.clientData.nom);
@@ -131,6 +132,7 @@ function changerValeurBouton(etat){
 	  case 'FF':
 		  $("#voir-details-devis #btn-devis-etat").hide();
 		  $("#voir-details-devis #btn-devis-annuler").hide();
+		  $("#btn-devis-repousserDate").hide();
 		  $("#btn-ajouter-photo").show();
 		  $("#btn-photo-preferee").show();
 		  $("#btn-rendre-visible").show();
@@ -139,6 +141,7 @@ function changerValeurBouton(etat){
 		  valeurBouton = "";
 		  $("#voir-details-devis #btn-devis-etat").hide();
 		  $("#voir-details-devis #btn-devis-annuler").hide();
+		  $("#btn-devis-repousserDate").hide();
 		  break;
 	  default:
 		  break;

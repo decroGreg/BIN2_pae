@@ -36,6 +36,7 @@ function ajouterPhoto(response){
 
 function choisirPhotoPreferee(response){
 	//response = toutes les photos apres amenagement du devis
+	$("#ajouterPhoto").hide();
 	$("#choisirPhotoPreferee").show();
 	$("#formPhotoPreferee").html(" ");
 	Object.keys(response.photosData).forEach(data=>{
