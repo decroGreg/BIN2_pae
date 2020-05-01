@@ -84,9 +84,8 @@ public class ClientDaoImpl implements ClientDao {
 
     String villeSql = "%" + ville + "%";
     String nomSql = "%" + nom + "%";
-    String codePostalSql = "%" + codePostal + "%";
-    String requestSql =
-        "SELECT * FROM init.clients WHERE nom LIKE ? AND ville LIKE ? AND code_postal LIKE ?";
+    int codePostalSql = codePostal;
+    String requestSql = "SELECT * FROM init.clients WHERE nom LIKE ? AND ville LIKE ? ";
     List<ClientDto> listeClient = new ArrayList<ClientDto>();
     if (ville == "") {
       villeSql = "%";
@@ -94,14 +93,16 @@ public class ClientDaoImpl implements ClientDao {
     if (nom == "") {
       nomSql = "%";
     }
-    if (codePostal == 0) {
-      codePostalSql = "%";
+    if (codePostal != 0) {
+      requestSql += " AND code_postal = ?";
     }
     ps = services.getPreparedSatement(requestSql);
     try {
       ps.setString(1, nomSql);
       ps.setString(2, villeSql);
-      ps.setString(3, codePostalSql);
+      if (codePostal != 0) {
+        ps.setInt(3, codePostalSql);
+      }
       try (ResultSet rs = ps.executeQuery()) {
         while (rs.next()) {
           ClientDto client = factory.getClientDto();
