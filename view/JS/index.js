@@ -180,6 +180,9 @@ function allHide(){
         $("#voir-clients").hide();
         $("#voir-devis").hide();
         $("#ajouterPhoto").hide();
+    	$("#voir-photos-client").hide();
+
+        
 }
 
 //Home page non-connecté
@@ -205,6 +208,7 @@ function viewHomePage(){
         //$("#search-homepage").hide();
     	$("#choisirPhotoPreferee").hide();
     	$("#ajouterPhoto").hide();
+    	$("#voir-photos-client").hide();
 
 
 

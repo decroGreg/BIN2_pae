@@ -40,6 +40,7 @@ public class PhotosClientServlet extends HttpServlet {
       Map<String, Object> data = genson.deserialize(req.getReader(), Map.class);
       String token = req.getHeader("Authorization");
       int idUtilisateur = Integer.parseInt(data.get("idUser").toString());
+      System.out.println("ID UTIL = " + idUtilisateur);
       ClientDto clientDto = null;
       List<PhotoDto> listePhotos = new ArrayList<>();
 
@@ -50,8 +51,8 @@ public class PhotosClientServlet extends HttpServlet {
       }
 
       List<DevisDto> listeDevis = devisUcc.voirDevis(clientDto);
-      for (DevisDto de : listeDevis) {
-        for (PhotoDto ph : photoUcc.voirPhotos()) {
+      for (PhotoDto ph : photoUcc.voirPhotos()) {
+        for (DevisDto de : listeDevis) {
           if (de.getIdDevis() == ph.getIdDevis()) {
             listePhotos.add(ph);
           }
@@ -63,6 +64,7 @@ public class PhotosClientServlet extends HttpServlet {
         String photosData = genson.serialize(listePhotos);
         String json = "{\"success\":\"true\", \"photosData\":" + photosData + "}";
         // System.out.println("JSON generated :" + json);
+        System.out.println("SIZE CLIENT = " + listePhotos.size());
         resp.setContentType("application/json");
         resp.setCharacterEncoding("UTF-8");
         resp.setStatus(HttpServletResponse.SC_OK);

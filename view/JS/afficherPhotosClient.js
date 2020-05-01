@@ -3,14 +3,15 @@ import {postData,onError,creatHTMLFromString} from "./util.js" ;
 
 function afficherPhotos(response){
 	viewPhotosClient();
-	$("#voir-photos-client").show();
-	$("#voir-photos-client mdb-lightbox").html("");
+	//$("#voir-photos-client").show();
+	$("#voir-photos-client #div-photos-client").html("");
+	var html="";
 	Object.keys(response.photosData).forEach(data => {
-		var html = "<figure class='col-md-4'><a data-size='1600x1067'><img alt='picture' src='" + response.photosData[data].urlPhoto + "' class='img-fluid'></a></figure>";
+		console.log(response.photosData[data].urlPhoto);
+		html = html +  "<div class='col-lg-3 col-md-4 col-6'><a href='#' class='d-block mb-4 h-100'><img src='" + response.photosData[data].urlPhoto + "' alt='picture' class='img-fluid'></a></div>";
 
-		$("#voir-photos-client mdb-lightbox").append(html);
 	});
-
+	$("#voir-photos-client #div-photos-client").append(html);
 }
 
 function viewPhotosClient(){

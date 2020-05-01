@@ -44,6 +44,7 @@ function viewAuthentification(user){
     $("#voir-clients").hide();
     $("#voir-details-devis-DDI").hide();
     $("#voir-details-devis-DC").hide();
+    $("#voir-photos-client").hide();
      
 }
 

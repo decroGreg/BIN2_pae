@@ -40,20 +40,20 @@ function changerCarrousel(response){
 		console.log("idPhoto = " + response.photosData[data].idPhoto);
 		var carouselIndicator = "<li data-target='#myCarousel' data-slide-to='" + compteurSlides+ "' id='"+ compteurSlides +"'></li>";
 		$("#myCarousel #carousel-indicators").append(carouselIndicator);
-		var photoCarousel = "<div class='item'><img class='d-block w-100' src='"+ response.photosData[data].urlPhoto +"' id='" + response.photosData[data].idPhoto +"' alt='slide'></div>";
+		var photoCarousel = "<div class='carousel-item'><img class='d-block w-100' src='"+ response.photosData[data].urlPhoto +"' id='" + response.photosData[data].idPhoto +"' alt='slide'></div>";
 		$("#myCarousel #carousel-inner").append(photoCarousel);
 		compteurSlides++;
 	});
-	$(".carousel-indicators li:first").addClass("active");
-    $(".carousel-inner .item:first").addClass("active");
+	$(".carousel-indicators .li:first").addClass("active");
+    $(".carousel-inner .carousel-item:first").addClass("active");
     $(".carousel").carousel({
     	  interval: 2000
     });
-    $('a[data-slide="prev"]').click(function() {
+    $(".carousel-control .left").click(function() {
     	$('#myCarousel').carousel('prev');
 	});
-
-	$('a[data-slide="next"]').click(function() {
+    
+	$(".carousel-control .right").click(function() {
 		$('#myCarousel').carousel('next');
 	});
 }
