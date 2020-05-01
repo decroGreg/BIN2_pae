@@ -98,7 +98,7 @@ $(document).ready(e=>{
         e.preventDefault();
     	allHide();
         mesDevis();
-        getData("/listeUsers",token,onGetClientDevisClient,onError);
+        //getData("/listeUsers",token,onGetClientDevisClient,onError);
         //alert();
         //getData("/introduireServlet",token,onGetAmenagementDevisClient,onError);
     });

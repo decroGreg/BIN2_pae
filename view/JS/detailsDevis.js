@@ -96,7 +96,7 @@ function afficherDetailsDevis(response){
 	});
 	
 	//click sur rendre visible
-	$("#voir-details-devis btn-rendre-visible").click(e=>{
+	$("#voir-details-devis #btn-rendre-visible").click(e=>{
 		e.preventDefault();
 		let data={};
 		data.idDevis = response.devisData.idDevis;
@@ -180,6 +180,7 @@ function changerEtat(etat){
 
 function afficherDetailsDevisClient(response){
     allHide();
+	$("#voir-devis-client").show();
     $("#voir-details-devis").show();
 	$("#btn-ajouter-photo").hide();
 	$("#btn-photo-preferee").hide();
