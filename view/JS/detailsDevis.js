@@ -13,6 +13,7 @@ function afficherDetailsDevis(response){
 	$("#btn-photo-preferee").hide();
 	$("#btn-rendre-visible").hide();
 	$("#ajouterPhoto").hide();
+	$("#choisirPhotoPreferee").hide();
 
 	//Remplir donnees client
 	$("#voir-details-devis #nomClient").attr("value", response.clientData.nom);
@@ -41,13 +42,9 @@ function afficherDetailsDevis(response){
 	}
 	else if(response.devisData.etat=="FD"){
 		$("#voir-details-devis #dateDebutTravaux").attr("value", response.devisData.dateDebutTravaux.substring(0,10));
-<<<<<<< HEAD
 		
-=======
-		$("#btn-devis-repousserDate").attr("idDevis", response.devisData.idDevis);
 		$("#voir-details-devis #dateDebutTravaux").prop("disabled", false);
 
->>>>>>> branch 'master' of https://gitlab.vinci.be/6i2-cae/projet-ae-groupe-05.git
 	}
 	else if(response.devisData.etat=="DC"){
 		$("#voir-details-devis #dateDebutTravaux").attr("value", response.devisData.dateDebutTravaux.substring(0,10));
@@ -181,7 +178,6 @@ function changerEtat(etat){
 
 function afficherDetailsDevisClient(response){
     allHide();
-	$("#voir-devis-client").show();
     $("#voir-details-devis").show();
 	$("#btn-ajouter-photo").hide();
 	$("#btn-photo-preferee").hide();
