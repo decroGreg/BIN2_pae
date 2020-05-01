@@ -12,7 +12,10 @@ import be.ipl.pae.biz.interfaces.TypeDAmenagementUcc;
 import com.owlike.genson.Genson;
 
 import java.io.IOException;
+import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.Map;
 
 import javax.servlet.ServletException;
@@ -27,6 +30,7 @@ public class DetailsDevisServlet extends HttpServlet {
   private ClientUcc clientUcc;
   private AmenagementUcc amenagementUcc;
   private TypeDAmenagementUcc typeDAmenagementUcc;
+  private DevisDto devisDto;
 
   /**
    * Cree un objet DetailsDevisServlet.
@@ -36,12 +40,13 @@ public class DetailsDevisServlet extends HttpServlet {
    * @param devisUcc un devisUcc
    */
   public DetailsDevisServlet(DevisUcc devisUcc, ClientUcc clientUcc, AmenagementUcc amenagementUcc,
-      TypeDAmenagementUcc typeDAmenagementUcc) {
+      TypeDAmenagementUcc typeDAmenagementUcc, DevisDto devisDto) {
     super();
     this.devisUcc = devisUcc;
     this.clientUcc = clientUcc;
     this.amenagementUcc = amenagementUcc;
     this.typeDAmenagementUcc = typeDAmenagementUcc;
+    this.devisDto = devisDto;
   }
 
 
@@ -141,6 +146,26 @@ public class DetailsDevisServlet extends HttpServlet {
       String token = req.getHeaders("Authorization").toString();
       Map<String, String> data = genson.deserialize(req.getReader(), Map.class);
       try {
+        int idDevis = Integer.parseInt(data.get("idDevis"));
+
+        devisDto.setIdDevis(idDevis);
+        if (data.get("date").toString() != "") {
+          SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss.SSS");
+          Date parsedDate = dateFormat.parse(data.get("date").toString() + " 00:00:00.000");
+          Timestamp timestamp = new Timestamp(parsedDate.getTime());
+          devisDto.setDate(timestamp);
+          System.out.println("idDevis" + idDevis + "  time=" + timestamp.toString());
+          devisUcc.repousserDateDebut(devisDto);
+        }
+
+        String json = "{\"success\":\"true\", \"token\":\"" + token + "\"}";
+        System.out.println("JSON generated :" + json);
+        resp.setContentType("application/json");
+
+        resp.setCharacterEncoding("UTF-8");
+
+        resp.setStatus(HttpServletResponse.SC_OK);
+        resp.getWriter().write(json);
 
       } catch (Exception exce) {
 

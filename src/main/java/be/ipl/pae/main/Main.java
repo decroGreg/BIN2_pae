@@ -130,7 +130,7 @@ public class Main {
 
 
     HttpServlet detailsDevis =
-        new DetailsDevisServlet(devisUcc, clientUcc, amenagementUcc, typeAmenagmentUcc);
+        new DetailsDevisServlet(devisUcc, clientUcc, amenagementUcc, typeAmenagmentUcc, devisDto);
     context.addServlet(new ServletHolder(detailsDevis), "/detailsDevis");
 
     HttpServlet changementEtatDevis = new ChangementEtatDevisServlet(devisDto, devisUcc, clientUcc,

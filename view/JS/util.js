@@ -1,4 +1,5 @@
 function postData(url="",data={},token,onSuccess,onError){
+  console.log("passage");
     let headers;
     console.log("Bearer " +token);
       if (token)

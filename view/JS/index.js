@@ -149,7 +149,7 @@ $(document).ready(e=>{
                 "idDevis":$("#btn-devis-repousserDate").attr("idDevis")
         };
         console.log("id devis-->"+$("#btn-devis-repousserDate").attr("idDevis"));
-        //putData("",token,data,,onError); si reussis alors changer la date detailsDevis
+        putData("/detailsDevis",token,data,onPutRepousserDate,onError);
 
     });
 
@@ -166,6 +166,9 @@ $(document).ready(e=>{
     });
     
 });
+function onPutRepousserDate(response){
+        alert("ok");
+}
 
 
 function allHide(){

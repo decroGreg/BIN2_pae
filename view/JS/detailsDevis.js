@@ -38,7 +38,7 @@ function afficherDetailsDevis(response){
 	}
 	else if(response.devisData.etat=="FD"){
 		$("#voir-details-devis #dateDebutTravaux").attr("value", response.devisData.dateDebutTravaux.substring(0,10));
-		$("#btn-devis-repousserDate").attr("idDevis", response.devisData.idDevis);
+		
 	}
 	else if(response.devisData.etat=="DC"){
 		$("#voir-details-devis #dateDebutTravaux").attr("value", response.devisData.dateDebutTravaux.substring(0,10));
@@ -65,7 +65,8 @@ function afficherDetailsDevis(response){
 		console.log($("#voir-details-devis #dateDebutTravaux").val() + nouvelEtat + " " + data.idDevis);
 		postData("/changementEtatDevis", data, token, afficherDetailsDevis, onError);
 	});
-	
+	$("#btn-devis-repousserDate").attr("idDevis", response.devisData.idDevis);
+	console.log("afficher"+response.devisData.idDevis);
 	//click sur annuler devis
 	$("#voir-details-devis #btn-devis-annuler").click(e=>{
     	e.preventDefault();
