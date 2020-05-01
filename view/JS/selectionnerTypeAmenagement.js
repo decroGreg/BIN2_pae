@@ -36,25 +36,38 @@ function changerCarrousel(response){
 	$("#myCarousel #carousel-indicators").html("");
 	$("#myCarousel #carousel-inner").html("");
 	var compteurSlides = 0;
+	// Activate Carousel
+   
 	Object.keys(response.photosData).forEach(data=>{
 		console.log("idPhoto = " + response.photosData[data].idPhoto);
-		var carouselIndicator = "<li data-target='#myCarousel' data-slide-to='" + compteurSlides+ "' id='"+ compteurSlides +"'></li>";
+		var carouselIndicator = "<li data-target='#myCarousel' data-slide-to='" + compteurSlides+ "'></li>";
+		var photoCarousel = "<div class='item'><img class='d-block w-100' src='"+ response.photosData[data].urlPhoto +"' id='" + response.photosData[data].idPhoto +"' alt='slide'></div>";
+		console.log(carouselIndicator);
 		$("#myCarousel #carousel-indicators").append(carouselIndicator);
-		var photoCarousel = "<div class='carousel-item'><img class='d-block w-100' src='"+ response.photosData[data].urlPhoto +"' id='" + response.photosData[data].idPhoto +"' alt='slide'></div>";
 		$("#myCarousel #carousel-inner").append(photoCarousel);
 		compteurSlides++;
 	});
 	$(".carousel-indicators .li:first").addClass("active");
-    $(".carousel-inner .carousel-item:first").addClass("active");
-    $(".carousel").carousel({
+    $(".carousel-inner .item:first").addClass("active");
+    $(function(){
+        // Activate Carousel
+        $("#myCarousel").carousel();
+    });
+    $('#myCarousel').carousel({
     	  interval: 2000
     });
-    $(".carousel-control .left").click(function() {
-    	$('#myCarousel').carousel('prev');
-	});
+    // Enable Carousel Indicators
+    $(".item").click(function(){
+    	$("#myCarousel").carousel(1);
+    });
+
+    // Enable Carousel Controls
+    $(".left").click(function(){
+    	$("#myCarousel").carousel("prev");
+    });
     
-	$(".carousel-control .right").click(function() {
-		$('#myCarousel').carousel('next');
+	$(".right").click(function() {
+		$("#myCarousel").carousel("next");
 	});
 }
 

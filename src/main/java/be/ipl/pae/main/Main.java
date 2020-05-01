@@ -111,7 +111,7 @@ public class Main {
     HttpServlet listeUsersServlet = new VoirUtilisateursServlet(userUcc, userDto);
     context.addServlet(new ServletHolder(listeUsersServlet), "/listeUsers");
 
-    HttpServlet listeDevisServlet = new VoirDevisServlet(devisUcc, userDto);
+    HttpServlet listeDevisServlet = new VoirDevisServlet(devisUcc, clientUcc, userDto);
     context.addServlet(new ServletHolder(listeDevisServlet), "/listeDevis");
 
     HttpServlet listeDevisClientServlet =

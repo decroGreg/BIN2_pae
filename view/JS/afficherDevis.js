@@ -99,18 +99,17 @@ function searchDevis(dropdown,idUser){
 function afficherDevis(response){
 	allHide();
 	viewListeDevis();
-	$("#voir-devis").show("");
+	$("#voir-devis").show();
 	$("#voir-devis tbody").html("");
 	Object.keys(response.devisData).forEach(data => {
 		console.log("Etat devis = " + response.devisData[data].etat );
 	    var html = "<tr>";
 	    html+="<td><a href=\"#\" class=\"reference-devis\">"
 	    	+ response.devisData[data].idDevis + "</a></td>\n<td>" 
-	    	+ response.devisData[data].idClient + "</td>\n<td>" 
+	    	+ response.clientsData[data].nom + " " + response.clientsData[data].prenom + "</td>\n<td>" 
 	    	+ response.devisData[data].date.substring(0,10) + "</td>\n<td>" 
 	    	+ response.devisData[data].montant + "€</td>\n<td>" 
-	    	+ response.devisData[data].dureeTravaux + "</td>\n<td>" 
-	    	+ response.devisData[data].photoPreferee + "</td>\n<td>" 
+	    	+ response.devisData[data].dureeTravaux + "</td>\n<td>"  
 	    	+ response.devisData[data].etat + "</td></tr>";	    
 	    $("#voir-devis tbody").append(html);
 	});
