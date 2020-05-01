@@ -6,8 +6,8 @@ import{afficherDetailsDevis} from "./detailsDevis.js";
 function ajouterPhoto(response){
 	//response = tous les amenagements du devis et la description du type amenagement
 	$("#btn-ajouter-photo").hide();
-	$("#btn-photo-preferee").hide();
-	$("#btn-rendre-visible").hide();
+	$("#btn-photo-preferee").show();
+	$("#btn-rendre-visible").show();
 	$("#choisirPhotoPreferee").hide();
 	$("#ajouterPhoto").show();
 	$("#ajouterPhoto #listeTypeAmenagements").html("");
@@ -30,7 +30,6 @@ function ajouterPhoto(response){
 			data.visible = 0;
 		}
 		data.idAmenagement = $("#listeTypeAmenagements option:selected").attr("id");
-		console.log(data.urlPhoto);
 		putData("/ajouterPhoto", token, data, afficherDetailsDevis, onError);
 	});
 }
@@ -49,7 +48,6 @@ function choisirPhotoPreferee(response){
 		e.preventDefault();
 		let data={};
 		data.idPhoto = $('input[name=radioButton]:checked').attr("id");
-		console.log("idPhoto = " + data.idPhoto);
 		putData("/photoPreferee", token, data, afficherDetailsDevis, onError);
 	});
 }

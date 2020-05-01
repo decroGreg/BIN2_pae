@@ -6,12 +6,13 @@ import {ajouterPhoto, choisirPhotoPreferee} from "./rendreDevisVisible.js";
 
 function afficherDetailsDevis(response){
     allHide();
+	$("#voir-devis").show();
+	$("#choisirPhotoPreferee").hide();
 	$("#voir-details-devis").show();
 	$("#btn-ajouter-photo").hide();
 	$("#btn-photo-preferee").hide();
 	$("#btn-rendre-visible").hide();
 	$("#ajouterPhoto").hide();
-	$("#choisirPhotoPreferee").hide();
 
 	//Remplir donnees client
 	$("#voir-details-devis #nomClient").attr("value", response.clientData.nom);
@@ -28,24 +29,29 @@ function afficherDetailsDevis(response){
 	var html = " ";
 	$("#voir-details-devis #typeAmenagementDevis").html("");
 	Object.keys(response.typesAmenagementData).forEach(data=>{
-		html = html +  response.typesAmenagementData[data] + "\n";
+		html = html + response.typesAmenagementData[data] + "\n";
 	});
 	$("#voir-details-devis #typeAmenagementDevis").append(html);
+	$("#voir-details-devis #typeAmenagementDevis").prop("disabled", true);
 	
 	//Pour voir si on peut changer la value de dateDebutTravaux
 	if(response.devisData.etat=="I"){
 		$("#voir-details-devis #dateDebutTravaux").attr("value", " ");
+		$("#voir-details-devis #dateDebutTravaux").prop("disabled", false);
 	}
 	else if(response.devisData.etat=="FD"){
 		$("#voir-details-devis #dateDebutTravaux").attr("value", response.devisData.dateDebutTravaux.substring(0,10));
 		$("#btn-devis-repousserDate").attr("idDevis", response.devisData.idDevis);
+		$("#voir-details-devis #dateDebutTravaux").prop("disabled", false);
+
 	}
 	else if(response.devisData.etat=="DC"){
 		$("#voir-details-devis #dateDebutTravaux").attr("value", response.devisData.dateDebutTravaux.substring(0,10));
+		$("#voir-details-devis #dateDebutTravaux").prop("disabled", false);
 	}
 	else{
 		$("#voir-details-devis #dateDebutTravaux").attr("value", response.devisData.dateDebutTravaux.substring(0,10));
-		$("#voir-details-devis #dateDebutTravaux").disabled = true;
+		$("#voir-details-devis #dateDebutTravaux").prop("disabled", true);
 	}
 	$("#voir-details-devis #dureeTravauxDevis").attr("value", response.devisData.dureeTravaux);
 	var valBouton = changerValeurBouton(response.devisData.etat);
@@ -54,15 +60,11 @@ function afficherDetailsDevis(response){
 	//click sur changement etat
 	$("#voir-details-devis #btn-devis-etat").click(e=>{
     	e.preventDefault();
-    	if($("#voir-details-devis #btn-devis-etat").val()=="Rendre visible"){
-    		rendreVisible();
-    	}
 		var nouvelEtat = changerEtat(response.devisData.etat);	
 		let data={};
 		data.idDevis = response.devisData.idDevis;
 		data.etatDevis = nouvelEtat;
 		data.dateDebutTravaux = $("#voir-details-devis #dateDebutTravaux").val();
-		console.log($("#voir-details-devis #dateDebutTravaux").val() + nouvelEtat + " " + data.idDevis);
 		postData("/changementEtatDevis", data, token, afficherDetailsDevis, onError);
 	});
 	
@@ -78,7 +80,6 @@ function afficherDetailsDevis(response){
 	//click sur ajouter photo
 	$("#voir-details-devis #btn-ajouter-photo").off().click(e=>{
 		e.preventDefault();
-		console.log("CLICK AJOUTER PHOTO");
 		let data={};
 		data.idDevis = response.devisData.idDevis;
 		postData("/ajouterPhoto", data, token, ajouterPhoto, onError);
@@ -175,6 +176,7 @@ function changerEtat(etat){
 
 function afficherDetailsDevisClient(response){
     allHide();
+	$("#voir-devis-client").show();
     $("#voir-details-devis").show();
 	$("#btn-ajouter-photo").hide();
 	$("#btn-photo-preferee").hide();
@@ -185,7 +187,7 @@ function afficherDetailsDevisClient(response){
 	$("#voir-details-devis #btn-devis-annuler").hide();
 	$("#voir-details-devis #clientDevis").hide();
 	$("#voir-details-devis #btn-devis-etat").hide();
-	//$("#btn-devis-repousserDate").hide();
+	$("#btn-devis-repousserDate").hide();
 
 	
 	//remplir details devis
@@ -193,9 +195,22 @@ function afficherDetailsDevisClient(response){
 	$("#voir-details-devis #montantDevis").attr("value", response.devisData.montant);
 	$("#voir-details-devis #etatDevis").attr("value", response.devisData.etat);
 	$("#voir-details-devis #typeAmenagementDevis").attr("value", response.devisData.typeAmenagement);
-	//$("#voir-details-devis #dateDebutTravaux").attr("value", response.devisData.dateDebutTravaux.substring(0,10));
-	//$("#voir-details-devis #dateDebutTravaux").disabled = true;
+	if(response.devisData.etat=="I"){
+		$("#voir-details-devis #dateDebutTravaux").attr("value", " ");
+	}
+	else{
+		$("#voir-details-devis #dateDebutTravaux").attr("value", response.devisData.dateDebutTravaux.substring(0,10));
+	}
+	$("#voir-details-devis #dateDebutTravaux").prop("disabled", true);
 	$("#voir-details-devis #dureeTravauxDevis").attr("value", response.devisData.dureeTravaux);
+	//Remplir types d'amenagement
+	var html = " ";
+	$("#voir-details-devis #typeAmenagementDevis").html("");
+	Object.keys(response.typesAmenagementData).forEach(data=>{
+		html = html + response.typesAmenagementData[data] + "\n";
+	});
+	$("#voir-details-devis #typeAmenagementDevis").append(html);
+	$("#voir-details-devis #typeAmenagementDevis").prop("disabled", true);
 
 }
 
