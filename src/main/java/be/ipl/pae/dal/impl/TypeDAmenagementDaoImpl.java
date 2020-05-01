@@ -47,4 +47,19 @@ public class TypeDAmenagementDaoImpl implements TypeDAmenagementDao {
       throw new DalException(ex.getMessage());
     }
   }
+
+  @Override
+  public TypeDAmenagementDto createTypeAmenagement(String nomType) {
+    String requeteSql = "INSERT INTO init.types_amenagements VALUES(DEFAULT, ?)";
+    ps = services.getPreparedSatement(requeteSql);
+    try {
+      ps.setString(1, nomType);
+      ps.execute();
+    } catch (SQLException ex) {
+      throw new DalException(ex.getMessage());
+    }
+    return null;
+  }
+
+
 }
