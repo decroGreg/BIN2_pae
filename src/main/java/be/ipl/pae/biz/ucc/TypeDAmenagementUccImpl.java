@@ -5,6 +5,7 @@ import be.ipl.pae.biz.interfaces.Factory;
 import be.ipl.pae.biz.interfaces.TypeDAmenagementUcc;
 import be.ipl.pae.dal.daoservices.DaoServicesUcc;
 import be.ipl.pae.dal.interfaces.TypeDAmenagementDao;
+import be.ipl.pae.exceptions.BizException;
 import be.ipl.pae.exceptions.DalException;
 import be.ipl.pae.exceptions.FatalException;
 
@@ -46,5 +47,24 @@ public class TypeDAmenagementUccImpl implements TypeDAmenagementUcc {
     return Collections.unmodifiableList(typeDAmenagement);
   }
 
+  @Override
+  public TypeDAmenagementDto ajouterTypeAmenagement(String descriptif) {
+    if (descriptif != null) {
+      try {
+        TypeDAmenagementDto typeAmenagementDto =
+            typeDAmenagementDao.createTypeAmenagement(descriptif);
+        if (typeAmenagementDto == null) {
+          throw new BizException("La création du type d'aménagement a échoué");
+        }
+        daoServicesUcc.commit();
+        return typeAmenagementDto;
+      } catch (DalException de) {
+        daoServicesUcc.rollback();
+        throw new FatalException(de.getMessage());
+      }
+    } else {
+      return null;
+    }
+  }
 
 }
