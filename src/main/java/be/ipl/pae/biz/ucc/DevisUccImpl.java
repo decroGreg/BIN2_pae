@@ -77,6 +77,49 @@ public class DevisUccImpl implements DevisUcc {
   }
 
   @Override
+  public void creerAmenagementPourDevis(int idDevis, List<String> listeIdTypeAmenagement) {
+    if (idDevis > 0) {
+      try {
+        for (String idTypeAmenagement : listeIdTypeAmenagement) {
+          if (idTypeAmenagement != null) {
+            int idType = Integer.parseInt(idTypeAmenagement);
+            amenagementDao.createAmenagement(idType, idDevis);
+          }
+        }
+      } catch (DalException de) {
+        daoServicesUcc.rollback();
+        throw new FatalException(de.getMessage());
+      }
+    } else {
+      throw new BizException("L'id du devis est incorrect");
+    }
+  }
+
+  @Override
+  public void creerDevisNouveauClient(ClientDto nouveauClient, DevisDto devis, int idUtilisateur) {
+    try {
+      // Email deja utilisé
+      ClientDto client = clientDao.getClientMail(nouveauClient.getEmail());
+      if (client != null) {
+        daoServicesUcc.commit();
+        throw new BizException("Email deja utilisé");
+      }
+      if (!clientDao.createClient(nouveauClient)) {
+        daoServicesUcc.commit();
+        throw new BizException("Impossible de créer un client");
+      }
+      if (idUtilisateur > 0) {
+        client = clientDao.getClientMail(nouveauClient.getEmail());
+        userDao.lierClientUser(client.getIdClient(), idUtilisateur);
+      }
+      devisDao.createDevis(client.getIdClient(), devis);
+    } catch (DalException de) {
+      daoServicesUcc.rollback();
+      throw new FatalException(de.getMessage());
+    }
+  }
+
+  @Override
   public void introduireDevis(ClientDto nouveauClient, int idUtilisateur, DevisDto devis,
       List<String> listeIdTypeAmenagement) {
     int idDevis = 0;
@@ -85,28 +128,10 @@ public class DevisUccImpl implements DevisUcc {
       if (nouveauClient == null) {
         devisDao.createDevis(idUtilisateur, devis);
       } else {
-        // Email deja utilisé
-        ClientDto client = clientDao.getClientMail(nouveauClient.getEmail());
-        if (client != null) {
-          daoServicesUcc.commit();
-          throw new BizException("Email deja utilisé");
-        }
-        if (!clientDao.createClient(nouveauClient)) {
-          daoServicesUcc.commit();
-          throw new BizException("Impossible de créer un client");
-        }
-        if (idUtilisateur > 0) {
-          client = clientDao.getClientMail(nouveauClient.getEmail());
-          userDao.lierClientUser(client.getIdClient(), idUtilisateur);
-        }
-
-        devisDao.createDevis(client.getIdClient(), devis);
-        idDevis = devisDao.getIdDernierDevis();
-        for (String idTypeAmenagement : listeIdTypeAmenagement) {
-          int idType = Integer.parseInt(idTypeAmenagement);
-          amenagementDao.createAmenagement(idType, idDevis);
-        }
+        creerDevisNouveauClient(nouveauClient, devis, idUtilisateur);
       }
+      idDevis = devisDao.getIdDernierDevis();
+      creerAmenagementPourDevis(idDevis, listeIdTypeAmenagement);
     } catch (DalException de) {
       de.printStackTrace();
       daoServicesUcc.rollback();
@@ -176,16 +201,10 @@ public class DevisUccImpl implements DevisUcc {
 
   @Override
   public List<DevisDto> rechercheSurDevis(DevisDto devisDto, double prixMin, double prixMax,
-      int idAmenagement) {
+      int idAmenagement, String nomClient) {
     List<DevisDto> devisCorrespondants = null;
     try {
       daoServicesUcc.demarrerTransaction();
-      ClientDto clientRecherche;
-      String nomClient = null;
-      clientRecherche = clientDao.getClientById(devisDto.getIdClient());
-      if (clientRecherche != null) {
-        nomClient = clientRecherche.getNom();
-      }
       devisCorrespondants = devisDao.voirDevisAvecCritere(devisDto.getDate(), nomClient, prixMin,
           prixMax, idAmenagement);
     } catch (DalException de) {

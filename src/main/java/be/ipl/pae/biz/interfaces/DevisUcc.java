@@ -26,5 +26,9 @@ public interface DevisUcc {
   void repousserDateDebut(DevisDto devisDto);
 
   List<DevisDto> rechercheSurDevis(DevisDto devisDto, double prixMin, double prixMax,
-      int idAmenagement);
+      int idAmenagement, String nomClient);
+
+  void creerAmenagementPourDevis(int idDevis, List<String> listeIdTypeAmenagement);
+
+  void creerDevisNouveauClient(ClientDto client, DevisDto devis, int idUtilisateur);
 }

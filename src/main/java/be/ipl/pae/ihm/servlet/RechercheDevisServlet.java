@@ -64,11 +64,11 @@ public class RechercheDevisServlet extends HttpServlet {
           // nom !!!!!!!!!!!!!!!!
           // methode
           devisDto.setIdClient(Integer.parseInt(data.get("IdUser")));
-          listeDevisDto = devisUcc.rechercheSurDevis(devisDto, min, max, 1);
+          // listeDevisDto = devisUcc.rechercheSurDevis(devisDto, min, max, 1);
 
         } else {
 
-          devisUcc.rechercheSurDevis(devisDto, min, max, 1);
+          // devisUcc.rechercheSurDevis(devisDto, min, max, 1);
           // methode
         }
         String devisData = genson.serialize(listeDevisDto);

@@ -90,6 +90,8 @@ public class IntroduireDevisServlet extends HttpServlet {
           clientDto.setVille(dataUser.get("city").toString());
           clientDto.setEmail(dataUser.get("mail").toString());
           clientDto.setTelephone(dataUser.get("phone").toString());
+        } else {
+          clientDto = null;
         }
         try {
           SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss.SSS");
