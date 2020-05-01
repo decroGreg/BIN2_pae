@@ -1,15 +1,16 @@
 import{token, allHide} from "./index.js";
-import{filterDropdown, postData} from "./util.js";
+import{filterDropdown, postData,onError} from "./util.js";
 
 $(document).ready(function () {
 		$("#btn-search-utilisateurs").click(e=>{
 			var data={
-				"name":$("#searchUtilisateursNameDropdown").text(),
-				"city":$("#searchUtilisateursVille").val()
+				name:$("#searchUtilisateursNameDropdown").text(),
+				city:$("#searchUtilisateursVille").val()
 			};
 			
 			console.log(data);
-			//postData("",token,data,afficherUtilisateurs,onError);
+			postData("/listeUsers",data,token,afficherUtilisateurs,onError);
+			
 		})
 });
 /*

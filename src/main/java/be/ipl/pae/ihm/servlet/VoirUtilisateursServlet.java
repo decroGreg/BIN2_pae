@@ -75,13 +75,30 @@ public class VoirUtilisateursServlet extends HttpServlet {
   protected void doPost(HttpServletRequest req, HttpServletResponse resp)
       throws ServletException, IOException {
     // TODO Auto-generated method stub
-    super.doPost(req, resp);
-
     try {
       Genson genson = new Genson();
       String token = req.getHeader("Authorization");
-      Map<String, String> data = genson.deserialize(req.getReader(), Map.class);
+      System.out.println(token);
       if (token != null) {
+        Map<String, String> data = genson.deserialize(req.getReader(), Map.class);
+
+        String nom = data.get("name");
+        String ville = data.get("city");
+        System.out.println("nom = " + nom);
+        utilisateursDto = userUcc.rechercherUtilisateurs(nom, ville);
+
+
+        String usersData = genson.serialize(utilisateursDto);
+        String json = "{\"success\":\"true\", \"usersData\":" + usersData + "}";
+        System.out.println("UsersData : " + usersData);
+        System.out.println("JSON generated :" + json);
+
+        resp.setContentType("application/json");
+
+        resp.setCharacterEncoding("UTF-8");
+
+        resp.setStatus(HttpServletResponse.SC_OK);
+        resp.getWriter().write(json);
 
       } else {
         String json = "{\"success\":\"false\", \"token\":\"" + token

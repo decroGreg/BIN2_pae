@@ -1,5 +1,5 @@
-import {filterDropdown}from "./util.js";
-
+import {filterDropdown,postData,onError}from "./util.js";
+import {token} from "./index.js";
 
 $(document).ready(function () {
 	$("#btn-search-Clients").click(e=>{
@@ -10,7 +10,7 @@ $(document).ready(function () {
 		};
 		
 		console.log(data);
-		//postData("",token,data,afficherUtilisateurs,onError);
+		postData("/listeClients",data,token,afficherClients,onError);
 	})
 });
 
@@ -32,7 +32,7 @@ function afficherClientsDropdown(response){
 	response.clientsData.forEach(e=>{
 		var li=document.createElement("li");
 		var a=document.createElement("a");
-		a.innerHTML=e.nom+" "+e.prenom;
+		a.innerHTML=e.nom;//+" "+e.prenom;
 		a.addEventListener("click",function(){
 			$("#searchClientsNameDropdown").text(a.innerHTML);
 		});

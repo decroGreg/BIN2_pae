@@ -42,7 +42,7 @@ function afficherDetailsDevis(response){
 	}
 	else if(response.devisData.etat=="FD"){
 		$("#voir-details-devis #dateDebutTravaux").attr("value", response.devisData.dateDebutTravaux.substring(0,10));
-		$("#btn-devis-repousserDate").attr("idDevis", response.devisData.idDevis);
+		
 		$("#voir-details-devis #dateDebutTravaux").prop("disabled", false);
 
 	}
@@ -68,7 +68,8 @@ function afficherDetailsDevis(response){
 		data.dateDebutTravaux = $("#voir-details-devis #dateDebutTravaux").val();
 		postData("/changementEtatDevis", data, token, afficherDetailsDevis, onError);
 	});
-	
+	$("#btn-devis-repousserDate").attr("idDevis", response.devisData.idDevis);
+	console.log("afficher"+response.devisData.idDevis);
 	//click sur annuler devis
 	$("#voir-details-devis #btn-devis-annuler").click(e=>{
     	e.preventDefault();
@@ -179,7 +180,6 @@ function changerEtat(etat){
 
 function afficherDetailsDevisClient(response){
     allHide();
-	$("#voir-devis-client").show();
     $("#voir-details-devis").show();
 	$("#btn-ajouter-photo").hide();
 	$("#btn-photo-preferee").hide();

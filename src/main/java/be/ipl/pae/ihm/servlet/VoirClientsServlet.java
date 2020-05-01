@@ -77,18 +77,36 @@ public class VoirClientsServlet extends HttpServlet {
   protected void doPost(HttpServletRequest req, HttpServletResponse resp)
       throws ServletException, IOException {
     // TODO Auto-generated method stub
-    super.doPost(req, resp);
-
+    System.out.println("ok");
     try {
+      System.out.println(clientsDto.toString());
       Genson genson = new Genson();
-      String token = req.getHeader("Authorization");
-      Map<String, String> data = genson.deserialize(req.getReader(), Map.class);
-      if (token != null) {
 
-      } else {
+      String token = req.getHeader("Authorization");
+      // token = "t";
+      if (token != null) {
+        Map<String, String> data = genson.deserialize(req.getReader(), Map.class);
+        String nom = data.get("name");
+        String ville = data.get("city");
+        int codePostal = 0;
+        if (!data.get("postalCode").contentEquals(""))
+          codePostal = Integer.parseInt(data.get("postalCode"));
+
+        clientsDto = clientUcc.rechercherClients(nom, ville, codePostal);
+        System.out.println("passage = " + clientsDto);
+
+        String clientsData = genson.serialize(clientsDto);
+        String json = "{\"success\":\"true\", \"clientsData\":" + clientsData + "}";
+        System.out.println("JSON generated :" + json);
+
+        resp.setContentType("application/json");
+
+        resp.setCharacterEncoding("UTF-8");
+
+        resp.setStatus(HttpServletResponse.SC_OK);
+        resp.getWriter().write(json);
 
       }
-
     } catch (Exception exce) {
       exce.printStackTrace();
       String json = "{\"error\":\"false\"}";
