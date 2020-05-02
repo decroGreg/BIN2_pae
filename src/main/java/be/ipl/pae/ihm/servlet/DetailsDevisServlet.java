@@ -158,7 +158,7 @@ public class DetailsDevisServlet extends HttpServlet {
             break;
           default:
             throw new IllegalArgumentException(
-                "l'etat du devis ne permet pas d'éfectuer cette action");
+                "l etat du devis ne permet pas d efectuer cette action");
         }
         devisDto.setIdDevis(idDevis);
         devisDto.setEtat(etat);

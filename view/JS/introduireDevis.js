@@ -79,18 +79,21 @@ $(document).ready(function () {
                     }
             }
             var dataQuote={
-                    "client":$("#Quote-Form-Client-items").val(),
                     "date":$("#Quote-Form-quoteDate").val(),
                     "price":$("#Quote-Form-price").val(),
                     "duration":$("#Quote-Form-duration").val()
             };
-            if(!checkInput(dataQuote,"veuillez remplir tous les champs du devis")) return;//à voir si image peut être null;
+            if(!checkInput(dataQuote,"veuillez remplir tous les champs du devis")){
+                 console.log("PAS de Passage");
+                 return;//à voir si image peut être null;
+            }
+            dataQuote.client=$("#Quote-Form-Client-items").val();
             if(type.length==0){
                     $("#error-notification").fadeIn('slow').delay(1000).fadeOut('slow');
                     $("#error-notification").text("veillez introduire un type d'aménagement");
                     return;
             }
-            if(photo==0){
+            if(photo<0){
                     console.log("il faut introduire une photo");
                     return;
             }
