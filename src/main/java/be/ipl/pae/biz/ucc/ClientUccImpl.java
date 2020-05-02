@@ -58,4 +58,18 @@ public class ClientUccImpl implements ClientUcc {
     daoServicesUcc.commit();
     return Collections.unmodifiableList(clientsCorrespondants);
   }
+
+  @Override
+  public List<String> getVilles() {
+    List<String> villes;
+    try {
+      daoServicesUcc.demarrerTransaction();
+      villes = clientDao.getVilles();
+      daoServicesUcc.commit();
+      return villes;
+    } catch (DalException de) {
+      daoServicesUcc.rollback();
+      throw new FatalException(de.getMessage());
+    }
+  }
 }
