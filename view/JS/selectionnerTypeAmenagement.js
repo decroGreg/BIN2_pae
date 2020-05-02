@@ -16,13 +16,16 @@ function remplirListeTypesAmenagement(response){
 		$("#navBarStaticTypesAmenagements").append(html);
 	});
 	changerCarrousel(response);
+	console.log("ICI");
 	$("#navBarTypesAmenagements a").click(e=>{
+		e.preventDefault();
 		console.log("ID type amenagement = " + $(e.target).attr("id"));
 		let data={};
 		data.idTypeAmenagement = $(e.target).attr("id");
 		postData("/voirTypesAmenagement", data, token, changerCarrousel, onError);
 	});
 	$("#navBarStaticTypesAmenagements a").click(e=>{
+		e.preventDefault();
 		console.log("ID type amenagement = " + $(e.target).attr("id"));
 		let data={};
 		data.idTypeAmenagement = $(e.target).attr("id");
@@ -37,30 +40,29 @@ function changerCarrousel(response){
 	$("#myCarousel #carousel-inner").html("");
 	var compteurSlides = 0;
 	// Activate Carousel
-   
+    $(".carousel slide").attr("data-ride","carousel");
+
 	Object.keys(response.photosData).forEach(data=>{
-		console.log("idPhoto = " + response.photosData[data].idPhoto);
 		var carouselIndicator = "<li data-target='#myCarousel' data-slide-to='" + compteurSlides+ "'></li>";
-		var photoCarousel = "<div class='item'><img class='d-block w-100' src='"+ response.photosData[data].urlPhoto +"' id='" + response.photosData[data].idPhoto +"' alt='slide'></div>";
-		console.log(carouselIndicator);
+		var photoCarousel = "<div class='carousel-item'>" +
+							"<img class='d-block w-100' src='"+ response.photosData[data].urlPhoto +"' id='" + response.photosData[data].idPhoto+"' alt='slide'>" +
+							"<div class='carousel-caption d-none d-md-block'>" +
+							"<h5>"+response.typesAmenagementPhotosData[data].description+"</h5></div></div>";
+		
 		$("#myCarousel #carousel-indicators").append(carouselIndicator);
 		$("#myCarousel #carousel-inner").append(photoCarousel);
 		compteurSlides++;
 	});
-	$(".carousel-indicators .li:first").addClass("active");
-    $(".carousel-inner .item:first").addClass("active");
-    $(function(){
-        // Activate Carousel
-        $("#myCarousel").carousel();
+	$('.carousel-item').first().addClass('active');
+    $('.carousel-indicators > li').first().addClass('active');
+    //$(".carousel slide").attr("data-ride","carousel");
+    $('.carousel').carousel({
+        interval: 2000,
+        pause:null
     });
-    $('#myCarousel').carousel({
-    	  interval: 2000
-    });
-    // Enable Carousel Indicators
-    $(".item").click(function(){
-    	$("#myCarousel").carousel(1);
-    });
+    $("#myCarousel").carousel();
 
+    //$('.carousel').carousel('cycle');
     // Enable Carousel Controls
     $(".left").click(function(){
     	$("#myCarousel").carousel("prev");
@@ -69,6 +71,7 @@ function changerCarrousel(response){
 	$(".right").click(function() {
 		$("#myCarousel").carousel("next");
 	});
+
 }
 
 export{remplirListeTypesAmenagement};

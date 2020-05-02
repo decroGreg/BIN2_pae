@@ -56,7 +56,7 @@ public class ChoisirPhotoPrefereeServlet extends HttpServlet {
         String photosData = genson.serialize(photosDevis);
         String json = "{\"success\":\"true\", \"token\":\"" + token + "\", \"photosData\":"
             + photosData + "}";
-        // System.out.println("JSON generated :" + json);
+        System.out.println("JSON generated : success");
         resp.setContentType("application/json");
         resp.setCharacterEncoding("UTF-8");
         resp.setStatus(HttpServletResponse.SC_OK);
