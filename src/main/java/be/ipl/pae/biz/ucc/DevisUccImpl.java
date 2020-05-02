@@ -108,8 +108,8 @@ public class DevisUccImpl implements DevisUcc {
         daoServicesUcc.commit();
         throw new BizException("Impossible de créer un client");
       }
+      client = clientDao.getClientMail(nouveauClient.getEmail());
       if (idUtilisateur > 0) {
-        client = clientDao.getClientMail(nouveauClient.getEmail());
         userDao.lierClientUser(client.getIdClient(), idUtilisateur);
       }
       devisDao.createDevis(client.getIdClient(), devis);
@@ -120,7 +120,7 @@ public class DevisUccImpl implements DevisUcc {
   }
 
   @Override
-  public void introduireDevis(ClientDto nouveauClient, int idUtilisateur, DevisDto devis,
+  public int introduireDevis(ClientDto nouveauClient, int idUtilisateur, DevisDto devis,
       List<String> listeIdTypeAmenagement) {
     int idDevis = 0;
     try {
@@ -132,12 +132,13 @@ public class DevisUccImpl implements DevisUcc {
       }
       idDevis = devisDao.getIdDernierDevis();
       creerAmenagementPourDevis(idDevis, listeIdTypeAmenagement);
+      daoServicesUcc.commit();
+      return idDevis;
     } catch (DalException de) {
       de.printStackTrace();
       daoServicesUcc.rollback();
       throw new FatalException(de.getMessage());
     }
-    daoServicesUcc.commit();
   }
 
   @Override
