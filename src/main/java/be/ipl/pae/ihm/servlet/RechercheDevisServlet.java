@@ -68,7 +68,7 @@ public class RechercheDevisServlet extends HttpServlet {
 
         } else {
 
-          devisUcc.rechercheSurDevis(devisDto, min, max, 1);
+          // devisUcc.rechercheSurDevis(devisDto, min, max, 1);
           // methode
         }
         String devisData = genson.serialize(listeDevisDto);

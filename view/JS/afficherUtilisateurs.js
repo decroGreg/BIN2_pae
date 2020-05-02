@@ -1,5 +1,7 @@
 import{token, allHide} from "./index.js";
 import{filterDropdown, postData,onError} from "./util.js";
+import{afficherDevis} from "./afficherDevis.js";
+
 
 $(document).ready(function () {
 		$("#btn-search-utilisateurs").click(e=>{
@@ -58,8 +60,8 @@ function afficherUtilisateurs(response){
 	$("#voir-utilisateurs tbody").html("");
 	Object.keys(response.usersData).forEach(data => {
 	    var html = "<tr>";
-	    html+="<td>" 
-	    	+ response.usersData[data].pseudo + "</td>\n<td>" 
+	    html+="<td><a href='#' class='reference-util' id='"+ response.usersData[data].idUser + "'>"
+	    	+ response.usersData[data].pseudo + "</a></td>\n<td>" 
 	    	+ response.usersData[data].nom + "</td>\n<td>" 
 	    	+ response.usersData[data].prenom + "</td>\n<td>" 
 	    	+ response.usersData[data].ville + "</td>\n<td>" 
@@ -67,6 +69,11 @@ function afficherUtilisateurs(response){
 	    	+ response.usersData[data].statut + "</td></tr>";
 	    $("#voir-utilisateurs tbody").append(html);
 	});
+	$("a.reference-util").click(e=>{
+    	let data={};
+        data.idUser=$(e.target).attr("id");
+    	postData("/listeDevisClient",data,token,afficherDevis,onError);
+    });
 }
 
 

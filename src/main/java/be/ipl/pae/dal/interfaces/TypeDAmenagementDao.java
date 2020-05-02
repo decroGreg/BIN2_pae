@@ -9,4 +9,6 @@ public interface TypeDAmenagementDao {
 
   List<TypeDAmenagementDto> voirTypeDAmenagement();
 
+  TypeDAmenagementDto createTypeAmenagement(String nomType);
+
 }

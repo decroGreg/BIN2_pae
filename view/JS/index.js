@@ -95,14 +95,12 @@ $(document).ready(e=>{
     });
     
     $("#mesDevis").click(e=>{
-            e.preventDefault();
-            alert();
+        e.preventDefault();
     	allHide();
         mesDevis();
-        console.log("passage");
-        getData("/listeUsers",token,onGetClientDevisClient,onError);
-        alert();
-        getData("/introduireServlet",token,onGetAmenagementDevisClient,onError);
+        //getData("/listeUsers",token,onGetClientDevisClient,onError);
+        //alert();
+        //getData("/introduireServlet",token,onGetAmenagementDevisClient,onError);
     });
     
     $("#btn-search-category").click(e=>{
@@ -184,8 +182,9 @@ function allHide(){
         $("#voir-utilisateurs").hide();
         $("#voir-clients").hide();
         $("#voir-devis").hide();
-        $("#ajouterPhoto").hide();
     	$("#voir-photos-client").hide();
+    	$("#ajouterPhoto").hide();
+    	$("#choisirPhotoPreferee").hide();
 
         
 }
@@ -209,11 +208,11 @@ function viewHomePage(){
         $("#voir-clients").hide();
         $("#voir-details-devis").hide();
         $("#mesDevis").hide();
-        
-        //$("#search-homepage").hide();
-    	$("#choisirPhotoPreferee").hide();
-    	$("#ajouterPhoto").hide();
+        $("#mesPhotos").hide();
+        $("#search-homepage").hide();
     	$("#voir-photos-client").hide();
+    	$("#ajouterPhoto").hide();
+    	$("#choisirPhotoPreferee").hide();
 
 
 

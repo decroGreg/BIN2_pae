@@ -26,7 +26,7 @@ function encodeImagetoBase64(element) {
         var reader = new FileReader();
 
         reader.onloadend = function() {
-          $("img").attr("src",reader.result);
+          $("#imageQuote").attr("src",reader.result);
         }
         reader.readAsDataURL(file);        
 }

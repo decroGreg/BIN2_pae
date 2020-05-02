@@ -1,5 +1,7 @@
 import {filterDropdown,postData,onError}from "./util.js";
 import {token} from "./index.js";
+import{afficherDevis} from "./afficherDevis.js";
+
 
 $(document).ready(function () {
 	$("#btn-search-Clients").click(e=>{
@@ -52,15 +54,19 @@ function afficherClients(response){
 	Object.keys(response.clientsData).forEach(data => {
 		console.log(response.clientsData[data].prenom);
 	    var html = "<tr>";
-	    html+="<td>"
-	    	+ response.clientsData[data].prenom + "</td>\n<td>" 
-	    	+ response.clientsData[data].nom + "</td>\n<td>" 
+	    html+="<td><a href='#' class='reference-client' id='"+ response.clientsData[data].idClient + "'>"
+	    	+ response.clientsData[data].prenom + " " + response.clientsData[data].nom +"</a></td>\n<td>" 
 	    	+ response.clientsData[data].codePostal + "</td>\n<td>" 
 	    	+ response.clientsData[data].ville + "</td>\n<td>"
 	    	+ response.clientsData[data].email + "</td>\n<td>"
 	    	+ response.clientsData[data].telephone+ "</td></tr>";	    
 	    $("#voir-clients tbody").append(html);
 	});
+	$("a.reference-client").click(e=>{
+    	let data={};
+        data.idClient=$(e.target).attr("id");
+    	postData("/listeDevisClient",data,token,afficherDevis,onError);
+    });
 }
 
 function viewListeClients(){

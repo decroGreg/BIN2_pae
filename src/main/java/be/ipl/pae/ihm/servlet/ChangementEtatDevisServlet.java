@@ -126,6 +126,7 @@ public class ChangementEtatDevisServlet extends HttpServlet {
             break;
           case "A":
             devis.setEtat(Etat.A);
+            System.out.println("id du devis = " + devis.getIdDevis());
             devisUcc.changerEtat(devis);
             break;
           case "FM":

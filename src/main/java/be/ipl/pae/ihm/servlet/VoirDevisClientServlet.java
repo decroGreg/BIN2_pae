@@ -46,18 +46,33 @@ public class VoirDevisClientServlet extends HttpServlet {
       Genson genson = new Genson();
       Map<String, Object> data = genson.deserialize(req.getReader(), Map.class);
       String token = req.getHeader("Authorization");
-      int idUtilisateur = Integer.parseInt(data.get("idUser").toString());
+      int idUtilisateur = 0;
+      int idClient = 0;
+      if (data.get("idUser") != null) {
+        idUtilisateur = Integer.parseInt(data.get("idUser").toString());
+      } else if (data.get("idClient") != null) {
+        idClient = Integer.parseInt(data.get("idClient").toString());
+      }
+
       for (ClientDto c : clientUcc.getClients()) {
-        if (c.getIdUtilisateur() == idUtilisateur) {
+        if (c.getIdUtilisateur() == idUtilisateur || c.getIdClient() == idClient) {
           clientDto = c;
+          break;
         }
       }
+
       listeDevisDto = devisUcc.voirDevis(clientDto);
+      List<ClientDto> listeClientsDto = new ArrayList<>();
+      for (DevisDto de : listeDevisDto) {
+        listeClientsDto.add(clientDto);
+      }
 
 
       if (token != null) {
         String devisData = genson.serialize(listeDevisDto);
-        String json = "{\"success\":\"true\", \"devisData\":" + devisData + "}";
+        String clientsData = genson.serialize(listeClientsDto);
+        String json = "{\"success\":\"true\", \"token\":\"" + token + "\", \"devisData\":"
+            + devisData + ", \"clientsData\":" + clientsData + "}";
         System.out.println("JSON generated :" + json);
         resp.setContentType("application/json");
         resp.setCharacterEncoding("UTF-8");

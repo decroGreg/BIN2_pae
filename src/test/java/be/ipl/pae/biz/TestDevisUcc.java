@@ -25,8 +25,6 @@ import org.junit.jupiter.api.Test;
 import java.io.IOException;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
-import java.util.ArrayList;
-import java.util.List;
 
 class TestDevisUcc {
 
@@ -153,90 +151,6 @@ class TestDevisUcc {
         amenagementDao, dalServices);
     assertEquals(devisUcc.voirDevis().get(0).getIdDevis(), devisDto.getIdDevis());
   }
-
-  @Test
-  @DisplayName("email deja utilise")
-  void testIntroduireDevis() throws InstantiationException, IllegalAccessException,
-      IllegalArgumentException, InvocationTargetException {
-    devisDao = (DevisDao) devisDaoConstruct.newInstance(false, false, false, false, false, false,
-        false, false, false, false);
-    clientDao = (ClientDao) clientDaoConstruct.newInstance(false, false, true, false, false);
-    devisUcc = (DevisUcc) devisUccConstruct.newInstance(bizFactory, devisDao, userDao, clientDao,
-        amenagementDao, dalServices);
-    List<String> listIdTypeAmenagement = new ArrayList<String>();
-    assertThrows(BizException.class, () -> devisUcc.introduireDevis(bizFactory.getClientDto(),
-        bizFactory.getUserDto().getIdUser(), devisDto, listIdTypeAmenagement));
-  }
-
-  @Test
-  @DisplayName("creation d'un devis pour un client existant")
-  void testIntroduireDevis2() throws InstantiationException, IllegalAccessException,
-      IllegalArgumentException, InvocationTargetException {
-    devisDao = (DevisDao) devisDaoConstruct.newInstance(true, false, false, false, false, false,
-        false, false, false, false);
-    devisUcc = (DevisUcc) devisUccConstruct.newInstance(bizFactory, devisDao, userDao, clientDao,
-        amenagementDao, dalServices);
-    List<String> listIdTypeAmenagement = new ArrayList<String>();
-    devisUcc.introduireDevis(null, bizFactory.getClientDto().getIdClient(), devisDto,
-        listIdTypeAmenagement);
-  }
-
-  @Test
-  @DisplayName("creation d'un devis pour un client null et que l'id est incorrect")
-  void testIntroduireDevis3() throws InstantiationException, IllegalAccessException,
-      IllegalArgumentException, InvocationTargetException {
-    devisDao = (DevisDao) devisDaoConstruct.newInstance(true, false, false, false, false, false,
-        false, false, false, true);
-    devisUcc = (DevisUcc) devisUccConstruct.newInstance(bizFactory, devisDao, userDao, clientDao,
-        amenagementDao, dalServices);
-    List<String> listIdTypeAmenagement = new ArrayList<String>();
-    assertThrows(FatalException.class,
-        () -> devisUcc.introduireDevis(null, 0, devisDto, listIdTypeAmenagement));
-  }
-
-  @Test
-  @DisplayName("creation d'un nouveau client mais deja existant")
-  void testIntroduireDevis4() throws InstantiationException, IllegalAccessException,
-      IllegalArgumentException, InvocationTargetException {
-    devisDao = (DevisDao) devisDaoConstruct.newInstance(true, false, false, false, false, false,
-        false, false, false, false);
-    clientDao = (ClientDao) clientDaoConstruct.newInstance(false, false, false, false, false);
-    devisUcc = (DevisUcc) devisUccConstruct.newInstance(bizFactory, devisDao, userDao, clientDao,
-        amenagementDao, dalServices);
-    List<String> listIdTypeAmenagement = new ArrayList<String>();
-    assertThrows(BizException.class, () -> devisUcc.introduireDevis(bizFactory.getClientDto(), 2,
-        devisDto, listIdTypeAmenagement));
-  }
-
-  @Test
-  @DisplayName("si j'arrive pas à lier un client")
-  void testIntroduireDevis5() throws InstantiationException, IllegalAccessException,
-      IllegalArgumentException, InvocationTargetException {
-    devisDao = (DevisDao) devisDaoConstruct.newInstance(true, false, false, false, false, false,
-        false, false, false, false);
-    clientDao = (ClientDao) clientDaoConstruct.newInstance(false, false, false, false, true);
-    devisUcc = (DevisUcc) devisUccConstruct.newInstance(bizFactory, devisDao, userDao, clientDao,
-        amenagementDao, dalServices);
-    List<String> listIdTypeAmenagement = new ArrayList<String>();
-    assertThrows(FatalException.class, () -> devisUcc.introduireDevis(bizFactory.getClientDto(), 1,
-        devisDto, listIdTypeAmenagement));
-  }
-
-  /**
-   * @throws InvocationTargetException
-   * @throws IllegalArgumentException
-   * @throws IllegalAccessException
-   * @throws InstantiationException
-   * @Test @DisplayName("introduire un devis pour un nouveau client et lier le client à son
-   *       utilisateur") void testIntroduireDevis6() throws InstantiationException,
-   *       IllegalAccessException, IllegalArgumentException, InvocationTargetException { devisDao =
-   *       (DevisDao) devisDaoConstruct.newInstance(true, false, false, false, false, false);
-   *       clientDao = (ClientDao) clientDaoConstruct.newInstance(false, true, false, false);
-   *       devisUcc = (DevisUcc) devisUccConstruct.newInstance(bizFactory, devisDao, userDao,
-   *       clientDao, amenagementDao, dalServices); List<String> listIdTypeAmenagement = new
-   *       ArrayList<String>(); devisUcc.introduireDevis(bizFactory.getClientDto(), 1, devisDto,
-   *       listIdTypeAmenagement); }
-   */
 
   @Test
   @DisplayName("devis null")
