@@ -60,7 +60,7 @@ public class RechercheDevisServlet extends HttpServlet {
         }
         name = data.get("name");
 
-        if (data.containsKey("idUser")) {
+        if (true) {
           // nom !!!!!!!!!!!!!!!!
           // methode
           int test = Integer.parseInt((String) amenagements.values().toArray()[0]);
