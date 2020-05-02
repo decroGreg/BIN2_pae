@@ -158,7 +158,7 @@ public class DetailsDevisServlet extends HttpServlet {
             break;
           default:
             throw new IllegalArgumentException(
-                "l etat du devis ne permet pas d efectuer cette action");
+                "l etat du devis ne permet pas d'effectuer cette action");
         }
         devisDto.setIdDevis(idDevis);
         devisDto.setEtat(etat);
@@ -166,7 +166,7 @@ public class DetailsDevisServlet extends HttpServlet {
           SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss.SSS");
           Date parsedDate = dateFormat.parse(data.get("date").toString() + " 00:00:00.000");
           Timestamp timestamp = new Timestamp(parsedDate.getTime());
-          devisDto.setDate(timestamp);
+          devisDto.setDateDebutTravaux(timestamp);
           System.out.println("idDevis" + idDevis + "  time=" + timestamp.toString());
           devisUcc.repousserDateDebut(devisDto);
         }

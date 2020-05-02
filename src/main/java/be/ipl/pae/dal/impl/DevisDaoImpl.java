@@ -248,12 +248,10 @@ public class DevisDaoImpl implements DevisDao {
   @Override
   public boolean repousserDateDebut(DevisDto devis) {
     String requeteSql = "UPDATE init.devis SET date_debut_travaux = ? WHERE id_devis = ?";
-    int idDevis = devis.getIdDevis();
-    Timestamp dateDebut = devis.getDateDebutTravaux();
     ps = services.getPreparedSatement(requeteSql);
     try {
-      ps.setTimestamp(1, dateDebut);
-      ps.setInt(2, idDevis);
+      ps.setTimestamp(1, devis.getDateDebutTravaux());
+      ps.setInt(2, devis.getIdDevis());
       ps.execute();
     } catch (SQLException ex) {
       throw new DalException("Erreur lors du changement de date debut du devis" + ex.getMessage());
