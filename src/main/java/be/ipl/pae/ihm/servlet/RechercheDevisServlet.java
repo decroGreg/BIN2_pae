@@ -64,7 +64,7 @@ public class RechercheDevisServlet extends HttpServlet {
           // nom !!!!!!!!!!!!!!!!
           // methode
           int test = Integer.parseInt((String) amenagements.values().toArray()[0]);
-          listeDevisDto = devisUcc.rechercheSurDevis(devisDto, min, max, test);
+          // listeDevisDto = devisUcc.rechercheSurDevis(devisDto, min, max, test);
 
         } else {
 
