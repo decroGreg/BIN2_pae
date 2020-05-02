@@ -87,7 +87,7 @@ public class VoirUtilisateursServlet extends HttpServlet {
         System.out.println("nom = " + nom);
         utilisateursDto = userUcc.rechercherUtilisateurs(nom, ville);
 
-
+        System.out.println(utilisateursDto.toString());
         String usersData = genson.serialize(utilisateursDto);
         String json = "{\"success\":\"true\", \"usersData\":" + usersData + "}";
         System.out.println("UsersData : " + usersData);

@@ -92,6 +92,7 @@ public class VoirClientsServlet extends HttpServlet {
         if (!data.get("postalCode").contentEquals(""))
           codePostal = Integer.parseInt(data.get("postalCode"));
 
+        System.out.println(nom);
         clientsDto = clientUcc.rechercherClients(nom, ville, codePostal);
         System.out.println("passage = " + clientsDto);
 

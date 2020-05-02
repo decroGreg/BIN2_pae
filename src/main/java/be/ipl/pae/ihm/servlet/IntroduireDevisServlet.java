@@ -3,6 +3,7 @@ package be.ipl.pae.ihm.servlet;
 import be.ipl.pae.biz.dto.ClientDto;
 import be.ipl.pae.biz.dto.DevisDto;
 import be.ipl.pae.biz.interfaces.DevisUcc;
+import be.ipl.pae.biz.interfaces.PhotoUcc;
 import be.ipl.pae.biz.interfaces.TypeDAmenagementUcc;
 
 import com.owlike.genson.Genson;
@@ -24,14 +25,16 @@ public class IntroduireDevisServlet extends HttpServlet {
   private ClientDto clientDto;
   private DevisDto devisDto;
   private TypeDAmenagementUcc typeUcc;
+  private PhotoUcc photoUcc;
 
   public IntroduireDevisServlet(DevisUcc devisUcc, ClientDto clientDto, DevisDto devisDto,
-      TypeDAmenagementUcc type) {
+      TypeDAmenagementUcc type, PhotoUcc photoUcc) {
     super();
     this.devisUcc = devisUcc;
     this.clientDto = clientDto;
     this.devisDto = devisDto;
     this.typeUcc = type;
+    this.photoUcc = photoUcc;
   }
 
   @Override
@@ -77,10 +80,12 @@ public class IntroduireDevisServlet extends HttpServlet {
       Map<String, Map<String, String>> data = genson.deserialize(req.getReader(), Map.class);
       System.out.println(data.toString());
       try {
-
+        Map<String, String> images = data.get("image");
+        System.out.println(images);
         Map<String, String> dataUser = data.get("dataUser");
         Map<String, String> dataQuote = data.get("dataQuote");
         if (dataUser != null) {
+          System.out.println("PASSAGE*******************");
           clientDto.setPrenom(dataUser.get("firstname").toString());
           clientDto.setNom(dataUser.get("lastname").toString());
           clientDto.setRue(dataUser.get("street").toString());
@@ -90,6 +95,8 @@ public class IntroduireDevisServlet extends HttpServlet {
           clientDto.setVille(dataUser.get("city").toString());
           clientDto.setEmail(dataUser.get("mail").toString());
           clientDto.setTelephone(dataUser.get("phone").toString());
+        } else {
+          clientDto = null;
         }
         try {
           SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss.SSS");
@@ -115,10 +122,12 @@ public class IntroduireDevisServlet extends HttpServlet {
           throw new IllegalArgumentException(
               "veuillez introduire lie un client ou un nouveau client");
         }
-        System.out.println("idClient" + idClient);
-        System.out.println(dataQuote.get("image"));
 
         devisUcc.introduireDevis(clientDto, idClient, devisDto, (List<String>) data.get("type"));
+        if (images != null)
+          for (String s : images.values()) {
+            photoUcc.ajouterPhotoAvantAmenagement(0, s);// remplacer le 0 par l idDevis
+          }
 
       } catch (Exception exce) {
         exce.printStackTrace();

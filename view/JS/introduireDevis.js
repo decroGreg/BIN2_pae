@@ -2,6 +2,7 @@
 import {creatHTMLFromString,getData,postData,onError, filterDropdown} from "./util.js" ;
 import {token, allHide} from "./index.js";
 var photo={};
+var nbPhoto=0;
 function checkInput(data,message){
         var element;
         console.log(data);
@@ -25,9 +26,6 @@ function encodeImagetoBase64(element) {
         var reader = new FileReader();
 
         reader.onloadend = function() {
-
-        photo="{"+reader.result+"}";
-          console.log(reader.result);
           $("img").attr("src",reader.result);
         }
         reader.readAsDataURL(file);        
@@ -40,6 +38,11 @@ $(document).ready(function () {
                 getData("/introduireServlet",token,onGetAmenagements,onError);
                 getData("/listeUsers",token,onGetClientQuoteForm,onError);
             });
+        $("#enregistrer-photo").click(e=>{
+                photo[nbPhoto]=$("img").attr("src");
+                console.log(photo);
+                nbPhoto++;
+        });
 
       $("#Quote-Form-image").change(e=>{
               encodeImagetoBase64(e.target);
@@ -79,10 +82,7 @@ $(document).ready(function () {
                     "client":$("#Quote-Form-Client-items").val(),
                     "date":$("#Quote-Form-quoteDate").val(),
                     "price":$("#Quote-Form-price").val(),
-                    "duration":$("#Quote-Form-duration").val(),
-                    "image":$("#imageQuote").attr("src")
-                    
-    
+                    "duration":$("#Quote-Form-duration").val()
             };
             if(!checkInput(dataQuote,"veuillez remplir tous les champs du devis")) return;//à voir si image peut être null;
             if(type.length==0){
@@ -90,13 +90,20 @@ $(document).ready(function () {
                     $("#error-notification").text("veillez introduire un type d'aménagement");
                     return;
             }
+            if(photo==0){
+                    console.log("il faut introduire une photo");
+                    return;
+            }
             var data={
+                    "images":photo,
                     "dataUser":dataUser,
                     "dataQuote":dataQuote,
                     "type":type
             }
-            console.log(data.dataQuote.type);
+            console.log(data);
+            console.log(data.images);
             postData("/introduireServlet",data,token,onPostIntroductionQuote,onError);
+            photo={};
             
         });
 });
@@ -162,6 +169,7 @@ function onPostIntroductionQuote(response){
 
 function viewIntroductionQuote(){
     allHide();
+    photo={};
     $("#introductionQuoteForm").show();
    
 }

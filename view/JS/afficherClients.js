@@ -4,13 +4,16 @@ import {token} from "./index.js";
 $(document).ready(function () {
 	$("#btn-search-Clients").click(e=>{
 		var data={
-			"name":$("#searchClientsNameDropdown").text(),
+			"name":$("#clientsNameSearch").val(),
 			"postalCode":$("#searchClientCodePostal").val(),
 			"city":$("#searchClientsVille").val()
 		};
+		if(data.name==="")
+			data.name=document.getElementById("inputClientsNameSearch").value;
 		
 		console.log(data);
-		postData("/listeClients",data,token,afficherClients,onError);
+		//postData("/listeClients",data,token,afficherClients,onError);
+		$("#clientsNameSearch").val("");
 	})
 });
 
@@ -32,9 +35,10 @@ function afficherClientsDropdown(response){
 	response.clientsData.forEach(e=>{
 		var li=document.createElement("li");
 		var a=document.createElement("a");
-		a.innerHTML=e.nom;//+" "+e.prenom;
+		a.innerHTML=e.nom+" "+e.prenom;
 		a.addEventListener("click",function(){
 			$("#searchClientsNameDropdown").text(a.innerHTML);
+			$("#clientsNameSearch").val(e.nom);
 		});
 		li.appendChild(a);
 		$("#clientsNameSearch").append(li);

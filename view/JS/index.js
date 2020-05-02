@@ -146,9 +146,11 @@ $(document).ready(e=>{
     $("#btn-devis-repousserDate").click(e=>{
         let data={
                 "date":$("#dateDebutTravaux").val(),
-                "idDevis":$("#btn-devis-repousserDate").attr("idDevis")
+                "idDevis":$("#btn-devis-repousserDate").attr("idDevis"),
+                "etat":$("#btn-devis-repousserDate").attr("etat")
         };
         console.log("id devis-->"+$("#btn-devis-repousserDate").attr("idDevis"));
+        console.log(data);
         putData("/detailsDevis",token,data,onPutRepousserDate,onError);
 
     });

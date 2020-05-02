@@ -108,6 +108,7 @@ function creatHTMLFromString(htmlString){
 }
 function filterDropdown(element){
   var value = $(element).val().toLowerCase();
+  
   $(".dropdown-menu li").filter(function() {
     $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
   });

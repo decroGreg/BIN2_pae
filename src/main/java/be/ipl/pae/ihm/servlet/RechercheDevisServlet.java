@@ -63,8 +63,8 @@ public class RechercheDevisServlet extends HttpServlet {
         if (data.containsKey("idUser")) {
           // nom !!!!!!!!!!!!!!!!
           // methode
-          devisDto.setIdClient(Integer.parseInt(data.get("IdUser")));
-          listeDevisDto = devisUcc.rechercheSurDevis(devisDto, min, max, 1);
+          int test = Integer.parseInt((String) amenagements.values().toArray()[0]);
+          listeDevisDto = devisUcc.rechercheSurDevis(devisDto, min, max, test);
 
         } else {
 

@@ -122,7 +122,7 @@ public class Main {
     context.addServlet(new ServletHolder(listeClientsServlet), "/listeClients");
 
     HttpServlet introDevisServlet =
-        new IntroduireDevisServlet(devisUcc, clientDto, devisDto, typeAmenagmentUcc);
+        new IntroduireDevisServlet(devisUcc, clientDto, devisDto, typeAmenagmentUcc, photoUcc);
     context.addServlet(new ServletHolder(introDevisServlet), "/introduireServlet");
 
     HttpServlet confirmationServlet = new ConfirmationRegisterServlet(userUcc, userDto, clientDto);

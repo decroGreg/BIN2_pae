@@ -1,9 +1,10 @@
 import{token, allHide} from "./index.js";
 import{afficherDetailsDevis,afficherDetailsDevisClient} from "./detailsDevis.js";
 import {postData,onError,creatHTMLFromString,filterDropdown} from "./util.js" ;
-
+var test;
 
 $(document).ready(function () {
+
 	$("#btn-search-devis-client").click(e=>{
         searchDevis(document.getElementById("amenagements-devis-client"),user.idUser);
     });
@@ -15,6 +16,7 @@ $(document).ready(function () {
 	});
 	
 	$("#inputDevisClientNameSearch").on("keyup", function(){
+		console.log($(this).val());
 		filterDropdown(this);
 });
 });
@@ -32,10 +34,11 @@ function afficherNomClientDropdown(response,dropdown){
 		var li=document.createElement("li");
 		li.value=element.idUser;
 		var a=document.createElement("a");
+		
 		a.addEventListener("click",function(){
 			console.log(li.value);
 			$("#searchDevisNameDropdown").html(element.nom+" "+element.prenom);
-			$("#dropdownClientName").val(li.value);
+			$("#dropdownClientName").val(element.nom);
 			document.getElementById("dropdownClientName").name="name";
 		});
 		a.innerHTML=element.nom+" "+element.prenom;
@@ -80,6 +83,8 @@ function searchDevis(dropdown,idUser){
 		if(e.name)
 		data[e.name]=e.value;
 	});
+	if(!data.name)
+		data.name=$("#inputClientNameSearch").val();
 	if(idUser){
 		data["idUser"]=idUser;
 	}
@@ -90,7 +95,8 @@ function searchDevis(dropdown,idUser){
 		"data":data,
 		"amenagements":amenagements
 	}
-	postData("/rechercheDevis",data,token,afficherDevis,onError)
+	//postData("/rechercheDevis",data,token,afficherDevis,onError)
+	$("#dropdownClientName").val(undefined);
 }
 
 

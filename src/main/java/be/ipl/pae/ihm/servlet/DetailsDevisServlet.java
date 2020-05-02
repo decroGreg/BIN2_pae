@@ -4,6 +4,7 @@ import be.ipl.pae.biz.dto.AmenagementDto;
 import be.ipl.pae.biz.dto.ClientDto;
 import be.ipl.pae.biz.dto.DevisDto;
 import be.ipl.pae.biz.dto.TypeDAmenagementDto;
+import be.ipl.pae.biz.impl.DevisImpl.Etat;
 import be.ipl.pae.biz.interfaces.AmenagementUcc;
 import be.ipl.pae.biz.interfaces.ClientUcc;
 import be.ipl.pae.biz.interfaces.DevisUcc;
@@ -143,13 +144,25 @@ public class DetailsDevisServlet extends HttpServlet {
     // TODO Auto-generated method stub
     try {
       Genson genson = new Genson();
-      String token = req.getHeaders("Authorization").toString();
+      String token = req.getHeader("Authorization");
+
       Map<String, String> data = genson.deserialize(req.getReader(), Map.class);
       try {
         int idDevis = Integer.parseInt(data.get("idDevis"));
-
+        Etat etat = Etat.valueOf(data.get("etat"));
+        System.err.println(etat.toString() + "******************************************");
+        switch (etat) {
+          case FD:
+            break;
+          case DC:
+            break;
+          default:
+            throw new IllegalArgumentException(
+                "l'etat du devis ne permet pas d'éfectuer cette action");
+        }
         devisDto.setIdDevis(idDevis);
-        if (data.get("date").toString() != "") {
+        devisDto.setEtat(etat);
+        if (!data.get("date").toString().equals("")) {
           SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss.SSS");
           Date parsedDate = dateFormat.parse(data.get("date").toString() + " 00:00:00.000");
           Timestamp timestamp = new Timestamp(parsedDate.getTime());

@@ -4,14 +4,16 @@ import{filterDropdown, postData,onError} from "./util.js";
 $(document).ready(function () {
 		$("#btn-search-utilisateurs").click(e=>{
 			var data={
-				name:$("#searchUtilisateursNameDropdown").text(),
+				name:$("#utilisateursNameSearch").val(),
 				city:$("#searchUtilisateursVille").val()
 			};
-			
+			if(data.name==="")
+				data.name=document.getElementById("inputUtilisateursNameSearch").value;
 			console.log(data);
-			postData("/listeUsers",data,token,afficherUtilisateurs,onError);
-			
+			//postData("/listeUsers",data,token,afficherUtilisateurs,onError);
+			$("#utilisateursNameSearch").val("");
 		})
+		
 });
 /*
 function afficherUtilisateursDropdown(response){
@@ -41,6 +43,7 @@ function afficherUtilisateursDropdown(response){ //(response,balise ul,id input,
 		a.innerHTML=e.nom+" "+e.prenom;
 		a.addEventListener("click",function(){
 			$("#searchUtilisateursNameDropdown").text(a.innerHTML);
+			$("#utilisateursNameSearch").val(e.nom);
 		});
 		li.appendChild(a);
 		$("#utilisateursNameSearch").append(li);
