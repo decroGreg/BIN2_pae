@@ -120,15 +120,15 @@ public class DevisUccImpl implements DevisUcc {
   }
 
   @Override
-  public int introduireDevis(ClientDto nouveauClient, int idUtilisateur, DevisDto devis,
+  public int introduireDevis(ClientDto client, int idUtilisateur, DevisDto devis,
       List<String> listeIdTypeAmenagement) {
     int idDevis = 0;
     try {
       daoServicesUcc.demarrerTransaction();
-      if (nouveauClient == null) {
-        devisDao.createDevis(idUtilisateur, devis);
+      if (client.getNom() == null) {
+        devisDao.createDevis(devis.getIdClient(), devis);
       } else {
-        creerDevisNouveauClient(nouveauClient, devis, idUtilisateur);
+        creerDevisNouveauClient(client, devis, idUtilisateur);
       }
       idDevis = devisDao.getIdDernierDevis();
       creerAmenagementPourDevis(idDevis, listeIdTypeAmenagement);

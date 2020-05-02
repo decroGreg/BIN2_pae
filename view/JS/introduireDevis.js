@@ -43,7 +43,8 @@ $(document).ready(function () {
         $(".introductionQuote").click(e=>{
                 viewIntroductionQuote();
                 getData("/introduireServlet",token,onGetAmenagements,onError);
-                getData("/listeUsers",token,onGetClientQuoteForm,onError);
+                getData("/listeClients",token,onGetClientQuoteForm,onError);
+                getData("/listeUsers",token,onGetUserQuoteForm,onError)
             });
         $("#enregistrer-photo").click(e=>{
                 photo[nbPhoto]=$("img").attr("src");
@@ -95,6 +96,7 @@ $(document).ready(function () {
                  return;//à voir si image peut être null;
             }
             dataQuote.client=$("#Quote-Form-Client-items").val();
+            dataQuote.user=$("#Quote-Form-User-items").val();
             if(type.length==0){
                     $("#error-notification").fadeIn('slow').delay(1000).fadeOut('slow');
                     $("#error-notification").text("veillez introduire un type d'aménagement");
@@ -133,11 +135,11 @@ function onGetClientQuoteForm(response){
         });
         $("#Quote-Form-Client-items").append(input);
 
-        response.usersData.forEach(element => {
+        response.clientsData.forEach(element => {
                 var li=document.createElement("li");
                 var a=document.createElement("a");
                 a.href="#";
-                a.val=element.idUser;
+                a.val=element.idClient;
                 a.innerText=element.prenom+" "+element.nom;
                 a.addEventListener("click",function(e){
                         
@@ -150,6 +152,40 @@ function onGetClientQuoteForm(response){
                 $("#Quote-Form-Client-items").append(li);
         });
 }
+
+//Samuel
+function onGetUserQuoteForm(response){
+        $("#Quote-Form-User-items").text("");
+        
+        //création du input avec filtre
+        var input=document.createElement("input");
+        input.className="form-control";
+        input.id="Quote-Form-User-Search";
+        input.type="text";
+        input.placeholder="Search..";
+        input.addEventListener("keyup",function() {
+        filterDropdown(this);
+        });
+        $("#Quote-Form-User-items").append(input);
+
+        response.usersData.forEach(element => {
+        var li=document.createElement("li");
+        var a=document.createElement("a");
+        a.href="#";
+        a.val=element.idUser;
+        a.innerText=element.prenom+" "+element.nom;
+        a.addEventListener("click",function(e){
+                
+                $("#Quote-Form-User-items").val(e.target.val);
+                $("#Quote-Form-User-dropdown").text(e.target.innerText);
+                console.log($("#Quote-Form-User-items").val());
+
+        });
+        li.appendChild(a);
+        $("#Quote-Form-User-items").append(li);
+});
+}
+//Fin Samuel
 
 function onGetAmenagements(response){
  $("#Quote-Form-layoutType").text("");
@@ -184,5 +220,5 @@ function viewIntroductionQuote(){
    
 }
 
-export{onGetAmenagements,onGetClientQuoteForm,onPostIntroductionQuote,viewIntroductionQuote, encodeImagetoBase64};
+export{onGetAmenagements,onGetClientQuoteForm,onGetUserQuoteForm,onPostIntroductionQuote,viewIntroductionQuote, encodeImagetoBase64};
 

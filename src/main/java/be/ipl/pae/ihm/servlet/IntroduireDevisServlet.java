@@ -95,8 +95,6 @@ public class IntroduireDevisServlet extends HttpServlet {
           clientDto.setVille(dataUser.get("city").toString());
           clientDto.setEmail(dataUser.get("mail").toString());
           clientDto.setTelephone(dataUser.get("phone").toString());
-        } else {
-          clientDto = null;
         }
         try {
           SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss.SSS");
@@ -110,20 +108,22 @@ public class IntroduireDevisServlet extends HttpServlet {
           throw new IllegalArgumentException("veuillez introduire une date");
         }
 
-        int idClient = 0;
+        int idUser = 0;
+        if (!dataQuote.get("user").toString().equals("")) {
+          idUser = Integer.parseInt(dataQuote.get("user").toString());
+        }
+
         if (!dataQuote.get("client").toString().equals("")) {
-          idClient = Integer.parseInt(dataQuote.get("client").toString());
-        } else {
-          idClient = -1;
+          devisDto.setIdClient(Integer.parseInt(dataQuote.get("client").toString()));
         }
 
         // si aucun client est lier et si il n'y a pas de nouvaux client introduit
-        if (idClient == -1 && dataUser == null) {
+        if (devisDto.getIdClient() == 0 && dataUser == null) {
           throw new IllegalArgumentException(
               "veuillez introduire lie un client ou un nouveau client");
         }
 
-        devisUcc.introduireDevis(clientDto, idClient, devisDto, (List<String>) data.get("type"));
+        devisUcc.introduireDevis(clientDto, idUser, devisDto, (List<String>) data.get("type"));
         if (images != null)
           for (String s : images.values()) {
             photoUcc.ajouterPhotoAvantAmenagement(0, s);// remplacer le 0 par l idDevis
