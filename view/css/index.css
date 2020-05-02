@@ -129,4 +129,21 @@ body{
     
     /*************************************table confirmation css***************************************************/
     /*************************************test*****************************************/
+    
+ /*************************************Img devis css***************************************************/
+	.ajouterPhoto img{
+		max-width:100%;
+		height: auto;
+	}
+	
+	.photos-devis-form{
+	  border: 1px solid #25a50bab;
+  	  border-radius: 5px;
+      box-shadow: 0 5px 8px 0 rgba(0, 0, 0, 0.2), 0 9px 26px 0 rgba(0, 0, 0, 0.19);
+	}
+	.photos-devis-form form{
+	  	padding: 10%;
+  		margin: 1rem auto;
+  		left: 1;
+	}
  

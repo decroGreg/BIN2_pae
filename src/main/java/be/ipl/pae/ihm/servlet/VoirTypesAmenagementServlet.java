@@ -1,5 +1,6 @@
 package be.ipl.pae.ihm.servlet;
 
+import be.ipl.pae.biz.dto.AmenagementDto;
 import be.ipl.pae.biz.dto.PhotoDto;
 import be.ipl.pae.biz.dto.TypeDAmenagementDto;
 import be.ipl.pae.biz.interfaces.AmenagementUcc;
@@ -23,7 +24,6 @@ public class VoirTypesAmenagementServlet extends HttpServlet {
   private TypeDAmenagementUcc typeDAmenagementUcc;
   private PhotoUcc photoUcc;
   private AmenagementUcc amenagementUcc;
-  private List<TypeDAmenagementDto> typesAmenagements = new ArrayList<>();
 
   public VoirTypesAmenagementServlet(TypeDAmenagementUcc typeDAmenagementUcc, PhotoUcc photoUcc,
       AmenagementUcc amenagementUcc) {
@@ -42,18 +42,21 @@ public class VoirTypesAmenagementServlet extends HttpServlet {
     try {
       Genson genson = new Genson();
       List<PhotoDto> photos = new ArrayList<>();
-      typesAmenagements = typeDAmenagementUcc.voirTypeDAmenagement();
+      List<TypeDAmenagementDto> typesAmenagements = typeDAmenagementUcc.voirTypeDAmenagement();
+      List<TypeDAmenagementDto> typesAmenagementsPhotos;
       for (PhotoDto ph : photoUcc.voirPhotos()) {
         if (ph.getIdAmenagement() > 0 && ph.isVisible()) {
           photos.add(ph);
 
         }
       }
-
+      typesAmenagementsPhotos = typesAmenagementPhotos(photos);
+      String typesAmenagementPhotosData = genson.serialize(typesAmenagementsPhotos);
       String typesAmenagementData = genson.serialize(typesAmenagements);
       String photosData = genson.serialize(photos);
       String json = "{\"success\":\"true\", \"photosData\":" + photosData
-          + ", \"typesAmenagementData\":" + typesAmenagementData + "}";
+          + ", \"typesAmenagementData\":" + typesAmenagementData
+          + ", \"typesAmenagementPhotosData\":" + typesAmenagementPhotosData + "}";
       // String json = "{\"success\":\"true\", \"typesAmenagementData\":" + typesAmenagementData +
       // "}";
       // System.out.println("JSON generated :" + json);
@@ -88,6 +91,8 @@ public class VoirTypesAmenagementServlet extends HttpServlet {
       Map<String, Object> data = genson.deserialize(req.getReader(), Map.class);
       int idTypeAmenagement = Integer.parseInt(data.get("idTypeAmenagement").toString());
       List<PhotoDto> photos = new ArrayList<>();
+      List<TypeDAmenagementDto> typesAmenagements = new ArrayList<>();
+
 
       TypeDAmenagementDto typeAmenagementDto = null;
       for (TypeDAmenagementDto type : typeDAmenagementUcc.voirTypeDAmenagement()) {
@@ -102,6 +107,9 @@ public class VoirTypesAmenagementServlet extends HttpServlet {
         }
       }
 
+      // Liste d'amenagements des photos
+      List<AmenagementDto> amenagements = new ArrayList<>();
+
       // Si il n'y aucune photo pour ce type d'aménagement, je renvoie toutes les photos pour les
       // afficher dans le carrousel
       if (photos.isEmpty()) {
@@ -112,10 +120,12 @@ public class VoirTypesAmenagementServlet extends HttpServlet {
         }
       }
       if (!photos.isEmpty()) {
+        typesAmenagements = typesAmenagementPhotos(photos);
+        String typesAmenagementPhotosData = genson.serialize(typesAmenagements);
         String photosData = genson.serialize(photos);
-        System.out.println("PHOTOS SIZE = " + photos.size());
-        String json = "{\"success\":\"true\", \"photosData\":" + photosData + "}";
-        // System.out.println("JSON generated :" + json);
+        String json = "{\"success\":\"true\", \"photosData\":" + photosData
+            + ", \"typesAmenagementPhotosData\":" + typesAmenagementPhotosData + "}";
+        System.out.println("JSON generated : success");
         resp.setContentType("application/json");
         resp.setCharacterEncoding("UTF-8");
         resp.setStatus(HttpServletResponse.SC_OK);
@@ -133,6 +143,22 @@ public class VoirTypesAmenagementServlet extends HttpServlet {
       resp.getWriter().write(json);
     }
 
+  }
+
+  public List<TypeDAmenagementDto> typesAmenagementPhotos(List<PhotoDto> photos) {
+    List<TypeDAmenagementDto> typesAmenagements = new ArrayList<>();
+    for (PhotoDto ph : photos) {
+      for (AmenagementDto am : amenagementUcc.voirAmenagement()) {
+        if (ph.getIdAmenagement() == am.getIdAmenagement()) {
+          for (TypeDAmenagementDto ty : typeDAmenagementUcc.voirTypeDAmenagement()) {
+            if (am.getIdTypeAmenagement() == ty.getId()) {
+              typesAmenagements.add(ty);
+            }
+          }
+        }
+      }
+    }
+    return typesAmenagements;
   }
 
 

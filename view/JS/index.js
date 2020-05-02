@@ -94,7 +94,7 @@ $(document).ready(e=>{
 
     });
     
-    $("#mesDevis").click(e=>{
+    $(".mesDevis").click(e=>{
         e.preventDefault();
     	allHide();
         mesDevis();
@@ -160,7 +160,7 @@ $(document).ready(e=>{
         });
     });
     
-    $("#mesPhotos").click(e=>{
+    $(".mesPhotos").click(e=>{
     	let data=user;
     	postData("/mesPhotos", data, token, afficherPhotos, onError);
     });
