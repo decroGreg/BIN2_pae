@@ -80,7 +80,7 @@ public class DevisDaoImpl implements DevisDao {
   public List<DevisDto> voirDevisAvecCritere(Timestamp dateDevis, String nomClient, double prixMin,
       double prixMax, int typeDAmenagementRecherche) {
 
-    String prixMaxSql = "";
+    double prixMaxSql = 0;
     String nomSql = nomClient;
     Timestamp dateSqlMin = dateDevis;
     Timestamp dateSqlMax = dateDevis;
@@ -96,7 +96,7 @@ public class DevisDaoImpl implements DevisDao {
       dateSqlMax = java.sql.Timestamp.valueOf("2999-11-11 10:10:10.0");
     }
     if (prixMax == 0) {
-      prixMaxSql = "POWER (2,31)";
+      prixMaxSql = Math.pow(2, 31);
     }
     if (nomClient == null) {
       nomSql = "%";
@@ -114,10 +114,10 @@ public class DevisDaoImpl implements DevisDao {
       ps.setTimestamp(2, dateSqlMin);
       ps.setTimestamp(3, dateSqlMax);
       ps.setDouble(4, prixMin);
-      if (prixMaxSql.equals("")) {
+      if (prixMaxSql == 0) {
         ps.setDouble(5, prixMax);
       } else {
-        ps.setString(5, prixMaxSql);
+        ps.setDouble(5, prixMaxSql);
       }
       if (typeAmenagement == true) {
         ps.setInt(6, typeDAmenagementRecherche);
