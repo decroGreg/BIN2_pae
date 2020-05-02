@@ -6,7 +6,6 @@ import {ajouterPhoto, choisirPhotoPreferee} from "./rendreDevisVisible.js";
 
 function afficherDetailsDevis(response){
     allHide();
-    console.log("View details devis");
 	$("#voir-devis").show();
 	$("#voir-details-devis").show();
 	$("#btn-ajouter-photo").hide();
@@ -65,7 +64,7 @@ function afficherDetailsDevis(response){
 	$("#voir-details-devis #btn-devis-etat").attr("value", valBouton);
 	
 	//click sur changement etat
-	$("#voir-details-devis #btn-devis-etat").click(e=>{
+	$("#voir-details-devis #btn-devis-etat").off().click(e=>{
     	e.preventDefault();
 		var nouvelEtat = changerEtat(response.devisData.etat);	
 		let data={};
@@ -76,7 +75,7 @@ function afficherDetailsDevis(response){
 	});
 	
 	//click sur annuler devis
-	$("#voir-details-devis #btn-devis-annuler").click(e=>{
+	$("#voir-details-devis #btn-devis-annuler").off().click(e=>{
     	e.preventDefault();
 		let data={};
 		data.idDevis = response.devisData.idDevis;

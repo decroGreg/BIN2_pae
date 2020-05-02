@@ -108,7 +108,6 @@ function afficherDevis(response){
 	$("#voir-devis").show();
 	$("#voir-devis tbody").html("");
 	Object.keys(response.devisData).forEach(data => {
-		console.log("Etat devis = " + response.devisData[data].etat );
 	    var html = "<tr>";
 	    html+="<td><a href=\"#\" class=\"reference-devis\">"
 	    	+ response.devisData[data].idDevis + "</a></td>\n<td>" 

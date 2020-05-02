@@ -4,9 +4,11 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
-        <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
         <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js"></script>
+        <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+       
     
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
       <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
@@ -28,17 +30,17 @@
           <a  id="imageMenu" class="nav-item" href="#">
             <img src="./image/rose.gif">
           </a></br>
-          <ul>
+          <ul class="menu" style="float: left;">
             <li><a href="#" id="homePage">HOME</a></li>
             <li class="nav-item dropdown">
                 	<a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Types d'amenagements</a>
 					<div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink" id="navBarStaticTypesAmenagements"></div>               
-                </li>
+             </li>
             <li><a href="#"  class="Register-confirmation-link nav-item">Confirmer inscription</a></li>
             <li><a href="#" class="connexion nav-item" id="connexion">Connexion</a></li>
             <li><a href="#" id="introductionQuote" class="introductionQuote nav-item">Introduire un devis</a></li>
-            <li><a href="#" id="mesDevis" class="nav-item">Mes devis</a></li>
-            <li><a href="#" id="mesPhotos" class="nav-item">Mes photos</a></li>
+            <li><a href="#" class="mesDevis" id="mesDevis" class="nav-item">Mes devis</a></li>
+            <li><a href="#" class="mesPhotos" id="mesPhotos" class="nav-item">Mes photos</a></li>
             
           </ul>
         </div>
@@ -61,7 +63,7 @@
           </select>
           <button href="#" class="btn btn-outline-success my-2 my-sm-0" type="submit" id="btn-search-category">Search</button>
         </form>
-           <ul >
+           <ul>
                 <li><a href="#" id="homePage" class="nav-item">HOME</a></li>
                 <li class="nav-item dropdown">
                 	<a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Types d'amenagements</a>
@@ -70,8 +72,8 @@
                 <li><a href="#"  class="Register-confirmation-link nav-item">Confirmer inscription</a></li>
                 <li><a href="#" class="connexion nav-item" id="connexion">Connexion</a></li>
                 <li><a href="#" id="introductionQuote" class="introductionQuote nav-item">Introduire un devis</a></li>
-                <li><a href="#" id="mesDevis" class="nav-item">Mes devis</a></li>
-                <li><a href="#" id="mesPhotos" class="nav-item">Mes photos</a></li>
+                <li><a href="#" class="mesDevis" id="mesDevis" class="nav-item">Mes devis</a></li>
+                <li><a href="#" class="mesPhotos" id="mesPhotos" class="nav-item">Mes photos</a></li>
            </ul>
         </nav>
     
@@ -81,7 +83,7 @@
         
     <!---------------------------------------Carousel-------------------------------------------------------------->
         <section id="carousel">
-            <div id="myCarousel" class="carousel slide" data-ride="carousel">
+            <div id="myCarousel" class="carousel slide" data-ride="">
                 <!-- Indicators -->
                 <ol class="carousel-indicators" id="carousel-indicators">
                 
@@ -93,14 +95,12 @@
                 </div>
             
                 <!-- Left and right controls -->
-                <a id="left" class="left carousel-control" href="#myCarousel" data-slide="prev">
-                  <span class="glyphicon glyphicon-chevron-left"></span>
-                  <span class="sr-only">Previous</span>
-                </a>
-                <a id="right" class="right carousel-control" href="#myCarousel" data-slide="next">
-                  <span class="glyphicon glyphicon-chevron-right"></span>
-                  <span class="sr-only">Next</span>
-                </a>
+        		<a class="carousel-control-prev" href="#myCarousel" data-slide="prev">
+        			<span class="carousel-control-prev-icon"></span>
+        		</a>
+    			<a class="carousel-control-next" href="#myCarousel" data-slide="next">
+       				<span class="carousel-control-next-icon"></span>
+    			</a>
               </div>
     
     
