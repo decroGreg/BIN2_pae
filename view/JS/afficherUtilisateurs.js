@@ -12,7 +12,7 @@ $(document).ready(function () {
 			if(data.name==="")
 				data.name=document.getElementById("inputUtilisateursNameSearch").value;
 			console.log(data);
-			//postData("/listeUsers",data,token,afficherUtilisateurs,onError);
+			postData("/listeUsers",data,token,afficherUtilisateurs,onError);
 			$("#utilisateursNameSearch").val("");
 		})
 		

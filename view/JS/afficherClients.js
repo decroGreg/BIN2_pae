@@ -14,7 +14,7 @@ $(document).ready(function () {
 			data.name=document.getElementById("inputClientsNameSearch").value;
 		
 		console.log(data);
-		//postData("/listeClients",data,token,afficherClients,onError);
+		postData("/listeClients",data,token,afficherClients,onError);
 		$("#clientsNameSearch").val("");
 	})
 });

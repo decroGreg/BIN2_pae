@@ -33,6 +33,13 @@ function encodeImagetoBase64(element) {
 
 
 $(document).ready(function () {
+        $("#CreerAmenagement").click(e=>{
+                var data={
+                        "description":$("#Modal-Form-Description").val()
+                };
+                console.log(data);
+                //postData("",data,token,viewIntroductionQuote,onError);
+        });
         $(".introductionQuote").click(e=>{
                 viewIntroductionQuote();
                 getData("/introduireServlet",token,onGetAmenagements,onError);
