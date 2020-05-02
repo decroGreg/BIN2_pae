@@ -37,8 +37,9 @@ $(document).ready(function () {
                 var data={
                         "description":$("#Modal-Form-Description").val()
                 };
+                if(!checkInput(data,"la description est vide")) return;
                 console.log(data);
-                //postData("",data,token,viewIntroductionQuote,onError);
+                postData("/amenagements",data,token,viewIntroductionQuote,onError);
         });
         $(".introductionQuote").click(e=>{
                 viewIntroductionQuote();

@@ -95,7 +95,7 @@ function searchDevis(dropdown,idUser){
 		"data":data,
 		"amenagements":amenagements
 	}
-	postData("/rechercheDevis",data,token,afficherDevis,onError)
+	postData("/rechercheDevis",send,token,afficherDevis,onError)
 	$("#dropdownClientName").val(undefined);
 }
 

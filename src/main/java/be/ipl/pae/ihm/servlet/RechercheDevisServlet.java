@@ -38,38 +38,51 @@ public class RechercheDevisServlet extends HttpServlet {
     try {
       Genson genson = new Genson();
       Map<String, Map<String, String>> send = genson.deserialize(req.getReader(), Map.class);
+      System.out.println(send.toString());
       Map<String, String> data = send.get("data");
       Map<String, String> amenagements = send.get("amenagements");
       List<DevisDto> listeDevisDto = new ArrayList<DevisDto>();
-
+      System.out.println(data.toString());
 
       Double min = 0.0;
       Double max = 0.0;
       String name;
-      String token = req.getHeader("token");
+      String token = req.getHeader("Authorization");
       if (token != null) {
-        if (data.get("min").toString() != "")
+        if (!data.get("min").toString().equals(""))
           min = Double.parseDouble(data.get("min").toString());
-        if (data.get("max").toString() != "")
-          max = Double.parseDouble(data.get("min").toString());
-        if (data.get("date").toString() != "") {
+        if (!data.get("max").toString().equals(""))
+          max = Double.parseDouble(data.get("max").toString());
+        if (!data.get("date").toString().equals("")) {
           SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss.SSS");
           Date parsedDate = dateFormat.parse(data.get("date").toString() + " 00:00:00.000");
           Timestamp timestamp = new Timestamp(parsedDate.getTime());
           devisDto.setDate(timestamp);
         }
+
         name = data.get("name");
 
         if (true) {
           // nom !!!!!!!!!!!!!!!!
           // methode
-          int test = Integer.parseInt((String) amenagements.values().toArray()[0]);
-          // listeDevisDto = devisUcc.rechercheSurDevis(devisDto, min, max, test);
+          int test = 0;
+          if (amenagements.size() != 0)
+            test = Integer.parseInt((String) amenagements.values().toArray()[0]);
+          try {
+            listeDevisDto = devisUcc.rechercheSurDevis(devisDto, min, max, test, name);
+          } catch (Exception exc) {
+            exc.printStackTrace();
+            String json = "{\"success\":\"true\", \"message\":\"" + exc.getMessage() + "\"}";
+            System.out.println("JSON generated :" + json);
 
-        } else {
+            resp.setContentType("application/json");
 
-          // devisUcc.rechercheSurDevis(devisDto, min, max, 1);
-          // methode
+            resp.setCharacterEncoding("UTF-8");
+
+            resp.setStatus(HttpServletResponse.SC_OK);
+            resp.getWriter().write(json);
+          }
+
         }
         String devisData = genson.serialize(listeDevisDto);
         String json = "{\"success\":\"true\", \"devisData\":" + devisData + "}";
