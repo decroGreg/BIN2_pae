@@ -84,4 +84,10 @@ public class ClientDaoMock implements ClientDao {
     // TODO Auto-generated method stub
     return null;
   }
+
+  @Override
+  public List<String> getVilles() {
+    // TODO Auto-generated method stub
+    return null;
+  }
 }

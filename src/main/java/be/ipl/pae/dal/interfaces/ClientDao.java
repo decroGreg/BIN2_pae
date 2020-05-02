@@ -15,5 +15,7 @@ public interface ClientDao {
 
   ClientDto getClientById(int id);
 
+  List<String> getVilles();
+
 }
 
