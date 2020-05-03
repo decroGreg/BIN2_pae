@@ -60,7 +60,7 @@ public class RechercheDevisServlet extends HttpServlet {
           SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss.SSS");
           Date parsedDate = dateFormat.parse(data.get("date").toString() + " 00:00:00.000");
           Timestamp timestamp = new Timestamp(parsedDate.getTime());
-          devisDto.setDateDebutTravaux(timestamp);
+          devisDto.setDate(timestamp);
         }
         if (!data.get("name").contentEquals(""))
           name = data.get("name");
@@ -82,8 +82,8 @@ public class RechercheDevisServlet extends HttpServlet {
           System.out.println("min=" + min + " max=" + max + " name=" + name + " date="
               + devisDto.getDateDebutTravaux() + " idClient=" + devisDto.getIdClient());
           listeDevisDto = devisUcc.rechercheSurDevis(devisDto, min, max, test, name);
-          System.err.println(
-              listeDevisDto.get(0).getIdClient() + "  " + listeDevisDto.get(1).getIdClient());
+          // System.err.println(
+          // listeDevisDto.get(0).getIdClient() + " " + listeDevisDto.get(1).getIdClient());
 
           for (DevisDto de : listeDevisDto) {
             for (ClientDto cl : clientUcc.getClients()) {
