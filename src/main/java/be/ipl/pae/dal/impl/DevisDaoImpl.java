@@ -88,7 +88,7 @@ public class DevisDaoImpl implements DevisDao {
     String requeteSql =
         " SELECT d.id_devis , d.id_client , d.date , d.montant , d.photo_preferee , d.duree_travaux , d.etat , d.date_debut_travaux "
             + "  FROM init.devis d , init.clients c"
-            + "  WHERE UPPER(c.nom) LIKE UPPER(?) AND (d.date >= ? AND d.date <= ?) AND (d.montant >= ? OR d.montant <= ?) AND c.id_client = d.id_client";
+            + "  WHERE UPPER(c.nom) LIKE UPPER(?) AND (d.date >= ? AND d.date <= ?) AND (d.montant >= ? AND d.montant <= ?) AND c.id_client = d.id_client";
 
 
     if (dateSqlMin == null) {

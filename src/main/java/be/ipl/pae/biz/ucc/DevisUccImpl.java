@@ -207,7 +207,7 @@ public class DevisUccImpl implements DevisUcc {
     try {
       daoServicesUcc.demarrerTransaction();
       devisCorrespondants = devisDao.voirDevisAvecCritere(devisDto.getDate(), nomClient, prixMin,
-          prixMax, idAmenagement, 0);
+          prixMax, idAmenagement, devisDto.getIdClient());
     } catch (DalException de) {
       daoServicesUcc.rollback();
       throw new FatalException(de.getMessage());
