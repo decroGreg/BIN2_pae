@@ -81,10 +81,10 @@ public class DetailsDevisServlet extends HttpServlet {
           }
         }
         // Si le devis est visible, je vais chercher sa photo preferee
-        if (devisDto.getEtat() == Etat.V) {
-          System.out.println("ICI");
-          photoPreferee = photoUcc.recupererPhotoPreferee(devisDto);
-        }
+        // if (devisDto.getEtat() == Etat.V) {
+        // System.out.println("ICI");
+        // photoPreferee = photoUcc.recupererPhotoPreferee(devisDto);
+        // }
 
         for (ClientDto c : clientUcc.getClients()) {
           if (c.getIdClient() == devisDto.getIdClient()) {
@@ -125,19 +125,19 @@ public class DetailsDevisServlet extends HttpServlet {
         String clientData = genson.serialize(clientDto);
         String typesAmenagementData = genson.serialize(descriptionsTypeAmenagement);
         String json;
-        if (photoPreferee != null) {
-          System.out.println("ICI");
-          String photoPrefereeData = genson.serialize(photoPreferee);
-          json = "{\"success\":\"true\", \"token\":\"" + token + "\", \"devisData\":" + devisData
-              + ", \"photoPrefereeData\":" + photoPrefereeData + ", \"clientData\":" + clientData
-              + ", \"typesAmenagementData\":" + typesAmenagementData + "}";
-        } else {
-
-        }
+        /*
+         * if (photoPreferee != null) { System.out.println("ICI"); String photoPrefereeData =
+         * genson.serialize(photoPreferee); json = "{\"success\":\"true\", \"token\":\"" + token +
+         * "\", \"devisData\":" + devisData + ", \"photoPrefereeData\":" + photoPrefereeData +
+         * ", \"clientData\":" + clientData + ", \"typesAmenagementData\":" + typesAmenagementData +
+         * "}"; } else {
+         */
         json = "{\"success\":\"true\", \"token\":\"" + token + "\", \"devisData\":" + devisData
             + ", \"clientData\":" + clientData + ", \"typesAmenagementData\":"
             + typesAmenagementData + "}";
-        System.out.println("JSON generated : usccess");
+        // }
+
+        System.out.println("JSON generated : success");
         resp.setContentType("application/json");
 
         resp.setCharacterEncoding("UTF-8");
