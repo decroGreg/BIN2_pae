@@ -78,7 +78,7 @@ public class DevisDaoImpl implements DevisDao {
 
   @Override
   public List<DevisDto> voirDevisAvecCritere(Timestamp dateDevis, String nomClient, double prixMin,
-      double prixMax, int typeDAmenagementRecherche) {
+      double prixMax, int typeDAmenagementRecherche, int idUtilisateur) {
 
     double prixMaxSql = 0;
     String nomSql = nomClient;
@@ -101,6 +101,9 @@ public class DevisDaoImpl implements DevisDao {
     if (nomClient == null) {
       nomSql = "%";
     }
+    if (idUtilisateur != 0) {
+      requeteSql += " AND c.id_utilisateur = ? ";
+    }
     if (typeDAmenagementRecherche != 0) {
       requeteSql += "  AND d.id_devis IN (SELECT id_devis FROM init.amenagements"
           + " WHERE id_type_amenagement = ?) ";
@@ -118,6 +121,12 @@ public class DevisDaoImpl implements DevisDao {
         ps.setDouble(5, prixMax);
       } else {
         ps.setDouble(5, prixMaxSql);
+      }
+      if (idUtilisateur != 0) {
+        ps.setInt(6, idUtilisateur);
+        if (typeAmenagement == true) {
+          ps.setInt(7, typeDAmenagementRecherche);
+        }
       }
       if (typeAmenagement == true) {
         ps.setInt(6, typeDAmenagementRecherche);
