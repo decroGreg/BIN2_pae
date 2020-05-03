@@ -148,7 +148,7 @@ public class PhotoUccImpl implements PhotoUcc {
         throw new FatalException(de.getMessage());
       }
     } else {
-      throw new BizException("Ce devis n'a pas de photo préférée");
+      return null;
     }
   }
 }

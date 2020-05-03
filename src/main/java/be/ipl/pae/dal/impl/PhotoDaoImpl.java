@@ -142,7 +142,7 @@ public class PhotoDaoImpl implements PhotoDao {
     } catch (SQLException ex) {
       throw new DalException(ex.getMessage());
     }
-    return null;
+    return photo;
   }
 
 }

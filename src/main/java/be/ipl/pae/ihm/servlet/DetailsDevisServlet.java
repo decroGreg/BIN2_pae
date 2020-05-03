@@ -81,10 +81,10 @@ public class DetailsDevisServlet extends HttpServlet {
           }
         }
         // Si le devis est visible, je vais chercher sa photo preferee
-        // if (devisDto.getEtat() == Etat.V) {
-        // System.out.println("ICI");
-        // photoPreferee = photoUcc.recupererPhotoPreferee(devisDto);
-        // }
+        if (devisDto.getEtat() == Etat.V) {
+          System.out.println("ICI");
+          photoPreferee = photoUcc.recupererPhotoPreferee(devisDto);
+        }
 
         for (ClientDto c : clientUcc.getClients()) {
           if (c.getIdClient() == devisDto.getIdClient()) {
