@@ -41,7 +41,7 @@ public class AmenagementServlet extends HttpServlet {
 
       } else {
         String json = "{\"success\":\"false\", \"token\":\"" + token
-            + "\",\"message\":\"vous n'etes pas connecté\"}";
+            + "\",\"message\":\"vous n'etes pas connecte\"}";
         System.out.println("JSON generated :" + json);
         resp.setContentType("application/json");
         resp.setCharacterEncoding("UTF-8");
