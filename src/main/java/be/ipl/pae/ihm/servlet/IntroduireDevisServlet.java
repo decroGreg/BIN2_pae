@@ -80,7 +80,7 @@ public class IntroduireDevisServlet extends HttpServlet {
       Map<String, Map<String, String>> data = genson.deserialize(req.getReader(), Map.class);
       System.out.println(data.toString());
       try {
-        Map<String, String> images = data.get("image");
+        Map<String, String> images = data.get("images");
         System.out.println(images);
         Map<String, String> dataUser = data.get("dataUser");
         Map<String, String> dataQuote = data.get("dataQuote");
@@ -123,8 +123,8 @@ public class IntroduireDevisServlet extends HttpServlet {
               "veuillez introduire lie un client ou un nouveau client");
         }
 
-        int idDevis = devisUcc.introduireDevis(clientDto, idUser, devisDto,
-            (List<String>) data.get("type"));
+        int idDevis =
+            devisUcc.introduireDevis(clientDto, idUser, devisDto, (List<String>) data.get("type"));
         if (images != null)
           for (String s : images.values()) {
             photoUcc.ajouterPhotoAvantAmenagement(idDevis, s);// remplacer le 0 par l idDevis
