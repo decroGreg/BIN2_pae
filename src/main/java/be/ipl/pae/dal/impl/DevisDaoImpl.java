@@ -25,6 +25,7 @@ public class DevisDaoImpl implements DevisDao {
    * Constructeur Devis Dao.
    * 
    * @param daoService classe service.
+   * @param factory injection de dependance pour la factory.
    */
   public DevisDaoImpl(DaoServices daoService, Factory factory) {
     this.services = daoService;
@@ -88,10 +89,11 @@ public class DevisDaoImpl implements DevisDao {
     Timestamp dateSqlMax = dateDevis;
     boolean typeAmenagement = false;
     String requeteSql =
-        " SELECT d.id_devis , d.id_client , d.date , d.montant , d.photo_preferee , d.duree_travaux , d.etat , d.date_debut_travaux "
+        " SELECT d.id_devis , d.id_client , d.date , d.montant , d.photo_preferee , "
+            + "d.duree_travaux , d.etat , d.date_debut_travaux "
             + "  FROM init.devis d , init.clients c"
-            + "  WHERE UPPER(c.nom) LIKE UPPER(?) AND (d.date >= ? AND d.date <= ?) AND (d.montant >= ? OR d.montant <= ?) AND c.id_client = d.id_client";
-
+            + "  WHERE UPPER(c.nom) LIKE UPPER(?) AND (d.date >= ? AND d.date <= ?) AND "
+            + "(d.montant >= ? OR d.montant <= ?) AND c.id_client = d.id_client";
 
     if (dateSqlMin == null) {
       dateSqlMin = java.sql.Timestamp.valueOf("1000-01-01 10:10:10.0");
