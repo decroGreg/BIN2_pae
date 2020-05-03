@@ -88,7 +88,7 @@ public class DevisDaoImpl implements DevisDao {
     String requeteSql =
         " SELECT d.id_devis , d.id_client , d.date , d.montant , d.photo_preferee , d.duree_travaux , d.etat , d.date_debut_travaux "
             + "  FROM init.devis d , init.clients c"
-            + "  WHERE c.nom LIKE ? AND (d.date >= ? AND d.date <= ?) AND (d.montant >= ? OR d.montant <= ?) AND c.id_client = d.id_client";
+            + "  WHERE UPPER(c.nom) LIKE UPPER(?) AND (d.date >= ? AND d.date <= ?) AND (d.montant >= ? OR d.montant <= ?) AND c.id_client = d.id_client   b ";
 
 
     if (dateSqlMin == null) {
@@ -248,12 +248,10 @@ public class DevisDaoImpl implements DevisDao {
   @Override
   public boolean repousserDateDebut(DevisDto devis) {
     String requeteSql = "UPDATE init.devis SET date_debut_travaux = ? WHERE id_devis = ?";
-    int idDevis = devis.getIdDevis();
-    Timestamp dateDebut = devis.getDateDebutTravaux();
     ps = services.getPreparedSatement(requeteSql);
     try {
-      ps.setTimestamp(1, dateDebut);
-      ps.setInt(2, idDevis);
+      ps.setTimestamp(1, devis.getDateDebutTravaux());
+      ps.setInt(2, devis.getIdDevis());
       ps.execute();
     } catch (SQLException ex) {
       throw new DalException("Erreur lors du changement de date debut du devis" + ex.getMessage());

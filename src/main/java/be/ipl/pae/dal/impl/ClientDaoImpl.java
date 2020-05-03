@@ -192,4 +192,22 @@ public class ClientDaoImpl implements ClientDao {
     }
     return clientDto;
   }
+
+  @Override
+  public List<String> getVilles() {
+    List<String> listeVille = new ArrayList<String>();
+    String requeteSql = "SELECT DISTINCT ville FROM init.clients";
+    ps = services.getPreparedSatement(requeteSql);
+    try {
+      try (ResultSet rs = ps.executeQuery()) {
+        while (rs.next()) {
+          String ville = rs.getString(1);
+          listeVille.add(ville);
+        }
+        return listeVille;
+      }
+    } catch (SQLException ex) {
+      throw new DalException(ex.getMessage());
+    }
+  }
 }

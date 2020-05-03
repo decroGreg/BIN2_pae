@@ -51,9 +51,11 @@ public class TypeDAmenagementUccImpl implements TypeDAmenagementUcc {
   public TypeDAmenagementDto ajouterTypeAmenagement(String descriptif) {
     if (descriptif != null) {
       try {
+        daoServicesUcc.demarrerTransaction();
         TypeDAmenagementDto typeAmenagementDto =
             typeDAmenagementDao.createTypeAmenagement(descriptif);
         if (typeAmenagementDto == null) {
+          daoServicesUcc.commit();
           throw new BizException("La création du type d'aménagement a échoué");
         }
         daoServicesUcc.commit();

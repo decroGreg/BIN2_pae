@@ -186,7 +186,7 @@ public class DevisUccImpl implements DevisUcc {
 
   @Override
   public void repousserDateDebut(DevisDto devisDto) {
-    if (devisDto.getEtat().equals(Etat.FD)) {
+    if (devisDto.getEtat().equals(Etat.FD) || devisDto.getEtat().equals(Etat.DC)) {
       try {
         daoServicesUcc.demarrerTransaction();
         devisDao.repousserDateDebut(devisDto);

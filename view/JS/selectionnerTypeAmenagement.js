@@ -16,7 +16,6 @@ function remplirListeTypesAmenagement(response){
 		$("#navBarStaticTypesAmenagements").append(html);
 	});
 	changerCarrousel(response);
-	console.log("ICI");
 	$("#navBarTypesAmenagements a").click(e=>{
 		e.preventDefault();
 		console.log("ID type amenagement = " + $(e.target).attr("id"));
@@ -41,6 +40,8 @@ function changerCarrousel(response){
 	var compteurSlides = 0;
 	// Activate Carousel
     $(".carousel slide").attr("data-ride","carousel");
+    $(".carousel slide").attr("data-interval", "2000");
+
 
 	Object.keys(response.photosData).forEach(data=>{
 		var carouselIndicator = "<li data-target='#myCarousel' data-slide-to='" + compteurSlides+ "'></li>";
@@ -55,22 +56,28 @@ function changerCarrousel(response){
 	});
 	$('.carousel-item').first().addClass('active');
     $('.carousel-indicators > li').first().addClass('active');
-    //$(".carousel slide").attr("data-ride","carousel");
-    $('.carousel').carousel({
-        interval: 2000,
-        pause:null
-    });
-    $("#myCarousel").carousel();
+    $(".carousel slide").attr("data-ride","carousel");
+    $(".carousel slide").attr("data-interval", "2000");
+    /*$("#myCarousel").carousel();
 
-    //$('.carousel').carousel('cycle');
+    $('#myCarousel').carousel({
+        interval: 2000
+    });
+    //$("#myCarousel").carousel();
+
+    $('.carousel slide').carousel('cycle');
     // Enable Carousel Controls
-    $(".left").click(function(){
-    	$("#myCarousel").carousel("prev");
+    $(".carousel-control-prev").click(e=>{
+    	e.stopPropagation();
+    	console.log("PREV");
+    	$("#myCarousel").carousel('prev');
     });
     
-	$(".right").click(function() {
-		$("#myCarousel").carousel("next");
-	});
+	$(".carousel-control-next").click(e=> {
+		e.stopPropagation();
+    	console.log("NEXT");
+		$("#myCarousel").carousel('next');
+	});*/
 
 }
 
