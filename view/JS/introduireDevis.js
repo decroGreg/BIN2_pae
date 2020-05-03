@@ -43,11 +43,10 @@ $(document).ready(function () {
                 console.log(data);
                 postData("/amenagements",data,token,viewIntroductionQuote,onError);
         });
+
         $(".introductionQuote").click(e=>{
                 viewIntroductionQuote();
-                getData("/introduireServlet",token,onGetAmenagements,onError);
-                getData("/listeClients",token,onGetClientQuoteForm,onError);
-                getData("/listeUsers",token,onGetUserQuoteForm,onError)
+               
             });
         $("#enregistrer-photo").click(e=>{
                 photo[nbPhoto]=$("img").attr("src");
@@ -220,6 +219,9 @@ function viewIntroductionQuote(){
     allHide();
     photo={};
     $("#introductionQuoteForm").show();
+    getData("/introduireServlet",token,onGetAmenagements,onError);
+    getData("/listeClients",token,onGetClientQuoteForm,onError);
+    getData("/listeUsers",token,onGetUserQuoteForm,onError)
    
 }
 
