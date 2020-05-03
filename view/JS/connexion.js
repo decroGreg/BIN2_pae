@@ -31,6 +31,9 @@ function viewAuthentification(user){
             $("#mesDevis").show();
 
     }
+    $(".mesPhotos").show();
+    $(".mesDevis").show();
+
     $("#introductionQuoteForm").hide();
     $("#connexion").hide();
     $('#navigation_bar').hide();
@@ -68,4 +71,4 @@ function onPostRegister(response){
     }
 }
 
-export{viewAuthentification,viewLogin,onPostRegister};
+export{viewAuthentification,viewLogin,onPostRegister,OUVRIER};

@@ -28,5 +28,5 @@ public interface DevisDao {
   int getIdDernierDevis();
 
   List<DevisDto> voirDevisAvecCritere(Timestamp dateDevis, String nomClient, double prixMin,
-      double prixMax, int typeDAmenagementRecherche);
+      double prixMax, int typeDAmenagementRecherche, int idUtilisateur);
 }

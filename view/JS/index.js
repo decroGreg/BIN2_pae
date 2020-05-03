@@ -1,8 +1,8 @@
 "use-strict";
 import {postData,getData,onError, putData} from "./util.js" ;
-import{viewAuthentification,viewLogin,onPostRegister} from "./connexion.js"
+import{viewAuthentification,viewLogin,onPostRegister,OUVRIER} from "./connexion.js"
 import{afficherClients,afficherClientsDropdown} from "./afficherClients.js";
-import{afficherDevis, afficherDevisClient,onGetAmenagementDevis,onGetAmenagementDevisClient,onGetClientDevis,onGetClientDevisClient} from "./afficherDevis.js";
+import{afficherDevis, afficherDevisClient,onGetAmenagementDevis,onGetAmenagementDevisClient,onGetClientDevis} from "./afficherDevis.js";
 import{afficherUtilisateurs,afficherUtilisateursDropdown} from "./afficherUtilisateurs.js";
 import{afficherDetailsDevis, changerEtat, changerValeurBouton} from "./detailsDevis.js";
 import{remplirListeTypesAmenagement} from "./selectionnerTypeAmenagement.js";
@@ -100,7 +100,7 @@ $(document).ready(e=>{
         mesDevis();
         //getData("/listeUsers",token,onGetClientDevisClient,onError);
         //alert();
-        //getData("/introduireServlet",token,onGetAmenagementDevisClient,onError);
+        getData("/introduireServlet",token,onGetAmenagementDevisClient,onError);
     });
     
     $("#btn-search-category").click(e=>{
@@ -149,16 +149,10 @@ $(document).ready(e=>{
         };
         console.log("id devis-->"+$("#btn-devis-repousserDate").attr("idDevis"));
         console.log(data);
-        putData("/detailsDevis",token,data,onPutRepousserDate,onError);
+        //putData("/detailsDevis",token,data,onPutRepousserDate,onError);
 
     });
 
-    $(".myInput").on("keyup", function() {
-        var value = $(this).val().toLowerCase();
-        $(".dropdown-menu li").filter(function() {
-          $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
-        });
-    });
     
     $(".mesPhotos").click(e=>{
     	let data=user;
@@ -172,6 +166,7 @@ function onPutRepousserDate(response){
 
 
 function allHide(){
+        
         $("#voir-devis-client").hide();
         $("#3-category").hide();
         $("#login-form").hide();
@@ -184,13 +179,17 @@ function allHide(){
         $("#voir-devis").hide();
     	$("#voir-photos-client").hide();
     	$("#ajouterPhoto").hide();
-    	$("#choisirPhotoPreferee").hide();
-
+        $("#choisirPhotoPreferee").hide();
         
 }
-
 //Home page non-connecté
 function viewHomePage(){
+        allHide();
+        $(".mesPhotos").hide();
+        $(".mesDevis").hide();
+        $(".introductionQuote").hide();
+        $(".Register-confirmation-link").hide();
+
         $(".connexion").show();
         $("#Register-confirmation").hide();
         $("#login-form").hide();
@@ -198,23 +197,9 @@ function viewHomePage(){
         $("#btn-deconnexion").hide();
         $("#wrong_passwd").hide();
         $("#carousel").show();
-        $(".Register-confirmation-link").hide();
-        $(".introductionQuote").hide();
-        $("#introductionQuoteForm").hide();
         $("#list-confirmation-link").hide(); 
-        $("#voir-utilisateurs").hide();
-        $("#voir-devis").hide();
-        $("#voir-devis-client").hide();
-        $("#voir-clients").hide();
         $("#voir-details-devis").hide();
-        $("#mesDevis").hide();
-        $("#mesPhotos").hide();
         $("#search-homepage").hide();
-    	$("#voir-photos-client").hide();
-    	$("#ajouterPhoto").hide();
-    	$("#choisirPhotoPreferee").hide();
-
-
 
 }
 function authentificationToken(token){
@@ -279,5 +264,5 @@ function mesDevis(){
 	postData("/listeDevisClient",data,token,afficherDevisClient,onError);
 }
 
-export{token,allHide};
+export{token,allHide,user};
 

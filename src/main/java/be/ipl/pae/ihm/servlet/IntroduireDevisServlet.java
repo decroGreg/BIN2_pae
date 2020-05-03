@@ -123,10 +123,11 @@ public class IntroduireDevisServlet extends HttpServlet {
               "veuillez introduire lie un client ou un nouveau client");
         }
 
-        devisUcc.introduireDevis(clientDto, idUser, devisDto, (List<String>) data.get("type"));
+        int idDevis = devisUcc.introduireDevis(clientDto, idUser, devisDto,
+            (List<String>) data.get("type"));
         if (images != null)
           for (String s : images.values()) {
-            photoUcc.ajouterPhotoAvantAmenagement(0, s);// remplacer le 0 par l idDevis
+            photoUcc.ajouterPhotoAvantAmenagement(idDevis, s);// remplacer le 0 par l idDevis
           }
 
       } catch (Exception exce) {

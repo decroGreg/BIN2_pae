@@ -148,6 +148,7 @@ public class DetailsDevisServlet extends HttpServlet {
 
       Map<String, String> data = genson.deserialize(req.getReader(), Map.class);
       try {
+        System.out.println(data.get("idDevis"));
         int idDevis = Integer.parseInt(data.get("idDevis"));
         Etat etat = Etat.valueOf(data.get("etat"));
         System.err.println(etat.toString() + "******************************************");
@@ -158,7 +159,7 @@ public class DetailsDevisServlet extends HttpServlet {
             break;
           default:
             throw new IllegalArgumentException(
-                "l etat du devis ne permet pas d'effectuer cette action");
+                "l etat du devis ne permet pas d efectuer cette action");
         }
         devisDto.setIdDevis(idDevis);
         devisDto.setEtat(etat);

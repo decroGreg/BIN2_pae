@@ -9,6 +9,6 @@ public interface TypeDAmenagementUcc {
 
   List<TypeDAmenagementDto> voirTypeDAmenagement();
 
-  TypeDAmenagementDto ajouterTypeAmenagement(String descriptif);
+  void ajouterTypeAmenagement(String descriptif);
 
 }

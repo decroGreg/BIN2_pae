@@ -33,18 +33,20 @@ function encodeImagetoBase64(element) {
 
 
 $(document).ready(function () {
+
+        
         $("#CreerAmenagement").click(e=>{
                 var data={
                         "description":$("#Modal-Form-Description").val()
                 };
+                if(!checkInput(data,"la description est vide")) return;
                 console.log(data);
-                //postData("",data,token,viewIntroductionQuote,onError);
+                postData("/amenagements",data,token,viewIntroductionQuote,onError);
         });
+
         $(".introductionQuote").click(e=>{
                 viewIntroductionQuote();
-                getData("/introduireServlet",token,onGetAmenagements,onError);
-                getData("/listeClients",token,onGetClientQuoteForm,onError);
-                getData("/listeUsers",token,onGetUserQuoteForm,onError)
+               
             });
         $("#enregistrer-photo").click(e=>{
                 photo[nbPhoto]=$("img").attr("src");
@@ -215,8 +217,12 @@ function onPostIntroductionQuote(response){
 
 function viewIntroductionQuote(){
     allHide();
+    
     photo={};
     $("#introductionQuoteForm").show();
+    getData("/introduireServlet",token,onGetAmenagements,onError);
+    getData("/listeClients",token,onGetClientQuoteForm,onError);
+    getData("/listeUsers",token,onGetUserQuoteForm,onError)
    
 }
 

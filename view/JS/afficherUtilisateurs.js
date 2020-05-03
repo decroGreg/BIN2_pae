@@ -34,6 +34,7 @@ function afficherUtilisateursDropdown(response){ //(response,balise ul,id input,
 	input.placeholder="Search..";
 	input.className="form-control";
 	input.addEventListener("keyup",function(){
+		$("#searchUtilisateursNameDropdown").text($(this).val());
 		filterDropdown(this);
 	});
 

@@ -46,9 +46,9 @@ public class TypeDAmenagementDaoMock implements TypeDAmenagementDao {
   }
 
   @Override
-  public TypeDAmenagementDto createTypeAmenagement(String nomType) {
+  public boolean createTypeAmenagement(String nomType) {
     // TODO Auto-generated method stub
-    return null;
+    return false;
   }
 
 
