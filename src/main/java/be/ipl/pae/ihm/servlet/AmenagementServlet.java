@@ -1,6 +1,6 @@
 package be.ipl.pae.ihm.servlet;
 
-import be.ipl.pae.biz.interfaces.AmenagementUcc;
+import be.ipl.pae.biz.interfaces.TypeDAmenagementUcc;
 
 import com.owlike.genson.Genson;
 
@@ -13,9 +13,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 public class AmenagementServlet extends HttpServlet {
-  private AmenagementUcc amenagementUcc;
+  private TypeDAmenagementUcc amenagementUcc;
 
-  public AmenagementServlet(AmenagementUcc amenagementUcc) {
+  public AmenagementServlet(TypeDAmenagementUcc amenagementUcc) {
     this.amenagementUcc = amenagementUcc;
   }
 
@@ -30,6 +30,8 @@ public class AmenagementServlet extends HttpServlet {
       String token = req.getHeader("Authorization");
       if (token != null) {
         // methode
+        System.out.println(description);
+        amenagementUcc.ajouterTypeAmenagement(description);
         String json = "{\"success\":\"true\", \"token\":\"" + token + "\"}";
         System.out.println("JSON generated :" + json);
         resp.setContentType("application/json");

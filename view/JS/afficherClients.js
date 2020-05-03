@@ -29,6 +29,7 @@ function afficherClientsDropdown(response){
 	input.placeholder="Search..";
 	input.className="form-control";
 	input.addEventListener("keyup",function(){
+		$("#searchClientsNameDropdown").text($(this).val());
 		filterDropdown(this);
 	});
 

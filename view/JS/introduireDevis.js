@@ -33,6 +33,8 @@ function encodeImagetoBase64(element) {
 
 
 $(document).ready(function () {
+
+        
         $("#CreerAmenagement").click(e=>{
                 var data={
                         "description":$("#Modal-Form-Description").val()

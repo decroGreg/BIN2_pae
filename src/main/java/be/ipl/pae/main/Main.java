@@ -138,7 +138,7 @@ public class Main {
         amenagementUcc, typeAmenagmentUcc);
     context.addServlet(new ServletHolder(changementEtatDevis), "/changementEtatDevis");
 
-    HttpServlet rechercheDevis = new RechercheDevisServlet(devisUcc, devisDto);
+    HttpServlet rechercheDevis = new RechercheDevisServlet(devisUcc, devisDto, clientUcc);
     context.addServlet(new ServletHolder(rechercheDevis), "/rechercheDevis");
 
     HttpServlet ajouterPhoto = new AjouterPhotoDevisServlet(photoDto, photoUcc, amenagementUcc,
@@ -155,7 +155,7 @@ public class Main {
     HttpServlet photosClient = new PhotosClientServlet(clientUcc, devisUcc, photoUcc);
     context.addServlet(new ServletHolder(photosClient), "/mesPhotos");
 
-    HttpServlet amenagementServlet = new AmenagementServlet(amenagementUcc);
+    HttpServlet amenagementServlet = new AmenagementServlet(typeAmenagmentUcc);
     context.addServlet(new ServletHolder(amenagementServlet), "/amenagements");
 
     context.setWelcomeFiles(new String[] {"index.html"});
