@@ -149,7 +149,7 @@ $(document).ready(e=>{
         };
         console.log("id devis-->"+$("#btn-devis-repousserDate").attr("idDevis"));
         console.log(data);
-        //putData("/detailsDevis",token,data,onPutRepousserDate,onError);
+        putData("/detailsDevis",token,data,onPutRepousserDate,onError);
 
     });
 
