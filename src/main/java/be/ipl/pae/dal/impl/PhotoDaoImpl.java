@@ -25,13 +25,24 @@ public class PhotoDaoImpl implements PhotoDao {
 
 
   public boolean introduirePhoto(PhotoDto photoDto) {
-    String requeteSql = "INSERT INTO init.photos VALUES(DEFAULT, ?, ?, ?, ?)";
+    boolean amenagement = false;
+    String requeteSql = "INSERT INTO init.photos VALUES(DEFAULT, ?, null, ?, ?)";
+    if (photoDto.getIdAmenagement() != 0) {
+      requeteSql = "INSERT INTO init.photos VALUES(DEFAULT, ?, ?, ?, ?)";
+      amenagement = true;
+    }
     ps = services.getPreparedSatement(requeteSql);
     try {
-      ps.setString(1, photoDto.getUrlPhoto());
-      ps.setInt(2, photoDto.getIdAmenagement());
-      ps.setInt(3, photoDto.getIdDevis());
-      ps.setBoolean(4, photoDto.isVisible());
+      if (amenagement) {
+        ps.setString(1, photoDto.getUrlPhoto());
+        ps.setInt(2, photoDto.getIdAmenagement());
+        ps.setInt(3, photoDto.getIdDevis());
+        ps.setBoolean(4, photoDto.isVisible());
+      } else {
+        ps.setString(1, photoDto.getUrlPhoto());
+        ps.setInt(2, photoDto.getIdDevis());
+        ps.setBoolean(3, photoDto.isVisible());
+      }
       ps.execute();
     } catch (SQLException ex) {
       throw new DalException();

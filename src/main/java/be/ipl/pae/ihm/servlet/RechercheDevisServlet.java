@@ -112,13 +112,14 @@ public class RechercheDevisServlet extends HttpServlet {
         String json = "{\"success\":\"true\", \"token\":\"" + token + "\", \"devisData\":"
             + devisData + ", \"clientsData\":" + genson.serialize(listeClientsDto) + "}";
         System.out.println("JSON generated :" + json);
-
+        devisDto.setDate(null);
         resp.setContentType("application/json");
 
         resp.setCharacterEncoding("UTF-8");
 
         resp.setStatus(HttpServletResponse.SC_OK);
         resp.getWriter().write(json);
+
 
       }
     } catch (
