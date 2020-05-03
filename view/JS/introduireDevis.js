@@ -217,6 +217,7 @@ function onPostIntroductionQuote(response){
 
 function viewIntroductionQuote(){
     allHide();
+    
     photo={};
     $("#introductionQuoteForm").show();
     getData("/introduireServlet",token,onGetAmenagements,onError);
