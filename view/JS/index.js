@@ -1,6 +1,6 @@
 "use-strict";
 import {postData,getData,onError, putData} from "./util.js" ;
-import{viewAuthentification,viewLogin,onPostRegister} from "./connexion.js"
+import{viewAuthentification,viewLogin,onPostRegister,OUVRIER} from "./connexion.js"
 import{afficherClients,afficherClientsDropdown} from "./afficherClients.js";
 import{afficherDevis, afficherDevisClient,onGetAmenagementDevis,onGetAmenagementDevisClient,onGetClientDevis} from "./afficherDevis.js";
 import{afficherUtilisateurs,afficherUtilisateursDropdown} from "./afficherUtilisateurs.js";
@@ -166,6 +166,7 @@ function onPutRepousserDate(response){
 
 
 function allHide(){
+        
         $("#voir-devis-client").hide();
         $("#3-category").hide();
         $("#login-form").hide();
@@ -178,13 +179,17 @@ function allHide(){
         $("#voir-devis").hide();
     	$("#voir-photos-client").hide();
     	$("#ajouterPhoto").hide();
-    	$("#choisirPhotoPreferee").hide();
-
+        $("#choisirPhotoPreferee").hide();
         
 }
-
 //Home page non-connecté
 function viewHomePage(){
+        allHide();
+        $(".mesPhotos").hide();
+        $(".mesDevis").hide();
+        $(".introductionQuote").hide();
+        $(".Register-confirmation-link").hide();
+
         $(".connexion").show();
         $("#Register-confirmation").hide();
         $("#login-form").hide();
@@ -192,23 +197,9 @@ function viewHomePage(){
         $("#btn-deconnexion").hide();
         $("#wrong_passwd").hide();
         $("#carousel").show();
-        $(".Register-confirmation-link").hide();
-        $(".introductionQuote").hide();
-        $("#introductionQuoteForm").hide();
         $("#list-confirmation-link").hide(); 
-        $("#voir-utilisateurs").hide();
-        $("#voir-devis").hide();
-        $("#voir-devis-client").hide();
-        $("#voir-clients").hide();
         $("#voir-details-devis").hide();
-        $("#mesDevis").hide();
-        $("#mesPhotos").hide();
         $("#search-homepage").hide();
-    	$("#voir-photos-client").hide();
-    	$("#ajouterPhoto").hide();
-    	$("#choisirPhotoPreferee").hide();
-
-
 
 }
 function authentificationToken(token){
