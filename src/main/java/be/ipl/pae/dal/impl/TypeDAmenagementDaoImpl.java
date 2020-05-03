@@ -49,7 +49,7 @@ public class TypeDAmenagementDaoImpl implements TypeDAmenagementDao {
   }
 
   @Override
-  public TypeDAmenagementDto createTypeAmenagement(String nomType) {
+  public boolean createTypeAmenagement(String nomType) {
     String requeteSql = "INSERT INTO init.types_amenagement VALUES(DEFAULT, ?)";
     ps = services.getPreparedSatement(requeteSql);
     try {
@@ -58,7 +58,7 @@ public class TypeDAmenagementDaoImpl implements TypeDAmenagementDao {
     } catch (SQLException ex) {
       throw new DalException(ex.getMessage());
     }
-    return null;
+    return true;
   }
 
 

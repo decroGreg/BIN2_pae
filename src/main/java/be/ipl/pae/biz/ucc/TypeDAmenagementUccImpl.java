@@ -48,24 +48,21 @@ public class TypeDAmenagementUccImpl implements TypeDAmenagementUcc {
   }
 
   @Override
-  public TypeDAmenagementDto ajouterTypeAmenagement(String descriptif) {
+  public void ajouterTypeAmenagement(String descriptif) {
     if (descriptif != null) {
       try {
         daoServicesUcc.demarrerTransaction();
-        TypeDAmenagementDto typeAmenagementDto =
-            typeDAmenagementDao.createTypeAmenagement(descriptif);
-        if (typeAmenagementDto == null) {
+        if (!typeDAmenagementDao.createTypeAmenagement(descriptif)) {
           daoServicesUcc.commit();
           throw new BizException("La création du type d'aménagement a échoué");
         }
         daoServicesUcc.commit();
-        return typeAmenagementDto;
       } catch (DalException de) {
         daoServicesUcc.rollback();
         throw new FatalException(de.getMessage());
       }
     } else {
-      return null;
+      throw new BizException("La description est vide");
     }
   }
 
