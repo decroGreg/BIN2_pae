@@ -87,7 +87,6 @@ public class DevisDaoImpl implements DevisDao {
     String nomSql = nomClient;
     Timestamp dateSqlMin = dateDevis;
     Timestamp dateSqlMax = dateDevis;
-    boolean typeAmenagement = false;
     String requeteSql =
         " SELECT d.id_devis , d.id_client , d.date , d.montant , d.photo_preferee , "
             + "d.duree_travaux , d.etat , d.date_debut_travaux "
@@ -96,8 +95,8 @@ public class DevisDaoImpl implements DevisDao {
             + "(d.montant >= ? OR d.montant <= ?) AND c.id_client = d.id_client";
 
     if (dateSqlMin == null) {
-      dateSqlMin = java.sql.Timestamp.valueOf("1000-01-01 10:10:10.0");
-      dateSqlMax = java.sql.Timestamp.valueOf("2999-11-11 10:10:10.0");
+      dateSqlMin = Timestamp.valueOf("1000-01-01 10:10:10.0");
+      dateSqlMax = Timestamp.valueOf("2999-11-11 10:10:10.0");
     }
     if (prixMax == 0) {
       prixMaxSql = Math.pow(2, 31);
@@ -111,7 +110,7 @@ public class DevisDaoImpl implements DevisDao {
     if (!typeDAmenagementRecherche.isEmpty()) {
       requeteSql += "  AND d.id_devis IN (SELECT id_devis FROM init.amenagements"
           + " WHERE id_type_amenagement = ? ";
-      for (Integer typeDAmenagementDto : typeDAmenagementRecherche) {
+      for (int i = 0; i < typeDAmenagementRecherche.size(); i++) {
         requeteSql += " OR id_type_amenagement = ?";
       }
       requeteSql += " )";
@@ -226,7 +225,6 @@ public class DevisDaoImpl implements DevisDao {
     String requeteSql = "UPDATE init.devis SET photo_preferee = ? WHERE id_devis = ?";
     int idDevis = devis.getIdDevis();
     ps = services.getPreparedSatement(requeteSql);
-    String etat = devis.getEtat().name();
     try {
       ps.setInt(1, idPhoto);
       ps.setInt(2, idDevis);

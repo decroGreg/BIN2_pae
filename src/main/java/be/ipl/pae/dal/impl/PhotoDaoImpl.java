@@ -30,6 +30,7 @@ public class PhotoDaoImpl implements PhotoDao {
   }
 
 
+  @Override
   public boolean introduirePhoto(PhotoDto photoDto) {
     boolean amenagement = false;
     String requeteSql = "INSERT INTO init.photos VALUES(DEFAULT, ?, null, ?, ?)";
