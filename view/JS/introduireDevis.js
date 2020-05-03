@@ -1,6 +1,7 @@
 
 import {creatHTMLFromString,getData,postData,onError, filterDropdown} from "./util.js" ;
 import {token, allHide} from "./index.js";
+import {remplirListeTypesAmenagement} from "./selectionnerTypeAmenagement.js";
 var photo={};
 var nbPhoto=0;
 function checkInput(data,message){
@@ -217,7 +218,7 @@ function onPostIntroductionQuote(response){
 
 function viewIntroductionQuote(){
     allHide();
-    
+    getData("/voirTypesAmenagement", token, remplirListeTypesAmenagement, onError);
     photo={};
     $("#introductionQuoteForm").show();
     getData("/introduireServlet",token,onGetAmenagements,onError);

@@ -14,6 +14,7 @@ function afficherDetailsDevis(response){
 	$("#ajouterPhoto").hide();
 	$("#choisirPhotoPreferee").hide();
 	$("#btn-devis-repousserDate").hide();
+	$("#photoPrefereeDevis").hide();
 
 	//Remplir donnees client
 	$("#voir-details-devis #nomClient").attr("value", response.clientData.nom);
@@ -35,6 +36,11 @@ function afficherDetailsDevis(response){
 	$("#voir-details-devis #typeAmenagementDevis").append(html);
 	$("#voir-details-devis #typeAmenagementDevis").prop("disabled", true);
 	
+	//Si le devis est visible, j'affiche la photo preferee
+	if(response.devisData.etat=="V" && response.photoPrefereeData!=""){
+		$("#photoPrefereeDevis").show();
+		$("#photoPrefereeDevis").append("<img src='"+ response.photoPrefereeData[data].urlPhoto +"' width='193' height='130'>");
+	}
 	//Pour voir si on peut changer la value de dateDebutTravaux
 	if(response.devisData.etat=="I"){
 		$("#voir-details-devis #dateDebutTravaux").attr("value", " ");
@@ -74,7 +80,12 @@ function afficherDetailsDevis(response){
 		data.idDevis = response.devisData.idDevis;
 		data.etatDevis = nouvelEtat;
 		data.dateDebutTravaux = $("#voir-details-devis #dateDebutTravaux").val();
-		postData("/changementEtatDevis", data, token, afficherDetailsDevis, onError);
+		if (confirm("Etes vous sur de vouloir changer l'etat du devis?")) {
+			postData("/changementEtatDevis", data, token, afficherDetailsDevis, onError);
+
+	       } else {
+	           return false;
+	       }
 	});
 	
 	//click sur annuler devis
