@@ -138,7 +138,7 @@ public class DevisDaoMock implements DevisDao {
 
   @Override
   public List<DevisDto> voirDevisAvecCritere(Timestamp dateDevis, String nomClient, double prixMin,
-      double prixMax, int typeDAmenagementRecherche, int idUtilisateur) {
+      double prixMax, List<Integer> typeDAmenagementRecherche, int idUtilisateur) {
     // TODO Auto-generated method stub
     testDalException();
     if (voirDevisAvecCritere) {

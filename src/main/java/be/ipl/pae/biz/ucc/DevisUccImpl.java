@@ -200,15 +200,22 @@ public class DevisUccImpl implements DevisUcc {
     }
   }
 
-  // A Remettre
-  /**
-   * public List<DevisDto> rechercheSurDevis(DevisDto devisDto, double prixMin, double prixMax,
-   * List<Integer> idTypeAmenagements, String nomClient) { List<DevisDto> devisCorrespondants =
-   * null; try { daoServicesUcc.demarrerTransaction(); devisCorrespondants =
-   * devisDao.voirDevisAvecCritere(devisDto.getDate(), nomClient, prixMin, prixMax,
-   * idTypeAmenagements, devisDto.getIdClient()); } catch (DalException de) {
-   * daoServicesUcc.rollback(); throw new FatalException(de.getMessage()); }
-   * daoServicesUcc.commit(); return Collections.unmodifiableList(devisCorrespondants); }
-   */
+
+
+  public List<DevisDto> rechercheSurDevis(DevisDto devisDto, double prixMin, double prixMax,
+      List<Integer> idTypeAmenagements, String nomClient) {
+    List<DevisDto> devisCorrespondants = null;
+    try {
+      daoServicesUcc.demarrerTransaction();
+      devisCorrespondants = devisDao.voirDevisAvecCritere(devisDto.getDate(), nomClient, prixMin,
+          prixMax, idTypeAmenagements, devisDto.getIdClient());
+    } catch (DalException de) {
+      daoServicesUcc.rollback();
+      throw new FatalException(de.getMessage());
+    }
+    daoServicesUcc.commit();
+    return Collections.unmodifiableList(devisCorrespondants);
+  }
+
 
 }

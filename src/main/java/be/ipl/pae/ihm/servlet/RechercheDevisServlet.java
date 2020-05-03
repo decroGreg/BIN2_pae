@@ -87,9 +87,8 @@ public class RechercheDevisServlet extends HttpServlet {
           System.out.println("min=" + min + " max=" + max + " name=" + name + " date="
               + devisDto.getDate() + " idClient=" + devisDto.getIdClient());
 
-          // A Remettre
-          // listeDevisDto =
-          // devisUcc.rechercheSurDevis(devisDto, min, max, idTypeAmenagement.get(0), name);
+
+          listeDevisDto = devisUcc.rechercheSurDevis(devisDto, min, max, idTypeAmenagement, name);
 
           // System.err.println(
           // listeDevisDto.get(0).getIdClient() + " " + listeDevisDto.get(1).getIdClient());
