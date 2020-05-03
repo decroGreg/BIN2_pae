@@ -22,7 +22,6 @@ public class VoirDevisClientServlet extends HttpServlet {
   private ClientUcc clientUcc;
   private DevisUcc devisUcc;
   private ClientDto clientDto;
-  private List<DevisDto> listeDevisDto;
 
   /**
    * Cree un VoirDevisClientServlet.
@@ -36,32 +35,40 @@ public class VoirDevisClientServlet extends HttpServlet {
     this.clientUcc = clientUcc;
     this.devisUcc = devisUcc;
     this.clientDto = clientDto;
-    this.listeDevisDto = new ArrayList<>();
   }
 
   @Override
   protected void doPost(HttpServletRequest req, HttpServletResponse resp)
       throws ServletException, IOException {
     try {
+      List<DevisDto> listeDevisDto = new ArrayList<>();
+
       Genson genson = new Genson();
       Map<String, Object> data = genson.deserialize(req.getReader(), Map.class);
       String token = req.getHeader("Authorization");
-      int idUtilisateur = 0;
-      int idClient = 0;
+      int idUtilisateur = -1;
+      int idClient = -1;
       if (data.get("idUser") != null) {
         idUtilisateur = Integer.parseInt(data.get("idUser").toString());
       } else if (data.get("idClient") != null) {
         idClient = Integer.parseInt(data.get("idClient").toString());
       }
+      System.out.println("idUtil = " + idUtilisateur);
+      System.out.println("idClient  = " + idClient);
 
       for (ClientDto c : clientUcc.getClients()) {
+        System.out.println("idUtil Client = " + c.getIdUtilisateur());
+        System.out.println("idClient Client = " + c.getIdClient());
         if (c.getIdUtilisateur() == idUtilisateur || c.getIdClient() == idClient) {
+          System.out.println("OK");
           clientDto = c;
+          System.out.println(c.getPrenom());
           break;
         }
       }
 
       listeDevisDto = devisUcc.voirDevis(clientDto);
+      System.out.println(clientDto.getPrenom());
       List<ClientDto> listeClientsDto = new ArrayList<>();
       for (DevisDto de : listeDevisDto) {
         listeClientsDto.add(clientDto);

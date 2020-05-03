@@ -154,6 +154,8 @@ public class Main {
     HttpServlet photosClient = new PhotosClientServlet(clientUcc, devisUcc, photoUcc);
     context.addServlet(new ServletHolder(photosClient), "/mesPhotos");
 
+
+
     context.setWelcomeFiles(new String[] {"index.html"});
     context.setResourceBase("view");
     server.setHandler(context);
