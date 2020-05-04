@@ -25,6 +25,7 @@ public class DevisDaoImpl implements DevisDao {
    * Constructeur Devis Dao.
    * 
    * @param daoService classe service.
+   * @param factory injection de dependance pour la factory.
    */
   public DevisDaoImpl(DaoServices daoService, Factory factory) {
     this.services = daoService;
@@ -78,22 +79,24 @@ public class DevisDaoImpl implements DevisDao {
 
   @Override
   public List<DevisDto> voirDevisAvecCritere(Timestamp dateDevis, String nomClient, double prixMin,
-      double prixMax, int typeDAmenagementRecherche, int idUtilisateur) {
+      double prixMax, List<Integer> typeDAmenagementRecherche, int idUtilisateur) {
 
+    int suiviTypeAmenagement = 6;
+    int typeTest = typeDAmenagementRecherche.get(0);
     double prixMaxSql = 0;
     String nomSql = nomClient;
     Timestamp dateSqlMin = dateDevis;
     Timestamp dateSqlMax = dateDevis;
-    boolean typeAmenagement = false;
     String requeteSql =
-        " SELECT d.id_devis , d.id_client , d.date , d.montant , d.photo_preferee , d.duree_travaux , d.etat , d.date_debut_travaux "
+        " SELECT d.id_devis , d.id_client , d.date , d.montant , d.photo_preferee , "
+            + "d.duree_travaux , d.etat , d.date_debut_travaux "
             + "  FROM init.devis d , init.clients c"
-            + "  WHERE UPPER(c.nom) LIKE UPPER(?) AND (d.date >= ? AND d.date <= ?) AND (d.montant >= ? AND d.montant <= ?) AND c.id_client = d.id_client";
-
+            + "  WHERE UPPER(c.nom) LIKE UPPER(?) AND (d.date >= ? AND d.date <= ?) AND "
+            + "(d.montant >= ? OR d.montant <= ?) AND c.id_client = d.id_client";
 
     if (dateSqlMin == null) {
-      dateSqlMin = java.sql.Timestamp.valueOf("1000-01-01 10:10:10.0");
-      dateSqlMax = java.sql.Timestamp.valueOf("2999-11-11 10:10:10.0");
+      dateSqlMin = Timestamp.valueOf("1000-01-01 10:10:10.0");
+      dateSqlMax = Timestamp.valueOf("2999-11-11 10:10:10.0");
     }
     if (prixMax == 0) {
       prixMaxSql = Math.pow(2, 31);
@@ -104,10 +107,13 @@ public class DevisDaoImpl implements DevisDao {
     if (idUtilisateur != 0) {
       requeteSql += " AND c.id_utilisateur = ? ";
     }
-    if (typeDAmenagementRecherche != 0) {
+    if (!typeDAmenagementRecherche.isEmpty()) {
       requeteSql += "  AND d.id_devis IN (SELECT id_devis FROM init.amenagements"
-          + " WHERE id_type_amenagement = ?) ";
-      typeAmenagement = true;
+          + " WHERE id_type_amenagement = ? ";
+      for (int i = 0; i < typeDAmenagementRecherche.size(); i++) {
+        requeteSql += " OR id_type_amenagement = ?";
+      }
+      requeteSql += " )";
     }
 
     List<DevisDto> listeDevis = new ArrayList<DevisDto>();
@@ -124,13 +130,17 @@ public class DevisDaoImpl implements DevisDao {
       }
       if (idUtilisateur != 0) {
         ps.setInt(6, idUtilisateur);
-        if (typeAmenagement == true) {
-          ps.setInt(7, typeDAmenagementRecherche);
+        suiviTypeAmenagement = 7;
+      }
+      if (!typeDAmenagementRecherche.isEmpty()) {
+        ps.setInt(suiviTypeAmenagement, typeTest);
+        suiviTypeAmenagement++;
+        for (Integer typeDAmenagementDto : typeDAmenagementRecherche) {
+          ps.setInt(suiviTypeAmenagement, typeDAmenagementDto);
+          suiviTypeAmenagement++;
         }
       }
-      if (typeAmenagement == true) {
-        ps.setInt(6, typeDAmenagementRecherche);
-      }
+
       try (ResultSet rs = ps.executeQuery()) {
         while (rs.next()) {
           DevisDto devis = bizfactory.getDevisDto();
@@ -215,7 +225,6 @@ public class DevisDaoImpl implements DevisDao {
     String requeteSql = "UPDATE init.devis SET photo_preferee = ? WHERE id_devis = ?";
     int idDevis = devis.getIdDevis();
     ps = services.getPreparedSatement(requeteSql);
-    String etat = devis.getEtat().name();
     try {
       ps.setInt(1, idPhoto);
       ps.setInt(2, idDevis);

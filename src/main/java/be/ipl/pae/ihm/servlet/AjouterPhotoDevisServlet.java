@@ -145,8 +145,8 @@ public class AjouterPhotoDevisServlet extends HttpServlet {
           }
         }
         String devisData = genson.serialize(devisDto);
-        String json =
-            "{\"success\":\"true\", \"token\":\"" + token + "\", \"devisData\":" + devisData + "}";
+        String json = "{\"success\":\"true\", \"message\":\"" + "Photo ajoutee"
+            + "\", \"devisData\":" + devisData + "}";
         System.out.println("JSON generated :" + json);
         resp.setContentType("application/json");
         resp.setCharacterEncoding("UTF-8");

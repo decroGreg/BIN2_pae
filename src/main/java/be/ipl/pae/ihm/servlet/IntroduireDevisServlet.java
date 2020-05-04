@@ -137,6 +137,7 @@ public class IntroduireDevisServlet extends HttpServlet {
 
         int idDevis =
             devisUcc.introduireDevis(clientDto, idUser, devisDto, (List<String>) data.get("type"));
+
         if (images != null) {
           for (String s : images.values()) {
             photoUcc.ajouterPhotoAvantAmenagement(idDevis, s);// remplacer le 0 par l idDevis

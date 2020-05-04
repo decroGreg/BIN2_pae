@@ -39,7 +39,7 @@ public class DevisDaoMock implements DevisDao {
   public DevisDaoMock(boolean createDevis, boolean voirTousDevis, boolean getDevisClient,
       boolean confirmerDateDevis, boolean getIdDernierDevis, boolean changerEtatDevis,
       boolean getDevisViaId, boolean ajouterPhotoPrefereeDevis, boolean repousserDateDebut,
-      boolean testDalException) {
+      boolean voirDevisAvecCritere, boolean testDalException) {
     this.createDevis = createDevis;
     this.voirTousDevis = voirTousDevis;
     this.getDevisClient = getDevisClient;
@@ -138,7 +138,7 @@ public class DevisDaoMock implements DevisDao {
 
   @Override
   public List<DevisDto> voirDevisAvecCritere(Timestamp dateDevis, String nomClient, double prixMin,
-      double prixMax, int typeDAmenagementRecherche, int idUtilisateur) {
+      double prixMax, List<Integer> typeDAmenagementRecherche, int idUtilisateur) {
     // TODO Auto-generated method stub
     testDalException();
     if (voirDevisAvecCritere) {

@@ -1,6 +1,7 @@
 package be.ipl.pae.biz;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import be.ipl.pae.biz.config.Config;
@@ -50,7 +51,8 @@ class TestClientUcc {
     clientDto = bizFactory.getClientDto();
 
     clientDaoConstruct = Class.forName(Config.getConfigPropertyAttribute(ClientDao.class.getName()))
-        .getConstructor(boolean.class, boolean.class, boolean.class, boolean.class, boolean.class);
+        .getConstructor(boolean.class, boolean.class, boolean.class, boolean.class, boolean.class,
+            boolean.class, boolean.class, boolean.class);
     clientUccConstruct = Class.forName(Config.getConfigPropertyAttribute(ClientUcc.class.getName()))
         .getConstructor(Factory.class, ClientDao.class, DaoServicesUcc.class);
   }
@@ -60,27 +62,30 @@ class TestClientUcc {
   @DisplayName("clients null")
   void testGetClients() throws InstantiationException, IllegalAccessException,
       IllegalArgumentException, InvocationTargetException {
-    clientDao = (ClientDao) clientDaoConstruct.newInstance(false, false, false, false, false);
+    clientDao = (ClientDao) clientDaoConstruct.newInstance(false, false, false, false, false, false,
+        false, false);
     clientUcc = (ClientUcc) clientUccConstruct.newInstance(bizFactory, clientDao, dalServices);
     assertThrows(NullPointerException.class, () -> clientUcc.getClients());
   }
 
   @Test
   @DisplayName("clients ok")
-  final void testGetClients2() throws InstantiationException, IllegalAccessException,
+  void testGetClients2() throws InstantiationException, IllegalAccessException,
       IllegalArgumentException, InvocationTargetException {
 
-    clientDao = (ClientDao) clientDaoConstruct.newInstance(true, false, false, false, false);
+    clientDao = (ClientDao) clientDaoConstruct.newInstance(true, false, false, false, false, false,
+        false, false);
     clientUcc = (ClientUcc) clientUccConstruct.newInstance(bizFactory, clientDao, dalServices);
     assertEquals(clientUcc.getClients().get(0).getEmail(), clientDto.getEmail());
   }
 
   @Test
   @DisplayName("test dalException")
-  final void testGetClients3() throws InstantiationException, IllegalAccessException,
+  void testGetClients3() throws InstantiationException, IllegalAccessException,
       IllegalArgumentException, InvocationTargetException {
 
-    clientDao = (ClientDao) clientDaoConstruct.newInstance(false, false, false, false, true);
+    clientDao = (ClientDao) clientDaoConstruct.newInstance(false, false, false, false, false, false,
+        false, true);
     clientUcc = (ClientUcc) clientUccConstruct.newInstance(bizFactory, clientDao, dalServices);
     assertThrows(FatalException.class, () -> clientUcc.getClients());
   }
@@ -89,7 +94,8 @@ class TestClientUcc {
   @DisplayName("nom, ville, code postal non null")
   void testRechercherClients() throws InstantiationException, IllegalAccessException,
       IllegalArgumentException, InvocationTargetException {
-    clientDao = (ClientDao) clientDaoConstruct.newInstance(false, false, false, true, false);
+    clientDao = (ClientDao) clientDaoConstruct.newInstance(false, false, false, false, false, true,
+        false, false);
     clientUcc = (ClientUcc) clientUccConstruct.newInstance(bizFactory, clientDao, dalServices);
     assertEquals(clientUcc.rechercherClients("testNom", "testVille", 1040).get(0).getIdClient(),
         clientDto.getIdClient());
@@ -99,7 +105,8 @@ class TestClientUcc {
   @DisplayName("nom, ville non null et code postal null")
   void testRechercherClients2() throws InstantiationException, IllegalAccessException,
       IllegalArgumentException, InvocationTargetException {
-    clientDao = (ClientDao) clientDaoConstruct.newInstance(false, false, false, true, false);
+    clientDao = (ClientDao) clientDaoConstruct.newInstance(false, false, false, false, false, true,
+        false, false);
     clientUcc = (ClientUcc) clientUccConstruct.newInstance(bizFactory, clientDao, dalServices);
     assertEquals(clientUcc.rechercherClients("testNom", "testVille", 0).get(0).getIdClient(),
         clientDto.getIdClient());
@@ -109,7 +116,8 @@ class TestClientUcc {
   @DisplayName("nom, code postal non null et ville null")
   void testRechercherClients3() throws InstantiationException, IllegalAccessException,
       IllegalArgumentException, InvocationTargetException {
-    clientDao = (ClientDao) clientDaoConstruct.newInstance(false, false, false, true, false);
+    clientDao = (ClientDao) clientDaoConstruct.newInstance(false, false, false, false, false, true,
+        false, false);
     clientUcc = (ClientUcc) clientUccConstruct.newInstance(bizFactory, clientDao, dalServices);
     assertEquals(clientUcc.rechercherClients("testNom", null, 1040).get(0).getIdClient(),
         clientDto.getIdClient());
@@ -119,7 +127,8 @@ class TestClientUcc {
   @DisplayName("nom, ville, code postal null")
   void testRechercherClients4() throws InstantiationException, IllegalAccessException,
       IllegalArgumentException, InvocationTargetException {
-    clientDao = (ClientDao) clientDaoConstruct.newInstance(false, false, false, true, false);
+    clientDao = (ClientDao) clientDaoConstruct.newInstance(false, false, false, false, false, true,
+        false, false);
     clientUcc = (ClientUcc) clientUccConstruct.newInstance(bizFactory, clientDao, dalServices);
     assertEquals(clientUcc.rechercherClients(null, null, 0).get(0).getIdClient(),
         clientDto.getIdClient());
@@ -129,9 +138,41 @@ class TestClientUcc {
   @DisplayName("test dalException")
   void testRechercherClients5() throws InstantiationException, IllegalAccessException,
       IllegalArgumentException, InvocationTargetException {
-    clientDao = (ClientDao) clientDaoConstruct.newInstance(false, false, false, false, true);
+    clientDao = (ClientDao) clientDaoConstruct.newInstance(false, false, false, false, false, false,
+        false, true);
     clientUcc = (ClientUcc) clientUccConstruct.newInstance(bizFactory, clientDao, dalServices);
     assertThrows(FatalException.class,
         () -> clientUcc.rechercherClients(null, null, 0).get(0).getIdClient());
+  }
+
+  @Test
+  @DisplayName("villes ok")
+  void getVilles() throws InstantiationException, IllegalAccessException, IllegalArgumentException,
+      InvocationTargetException {
+    clientDao = (ClientDao) clientDaoConstruct.newInstance(false, false, false, false, true, false,
+        false, false);
+    clientUcc = (ClientUcc) clientUccConstruct.newInstance(bizFactory, clientDao, dalServices);
+    assertEquals(clientUcc.getVilles().get(0), clientDto.getVille());
+  }
+
+  @Test
+  @DisplayName("test dalException")
+  void getVilles2() throws InstantiationException, IllegalAccessException, IllegalArgumentException,
+      InvocationTargetException {
+    clientDao = (ClientDao) clientDaoConstruct.newInstance(false, false, false, false, true, false,
+        false, true);
+    clientUcc = (ClientUcc) clientUccConstruct.newInstance(bizFactory, clientDao, dalServices);
+    assertThrows(FatalException.class, () -> clientUcc.getVilles());
+  }
+
+  @Test
+  @DisplayName("client n'as pas de villes")
+  void getVilles3() throws InstantiationException, IllegalAccessException, IllegalArgumentException,
+      InvocationTargetException {
+    clientDao = (ClientDao) clientDaoConstruct.newInstance(false, false, false, false, false, false,
+        false, false);
+    clientUcc = (ClientUcc) clientUccConstruct.newInstance(bizFactory, clientDao, dalServices);
+    clientDto.setVille(null);
+    assertNull(clientUcc.getVilles());
   }
 }

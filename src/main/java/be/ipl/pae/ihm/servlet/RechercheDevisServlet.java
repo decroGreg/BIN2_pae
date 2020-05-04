@@ -75,17 +75,15 @@ public class RechercheDevisServlet extends HttpServlet {
           name = data.get("name");
         }
         List<ClientDto> listeClientsDto = new ArrayList<>();
+        List<Integer> idTypeAmenagement = new ArrayList<Integer>();
+        // Parcours de tous les id type amenagement et les met dans une liste
 
-        // nom !!!!!!!!!!!!!!!!
-        // methode
-        int test = 0;
-        if (amenagements.size() != 0) {
-          test = Integer.parseInt((String) amenagements.values().toArray()[0]);
+        for (Map.Entry<String, String> idTypeAm : amenagements.entrySet()) {
+          int idType = Integer.parseInt(idTypeAm.getValue());
+          idTypeAmenagement.add(idType);
         }
-
         try {
           if (data.containsKey("idUser")) {
-
             int idClient = Integer.parseInt(data.get("idUser"));
             devisDto.setIdClient(idClient);
           }
@@ -94,7 +92,7 @@ public class RechercheDevisServlet extends HttpServlet {
           System.out.println("min=" + min + " max=" + max + " name=" + name + " date="
               + devisDto.getDate() + " idClient=" + devisDto.getIdClient());
 
-          listeDevisDto = devisUcc.rechercheSurDevis(devisDto, min, max, test, name);
+          listeDevisDto = devisUcc.rechercheSurDevis(devisDto, min, max, idTypeAmenagement, name);
           // System.err.println(
           // listeDevisDto.get(0).getIdClient() + " " + listeDevisDto.get(1).getIdClient());
 

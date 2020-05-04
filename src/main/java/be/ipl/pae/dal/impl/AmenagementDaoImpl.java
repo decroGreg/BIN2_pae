@@ -41,6 +41,7 @@ public class AmenagementDaoImpl implements AmenagementDao {
     return true;
   }
 
+  @Override
   public List<AmenagementDto> voirTousAmenagement() {
     List<AmenagementDto> listeAmenagement = new ArrayList<AmenagementDto>();
     String requeteSql = "SELECT * FROM init.amenagements";

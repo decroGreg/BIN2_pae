@@ -19,9 +19,9 @@ public class AmenagementDaoMock implements AmenagementDao {
   /**
    * Cree un mock d'Amenagement.
    * 
-   * @param createAmenagement
-   * @param voirTousAmenagement
-   * @param testDalException
+   * @param createAmenagement.
+   * @param voirTousAmenagement.
+   * @param testDalException.
    */
   public AmenagementDaoMock(boolean createAmenagement, boolean voirTousAmenagement,
       boolean testDalException) {

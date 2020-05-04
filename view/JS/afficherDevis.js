@@ -150,7 +150,6 @@ function afficherDevisClient(response){
 	    	+ response.devisData[data].date.substring(0,10) + "</td>\n<td>" 
 	    	+ response.devisData[data].montant + "€</td>\n<td>" 
 	    	+ response.devisData[data].dureeTravaux + "</td>\n<td>" 
-	    	+ response.devisData[data].photoPreferee + "</td>\n<td>" 
 	    	+ response.devisData[data].etat + "</td></tr>";	    
 	    $("#voir-devis-client tbody").append(html);
 	});

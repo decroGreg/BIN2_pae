@@ -3,11 +3,13 @@ package be.ipl.pae.ihm.servlet;
 import be.ipl.pae.biz.dto.AmenagementDto;
 import be.ipl.pae.biz.dto.ClientDto;
 import be.ipl.pae.biz.dto.DevisDto;
+import be.ipl.pae.biz.dto.PhotoDto;
 import be.ipl.pae.biz.dto.TypeDAmenagementDto;
 import be.ipl.pae.biz.impl.DevisImpl.Etat;
 import be.ipl.pae.biz.interfaces.AmenagementUcc;
 import be.ipl.pae.biz.interfaces.ClientUcc;
 import be.ipl.pae.biz.interfaces.DevisUcc;
+import be.ipl.pae.biz.interfaces.PhotoUcc;
 import be.ipl.pae.biz.interfaces.TypeDAmenagementUcc;
 
 import com.owlike.genson.Genson;
@@ -32,6 +34,7 @@ public class DetailsDevisServlet extends HttpServlet {
   private AmenagementUcc amenagementUcc;
   private TypeDAmenagementUcc typeDAmenagementUcc;
   private DevisDto devisDto;
+  private PhotoUcc photoUcc;
 
   /**
    * Cree un objet DetailsDevisServlet.
@@ -41,13 +44,14 @@ public class DetailsDevisServlet extends HttpServlet {
    * @param devisUcc un devisUcc
    */
   public DetailsDevisServlet(DevisUcc devisUcc, ClientUcc clientUcc, AmenagementUcc amenagementUcc,
-      TypeDAmenagementUcc typeDAmenagementUcc, DevisDto devisDto) {
+      TypeDAmenagementUcc typeDAmenagementUcc, DevisDto devisDto, PhotoUcc photoUcc) {
     super();
     this.devisUcc = devisUcc;
     this.clientUcc = clientUcc;
     this.amenagementUcc = amenagementUcc;
     this.typeDAmenagementUcc = typeDAmenagementUcc;
     this.devisDto = devisDto;
+    this.photoUcc = photoUcc;
   }
 
 
@@ -67,12 +71,19 @@ public class DetailsDevisServlet extends HttpServlet {
       ClientDto clientDto = null;
       ArrayList<String> descriptionsTypeAmenagement = new ArrayList<>();
       ArrayList<AmenagementDto> amenagementsDevis = new ArrayList<>();
+      PhotoDto photoPreferee = null;
 
       try {
         for (DevisDto e : devisUcc.voirDevis()) {
           if (e.getIdDevis() == idDevis) {
             devisDto = e;
+            System.out.println("photo pref = " + devisDto.getIdPhotoPreferee());
           }
+        }
+        // Si le devis est visible, je vais chercher sa photo preferee
+        if (devisDto.getEtat() == Etat.V) {
+          System.out.println("ICI");
+          photoPreferee = photoUcc.recupererPhotoPreferee(devisDto);
         }
 
         for (ClientDto c : clientUcc.getClients()) {
@@ -99,7 +110,6 @@ public class DetailsDevisServlet extends HttpServlet {
         }
 
 
-
       } catch (Exception ex) {
         ex.printStackTrace();
         resp.setContentType("application/json");
@@ -114,10 +124,20 @@ public class DetailsDevisServlet extends HttpServlet {
         String devisData = genson.serialize(devisDto);
         String clientData = genson.serialize(clientDto);
         String typesAmenagementData = genson.serialize(descriptionsTypeAmenagement);
-        String json = "{\"success\":\"true\", \"token\":\"" + token + "\", \"devisData\":"
-            + devisData + ", \"clientData\":" + clientData + ", \"typesAmenagementData\":"
+        String json;
+        /*
+         * if (photoPreferee != null) { System.out.println("ICI"); String photoPrefereeData =
+         * genson.serialize(photoPreferee); json = "{\"success\":\"true\", \"token\":\"" + token +
+         * "\", \"devisData\":" + devisData + ", \"photoPrefereeData\":" + photoPrefereeData +
+         * ", \"clientData\":" + clientData + ", \"typesAmenagementData\":" + typesAmenagementData +
+         * "}"; } else {
+         */
+        json = "{\"success\":\"true\", \"token\":\"" + token + "\", \"devisData\":" + devisData
+            + ", \"clientData\":" + clientData + ", \"typesAmenagementData\":"
             + typesAmenagementData + "}";
-        System.out.println("JSON generated :" + json);
+        // }
+
+        System.out.println("JSON generated : success");
         resp.setContentType("application/json");
 
         resp.setCharacterEncoding("UTF-8");

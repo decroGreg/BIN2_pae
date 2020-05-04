@@ -21,7 +21,6 @@ public class ChoisirPhotoPrefereeServlet extends HttpServlet {
   private DevisUcc devisUcc;
   private DevisDto devisDto;
   private PhotoUcc photoUcc;
-  private ArrayList<PhotoDto> photosDevis = new ArrayList<>();
 
   public ChoisirPhotoPrefereeServlet(DevisUcc devisUcc, DevisDto devisDto, PhotoUcc photoUcc) {
     super();
@@ -38,6 +37,7 @@ public class ChoisirPhotoPrefereeServlet extends HttpServlet {
       Genson genson = new Genson();
       Map<String, Object> data = genson.deserialize(req.getReader(), Map.class);
       String token = req.getHeader("Authorization");
+      ArrayList<PhotoDto> photosDevis = new ArrayList<>();
       int idDevis = Integer.parseInt(data.get("idDevis").toString());
       for (DevisDto d : devisUcc.voirDevis()) {
         if (d.getIdDevis() == idDevis) {
@@ -103,8 +103,8 @@ public class ChoisirPhotoPrefereeServlet extends HttpServlet {
       if (token != null) {
         devisUcc.choisirPhotoPreferee(devisDto, idPhoto);
         String devisData = genson.serialize(devisDto);
-        String json =
-            "{\"success\":\"true\", \"token\":\"" + token + "\", \"devisData\":" + devisData + "}";
+        String json = "{\"success\":\"true\", \"message\":\""
+            + "La photo preferee a ete selectionnee" + "\", \"devisData\":" + devisData + "}";
         System.out.println("JSON generated :" + json);
         resp.setContentType("application/json");
         resp.setCharacterEncoding("UTF-8");

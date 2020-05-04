@@ -14,7 +14,7 @@ public interface DevisUcc {
   // Afficher tous les devis
   List<DevisDto> voirDevis();
 
-  int introduireDevis(ClientDto nouveauClient, int idClient, DevisDto devis,
+  int introduireDevis(ClientDto nouveauClient, int idUtilisateur, DevisDto devis,
       List<String> listeIdTypeAmenagement);
 
   void modifierDateDevis(DevisDto devis);
@@ -26,7 +26,7 @@ public interface DevisUcc {
   void repousserDateDebut(DevisDto devisDto);
 
   List<DevisDto> rechercheSurDevis(DevisDto devisDto, double prixMin, double prixMax,
-      int idAmenagement, String nomClient);
+      List<Integer> idAmenagement, String nomClient);
 
   void creerAmenagementPourDevis(int idDevis, List<String> listeIdTypeAmenagement);
 

@@ -31,7 +31,7 @@ function ajouterPhoto(response){
 		}
 		$("#ajouterPhoto").hide();
 		data.idAmenagement = $("#listeTypeAmenagements option:selected").attr("id");
-		putData("/ajouterPhoto", token, data, afficherDetailsDevis, onError);
+		putData("/ajouterPhoto", token, data, onPostPhoto, onError);
 	});
 }
 
@@ -53,7 +53,7 @@ function choisirPhotoPreferee(response){
 		let data={};
 		data.idPhoto = $('input[name=radioButton]:checked').attr("id");
 		$("#formPhotoPreferee").hide();
-		putData("/photoPreferee", token, data, afficherDetailsDevis, onError);
+		putData("/photoPreferee", token, data, onPostPhoto, onError);
 	});
 }
 
@@ -67,6 +67,18 @@ function encodeImagetoBase64(element) {
     }
     reader.readAsDataURL(file);        
 }
+
+function onPostPhoto(response){
+    if(response.success=="true"){
+            $("#success-notification").fadeIn('slow').delay(1000).fadeOut('slow');
+            $("#success-notification").text(response.message);
+    }else{
+            $("#error-notification").fadeIn('slow').delay(1000).fadeOut('slow');
+            $("#error-notification").text(response.message);
+    }
+    afficherDetailsDevis(response);
+}
+
 
 
 export{ajouterPhoto, choisirPhotoPreferee};

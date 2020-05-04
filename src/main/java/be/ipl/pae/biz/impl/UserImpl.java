@@ -170,7 +170,7 @@ public class UserImpl implements User {
   public boolean encryptMotDePasse() {
     String salt = BCrypt.gensalt();
     String hashMotDePasse = BCrypt.hashpw(motDePasse, salt);
-    if (hashMotDePasse != null) {
+    if (hashMotDePasse != null && this.motDePasse != " ") {
       setMotDePasse(hashMotDePasse);
       return true;
     }

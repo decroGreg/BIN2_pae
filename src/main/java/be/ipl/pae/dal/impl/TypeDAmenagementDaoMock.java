@@ -12,6 +12,7 @@ import java.util.List;
 public class TypeDAmenagementDaoMock implements TypeDAmenagementDao {
 
   private boolean voirTypeDAmenagement;
+  private boolean createTypeAmenagement;
   private boolean testDalException;
   private Factory factory;
 
@@ -21,8 +22,10 @@ public class TypeDAmenagementDaoMock implements TypeDAmenagementDao {
    * @param voirTypeDAmenagement methode boolean.
    * @param testDalException methode boolean.
    */
-  public TypeDAmenagementDaoMock(boolean voirTypeDAmenagement, boolean testDalException) {
+  public TypeDAmenagementDaoMock(boolean voirTypeDAmenagement, boolean createTypeAmenagement,
+      boolean testDalException) {
     this.voirTypeDAmenagement = voirTypeDAmenagement;
+    this.createTypeAmenagement = createTypeAmenagement;
     this.testDalException = testDalException;
     this.factory = new FactoryStub();
   }
@@ -47,8 +50,8 @@ public class TypeDAmenagementDaoMock implements TypeDAmenagementDao {
 
   @Override
   public boolean createTypeAmenagement(String nomType) {
-    // TODO Auto-generated method stub
-    return false;
+    testDalException();
+    return createTypeAmenagement;
   }
 
 

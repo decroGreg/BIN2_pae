@@ -52,7 +52,7 @@ public class IndexServlet extends DefaultServlet {
 
         resp.getOutputStream()
             .println(indexFile + connexionFile + introduireDevisFile + confirmerInscriptionFile
-                + voirClientsFile + voirDevisFile + voirDetailsDevisFile + voirDevisClientFile
+                + voirClientsFile + voirDevisFile + voirDevisClientFile + voirDetailsDevisFile
                 + voirUtilisateursFile + ajouterPhotoFile + photoPrefereeFile + photosClientFile
                 + footer);
 

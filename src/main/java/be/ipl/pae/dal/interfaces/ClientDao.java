@@ -17,5 +17,7 @@ public interface ClientDao {
 
   List<String> getVilles();
 
+  int getIdDernierClient();
+
 }
 

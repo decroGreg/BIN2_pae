@@ -18,20 +18,38 @@ public class PhotoDaoImpl implements PhotoDao {
   private DaoServices services;
   private Factory factory;
 
+  /**
+   * Constructeur PhotoDaoImpl.
+   * 
+   * @param daoService classe service.
+   * @param factory injection de dependance pour la factory.
+   */
   public PhotoDaoImpl(DaoServices daoService, Factory factory) {
     this.services = daoService;
     this.factory = factory;
   }
 
 
+  @Override
   public boolean introduirePhoto(PhotoDto photoDto) {
-    String requeteSql = "INSERT INTO init.photos VALUES(DEFAULT, ?, ?, ?, ?)";
+    boolean amenagement = false;
+    String requeteSql = "INSERT INTO init.photos VALUES(DEFAULT, ?, null, ?, ?)";
+    if (photoDto.getIdAmenagement() != 0) {
+      requeteSql = "INSERT INTO init.photos VALUES(DEFAULT, ?, ?, ?, ?)";
+      amenagement = true;
+    }
     ps = services.getPreparedSatement(requeteSql);
     try {
-      ps.setString(1, photoDto.getUrlPhoto());
-      ps.setInt(2, photoDto.getIdAmenagement());
-      ps.setInt(3, photoDto.getIdDevis());
-      ps.setBoolean(4, photoDto.isVisible());
+      if (amenagement) {
+        ps.setString(1, photoDto.getUrlPhoto());
+        ps.setInt(2, photoDto.getIdAmenagement());
+        ps.setInt(3, photoDto.getIdDevis());
+        ps.setBoolean(4, photoDto.isVisible());
+      } else {
+        ps.setString(1, photoDto.getUrlPhoto());
+        ps.setInt(2, photoDto.getIdDevis());
+        ps.setBoolean(3, photoDto.isVisible());
+      }
       ps.execute();
     } catch (SQLException ex) {
       throw new DalException();
@@ -62,6 +80,7 @@ public class PhotoDaoImpl implements PhotoDao {
     }
   }
 
+  @Override
   public List<PhotoDto> voirPhotoSonJardin(int idClient) {
     List<PhotoDto> listePhoto = new ArrayList<PhotoDto>();
     String requeteSql = "SELECT p.* FROM init.photos p , init.devis d"
@@ -89,9 +108,9 @@ public class PhotoDaoImpl implements PhotoDao {
   @Override
   public List<PhotoDto> voirPhotoTypeDAmenagement(int idTypeAmenagement) {
     List<PhotoDto> listePhoto = new ArrayList<PhotoDto>();
-    String requeteSql =
-        "SELECT p.id_photo , p.photo , p.id_amenagement , p.id_devis , p.visible FROM init.photos p , init.amenagements a "
-            + "WHERE a.id_amenagement = p.id_amenagement AND a.id_type_amenagement = ?";
+    String requeteSql = "SELECT p.id_photo , p.photo , p.id_amenagement , p.id_devis , p.visible "
+        + "FROM init.photos p , init.amenagements a "
+        + "WHERE a.id_amenagement = p.id_amenagement AND a.id_type_amenagement = ?";
     ps = services.getPreparedSatement(requeteSql);
     try {
       ps.setInt(1, idTypeAmenagement);
@@ -131,7 +150,7 @@ public class PhotoDaoImpl implements PhotoDao {
     } catch (SQLException ex) {
       throw new DalException(ex.getMessage());
     }
-    return null;
+    return photo;
   }
 
 }
