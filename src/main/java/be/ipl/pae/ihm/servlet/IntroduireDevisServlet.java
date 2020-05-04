@@ -27,6 +27,18 @@ public class IntroduireDevisServlet extends HttpServlet {
   private TypeDAmenagementUcc typeUcc;
   private PhotoUcc photoUcc;
 
+  /*
+   * @param devisUcc
+   * 
+   * @param clientDto
+   * 
+   * @param devisDto
+   * 
+   * @param type
+   * 
+   * @param photoUcc
+   * 
+   */
   public IntroduireDevisServlet(DevisUcc devisUcc, ClientDto clientDto, DevisDto devisDto,
       TypeDAmenagementUcc type, PhotoUcc photoUcc) {
     super();
@@ -125,10 +137,12 @@ public class IntroduireDevisServlet extends HttpServlet {
 
         int idDevis =
             devisUcc.introduireDevis(clientDto, idUser, devisDto, (List<String>) data.get("type"));
-        if (images != null)
+
+        if (images != null) {
           for (String s : images.values()) {
             photoUcc.ajouterPhotoAvantAmenagement(idDevis, s);// remplacer le 0 par l idDevis
           }
+        }
 
       } catch (Exception exce) {
         exce.printStackTrace();

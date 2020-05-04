@@ -16,9 +16,9 @@ public class IndexServlet extends DefaultServlet {
   protected void doGet(HttpServletRequest req, HttpServletResponse resp)
       throws ServletException, IOException {
     System.out.println();
-    if (!req.getRequestURI().equals("/"))
+    if (!req.getRequestURI().equals("/")) {
       super.doGet(req, resp);
-    else {
+    } else {
       try {
 
 
@@ -57,7 +57,8 @@ public class IndexServlet extends DefaultServlet {
                 + footer);
 
       } catch (Exception exce) {
-
+        exce.printStackTrace();
+        resp.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
       }
     }
 

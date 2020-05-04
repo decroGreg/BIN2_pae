@@ -26,7 +26,13 @@ public class LoginServlet extends HttpServlet {
   private UserUcc userUcc;
   private UserDto userDto;
 
-
+  /*
+   * constructeur
+   * 
+   * @param UserUcc
+   * 
+   * @param UserUcc
+   */
   public LoginServlet(UserUcc userUcc, UserDto userDto) {
     super();
     this.userUcc = userUcc;
@@ -37,7 +43,7 @@ public class LoginServlet extends HttpServlet {
   protected void doGet(HttpServletRequest req, HttpServletResponse resp)
       throws ServletException, IOException {
 
-    Genson genson = new Genson();
+
     String token = req.getHeader("Authorization");
     token = token.replace("Bearer", "");
 
@@ -47,8 +53,8 @@ public class LoginServlet extends HttpServlet {
     try {
       userDto = userUcc.loginViaToken(id);
 
-    } catch (Exception e) {
-      e.printStackTrace();
+    } catch (Exception exce) {
+      exce.printStackTrace();
       String json = "{\"success\":\"false\"}";
       System.out.println("JSON generated :" + json);
       resp.setContentType("application/json");
@@ -58,7 +64,7 @@ public class LoginServlet extends HttpServlet {
       resp.getWriter().write(json);
       return;
     }
-
+    Genson genson = new Genson();
     String userData = genson.serialize(userDto);
 
 

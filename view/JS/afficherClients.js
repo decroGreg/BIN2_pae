@@ -8,7 +8,7 @@ $(document).ready(function () {
 		var data={
 			"name":$("#clientsNameSearch").val(),
 			"postalCode":$("#searchClientCodePostal").val(),
-			"city":$("#searchClientsVille").val()
+			"city":$("#inputClientsCitySearch").val()
 		};
 		if(data.name==="")
 			data.name=document.getElementById("inputClientsNameSearch").value;
@@ -16,6 +16,10 @@ $(document).ready(function () {
 		console.log(data);
 		postData("/listeClients",data,token,afficherClients,onError);
 		$("#clientsNameSearch").val("");
+		$("#inputClientsCitySearch").val("");
+		$("#inputClientsNameSearch").val("");
+        $("#searchClientsCityDropdown").text("ville");
+		$("#searchClientsNameDropdown").text("nom client");
 	});
 	
     $("#btn-search-category").click(e=>{
@@ -27,6 +31,33 @@ $(document).ready(function () {
     });
 
 });
+
+function afficherVilleDropdown(response){
+	var input=document.getElementById("inputClientsCitySearch");
+	$("#clientsCitySearch").html("");
+	input.addEventListener("keyup",function(){
+		console.log(this.value);
+		$("#searchClientsCityDropdown").text(this.value);
+		filterDropdown(this);
+	});
+
+	$("#clientsCitySearch").append(input);
+	console.log(response.villes);
+	response.villes.forEach(e=>{
+		var li=document.createElement("li");
+		var a=document.createElement("a");
+		a.innerHTML=e;
+		a.addEventListener("click",function(){
+			console.log(a.innerHTML);
+			$("#searchClientsCityDropdown").text(a.innerHTML);
+			$("#inputClientsCitySearch").val(a.innerHTML);
+		});
+		li.appendChild(a);
+		$("#clientsCitySearch").append(li);
+	});
+	
+
+}
 
 function afficherClientsDropdown(response){
 
@@ -59,6 +90,7 @@ function afficherClientsDropdown(response){
 }
 
 function afficherClients(response){
+	getData("/villes",token,afficherVilleDropdown,onError);
 	viewListeClients();
 	$("#voir-clients tbody").html("");
 	Object.keys(response.clientsData).forEach(data => {

@@ -61,7 +61,7 @@ function afficherNomClientDropdown(response,dropdown){
 		var a=document.createElement("a");
 		
 		a.addEventListener("click",function(){
-			$("#searchDevisNameDropdown").html(element.nom+" "+element.prenom);
+			$("#searchDevisNameDropdown").text(element.nom+" "+element.prenom);
 			$("#dropdownClientName").val(element.nom);
 			document.getElementById("dropdownClientName").name="name";
 		});
@@ -100,6 +100,7 @@ function searchDevis(dropdown,idUser){
 		if(element.firstChild&&element.firstChild.checked){
 			element=element.firstChild;
 			amenagements[element.value]=element.value;
+			element.checked=false;
 		}
 	})
 	var data={}
@@ -125,7 +126,7 @@ function searchDevis(dropdown,idUser){
 	else
 	postData("/rechercheDevis",send,token,afficherDevis,onError);
 
-	
+	$("#searchDevisNameDropdown").html("nom client");
 	$("#dropdownClientName").val(undefined);
 }
 

@@ -49,7 +49,7 @@ $(document).ready(e=>{
         $(window).bind('scroll', function() {
 
                 var navHeight = $( window ).height() - 70;
-                if ($(window).scrollTop() <= $("#carousel").height()/25) {
+                if ($(window).scrollTop() <= $("#carousel").height()/2) {
                         $('#navigation_bar').hide();
                 }
                 else {
