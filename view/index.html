@@ -31,13 +31,13 @@
         <div style="margin-left: 37%;">
           <a  id="imageMenu" class="nav-item" href="#">
             <img src="./image/rose.gif">
-          </a></br>
+          </a>
           <ul class="menu" style="float: left;">
-            <li><a href="#" id="homePage">HOME</a></li>
+            <li><a href="#" id="homePage" class="nav-item">HOME</a></li>
             <li class="nav-item dropdown">
                 	<a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Types d'amenagements</a>
 					<div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink" id="navBarStaticTypesAmenagements"></div>               
-             </li>
+            </li>
             <li><a href="#"  class="Register-confirmation-link nav-item">Confirmer inscription</a></li>
             <li><a href="#" class="connexion nav-item" id="connexion">Connexion</a></li>
             <li><a href="#" id="introductionQuote" class="introductionQuote nav-item">Introduire un devis</a></li>
@@ -47,21 +47,14 @@
           </ul>
         </div>
         <p id="userName" style="margin-left: auto;text-align: right;"></p>
-      </br>
       </nav>
       <!------------------------------------navigation non static----------------------------------->
         <nav class="nav fixed-top" id="navigation_bar">
           <form class="form-inline" id="search-homepage">
-          <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
           <select id="search-option-category" name="search_option" class="form-control form-control-lg">
-          	<option value="option">Option</option>
             <option value="client" id="search-client-link">Client</option>
             <option value="utilisateur" id="search-utilisateur-link">Utilisateur</option>
-            <option value="amenagement" id="search-amenagement-link">Aménagement</option>
             <option value="devis" id="search-devis-link">Devis</option>
-            <option value="date" id="search-devis-date-link">Date</option>
-            <option value="montant" id="search-devis-montant-link">Montant</option>
-            <option value="type_amenagement" id="search-devis-amenagement-link">Type d'aménagement</option>
           </select>
           <button href="#" class="btn btn-outline-success my-2 my-sm-0" type="submit" id="btn-search-category">Search</button>
         </form>

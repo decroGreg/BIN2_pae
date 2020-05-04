@@ -125,17 +125,19 @@ public class DetailsDevisServlet extends HttpServlet {
         String clientData = genson.serialize(clientDto);
         String typesAmenagementData = genson.serialize(descriptionsTypeAmenagement);
         String json;
-        /*
-         * if (photoPreferee != null) { System.out.println("ICI"); String photoPrefereeData =
-         * genson.serialize(photoPreferee); json = "{\"success\":\"true\", \"token\":\"" + token +
-         * "\", \"devisData\":" + devisData + ", \"photoPrefereeData\":" + photoPrefereeData +
-         * ", \"clientData\":" + clientData + ", \"typesAmenagementData\":" + typesAmenagementData +
-         * "}"; } else {
-         */
-        json = "{\"success\":\"true\", \"token\":\"" + token + "\", \"devisData\":" + devisData
-            + ", \"clientData\":" + clientData + ", \"typesAmenagementData\":"
-            + typesAmenagementData + "}";
-        // }
+
+        if (photoPreferee != null) {
+          System.out.println("ICI");
+          String photoPrefereeData = genson.serialize(photoPreferee);
+          json = "{\"success\":\"true\", \"token\":\"" + token + "\", \"devisData\":" + devisData
+              + ", \"photoPrefereeData\":" + photoPrefereeData + ", \"clientData\":" + clientData
+              + ", \"typesAmenagementData\":" + typesAmenagementData + "}";
+        } else {
+
+          json = "{\"success\":\"true\", \"token\":\"" + token + "\", \"devisData\":" + devisData
+              + ", \"clientData\":" + clientData + ", \"typesAmenagementData\":"
+              + typesAmenagementData + "}";
+        }
 
         System.out.println("JSON generated : success");
         resp.setContentType("application/json");

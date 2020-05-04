@@ -125,7 +125,7 @@ public class VoirTypesAmenagementServlet extends HttpServlet {
         String photosData = genson.serialize(photos);
         String json = "{\"success\":\"true\", \"photosData\":" + photosData
             + ", \"typesAmenagementPhotosData\":" + typesAmenagementPhotosData + "}";
-        System.out.println("JSON generated : success");
+        // System.out.println("JSON generated : success");
         resp.setContentType("application/json");
         resp.setCharacterEncoding("UTF-8");
         resp.setStatus(HttpServletResponse.SC_OK);

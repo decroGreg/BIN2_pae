@@ -1,5 +1,5 @@
 import{token, allHide} from "./index.js";
-import{filterDropdown, postData,onError} from "./util.js";
+import{filterDropdown, postData,onError, getData} from "./util.js";
 import{afficherDevis} from "./afficherDevis.js";
 
 
@@ -14,7 +14,17 @@ $(document).ready(function () {
 			console.log(data);
 			postData("/listeUsers",data,token,afficherUtilisateurs,onError);
 			$("#utilisateursNameSearch").val("");
-		})
+		});
+		
+	    $("#btn-search-category").click(e=>{
+	    	if($("#search-option-category").val()=="utilisateur"){
+	            allHide();
+	            getData("/listeUsers",token,afficherUtilisateursDropdown,onError);
+	            getData("/listeUsers",token,afficherUtilisateurs,onError);
+	        }
+	    });
+		
+		
 		
 });
 /*

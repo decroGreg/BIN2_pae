@@ -1,6 +1,6 @@
 import{token, allHide,user} from "./index.js";
 import{afficherDetailsDevis,afficherDetailsDevisClient} from "./detailsDevis.js";
-import {postData,onError,creatHTMLFromString,filterDropdown} from "./util.js" ;
+import {postData,onError,creatHTMLFromString,filterDropdown, getData} from "./util.js" ;
 var test;
 
 $(document).ready(function () {
@@ -23,6 +23,25 @@ $(document).ready(function () {
 		console.log($(this).val());
 		filterDropdown(this);
 	});
+	
+    $("#btn-search-category").click(e=>{
+    	if($("#search-option-category").val()=="devis"){
+    		allHide();
+            getData("/listeUsers",token,onGetClientDevis,onError);
+            getData("/introduireServlet",token,onGetAmenagementDevis,onError);
+            getData("/listeDevis",token,afficherDevis,onError);
+        }
+    });
+    $(".mesDevis").click(e=>{
+        e.preventDefault();
+    	allHide();
+        mesDevis();
+        getData("/listeUsers",token,onGetClientDevisClient,onError);
+        alert();
+        getData("/introduireServlet",token,onGetAmenagementDevisClient,onError);
+
+    });
+    
 });
 
 function onGetClientDevis(response){
@@ -175,6 +194,14 @@ function viewListeDevis(){
     $("#voir-devis").hide();
     $("#choisirPhotoPreferee").hide();
 	$("#ajouterPhoto").hide();
+}
+
+function mesDevis(){
+	$("#voir-devis-client").show();	
+	let data={};
+	console.log("user = " + JSON.stringify(user));
+	data = user;
+	postData("/listeDevisClient",data,token,afficherDevisClient,onError);
 }
 
 export{afficherDevis, afficherDevisClient, viewListeDevis,onGetAmenagementDevis,onGetAmenagementDevisClient,searchDevis,onGetClientDevis};

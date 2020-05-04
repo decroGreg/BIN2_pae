@@ -8,9 +8,7 @@ function viewAuthentification(user){
     $("#userName").text("Bonjour! "+user.nom+" "+user.prenom);
     $(".connexion").hide();
     $("#search-homepage").show();
-    $("#search-devis-date-link").show();
-    $("#search-devis-montant-link").show();
-    $("#search-devis-amenagement-link").show();
+    $("#search-devis-link").hide();
     $("#search-client-link").hide();
     $("#search-utilisateur-link").hide();
     $("#search-amenagement-link").hide();
@@ -23,11 +21,7 @@ function viewAuthentification(user){
             $(".introductionQuote").show(); 
             $("#search-client-link").show();
             $("#search-utilisateur-link").show();
-            $("#search-amenagement-link").show();
             $("#search-devis-link").show();
-            $("#search-devis-date-link").hide();
-            $("#search-devis-montant-link").hide();
-            $("#search-devis-amenagement-link").hide();
             $("#mesDevis").show();
 
     }
@@ -45,8 +39,6 @@ function viewAuthentification(user){
     $("#voir-devis-client").hide();
     $("#voir-details-devis").hide();
     $("#voir-clients").hide();
-    $("#voir-details-devis-DDI").hide();
-    $("#voir-details-devis-DC").hide();
     $("#voir-photos-client").hide();
      
 }

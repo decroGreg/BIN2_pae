@@ -1,4 +1,4 @@
-import {filterDropdown,postData,onError}from "./util.js";
+import {filterDropdown,postData,onError, getData}from "./util.js";
 import {token} from "./index.js";
 import{afficherDevis} from "./afficherDevis.js";
 
@@ -16,7 +16,16 @@ $(document).ready(function () {
 		console.log(data);
 		postData("/listeClients",data,token,afficherClients,onError);
 		$("#clientsNameSearch").val("");
-	})
+	});
+	
+    $("#btn-search-category").click(e=>{
+    	if($("#search-option-category").val()=="client"){
+    	    allHide();
+            getData("/listeClients",token,afficherClientsDropdown,onError);
+            getData("/listeClients",token,afficherClients,onError);
+        }
+    });
+
 });
 
 function afficherClientsDropdown(response){
