@@ -118,7 +118,7 @@ $(document).ready(function () {
             }
             console.log(data);
             console.log(data.images);
-            //postData("/introduireServlet",data,token,onPostIntroductionQuote,onError);
+            postData("/introduireServlet",data,token,onPostIntroductionQuote,onError);
            
             onPostIntroductionQuote();
             photo={};
