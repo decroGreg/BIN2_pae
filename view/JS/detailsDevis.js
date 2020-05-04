@@ -37,10 +37,11 @@ function afficherDetailsDevis(response){
 	$("#voir-details-devis #typeAmenagementDevis").prop("disabled", true);
 	
 	//Si le devis est visible, j'affiche la photo preferee
-	/*if(response.devisData.etat=="V" && response.photoPrefereeData!=""){
+	if(response.devisData.etat=="V" && response.photoPrefereeData != undefined){
+		$("#photoPrefereeDevis").html("");
 		$("#photoPrefereeDevis").show();
-		$("#photoPrefereeDevis").append("<img src='"+ response.photoPrefereeData[data].urlPhoto +"' width='193' height='130'>");
-	}*/
+		$("#photoPrefereeDevis").append("<img src='"+ response.photoPrefereeData.urlPhoto +"' width='193' height='130'>");
+	}
 	//Pour voir si on peut changer la value de dateDebutTravaux
 	if(response.devisData.etat=="I"){
 		$("#voir-details-devis #dateDebutTravaux").attr("value", " ");

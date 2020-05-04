@@ -18,8 +18,16 @@ $(document).ready(function () {
 			$("#inputUtilisateursCitySearch").val("");
 			$("#searchUtilisateursCityDropdown").text("ville");
 			$("#searchUtilisateursNameDropdown").text("nom utilisateur");
-		})
-
+		});
+		
+	    $("#btn-search-category").click(e=>{
+	    	if($("#search-option-category").val()=="utilisateur"){
+	            allHide();
+	            getData("/listeUsers",token,afficherUtilisateursDropdown,onError);
+	            getData("/listeUsers",token,afficherUtilisateurs,onError);
+	        }
+	    });
+		
 		
 		
 });

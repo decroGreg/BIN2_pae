@@ -21,10 +21,14 @@ $(document).ready(function () {
         $("#searchClientsCityDropdown").text("ville");
 		$("#searchClientsNameDropdown").text("nom client");
 	});
-
-
-
-
+	
+    $("#btn-search-category").click(e=>{
+    	if($("#search-option-category").val()=="client"){
+    	    allHide();
+            getData("/listeClients",token,afficherClientsDropdown,onError);
+            getData("/listeClients",token,afficherClients,onError);
+        }
+    });
 
 });
 

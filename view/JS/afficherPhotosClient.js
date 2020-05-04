@@ -1,5 +1,12 @@
-import{token, allHide} from "./index.js";
+import{token, allHide, user} from "./index.js";
 import {postData,onError,creatHTMLFromString} from "./util.js" ;
+
+$(document).ready(function () {
+    $(".mesPhotos").click(e=>{
+    	let data=user;
+    	postData("/mesPhotos", data, token, afficherPhotos, onError);
+    });
+});
 
 function afficherPhotos(response){
 	viewPhotosClient();
