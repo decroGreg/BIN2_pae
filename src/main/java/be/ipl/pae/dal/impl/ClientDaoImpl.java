@@ -210,4 +210,21 @@ public class ClientDaoImpl implements ClientDao {
       throw new DalException(ex.getMessage());
     }
   }
+
+  @Override
+  public int getIdDernierClient() {
+    int idClient = 0;
+    String requeteSql = "SELECT MAX(id_client) FROM init.client";
+    ps = services.getPreparedSatement(requeteSql);
+    try {
+      try (ResultSet rs = ps.executeQuery()) {
+        while (rs.next()) {
+          idClient = rs.getInt(1);
+        }
+      }
+    } catch (SQLException ex) {
+      throw new DalException("Erreur dans la recherche du dernier devis : " + ex.getMessage());
+    }
+    return idClient;
+  }
 }

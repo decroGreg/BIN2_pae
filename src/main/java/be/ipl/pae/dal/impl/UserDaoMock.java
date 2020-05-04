@@ -23,16 +23,17 @@ public class UserDaoMock implements UserDao {
   private Factory factory;
 
   /**
-   * Constructeur Mock User.
+   * Cree un objet UserDaoMock.
    * 
-   * @param getUserConnexion methode boolean.
-   * @param createInscription methode boolean.
-   * @param voirTousUser methode boolean.
-   * @param lierUserUtilisateur methode boolean.
-   * @param voirUserPasConfirmer methode boolean.
-   * @param lierClientUser methode boolean.
-   * @param confirmerUtilisateur methode boolean.
-   * @param testDalException methode boolean.
+   * @param getUserConnexion
+   * @param createInscription
+   * @param voirTousUser
+   * @param voirUserPasConfirmer
+   * @param lierClientUser
+   * @param confirmerUtilisateur
+   * @param getUserViaId
+   * @param voirUserAvecCritere
+   * @param testDalException
    */
   public UserDaoMock(boolean getUserConnexion, boolean createInscription, boolean voirTousUser,
       boolean voirUserPasConfirmer, boolean lierClientUser, boolean confirmerUtilisateur,

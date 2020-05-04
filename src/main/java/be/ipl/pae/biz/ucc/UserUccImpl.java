@@ -86,7 +86,6 @@ public class UserUccImpl implements UserUcc {
           throw new BizException("Aucun utilisateur n'a cette id : " + id);
         }
       } catch (DalException dal) {
-        dal.printStackTrace();
         daoServicesUcc.rollback();
         throw new FatalException(dal.getMessage());
       }

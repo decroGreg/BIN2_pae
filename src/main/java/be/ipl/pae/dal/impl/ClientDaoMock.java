@@ -15,6 +15,9 @@ public class ClientDaoMock implements ClientDao {
   private boolean createClient;
   private boolean getClientMail;
   private boolean voirClientAvecCritere;
+  private boolean getClientById;
+  private boolean getVilles;
+  private boolean getIdDernierClient;
   private boolean testDalException;
   private Factory factory;
 
@@ -26,12 +29,16 @@ public class ClientDaoMock implements ClientDao {
    * @param getClientMail methode boolean.
    * @param testDalException methode boolean.
    */
-  public ClientDaoMock(boolean voirTousClient, boolean createClien, boolean getClientMail,
-      boolean voirClientAvecCritere, boolean testDalException) {
+  public ClientDaoMock(boolean voirTousClient, boolean createClient, boolean getClientMail,
+      boolean getClientById, boolean getVilles, boolean voirClientAvecCritere,
+      boolean getIdDernierClient, boolean testDalException) {
     this.voirTousClient = voirTousClient;
-    this.createClient = createClien;
+    this.createClient = createClient;
     this.getClientMail = getClientMail;
     this.voirClientAvecCritere = voirClientAvecCritere;
+    this.getClientById = getClientById;
+    this.getVilles = getVilles;
+    this.getIdDernierClient = getIdDernierClient;
     this.testDalException = testDalException;
     this.factory = new FactoryStub();
   }
@@ -81,13 +88,30 @@ public class ClientDaoMock implements ClientDao {
 
   @Override
   public ClientDto getClientById(int id) {
-    // TODO Auto-generated method stub
+    testDalException();
+    if (getClientById) {
+      return factory.getClientDto();
+    }
     return null;
   }
 
   @Override
   public List<String> getVilles() {
-    // TODO Auto-generated method stub
+    testDalException();
+    if (getVilles) {
+      List<String> villes = new ArrayList<String>();
+      villes.add(factory.getClientDto().getVille());
+      return villes;
+    }
     return null;
+  }
+
+  @Override
+  public int getIdDernierClient() {
+    testDalException();
+    if (getIdDernierClient) {
+      return factory.getClientDto().getIdClient();
+    }
+    return 0;
   }
 }
