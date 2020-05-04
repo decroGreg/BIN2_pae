@@ -25,6 +25,7 @@ $(document).ready(function () {
 	});
 	
     $("#btn-search-category").click(e=>{
+        e.preventDefault();
     	if($("#search-option-category").val()=="devis"){
     		allHide();
             getData("/listeUsers",token,onGetClientDevis,onError);

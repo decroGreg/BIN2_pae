@@ -1,5 +1,5 @@
 import {filterDropdown,postData,onError, getData}from "./util.js";
-import {token} from "./index.js";
+import {token, allHide} from "./index.js";
 import{afficherDevis} from "./afficherDevis.js";
 
 

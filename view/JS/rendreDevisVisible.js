@@ -3,6 +3,32 @@ import{afficherDevis} from "./afficherDevis.js";
 import {allHide, token} from "./index.js";
 import{afficherDetailsDevis} from "./detailsDevis.js";
 
+
+$(document).ready(function () {
+	$("#btn-ajout-photo").off().click(e=>{
+		e.preventDefault();
+		let data={};
+		var photo = $("#ajouterPhoto #photoAjoutee img").attr("src");
+		data.urlPhoto = photo;
+		if($("#visibilitePhoto").is(":checked")){
+			data.visible = 1;
+		}
+		else{
+			data.visible = 0;
+		}
+		console.log("photo src = " +$("#ajouterPhoto #photoAjoutee img").attr("src"));
+		if($("#ajouterPhoto #photoAjoutee img").attr("src") == "#"){
+			alert("Vous devez ajouter un fichier.");
+		}
+		else{
+			$("#ajouterPhoto").hide();
+			data.idAmenagement = $("#listeTypeAmenagements option:selected").attr("id");
+			putData("/ajouterPhoto", token, data, onPostPhoto, onError);
+		}
+	});
+});
+
+
 function ajouterPhoto(response){
 	//response = tous les amenagements du devis et la description du type amenagement
 	$("#btn-photo-preferee").show();
@@ -17,21 +43,6 @@ function ajouterPhoto(response){
 	});
 	$("#ajouterPhoto #photoDevis").change(e=>{
         encodeImagetoBase64(e.target);
-	});
-	$("#btn-ajout-photo").off().click(e=>{
-		e.preventDefault();
-		let data={};
-		var photo = $("#ajouterPhoto #photoAjoutee img").attr("src");
-		data.urlPhoto = photo;
-		if($("#visibilitePhoto").is(":checked")){
-			data.visible = 1;
-		}
-		else{
-			data.visible = 0;
-		}
-		$("#ajouterPhoto").hide();
-		data.idAmenagement = $("#listeTypeAmenagements option:selected").attr("id");
-		putData("/ajouterPhoto", token, data, onPostPhoto, onError);
 	});
 }
 
