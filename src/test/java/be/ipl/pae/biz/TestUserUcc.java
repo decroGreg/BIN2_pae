@@ -196,8 +196,20 @@ class TestUserUcc {
   }
 
   @Test
-  @DisplayName("test dalException")
+  @DisplayName("infos manquantes")
   void testSinscrire6() throws InstantiationException, IllegalAccessException,
+      IllegalArgumentException, InvocationTargetException {
+    userDao = (UserDao) userDaoConstruct.newInstance(false, true, false, false, false, false, false,
+        false, false);
+    userUcc = (UserUcc) userUccConstruct.newInstance(bizFactory, userDao, dalServices);
+    userDto.setEmail("samuel.vancampenhout@student.vinci.be");
+    userDto.setMotDePasse(null);
+    assertThrows(BizException.class, () -> userUcc.sinscrire(userDto));
+  }
+
+  @Test
+  @DisplayName("test dalException")
+  void testSinscrire7() throws InstantiationException, IllegalAccessException,
       IllegalArgumentException, InvocationTargetException {
     userDao = (UserDao) userDaoConstruct.newInstance(false, true, false, false, false, false, false,
         false, true);
