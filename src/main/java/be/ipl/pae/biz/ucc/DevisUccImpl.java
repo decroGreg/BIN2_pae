@@ -202,7 +202,7 @@ public class DevisUccImpl implements DevisUcc {
   }
 
 
-
+  @Override
   public List<DevisDto> rechercheSurDevis(DevisDto devisDto, double prixMin, double prixMax,
       List<Integer> idTypeAmenagements, String nomClient) {
     List<DevisDto> devisCorrespondants = null;

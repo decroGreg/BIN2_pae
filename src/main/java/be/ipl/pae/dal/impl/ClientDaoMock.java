@@ -25,7 +25,7 @@ public class ClientDaoMock implements ClientDao {
    * Constructeur Client Mock.
    * 
    * @param voirTousClient methode boolean.
-   * @param createClien methode boolean.
+   * @param createClient methode boolean.
    * @param getClientMail methode boolean.
    * @param testDalException methode boolean.
    */

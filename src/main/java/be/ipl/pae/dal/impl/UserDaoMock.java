@@ -25,15 +25,15 @@ public class UserDaoMock implements UserDao {
   /**
    * Cree un objet UserDaoMock.
    * 
-   * @param getUserConnexion
-   * @param createInscription
-   * @param voirTousUser
-   * @param voirUserPasConfirmer
-   * @param lierClientUser
-   * @param confirmerUtilisateur
-   * @param getUserViaId
-   * @param voirUserAvecCritere
-   * @param testDalException
+   * @param getUserConnexion attribut boolean.
+   * @param createInscription attribut boolean.
+   * @param voirTousUser attribut boolean.
+   * @param voirUserPasConfirmer attribut boolean.
+   * @param lierClientUser attribut boolean.
+   * @param confirmerUtilisateur attribut boolean.
+   * @param getUserViaId attribut boolean.
+   * @param voirUserAvecCritere attribut boolean.
+   * @param testDalException attribut boolean.
    */
   public UserDaoMock(boolean getUserConnexion, boolean createInscription, boolean voirTousUser,
       boolean voirUserPasConfirmer, boolean lierClientUser, boolean confirmerUtilisateur,
