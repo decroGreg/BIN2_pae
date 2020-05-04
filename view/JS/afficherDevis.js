@@ -1,7 +1,7 @@
 import{token, allHide,user} from "./index.js";
 import{afficherDetailsDevis,afficherDetailsDevisClient} from "./detailsDevis.js";
 import {postData,onError,creatHTMLFromString,filterDropdown, getData} from "./util.js" ;
-var test;
+
 
 $(document).ready(function () {
 
@@ -37,7 +37,6 @@ $(document).ready(function () {
         e.preventDefault();
     	allHide();
         mesDevis();
-        getData("/listeUsers",token,onGetClientDevisClient,onError);
         alert();
         getData("/introduireServlet",token,onGetAmenagementDevisClient,onError);
 
@@ -49,13 +48,14 @@ function onGetClientDevis(response){
 	afficherNomClientDropdown(response,document.getElementById("clientNameSearch"));	
 }
 
-/*
-function onGetClientDevisClient(response){
-	//afficherNomClientDropdown(response,document.getElementById("devisClientNameSearch"));
-}*/
+
 
 function afficherNomClientDropdown(response,dropdown){
-	
+	var input=document.getElementById("inputClientNameSearch");
+	dropdown.innerHTML="";
+	dropdown.append(input);
+
+
 	response.usersData.forEach(element=>{
 		var li=document.createElement("li");
 		li.value=element.idUser;
