@@ -73,6 +73,7 @@ public class ClientUccImpl implements ClientUcc {
     }
   }
 
+  @Override
   public List<String> getNomClients() {
     List<String> noms;
     try {
