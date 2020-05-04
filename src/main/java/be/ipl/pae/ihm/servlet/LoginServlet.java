@@ -126,7 +126,7 @@ public class LoginServlet extends HttpServlet {
 
     } catch (Exception exc) {
       exc.printStackTrace();
-      ResponseImpl.errorJson(resp, exc);
+      ResponseImpl.errorServer(resp, exc);
     }
 
 
