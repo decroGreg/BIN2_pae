@@ -196,7 +196,7 @@ public class DetailsDevisServlet extends HttpServlet {
         }
 
         String json = "{\"success\":\"true\", \"token\":\"" + token
-            + "\",\"message\":\"la date a été repoussée\"}";
+            + "\",\"message\":\"la date a ete repoussee\"}";
         ResponseImpl.success(resp, json);
 
       } catch (Exception exce) {
