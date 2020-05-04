@@ -29,7 +29,7 @@ public class ResponseImpl implements Response {
 
   }
 
-  public static void test(HttpServletResponse resp, String message) {
+  public static void raterRequete(HttpServletResponse resp, String message) {
     try {
       resp.setContentType("application/json");
       resp.setCharacterEncoding("UTF-8");
@@ -39,11 +39,11 @@ public class ResponseImpl implements Response {
       resp.getWriter().write(json);
     } catch (IOException e) {
       e.printStackTrace();
-      errorJson(resp, e);
+      errorServer(resp, e);
     }
   }
 
-  public static void errorJson(HttpServletResponse resp, Exception exc) {
+  public static void errorServer(HttpServletResponse resp, Exception exc) {
     resp.setContentType("application/json");
     resp.setCharacterEncoding("UTF-8");
     resp.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
