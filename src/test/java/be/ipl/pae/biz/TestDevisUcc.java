@@ -259,14 +259,14 @@ class TestDevisUcc {
   }
 
   @Test
-  @DisplayName("devis ok avec etat = V")
+  @DisplayName("devis ok avec etat = FF")
   void choisirPhotoPreferee2() throws InstantiationException, IllegalAccessException,
       IllegalArgumentException, InvocationTargetException {
     devisDao = (DevisDao) devisDaoConstruct.newInstance(false, false, false, false, false, false,
         false, true, false, false, false);
     devisUcc = (DevisUcc) devisUccConstruct.newInstance(bizFactory, devisDao, userDao, clientDao,
         amenagementDao, dalServices);
-    devisDto.setEtat(Etat.V);
+    devisDto.setEtat(Etat.FF);
     PhotoDto photoDto = bizFactory.getPhotoDto();
     devisUcc.choisirPhotoPreferee(devisDto, photoDto.getIdPhoto());
     assertEquals(devisDto.getIdPhotoPreferee(), photoDto.getIdPhoto());
