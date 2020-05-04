@@ -124,4 +124,10 @@ public class UserDaoMock implements UserDao {
     }
     return null;
   }
+
+  @Override
+  public List<String> nomUser() {
+    // TODO Auto-generated method stub
+    return null;
+  }
 }

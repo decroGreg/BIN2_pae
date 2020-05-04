@@ -58,6 +58,24 @@ public class ClientDaoImpl implements ClientDao {
   }
 
   @Override
+  public List<String> nomClient() {
+    List<String> listeNom = new ArrayList<String>();
+    String requeteSql = "SELECT DISTINCT nom FROM init.clients";
+    ps = services.getPreparedSatement(requeteSql);
+    try {
+      try (ResultSet rs = ps.executeQuery()) {
+        while (rs.next()) {
+          String nom = rs.getString(1);
+          listeNom.add(nom);
+        }
+      }
+      return listeNom;
+    } catch (SQLException ex) {
+      throw new DalException(ex.getMessage());
+    }
+  }
+
+  @Override
   public boolean createClient(ClientDto clientDto) {
     String requeteSql =
         "INSERT INTO init.clients VALUES (DEFAULT, ?, ?, ?, ?, ?, ?, ?, ?, ?, null)";
