@@ -111,16 +111,16 @@ public class LoginServlet extends HttpServlet {
           String userData = genson.serialize(userDto);
           // *********************************************
 
-          Map<String, String> sendBackData = new HashMap<String, String>();
-          sendBackData.put("token", "\"" + ltoken + "\"");
-          sendBackData.put("userData", userData);
-          sendBackData.put("message", "\"login reussit\"");
-          ResponseImpl.success(resp, sendBackData);
+          String json = "{\"success\":\"true\", \"token\":\"" + ltoken + "\", \"userData\":"
+              + userData + ",\"message\":\"" + "login reussit" + "\"}";
+          ResponseImpl.success(resp, json);
+
         }
       } catch (BizException biz) {
         // TODO: handle exception
-        System.out.println("mdp incorrect");
         biz.printStackTrace();
+        ResponseImpl.raterRequete(resp, "\"mdp incorrecte\"");
+
 
       }
 

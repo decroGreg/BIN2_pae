@@ -9,5 +9,5 @@ public interface Response {
 
   public static void test(HttpServletResponse resp, String message) {}
 
-  public static void errorJson(HttpServletResponse resp, Exception exc) {}
+  public static void errorServer(HttpServletResponse resp, Exception exc) {}
 }
