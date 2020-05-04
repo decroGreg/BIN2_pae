@@ -4,6 +4,7 @@ import be.ipl.pae.biz.dto.DevisDto;
 import be.ipl.pae.biz.dto.PhotoDto;
 import be.ipl.pae.biz.interfaces.DevisUcc;
 import be.ipl.pae.biz.interfaces.PhotoUcc;
+import be.ipl.pae.ihm.response.ResponseImpl;
 
 import com.owlike.genson.Genson;
 
@@ -56,22 +57,13 @@ public class ChoisirPhotoPrefereeServlet extends HttpServlet {
         String photosData = genson.serialize(photosDevis);
         String json = "{\"success\":\"true\", \"token\":\"" + token + "\", \"photosData\":"
             + photosData + "}";
-        System.out.println("JSON generated : success");
-        resp.setContentType("application/json");
-        resp.setCharacterEncoding("UTF-8");
-        resp.setStatus(HttpServletResponse.SC_OK);
-        resp.getWriter().write(json);
+        ResponseImpl.success(resp, json);
 
       }
 
     } catch (Exception ex) {
       ex.printStackTrace();
-      String json = "{\"error\":\"false\"}";
-      System.out.println(json);
-      resp.setContentType("application/json");
-      resp.setCharacterEncoding("UTF-8");
-      resp.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
-      resp.getWriter().write(json);
+      ResponseImpl.errorServer(resp, ex);
     }
 
 
@@ -109,22 +101,13 @@ public class ChoisirPhotoPrefereeServlet extends HttpServlet {
         String json = "{\"success\":\"true\", \"message\":\""
             + "La photo preferee a ete selectionnee" + "\", \"devisData\":" + devisData
             + ", \"photoPrefereeData\":" + photoPrefereeData + "}";
-        System.out.println("JSON generated : success");
-        resp.setContentType("application/json");
-        resp.setCharacterEncoding("UTF-8");
-        resp.setStatus(HttpServletResponse.SC_OK);
-        resp.getWriter().write(json);
+        ResponseImpl.success(resp, json);
 
       }
 
     } catch (Exception ex) {
       ex.printStackTrace();
-      String json = "{\"error\":\"false\"}";
-      System.out.println(json);
-      resp.setContentType("application/json");
-      resp.setCharacterEncoding("UTF-8");
-      resp.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
-      resp.getWriter().write(json);
+      ResponseImpl.errorServer(resp, ex);
     }
   }
 

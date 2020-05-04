@@ -8,6 +8,7 @@ import be.ipl.pae.biz.interfaces.AmenagementUcc;
 import be.ipl.pae.biz.interfaces.DevisUcc;
 import be.ipl.pae.biz.interfaces.PhotoUcc;
 import be.ipl.pae.biz.interfaces.TypeDAmenagementUcc;
+import be.ipl.pae.ihm.response.ResponseImpl;
 
 import com.owlike.genson.Genson;
 
@@ -74,22 +75,14 @@ public class AjouterPhotoDevisServlet extends HttpServlet {
         String typesAmenagementData = genson.serialize(descriptionsTypeAmenagement);
         String json = "{\"success\":\"true\", \"amenagementsData\":" + amenagementsData
             + ", \"typesAmenagementData\":" + typesAmenagementData + "}";
-        System.out.println("JSON generated :" + json);
-        resp.setContentType("application/json");
-        resp.setCharacterEncoding("UTF-8");
-        resp.setStatus(HttpServletResponse.SC_OK);
-        resp.getWriter().write(json);
+        ResponseImpl.success(resp, json);
 
       }
 
     } catch (Exception ex) {
       ex.printStackTrace();
-      String json = "{\"error\":\"false\"}";
-      System.out.println(json);
-      resp.setContentType("application/json");
-      resp.setCharacterEncoding("UTF-8");
-      resp.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
-      resp.getWriter().write(json);
+      ResponseImpl.errorServer(resp, ex);
+
     }
   }
 
@@ -106,10 +99,8 @@ public class AjouterPhotoDevisServlet extends HttpServlet {
       int idAmenagement = Integer.parseInt(data.get("idAmenagement").toString());
       int visible = Integer.parseInt(data.get("visible").toString());
       String urlPhoto = data.get("urlPhoto").toString();
-      System.out.println("ID am = " + idAmenagement);
       AmenagementDto amenagementDto = null;
       boolean photoVisible = false;
-      System.out.println("VISIBLE = " + visible);
 
       try {
 
@@ -122,12 +113,8 @@ public class AjouterPhotoDevisServlet extends HttpServlet {
 
 
       } catch (Exception ex) {
-        ex.printStackTrace();
-        resp.setContentType("application/json");
-        resp.setCharacterEncoding("UTF-8");
-        resp.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
-        String json = "{\"error\":\"false\"}";
-        resp.getWriter().write(json);
+        ResponseImpl.errorServer(resp, ex);
+
       }
 
       // Je renvoie le devis pour revenir sur la page detailsDevis
@@ -148,21 +135,14 @@ public class AjouterPhotoDevisServlet extends HttpServlet {
         String json = "{\"success\":\"true\", \"message\":\"" + "Photo ajoutee"
             + "\", \"devisData\":" + devisData + "}";
         System.out.println("JSON generated :" + json);
-        resp.setContentType("application/json");
-        resp.setCharacterEncoding("UTF-8");
-        resp.setStatus(HttpServletResponse.SC_OK);
-        resp.getWriter().write(json);
+        ResponseImpl.success(resp, json);
 
       }
 
     } catch (Exception ex) {
       ex.printStackTrace();
-      String json = "{\"error\":\"false\"}";
-      System.out.println(json);
-      resp.setContentType("application/json");
-      resp.setCharacterEncoding("UTF-8");
-      resp.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
-      resp.getWriter().write(json);
+      ResponseImpl.errorServer(resp, ex);
+
     }
   }
 

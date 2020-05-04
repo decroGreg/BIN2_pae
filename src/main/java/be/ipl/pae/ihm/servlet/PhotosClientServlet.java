@@ -6,6 +6,7 @@ import be.ipl.pae.biz.dto.PhotoDto;
 import be.ipl.pae.biz.interfaces.ClientUcc;
 import be.ipl.pae.biz.interfaces.DevisUcc;
 import be.ipl.pae.biz.interfaces.PhotoUcc;
+import be.ipl.pae.ihm.response.ResponseImpl;
 
 import com.owlike.genson.Genson;
 
@@ -63,23 +64,13 @@ public class PhotosClientServlet extends HttpServlet {
       if (token != null) {
         String photosData = genson.serialize(listePhotos);
         String json = "{\"success\":\"true\", \"photosData\":" + photosData + "}";
-        // System.out.println("JSON generated :" + json);
-        System.out.println("SIZE CLIENT = " + listePhotos.size());
-        resp.setContentType("application/json");
-        resp.setCharacterEncoding("UTF-8");
-        resp.setStatus(HttpServletResponse.SC_OK);
-        resp.getWriter().write(json);
+        ResponseImpl.success(resp, json);
 
       }
 
     } catch (Exception ex) {
       ex.printStackTrace();
-      String json = "{\"error\":\"false\"}";
-      System.out.println(json);
-      resp.setContentType("application/json");
-      resp.setCharacterEncoding("UTF-8");
-      resp.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
-      resp.getWriter().write(json);
+      ResponseImpl.errorServer(resp, ex);
     }
   }
 

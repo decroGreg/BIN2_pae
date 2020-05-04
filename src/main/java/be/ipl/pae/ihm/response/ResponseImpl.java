@@ -8,7 +8,7 @@ public class ResponseImpl implements Response {
 
 
   public static void success(HttpServletResponse resp, String json) throws IOException {
-    System.out.println("JSON generated :" + json);
+    System.out.println("JSON generated : success");
 
     resp.setContentType("application/json");
 
