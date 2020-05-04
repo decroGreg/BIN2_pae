@@ -1,8 +1,31 @@
-import {postData,getData,deleteData,putData, onError} from "./util.js" ;
-import{afficherDevis} from "./afficherDevis.js";
+import {postData,putData, onError} from "./util.js" ;
 import {allHide, token} from "./index.js";
 import {ajouterPhoto, choisirPhotoPreferee} from "./rendreDevisVisible.js";
 
+
+$(document).ready(function(){
+	$("#btn-devis-repousserDate").click(e=>{
+        let data={
+                "date":$("#dateDebutTravaux").val(),
+                "idDevis":$("#btn-devis-repousserDate").attr("idDevis"),
+                "etat":$("#btn-devis-repousserDate").attr("etat")
+        };
+        console.log("id devis-->"+$("#btn-devis-repousserDate").attr("idDevis"));
+        console.log(data);
+        putData("/detailsDevis",token,data,onPutRepousserDate,onError);
+
+    });
+});
+
+function onPutRepousserDate(response){
+	if(response.success==true){
+		$("#success-notification").fadeIn('slow').delay(1000).fadeOut('slow');
+		$("#success-notification").text(response.message);
+	}else{
+		$("#error-notification").fadeIn('slow').delay(1000).fadeOut('slow');
+		$("#error-notification").text(response.message);
+	}
+}
 
 function afficherDetailsDevis(response){
     allHide();

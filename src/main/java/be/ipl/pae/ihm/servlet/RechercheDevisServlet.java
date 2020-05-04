@@ -42,6 +42,32 @@ public class RechercheDevisServlet extends HttpServlet {
   }
 
 
+
+  @Override
+  protected void doGet(HttpServletRequest req, HttpServletResponse resp)
+      throws ServletException, IOException {
+    try {
+      String token = req.getHeader("Authorization");
+      if (token != null) {
+        List<String> noms = clientUcc.getNomClients();
+        Genson genson = new Genson();
+        String nomsString = genson.serialize(noms);
+        System.err.println("************************************");
+        String json =
+            "{\"success\":\"true\", \"token\":\"" + token + "\", \"noms\":" + nomsString + "}";
+        ResponseImpl.success(resp, json);
+        return;
+      } else {
+        ResponseImpl.raterRequete(resp, "token est null");
+      }
+    } catch (Exception exc) {
+      exc.printStackTrace();
+      ResponseImpl.errorServer(resp, exc);
+    }
+  }
+
+
+
   @Override
   protected void doPost(HttpServletRequest req, HttpServletResponse resp)
       throws ServletException, IOException {

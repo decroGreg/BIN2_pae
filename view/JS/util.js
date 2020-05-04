@@ -114,6 +114,21 @@ function filterDropdown(element){
 
   });
 }
+function checkInput(data,message){
+  var element;
+  console.log(data);
+  
+  for(element in data){
+          console.log(data[element])
+          if(!data[element]){
+                  
+                  $("#error-notification").fadeIn('slow').delay(1000).fadeOut('slow');
+                  $("#error-notification").text(message);
+                  return false;
+          }
+  }
+  return true;
+}
 
 
-export{postData,getData,deleteData,putData,creatHTMLFromString,onError,filterDropdown};
+export{postData,getData,deleteData,putData,creatHTMLFromString,onError,filterDropdown,checkInput};
