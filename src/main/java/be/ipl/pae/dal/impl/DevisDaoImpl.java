@@ -95,7 +95,7 @@ public class DevisDaoImpl implements DevisDao {
             + "d.duree_travaux , d.etat , d.date_debut_travaux "
             + "  FROM init.devis d , init.clients c"
             + "  WHERE UPPER(c.nom) LIKE UPPER(?) AND (d.date >= ? AND d.date <= ?) AND "
-            + "(d.montant >= ? OR d.montant <= ?) AND c.id_client = d.id_client";
+            + "(d.montant >= ? AND d.montant <= ?) AND c.id_client = d.id_client";
 
     if (dateSqlMin == null) {
       dateSqlMin = Timestamp.valueOf("1000-01-01 10:10:10.0");
