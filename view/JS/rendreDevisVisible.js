@@ -5,6 +5,7 @@ import{afficherDetailsDevis} from "./detailsDevis.js";
 
 
 $(document).ready(function () {
+
 	$("#btn-ajout-photo").off().click(e=>{
 		e.preventDefault();
 		let data={};
@@ -16,7 +17,6 @@ $(document).ready(function () {
 		else{
 			data.visible = 0;
 		}
-		console.log("photo src = " +$("#ajouterPhoto #photoAjoutee img").attr("src"));
 		if($("#ajouterPhoto #photoAjoutee img").attr("src") == "#"){
 			alert("Vous devez ajouter un fichier.");
 		}
@@ -37,6 +37,9 @@ function ajouterPhoto(response){
 	$("#formPhotoPreferee").hide();
 	$("#ajouterPhoto").show();
 	$("#ajouterPhoto #listeTypeAmenagements").html("");
+	$("#ajouterPhoto #photoAjoutee img").attr("src", "#");
+	$("#visibilitePhoto").checked = false;
+	$("#ajouterPhoto #photoDevis").val("");
 	Object.keys(response.amenagementsData).forEach(data=>{
 		var html = "<option id="+response.amenagementsData[data].idAmenagement+">" + response.typesAmenagementData[data] + "</option>";
 		$("#ajouterPhoto #listeTypeAmenagements").append(html);

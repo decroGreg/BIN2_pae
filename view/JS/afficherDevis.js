@@ -37,7 +37,6 @@ $(document).ready(function () {
         e.preventDefault();
     	allHide();
         mesDevis();
-        alert();
         getData("/introduireServlet",token,onGetAmenagementDevisClient,onError);
 
     });

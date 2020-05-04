@@ -15,6 +15,7 @@ function afficherDetailsDevis(response){
 	$("#choisirPhotoPreferee").hide();
 	$("#btn-devis-repousserDate").hide();
 	$("#photoPrefereeDevis").hide();
+	$("#voir-details-devis #dateDebutTravaux").attr("value", " ");
 
 	//Remplir donnees client
 	$("#voir-details-devis #nomClient").attr("value", response.clientData.nom);
@@ -43,7 +44,8 @@ function afficherDetailsDevis(response){
 		$("#photoPrefereeDevis").append("<img src='"+ response.photoPrefereeData.urlPhoto +"' width='193' height='130'>");
 	}
 	//Pour voir si on peut changer la value de dateDebutTravaux
-	if(response.devisData.etat=="I"){
+
+	if(response.devisData.etat=="I" || response.devisData.etat=="A"){
 		$("#voir-details-devis #dateDebutTravaux").attr("value", " ");
 		$("#voir-details-devis #dateDebutTravaux").prop("disabled", false);
 	}
@@ -211,19 +213,19 @@ function afficherDetailsDevisClient(response){
 	$("#voir-details-devis #clientDevis").hide();
 	$("#voir-details-devis #btn-devis-etat").hide();
 	$("#btn-devis-repousserDate").hide();
-
+	$("#voir-details-devis #dateDebutTravaux").attr("value", " ");
 	
 	//remplir details devis
 	$("#voir-details-devis #dateDevis").attr("value", response.devisData.date.substring(0,10));
 	$("#voir-details-devis #montantDevis").attr("value", response.devisData.montant);
 	$("#voir-details-devis #etatDevis").attr("value", response.devisData.etat);
 	$("#voir-details-devis #typeAmenagementDevis").attr("value", response.devisData.typeAmenagement);
-	if(response.devisData.etat=="I"){
+	if(response.devisData.etat=="I" || response.devisData.etat=="A"){
 		$("#voir-details-devis #dateDebutTravaux").attr("value", " ");
 	}
-	else{
-		$("#voir-details-devis #dateDebutTravaux").attr("value", response.devisData.dateDebutTravaux.substring(0,10));
-	}
+	
+	$("#voir-details-devis #dateDebutTravaux").attr("value", response.devisData.dateDebutTravaux.substring(0,10));
+	
 	$("#voir-details-devis #dateDebutTravaux").prop("disabled", true);
 	$("#voir-details-devis #dureeTravauxDevis").attr("value", response.devisData.dureeTravaux);
 	//Remplir types d'amenagement
@@ -234,6 +236,12 @@ function afficherDetailsDevisClient(response){
 	});
 	$("#voir-details-devis #typeAmenagementDevis").append(html);
 	$("#voir-details-devis #typeAmenagementDevis").prop("disabled", true);
+	//Si le devis est visible, j'affiche la photo preferee
+	if(response.devisData.etat=="V" && response.photoPrefereeData != undefined){
+		$("#photoPrefereeDevis").html("");
+		$("#photoPrefereeDevis").show();
+		$("#photoPrefereeDevis").append("<img src='"+ response.photoPrefereeData.urlPhoto +"' width='193' height='130'>");
+	}
 
 }
 

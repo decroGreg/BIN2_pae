@@ -6,6 +6,7 @@ import{afficherDevis, afficherDevisClient,onGetAmenagementDevis,onGetAmenagement
 import{afficherUtilisateurs,afficherUtilisateursDropdown} from "./afficherUtilisateurs.js";
 import{afficherDetailsDevis, changerEtat, changerValeurBouton} from "./detailsDevis.js";
 import{remplirListeTypesAmenagement} from "./selectionnerTypeAmenagement.js";
+import{afficherPhotos} from "./afficherPhotosClient.js";
 
 let token=undefined;
 let user;
@@ -91,6 +92,12 @@ $(document).ready(e=>{
         viewHomePage();
         
 
+    });
+	$(".mesPhotos").click(e=>{
+        e.preventDefault();
+    	console.log("Mes photos");
+    	let data=user;
+    	postData("/mesPhotos", data, token, afficherPhotos, onError);
     });
     
 

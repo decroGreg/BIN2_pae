@@ -100,12 +100,16 @@ public class ChoisirPhotoPrefereeServlet extends HttpServlet {
         }
       }
 
+
       if (token != null) {
         devisUcc.choisirPhotoPreferee(devisDto, idPhoto);
+        PhotoDto photoPreferee = photoUcc.recupererPhotoPreferee(devisDto);
+        String photoPrefereeData = genson.serialize(photoPreferee);
         String devisData = genson.serialize(devisDto);
         String json = "{\"success\":\"true\", \"message\":\""
-            + "La photo preferee a ete selectionnee" + "\", \"devisData\":" + devisData + "}";
-        System.out.println("JSON generated :" + json);
+            + "La photo preferee a ete selectionnee" + "\", \"devisData\":" + devisData
+            + ", \"photoPrefereeData\":" + photoPrefereeData + "}";
+        System.out.println("JSON generated : success");
         resp.setContentType("application/json");
         resp.setCharacterEncoding("UTF-8");
         resp.setStatus(HttpServletResponse.SC_OK);

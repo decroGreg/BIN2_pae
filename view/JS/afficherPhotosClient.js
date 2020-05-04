@@ -1,16 +1,10 @@
 import{token, allHide, user} from "./index.js";
 import {postData,onError,creatHTMLFromString} from "./util.js" ;
 
-$(document).ready(function () {
-    $(".mesPhotos").click(e=>{
-    	let data=user;
-    	postData("/mesPhotos", data, token, afficherPhotos, onError);
-    });
-});
 
 function afficherPhotos(response){
 	viewPhotosClient();
-	//$("#voir-photos-client").show();
+	$("#voir-photos-client").show();
 	$("#voir-photos-client #div-photos-client").html("");
 	var html="";
 	Object.keys(response.photosData).forEach(data => {

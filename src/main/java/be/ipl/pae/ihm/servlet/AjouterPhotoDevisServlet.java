@@ -27,8 +27,6 @@ public class AjouterPhotoDevisServlet extends HttpServlet {
   private AmenagementUcc amenagementUcc;
   private TypeDAmenagementUcc typeDAmenagementUcc;
   private DevisUcc devisUcc;
-  private ArrayList<AmenagementDto> amenagementsDevis = new ArrayList<>();
-  private ArrayList<String> descriptionsTypeAmenagement = new ArrayList<>();
 
   public AjouterPhotoDevisServlet(PhotoDto photoDto, PhotoUcc photoUcc,
       AmenagementUcc amenagementUcc, TypeDAmenagementUcc typeDAmenagementUcc, DevisUcc devisUcc) {
@@ -50,6 +48,8 @@ public class AjouterPhotoDevisServlet extends HttpServlet {
       Map<String, Object> data = genson.deserialize(req.getReader(), Map.class);
       String token = req.getHeader("Authorization");
       int idDevis = Integer.parseInt(data.get("idDevis").toString());
+      ArrayList<AmenagementDto> amenagementsDevis = new ArrayList<>();
+      ArrayList<String> descriptionsTypeAmenagement = new ArrayList<>();
 
 
       for (AmenagementDto a : amenagementUcc.voirAmenagement()) {
