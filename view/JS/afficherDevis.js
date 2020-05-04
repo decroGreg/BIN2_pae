@@ -107,8 +107,11 @@ function searchDevis(dropdown,idUser){
 	var data={}
 	dropdown.parentNode.parentNode.childNodes.forEach(e=>{
 		console.log(e);
-		if(e.name)
-		data[e.name]=e.value;
+		if(e.name){
+			data[e.name]=e.value;
+			e.value="";
+		}
+		
 	});
 	if(!data.name)
 		data.name=$("#inputClientNameSearch").val();
@@ -128,6 +131,7 @@ function searchDevis(dropdown,idUser){
 	postData("/rechercheDevis",send,token,afficherDevis,onError);
 
 	$("#searchDevisNameDropdown").html("nom client");
+	$("#inputClientNameSearch").val("");
 	$("#dropdownClientName").val(undefined);
 }
 
