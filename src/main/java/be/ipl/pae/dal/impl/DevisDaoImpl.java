@@ -81,8 +81,11 @@ public class DevisDaoImpl implements DevisDao {
   public List<DevisDto> voirDevisAvecCritere(Timestamp dateDevis, String nomClient, double prixMin,
       double prixMax, List<Integer> typeDAmenagementRecherche, int idUtilisateur) {
 
+    int typeTest = 0;
     int suiviTypeAmenagement = 6;
-    int typeTest = typeDAmenagementRecherche.get(0);
+    if (!typeDAmenagementRecherche.isEmpty()) {
+      typeTest = typeDAmenagementRecherche.get(0);
+    }
     double prixMaxSql = 0;
     String nomSql = nomClient;
     Timestamp dateSqlMin = dateDevis;
