@@ -3,6 +3,7 @@ package be.ipl.pae.ihm.servlet;
 import be.ipl.pae.biz.dto.ClientDto;
 import be.ipl.pae.biz.dto.UserDto;
 import be.ipl.pae.biz.interfaces.UserUcc;
+import be.ipl.pae.ihm.response.ResponseImpl;
 
 import com.owlike.genson.Genson;
 
@@ -48,28 +49,14 @@ public class ConfirmationRegisterServlet extends HttpServlet {
         usersJson = genson.serialize(userUcc.voirUtilisateurEnAttente());
         // TO DO js-> tableau
         String json = "{\"success\":\"true\", \"usersData\":" + usersJson + "}";
-        System.out.println("JSON generated :" + json);
-        resp.setContentType("application/json");
-
-        resp.setCharacterEncoding("UTF-8");
-
-        resp.setStatus(HttpServletResponse.SC_OK);
-        resp.getWriter().write(json);
+        ResponseImpl.success(resp, json);
       } else {
         System.err.println("token est NULL");
-        resp.setContentType("application/json");
-        resp.setCharacterEncoding("UTF-8");
-        resp.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
-        String json = "{\"success\":\false\"}";
-        resp.getWriter().write(json);
+        ResponseImpl.raterRequete(resp, "token est Null");
       }
     } catch (Exception exce) {
       exce.printStackTrace();
-      resp.setContentType("application/json");
-      resp.setCharacterEncoding("UTF-8");
-      resp.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
-      String json = "{\"error\":\"false\",\"message\":\"" + exce.getMessage() + "\"}";
-      resp.getWriter().write(json);
+      ResponseImpl.errorServer(resp, exce);
     }
 
   }
@@ -105,34 +92,17 @@ public class ConfirmationRegisterServlet extends HttpServlet {
 
 
           String json = "{\"success\":\"true\",\"message\":\"" + "Enregistrement confirmer" + "\"}";
-          System.out.println("JSON generated :" + json);
-          resp.setContentType("application/json");
-
-          resp.setCharacterEncoding("UTF-8");
-
-          resp.setStatus(HttpServletResponse.SC_OK);
-          resp.getWriter().write(json);
+          ResponseImpl.success(resp, json);
 
         }
       } catch (Exception exc) {
         System.err.println("token est NULL");
-        String json = "{\"success\":\false\",\"message\":\"" + "echec de la confirmation:"
-            + exc.getMessage() + "\"}";
-        System.out.println("JSON generated :" + json);
-        resp.setContentType("application/json");
-        resp.setCharacterEncoding("UTF-8");
-        resp.setStatus(HttpServletResponse.SC_OK);
-        resp.getWriter().write(json);
+        ResponseImpl.raterRequete(resp, "echec de la confirmation" + exc.getMessage());
       }
 
     } catch (Exception exce) {
       exce.printStackTrace();
-      String json = "{\"error\":\"false\",\"message\":\"" + exce.getMessage() + "\"}";
-      System.out.println("JSON generated :" + json);
-      resp.setContentType("application/json");
-      resp.setCharacterEncoding("UTF-8");
-      resp.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
-      resp.getWriter().write(json);
+      ResponseImpl.errorServer(resp, exce);
     }
   }
 

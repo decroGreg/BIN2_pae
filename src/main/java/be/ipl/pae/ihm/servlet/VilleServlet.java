@@ -1,6 +1,7 @@
 package be.ipl.pae.ihm.servlet;
 
 import be.ipl.pae.biz.interfaces.ClientUcc;
+import be.ipl.pae.ihm.response.ResponseImpl;
 
 import com.owlike.genson.Genson;
 
@@ -32,33 +33,14 @@ public class VilleServlet extends HttpServlet {
         String villes = genson.serialize(clientUcc.getVilles());
         String json =
             "{\"success\":\"true\", \"token\":\"" + token + "\", \"villes\":" + villes + "}";
-        System.out.println("JSON generated :" + json);
-
-        resp.setContentType("application/json");
-
-        resp.setCharacterEncoding("UTF-8");
-
-        resp.setStatus(HttpServletResponse.SC_OK);
-        resp.getWriter().write(json);
+        ResponseImpl.success(resp, json);
       } else {
         String json = "{\"success\":\"false\", \"message\":\"non connecte\"}";
-        System.out.println("JSON generated :" + json);
-
-        resp.setContentType("application/json");
-
-        resp.setCharacterEncoding("UTF-8");
-
-        resp.setStatus(HttpServletResponse.SC_OK);
-        resp.getWriter().write(json);
+        ResponseImpl.raterRequete(resp, "token est null");
       }
     } catch (Exception exc) {
       exc.printStackTrace();
-      String json = "{\"error\":\"false\"}";
-      System.out.println(json);
-      resp.setContentType("application/json");
-      resp.setCharacterEncoding("UTF-8");
-      resp.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
-      resp.getWriter().write(json);
+      ResponseImpl.errorServer(resp, exc);
     }
 
   }
