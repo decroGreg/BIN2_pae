@@ -1,5 +1,5 @@
 import{token, allHide} from "./index.js";
-import{filterDropdown, postData,onError} from "./util.js";
+import{filterDropdown, postData,onError,getData} from "./util.js";
 import{afficherDevis} from "./afficherDevis.js";
 
 
@@ -7,23 +7,49 @@ $(document).ready(function () {
 		$("#btn-search-utilisateurs").click(e=>{
 			var data={
 				name:$("#utilisateursNameSearch").val(),
-				city:$("#searchUtilisateursVille").val()
+				city:$("#inputUtilisateursCitySearch").val()
 			};
 			if(data.name==="")
 				data.name=document.getElementById("inputUtilisateursNameSearch").value;
 			console.log(data);
 			postData("/listeUsers",data,token,afficherUtilisateurs,onError);
+			
 			$("#utilisateursNameSearch").val("");
+			$("#inputUtilisateursCitySearch").val("");
+			$("#searchUtilisateursCityDropdown").text("ville");
+			$("#searchUtilisateursNameDropdown").text("nom utilisateur");
 		})
+
+		
 		
 });
-/*
-function afficherUtilisateursDropdown(response){
-	afficherNomDropdown(response,document.getElementById("utilisateursNameSearch"),"inputUtilisateursNameSearch",document.getElementById("searchUtilisateursNameDropdown"),"usersData");
+
+function afficherVilleDropdown(response){
+	var input=document.getElementById("inputUtilisateursCitySearch");
+	$("#utilisateursCitySearch").html("");
+	input.addEventListener("keyup",function(){
+		console.log(this.value);
+		$("#searchUtilisateursCityDropdown").text(this.value);
+		filterDropdown(this);
+	});
+
+	$("#utilisateursCitySearch").append(input);
+	console.log(response.villes);
+	response.villes.forEach(e=>{
+		var li=document.createElement("li");
+		var a=document.createElement("a");
+		a.innerHTML=e;
+		a.addEventListener("click",function(){
+			console.log(a.innerHTML);
+			$("#searchUtilisateursCityDropdown").text(a.innerHTML);
+			input.value=a.innerHTML;
+			
+		});
+		li.appendChild(a);
+		$("#utilisateursCitySearch").append(li);
+	});
+
 }
-*/
-
-
 
 function afficherUtilisateursDropdown(response){ //(response,balise ul,id input,balise dropdown)
 	console.log("passage");
@@ -56,6 +82,8 @@ function afficherUtilisateursDropdown(response){ //(response,balise ul,id input,
 
 
 function afficherUtilisateurs(response){
+	getData("/villes",token,afficherVilleDropdown,onError);
+	getData("/listeUsers",token,afficherUtilisateursDropdown,onError);
 	allHide();
 	viewListeUtilisateurs();
 	$("#voir-utilisateurs tbody").html("");

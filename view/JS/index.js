@@ -109,7 +109,7 @@ $(document).ready(e=>{
             allHide();
 
             
-            getData("/listeUsers",token,afficherUtilisateursDropdown,onError);
+           
             getData("/listeUsers",token,afficherUtilisateurs,onError);
         }
         if($("#search-option-category").val()=="devis"){
@@ -120,6 +120,7 @@ $(document).ready(e=>{
         }
         if($("#search-option-category").val()=="client"){
                 allHide();
+            
             getData("/listeClients",token,afficherClientsDropdown,onError);
             getData("/listeClients",token,afficherClients,onError);
         }

@@ -80,6 +80,7 @@ $(document).ready(function () {
                     console.log(dataUser);
             
             }
+            
             var type=[];
             var amenagementList=document.getElementsByClassName("form-check");
             for(var i=0;i<amenagementList.length;i++){
@@ -116,11 +117,34 @@ $(document).ready(function () {
             }
             console.log(data);
             console.log(data.images);
-            postData("/introduireServlet",data,token,onPostIntroductionQuote,onError);
+            //postData("/introduireServlet",data,token,onPostIntroductionQuote,onError);
+           
+            onPostIntroductionQuote();
             photo={};
+            
             
         });
 });
+function garbage(){
+      $("#Quote-Form-firstName").val("");
+      $("#Quote-Form-name").val("");
+      $("#Quote-Form-street").val("")
+      $("#Quote-Form-number").val("")
+      $("#Quote-Form-boite").val(""),
+      $("#Quote-Form-postalCode").val("");
+      $("#Quote-Form-city").val("");
+      $("#Quote-Form-email").val("");
+      $("#Quote-Form-phoneNumber").val("");
+      $("#Quote-Form-quoteDate").val("");
+      $("#Quote-Form-price").val("");
+      $("#Quote-Form-duration").val("");
+      $("#Quote-Form-Client-items").val("");
+      $("#Quote-Form-User-items").val("");
+      $("#Quote-Form-Client-dropdown").text("lié au client");
+
+      
+}
+
 
 
 function onGetClientQuoteForm(response){
@@ -204,7 +228,10 @@ function onGetAmenagements(response){
 }
 
 function onPostIntroductionQuote(response){
+        garbage();
     if(response.success=="true"){
+            //vider toutes les informations du formaulaire
+            
             $("#success-notification").fadeIn('slow').delay(1000).fadeOut('slow');
             $("#success-notification").text(response.message);
     }else{
