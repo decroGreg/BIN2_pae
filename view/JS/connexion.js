@@ -1,7 +1,60 @@
-import { allHide } from "./index.js";
-
+import { allHide ,setTokenUser,token} from "./index.js";
+import {postData,checkInput,onError} from "./util.js";
 const OUVRIER="O";
 const CLIENT="C";
+
+
+$(document).ready(function(){
+    $(".connexion").click(function (e) {
+        viewLogin();
+     });
+    $("#btn-connexion").click(e=>{
+        let data={};
+        data.mail=$("#login-email").val();
+        data.mdp=$("#login-pwd").val();
+        if(!checkInput(data,"veuillez remplir tous les champs pour la connexion")) return;
+        postData("/login",data,token,onPostLogin,onError);
+        
+    });
+    $("#btn-register").click(e=>{
+        let data={};
+        data.firstname=$("#Register-firstname").val();
+        data.lastname=$("#Register-lastname").val();
+        data.mail=$("#Register-email").val();
+        data.mdp=$("#Register-pwd").val();
+        data.city=$("#Register-city").val();
+        data.pseudo=$("#Register-pseudo").val();
+        if(!checkInput(data,"veuillez remplir tous les champs du nouveau clients")) return;
+        postData("/register",data,token,onPostRegister,onError);
+        
+    });
+});
+
+
+//Authentificaiton réussis
+function onPostLogin(response){
+    if(response.success==="true"){
+            $("#success-notification").fadeIn('slow').delay(1000).fadeOut('slow');
+            $("#success-notification").text(response.message);
+            console.log(response)
+            var token=response.token;
+            localStorage.setItem("token",token);
+            var user=response.userData;
+            setTokenUser(token,user);
+            console.log("user"+user.idUser);
+            viewAuthentification(user);
+    }else{ 
+            console.log(response.message);
+            $("#error-notification").fadeIn('slow').delay(1000).fadeOut('slow');
+            $("#error-notification").text(response.message);
+            
+
+            
+    }
+}
+
+
+
 //vue après authentification
 function viewAuthentification(user){
     allHide();
@@ -27,7 +80,6 @@ function viewAuthentification(user){
     }
     $(".mesPhotos").show();
     $(".mesDevis").show();
-
     $("#introductionQuoteForm").hide();
     $("#connexion").hide();
     $('#navigation_bar').hide();
@@ -42,6 +94,7 @@ function viewAuthentification(user){
     $("#voir-photos-client").hide();
      
 }
+
 
 function viewLogin(){
     allHide();
