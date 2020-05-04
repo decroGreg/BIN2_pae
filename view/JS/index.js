@@ -136,10 +136,7 @@ function onPostLoginToken(response){
         }
 }
     
-    
-                
-        }
-    }
+
 
 export{token,allHide,user,setTokenUser};
 

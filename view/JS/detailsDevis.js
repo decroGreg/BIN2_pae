@@ -132,7 +132,7 @@ function afficherDetailsDevis(response){
 	});
 	
 	//click sur choisir photo preferee
-	$("#btn-photo-preferee").click(e=>{
+	$("#btn-photo-preferee").off().click(e=>{
 		e.preventDefault();
 		let data={};
 		data.idDevis = response.devisData.idDevis;
@@ -140,7 +140,7 @@ function afficherDetailsDevis(response){
 	});
 	
 	//click sur rendre visible
-	$("#voir-details-devis #btn-rendre-visible").click(e=>{
+	$("#voir-details-devis #btn-rendre-visible").off().click(e=>{
 		e.preventDefault();
 		let data={};
 		data.idDevis = response.devisData.idDevis;

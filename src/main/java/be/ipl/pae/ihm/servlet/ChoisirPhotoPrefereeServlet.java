@@ -49,6 +49,7 @@ public class ChoisirPhotoPrefereeServlet extends HttpServlet {
       for (PhotoDto p : photoUcc.voirPhotos()) {
         // Si la photo a un idDevis et un idAmenagement,c'est une photo apres amenagement
         if (p.getIdDevis() == idDevis && p.getIdAmenagement() > 0) {
+          System.out.println("idDevis = " + p.getIdDevis());
           photosDevis.add(p);
         }
       }
@@ -95,6 +96,7 @@ public class ChoisirPhotoPrefereeServlet extends HttpServlet {
 
       if (token != null) {
         devisUcc.choisirPhotoPreferee(devisDto, idPhoto);
+        System.out.println("ID PHOTO PREF = " + idPhoto);
         PhotoDto photoPreferee = photoUcc.recupererPhotoPreferee(devisDto);
         String photoPrefereeData = genson.serialize(photoPreferee);
         String devisData = genson.serialize(devisDto);
