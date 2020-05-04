@@ -18,12 +18,19 @@ public class PhotoDaoImpl implements PhotoDao {
   private DaoServices services;
   private Factory factory;
 
+  /**
+   * Constructeur PhotoDaoImpl.
+   * 
+   * @param daoService classe service.
+   * @param factory injection de dependance pour la factory.
+   */
   public PhotoDaoImpl(DaoServices daoService, Factory factory) {
     this.services = daoService;
     this.factory = factory;
   }
 
 
+  @Override
   public boolean introduirePhoto(PhotoDto photoDto) {
     boolean amenagement = false;
     String requeteSql = "INSERT INTO init.photos VALUES(DEFAULT, ?, null, ?, ?)";
@@ -73,6 +80,7 @@ public class PhotoDaoImpl implements PhotoDao {
     }
   }
 
+  @Override
   public List<PhotoDto> voirPhotoSonJardin(int idClient) {
     List<PhotoDto> listePhoto = new ArrayList<PhotoDto>();
     String requeteSql = "SELECT p.* FROM init.photos p , init.devis d"
@@ -100,9 +108,9 @@ public class PhotoDaoImpl implements PhotoDao {
   @Override
   public List<PhotoDto> voirPhotoTypeDAmenagement(int idTypeAmenagement) {
     List<PhotoDto> listePhoto = new ArrayList<PhotoDto>();
-    String requeteSql =
-        "SELECT p.id_photo , p.photo , p.id_amenagement , p.id_devis , p.visible FROM init.photos p , init.amenagements a "
-            + "WHERE a.id_amenagement = p.id_amenagement AND a.id_type_amenagement = ?";
+    String requeteSql = "SELECT p.id_photo , p.photo , p.id_amenagement , p.id_devis , p.visible "
+        + "FROM init.photos p , init.amenagements a "
+        + "WHERE a.id_amenagement = p.id_amenagement AND a.id_type_amenagement = ?";
     ps = services.getPreparedSatement(requeteSql);
     try {
       ps.setInt(1, idTypeAmenagement);
