@@ -92,6 +92,24 @@ public class UserDaoImpl implements UserDao {
   }
 
   @Override
+  public List<String> nomUser() {
+    List<String> listeNom = new ArrayList<String>();
+    String requeteSql = "SELECT DISTINCT nom FROM init.utilisateurs";
+    ps = services.getPreparedSatement(requeteSql);
+    try {
+      try (ResultSet rs = ps.executeQuery()) {
+        while (rs.next()) {
+          String nom = rs.getString(1);
+          listeNom.add(nom);
+        }
+      }
+      return listeNom;
+    } catch (SQLException ex) {
+      throw new DalException(ex.getMessage());
+    }
+  }
+
+  @Override
   public boolean createInscription(UserDto user) {
     String requestSql = "INSERT INTO init.utilisateurs VALUES (DEFAULT, ?, ?, ?, ?, ?, ?, ?, ?)";
     ps = services.getPreparedSatement(requestSql);

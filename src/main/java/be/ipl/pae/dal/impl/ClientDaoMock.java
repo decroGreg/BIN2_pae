@@ -114,4 +114,10 @@ public class ClientDaoMock implements ClientDao {
     }
     return 0;
   }
+
+  @Override
+  public List<String> nomClient() {
+    // TODO Auto-generated method stub
+    return null;
+  }
 }

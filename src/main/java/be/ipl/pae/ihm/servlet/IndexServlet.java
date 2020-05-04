@@ -1,5 +1,7 @@
 package be.ipl.pae.ihm.servlet;
 
+import be.ipl.pae.ihm.response.ResponseImpl;
+
 import org.eclipse.jetty.servlet.DefaultServlet;
 
 import java.io.IOException;
@@ -58,7 +60,7 @@ public class IndexServlet extends DefaultServlet {
 
       } catch (Exception exce) {
         exce.printStackTrace();
-        resp.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+        ResponseImpl.errorServer(resp, exce);
       }
     }
 

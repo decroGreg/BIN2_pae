@@ -2,6 +2,7 @@ package be.ipl.pae.ihm.servlet;
 
 import be.ipl.pae.biz.dto.UserDto;
 import be.ipl.pae.biz.interfaces.UserUcc;
+import be.ipl.pae.ihm.response.ResponseImpl;
 
 import com.owlike.genson.Genson;
 
@@ -47,30 +48,16 @@ public class RegisterServlet extends HttpServlet {
         this.userUcc.sinscrire(userDto);
 
         String json = "{\"success\":\"true\",\"message\":\"" + "inscription reussit" + "\"}";
-        System.out.println("JSON generated :" + json);
-        resp.setContentType("application/json");
-        resp.setCharacterEncoding("UTF-8");
-        resp.setStatus(HttpServletResponse.SC_OK);
-        resp.getWriter().write(json);
+        ResponseImpl.success(resp, json);
       } catch (Exception exce) {
         exce.printStackTrace();
         String json = "{\"success\":\"false\",\"message\":\"" + exce.getMessage() + "\"}";
-        System.out.println("JSON" + json);
-        resp.setContentType("application/json");
-        resp.setCharacterEncoding("UTF-8");
-        resp.setStatus(HttpServletResponse.SC_OK);
-        resp.getWriter().write(json);
-
+        ResponseImpl.raterRequete(resp, exce.getMessage());
 
       }
     } catch (Exception exce) {
       exce.printStackTrace();
-      String json = "{\"error\":\false\",\"message\":\"" + exce.getMessage() + "\"}";
-      System.out.println("Json :" + json);
-      resp.setContentType("application/json");
-      resp.setCharacterEncoding("UTF-8");
-      resp.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
-      resp.getWriter().write(json);
+      ResponseImpl.errorServer(resp, exce);
     }
   }
 

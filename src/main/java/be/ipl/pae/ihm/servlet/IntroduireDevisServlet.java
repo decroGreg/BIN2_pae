@@ -5,6 +5,8 @@ import be.ipl.pae.biz.dto.DevisDto;
 import be.ipl.pae.biz.interfaces.DevisUcc;
 import be.ipl.pae.biz.interfaces.PhotoUcc;
 import be.ipl.pae.biz.interfaces.TypeDAmenagementUcc;
+import be.ipl.pae.exceptions.IHMException;
+import be.ipl.pae.ihm.response.ResponseImpl;
 
 import com.owlike.genson.Genson;
 
@@ -62,24 +64,14 @@ public class IntroduireDevisServlet extends HttpServlet {
 
         String json = "{\"success\":\"true\", \"token\":\"" + token + "\", \"typeAmenagements\":"
             + typeAmenagements + "}";
-        System.out.println("JSON generated :" + json);
-        resp.setContentType("application/json");
-
-        resp.setCharacterEncoding("UTF-8");
-
-        resp.setStatus(HttpServletResponse.SC_OK);
-        resp.getWriter().write(json);
+        ResponseImpl.success(resp, json);
       }
 
 
     } catch (Exception exce) {
       exce.printStackTrace();
-      String json = "{\"error\":\"false\",\"message\":\"" + exce.getMessage() + "\"}";
-      System.out.println("JSON generated :" + json);
-      resp.setContentType("application/json");
-      resp.setCharacterEncoding("UTF-8");
-      resp.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
-      resp.getWriter().write(json);
+
+      ResponseImpl.raterRequete(resp, exce.getMessage());
 
     }
   }
@@ -117,7 +109,7 @@ public class IntroduireDevisServlet extends HttpServlet {
           devisDto.setDureeTravaux(dataQuote.get("duration"));
         } catch (Exception exc) {
           exc.printStackTrace();
-          throw new IllegalArgumentException("veuillez introduire une date");
+          throw new IHMException("veuillez introduire une date");
         }
 
         int idUser = 0;
@@ -131,8 +123,7 @@ public class IntroduireDevisServlet extends HttpServlet {
 
         // si aucun client est lier et si il n'y a pas de nouvaux client introduit
         if (devisDto.getIdClient() == 0 && dataUser == null) {
-          throw new IllegalArgumentException(
-              "veuillez introduire lie un client ou un nouveau client");
+          throw new IHMException("veuillez introduire lie un client ou un nouveau client");
         }
 
         int idDevis =
@@ -148,32 +139,17 @@ public class IntroduireDevisServlet extends HttpServlet {
         exce.printStackTrace();
         String json = "{\"success\":\"false\",\"message\":\"" + "echec de l introduction du devis: "
             + exce.getMessage() + "\"}";
-        System.out.println("JSON:" + json);
-        resp.setContentType("application/json");
-        resp.setCharacterEncoding("UTF-8");
-        resp.setStatus(HttpServletResponse.SC_OK);
-        resp.getWriter().write(json);
+        ResponseImpl.raterRequete(resp, "echec de l introduction du devis: " + exce.getMessage());
         return;
       }
       String json =
           "{\"success\":\"true\",\"message\":\"" + "l introduction du devis reussit" + "\"}";
-      System.out.println("JSON generated :" + json);
-      resp.setContentType("application/json");
-
-      resp.setCharacterEncoding("UTF-8");
-
-      resp.setStatus(HttpServletResponse.SC_OK);
-      resp.getWriter().write(json);
+      ResponseImpl.success(resp, json);
 
     } catch (Exception exce) {
       exce.printStackTrace();
 
-      String json = "{\"error\":\"false\",\"message\":\"" + exce.getMessage() + "\"}";
-      System.out.println("JSON generated :" + json);
-      resp.setContentType("application/json");
-      resp.setCharacterEncoding("UTF-8");
-      resp.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
-      resp.getWriter().write(json);
+      ResponseImpl.errorServer(resp, exce);
 
 
     }

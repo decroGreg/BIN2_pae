@@ -23,4 +23,6 @@ public interface UserDao {
 
   boolean confirmerUtilisateur(UserDto user, Character etat);
 
+  List<String> nomUser();
+
 }
