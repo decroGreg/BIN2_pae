@@ -72,4 +72,17 @@ public class ClientUccImpl implements ClientUcc {
       throw new FatalException(de.getMessage());
     }
   }
+
+  public List<String> getNomClients() {
+    List<String> noms;
+    try {
+      daoServicesUcc.demarrerTransaction();
+      noms = clientDao.nomClient();
+    } catch (DalException de) {
+      daoServicesUcc.rollback();
+      throw new FatalException(de.getMessage());
+    }
+    daoServicesUcc.commit();
+    return Collections.unmodifiableList(noms);
+  }
 }
