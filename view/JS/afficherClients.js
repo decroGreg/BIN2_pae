@@ -13,7 +13,7 @@ $(document).ready(function () {
 		if(data.name==="")
 			data.name=document.getElementById("inputClientsNameSearch").value;
 		
-		console.log(data);
+
 		postData("/listeClients",data,token,afficherClients,onError);
 		$("#clientsNameSearch").val("");
 		$("#inputClientsCitySearch").val("");
@@ -36,19 +36,18 @@ function afficherVilleDropdown(response){
 	var input=document.getElementById("inputClientsCitySearch");
 	$("#clientsCitySearch").html("");
 	input.addEventListener("keyup",function(){
-		console.log(this.value);
+
 		$("#searchClientsCityDropdown").text(this.value);
 		filterDropdown(this);
 	});
 
 	$("#clientsCitySearch").append(input);
-	console.log(response.villes);
 	response.villes.forEach(e=>{
 		var li=document.createElement("li");
 		var a=document.createElement("a");
 		a.innerHTML=e;
 		a.addEventListener("click",function(){
-			console.log(a.innerHTML);
+
 			$("#searchClientsCityDropdown").text(a.innerHTML);
 			$("#inputClientsCitySearch").val(a.innerHTML);
 		});
@@ -92,7 +91,7 @@ function afficherClients(response){
 	viewListeClients();
 	$("#voir-clients tbody").html("");
 	Object.keys(response.clientsData).forEach(data => {
-		console.log(response.clientsData[data].prenom);
+
 	    var html = "<tr>";
 	    html+="<td><a href='#' class='reference-client' id='"+ response.clientsData[data].idClient + "'>"
 	    	+ response.clientsData[data].prenom + " " + response.clientsData[data].nom +"</a></td>\n<td>" 
