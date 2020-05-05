@@ -94,8 +94,6 @@ public class VoirTypesAmenagementServlet extends HttpServlet {
         }
       }
 
-      // Liste d'amenagements des photos
-      List<AmenagementDto> amenagements = new ArrayList<>();
 
       // Si il n'y aucune photo pour ce type d'aménagement, je renvoie toutes les photos pour les
       // afficher dans le carrousel

@@ -2,7 +2,6 @@ package be.ipl.pae.ihm.servlet;
 
 import be.ipl.pae.biz.dto.AmenagementDto;
 import be.ipl.pae.biz.dto.DevisDto;
-import be.ipl.pae.biz.dto.PhotoDto;
 import be.ipl.pae.biz.dto.TypeDAmenagementDto;
 import be.ipl.pae.biz.interfaces.AmenagementUcc;
 import be.ipl.pae.biz.interfaces.DevisUcc;
@@ -23,16 +22,14 @@ import javax.servlet.http.HttpServletResponse;
 
 public class AjouterPhotoDevisServlet extends HttpServlet {
 
-  private PhotoDto photoDto;
   private PhotoUcc photoUcc;
   private AmenagementUcc amenagementUcc;
   private TypeDAmenagementUcc typeDAmenagementUcc;
   private DevisUcc devisUcc;
 
-  public AjouterPhotoDevisServlet(PhotoDto photoDto, PhotoUcc photoUcc,
-      AmenagementUcc amenagementUcc, TypeDAmenagementUcc typeDAmenagementUcc, DevisUcc devisUcc) {
+  public AjouterPhotoDevisServlet(PhotoUcc photoUcc, AmenagementUcc amenagementUcc,
+      TypeDAmenagementUcc typeDAmenagementUcc, DevisUcc devisUcc) {
     super();
-    this.photoDto = photoDto;
     this.photoUcc = photoUcc;
     this.amenagementUcc = amenagementUcc;
     this.typeDAmenagementUcc = typeDAmenagementUcc;
@@ -95,7 +92,6 @@ public class AjouterPhotoDevisServlet extends HttpServlet {
     try {
       Genson genson = new Genson();
       Map<String, Object> data = genson.deserialize(req.getReader(), Map.class);
-      String token = req.getHeader("Authorization");
       int idAmenagement = Integer.parseInt(data.get("idAmenagement").toString());
       int visible = Integer.parseInt(data.get("visible").toString());
       String urlPhoto = data.get("urlPhoto").toString();

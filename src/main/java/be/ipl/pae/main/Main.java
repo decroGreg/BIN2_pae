@@ -109,17 +109,17 @@ public class Main {
     HttpServlet registerServlet = new RegisterServlet(userUcc, userDto);
     context.addServlet(new ServletHolder(registerServlet), "/register");
 
-    HttpServlet listeUsersServlet = new VoirUtilisateursServlet(userUcc, userDto);
+    HttpServlet listeUsersServlet = new VoirUtilisateursServlet(userUcc);
     context.addServlet(new ServletHolder(listeUsersServlet), "/listeUsers");
 
-    HttpServlet listeDevisServlet = new VoirDevisServlet(devisUcc, clientUcc, userDto);
+    HttpServlet listeDevisServlet = new VoirDevisServlet(devisUcc, clientUcc);
     context.addServlet(new ServletHolder(listeDevisServlet), "/listeDevis");
 
     HttpServlet listeDevisClientServlet =
         new VoirDevisClientServlet(clientUcc, devisUcc, clientDto);
     context.addServlet(new ServletHolder(listeDevisClientServlet), "/listeDevisClient");
 
-    HttpServlet listeClientsServlet = new VoirClientsServlet(clientUcc, userDto);
+    HttpServlet listeClientsServlet = new VoirClientsServlet(clientUcc);
     context.addServlet(new ServletHolder(listeClientsServlet), "/listeClients");
 
     TypeDAmenagementDao typeAmenagementDao = new TypeDAmenagementDaoImpl(daoServices, factory);
@@ -138,15 +138,15 @@ public class Main {
         typeAmenagmentUcc, devisDto, photoUcc);
     context.addServlet(new ServletHolder(detailsDevis), "/detailsDevis");
 
-    HttpServlet changementEtatDevis = new ChangementEtatDevisServlet(devisDto, devisUcc, clientUcc,
-        amenagementUcc, typeAmenagmentUcc);
+    HttpServlet changementEtatDevis =
+        new ChangementEtatDevisServlet(devisUcc, clientUcc, amenagementUcc, typeAmenagmentUcc);
     context.addServlet(new ServletHolder(changementEtatDevis), "/changementEtatDevis");
 
     HttpServlet rechercheDevis = new RechercheDevisServlet(devisUcc, devisDto, clientUcc);
     context.addServlet(new ServletHolder(rechercheDevis), "/rechercheDevis");
 
-    HttpServlet ajouterPhoto = new AjouterPhotoDevisServlet(photoDto, photoUcc, amenagementUcc,
-        typeAmenagmentUcc, devisUcc);
+    HttpServlet ajouterPhoto =
+        new AjouterPhotoDevisServlet(photoUcc, amenagementUcc, typeAmenagmentUcc, devisUcc);
     context.addServlet(new ServletHolder(ajouterPhoto), "/ajouterPhoto");
 
     HttpServlet photoPreferee = new ChoisirPhotoPrefereeServlet(devisUcc, devisDto, photoUcc);

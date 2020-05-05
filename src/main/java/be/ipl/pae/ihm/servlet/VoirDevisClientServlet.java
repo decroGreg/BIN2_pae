@@ -71,8 +71,9 @@ public class VoirDevisClientServlet extends HttpServlet {
       listeDevisDto = devisUcc.voirDevis(clientDto);
       System.out.println(clientDto.getPrenom());
       List<ClientDto> listeClientsDto = new ArrayList<>();
-      for (DevisDto de : listeDevisDto) {
+      for (int i = 0; i < listeDevisDto.size(); i++) {
         listeClientsDto.add(clientDto);
+
       }
 
 

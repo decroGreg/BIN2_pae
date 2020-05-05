@@ -27,7 +27,6 @@ import javax.servlet.http.HttpServletResponse;
 
 public class ChangementEtatDevisServlet extends HttpServlet {
 
-  private DevisDto devisDto;
   private DevisUcc devisUcc;
   private ClientUcc clientUcc;
   private AmenagementUcc amenagementUcc;
@@ -39,10 +38,9 @@ public class ChangementEtatDevisServlet extends HttpServlet {
    * @param devisDto un devisDto
    * @param devisUcc un devisUcc
    */
-  public ChangementEtatDevisServlet(DevisDto devisDto, DevisUcc devisUcc, ClientUcc clientUcc,
+  public ChangementEtatDevisServlet(DevisUcc devisUcc, ClientUcc clientUcc,
       AmenagementUcc amenagementUcc, TypeDAmenagementUcc typeDAmenagementUcc) {
     super();
-    this.devisDto = devisDto;
     this.devisUcc = devisUcc;
     this.clientUcc = clientUcc;
     this.amenagementUcc = amenagementUcc;

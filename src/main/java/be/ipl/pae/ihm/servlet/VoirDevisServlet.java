@@ -2,7 +2,6 @@ package be.ipl.pae.ihm.servlet;
 
 import be.ipl.pae.biz.dto.ClientDto;
 import be.ipl.pae.biz.dto.DevisDto;
-import be.ipl.pae.biz.dto.UserDto;
 import be.ipl.pae.biz.interfaces.ClientUcc;
 import be.ipl.pae.biz.interfaces.DevisUcc;
 import be.ipl.pae.ihm.response.ResponseImpl;
@@ -22,7 +21,6 @@ public class VoirDevisServlet extends HttpServlet {
 
   private DevisUcc devisUcc;
   private ClientUcc clientUcc;
-  private UserDto userDto;
   private List<DevisDto> listeDevisDto;
 
   /**
@@ -31,11 +29,10 @@ public class VoirDevisServlet extends HttpServlet {
    * @param devisUcc un devisUcc
    * @param userDto un userDto
    */
-  public VoirDevisServlet(DevisUcc devisUcc, ClientUcc clientUcc, UserDto userDto) {
+  public VoirDevisServlet(DevisUcc devisUcc, ClientUcc clientUcc) {
     super();
     this.devisUcc = devisUcc;
     this.clientUcc = clientUcc;
-    this.userDto = userDto;
     this.listeDevisDto = new ArrayList<>();
   }
 

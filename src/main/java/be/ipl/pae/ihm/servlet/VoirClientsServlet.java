@@ -1,7 +1,6 @@
 package be.ipl.pae.ihm.servlet;
 
 import be.ipl.pae.biz.dto.ClientDto;
-import be.ipl.pae.biz.dto.UserDto;
 import be.ipl.pae.biz.interfaces.ClientUcc;
 import be.ipl.pae.ihm.response.ResponseImpl;
 
@@ -21,7 +20,6 @@ public class VoirClientsServlet extends HttpServlet {
 
   private ClientUcc clientUcc;
   private List<ClientDto> clientsDto;
-  private UserDto userDto;
 
   /**
    * Cree un VoirClientsServlet.
@@ -29,10 +27,9 @@ public class VoirClientsServlet extends HttpServlet {
    * @param clientUcc un clientUcc
    * @param userDto un userDto
    */
-  public VoirClientsServlet(ClientUcc clientUcc, UserDto userDto) {
+  public VoirClientsServlet(ClientUcc clientUcc) {
     super();
     this.clientUcc = clientUcc;
-    this.userDto = userDto;
     this.clientsDto = new ArrayList<>();
 
   }
