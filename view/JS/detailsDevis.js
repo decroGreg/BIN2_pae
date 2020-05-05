@@ -17,7 +17,7 @@ $(document).ready(function(){
 });
 
 function onPutRepousserDate(response){
-	if(response.success==true){
+	if(response.success=="true"){
 		$("#success-notification").fadeIn('slow').delay(1000).fadeOut('slow');
 		$("#success-notification").text(response.message);
 	}else{
@@ -68,12 +68,13 @@ function afficherDetailsDevis(response){
 	//Pour voir si on peut changer la value de dateDebutTravaux
 
 	if(response.devisData.etat=="I" || response.devisData.etat=="A"){
-		$("#voir-details-devis #dateDebutTravaux").attr("value", "");
+		console.log("OK : " + response.devisData.etat);
+		$("#voir-details-devis #dateDebutTravaux").val("");
 		$("#voir-details-devis #dateDebutTravaux").prop("disabled", false);
 	}
 	else if(response.devisData.etat=="FD"){
 		$("#btn-devis-repousserDate").show();
-		$("#voir-details-devis #dateDebutTravaux").attr("value", response.devisData.dateDebutTravaux.substring(0,10));
+		$("#voir-details-devis #dateDebutTravaux").val(response.devisData.dateDebutTravaux.substring(0,10));
 		$("#btn-devis-repousserDate").attr("idDevis", response.devisData.idDevis);
 		
 		$("#btn-devis-repousserDate").attr("etat",response.devisData.etat);
@@ -82,14 +83,14 @@ function afficherDetailsDevis(response){
 	}
 	else if(response.devisData.etat=="DC"){
 		$("#btn-devis-repousserDate").show();
-		$("#voir-details-devis #dateDebutTravaux").attr("value", response.devisData.dateDebutTravaux.substring(0,10));
+		$("#voir-details-devis #dateDebutTravaux").val(response.devisData.dateDebutTravaux.substring(0,10));
 		$("#btn-devis-repousserDate").attr("idDevis", response.devisData.idDevis);
 		
 		$("#btn-devis-repousserDate").attr("etat",response.devisData.etat);
 		$("#voir-details-devis #dateDebutTravaux").prop("disabled", false);
 	}
 	else{
-		$("#voir-details-devis #dateDebutTravaux").attr("value", response.devisData.dateDebutTravaux.substring(0,10));
+		$("#voir-details-devis #dateDebutTravaux").val(response.devisData.dateDebutTravaux.substring(0,10));
 		$("#voir-details-devis #dateDebutTravaux").prop("disabled", true);
 	}
 	$("#voir-details-devis #dureeTravauxDevis").attr("value", response.devisData.dureeTravaux);
@@ -247,11 +248,13 @@ function afficherDetailsDevisClient(response){
 	$("#voir-details-devis #montantDevis").attr("value", response.devisData.montant);
 	$("#voir-details-devis #etatDevis").attr("value", response.devisData.etat);
 	$("#voir-details-devis #typeAmenagementDevis").attr("value", response.devisData.typeAmenagement);
+	
 	if(response.devisData.etat=="I" || response.devisData.etat=="A"){
-		$("#voir-details-devis #dateDebutTravaux").attr("value", " ");
+		console.log("OK : " + response.devisData.etat);
+		$("#voir-details-devis #dateDebutTravaux").val(" ");
 	}
 	
-	$("#voir-details-devis #dateDebutTravaux").attr("value", response.devisData.dateDebutTravaux.substring(0,10));
+	$("#voir-details-devis #dateDebutTravaux").val(response.devisData.dateDebutTravaux.substring(0,10));
 	
 	$("#voir-details-devis #dateDebutTravaux").prop("disabled", true);
 	$("#voir-details-devis #dureeTravauxDevis").attr("value", response.devisData.dureeTravaux);

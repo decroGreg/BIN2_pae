@@ -75,6 +75,7 @@ public class RechercheDevisServlet extends HttpServlet {
 
     try {
       devisDto.setIdClient(0);
+      devisDto.setDate(null);
       Genson genson = new Genson();
       Map<String, Map<String, String>> send = genson.deserialize(req.getReader(), Map.class);
       System.out.println(send.toString());

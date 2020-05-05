@@ -85,7 +85,7 @@ function putData(url="",token,data={},onGet,onError){
         headers:headers,
         data:JSON.stringify(data),
         dataType:"json",
-        succes:onGet,
+        success:onGet,
         error:onError
       });
       
