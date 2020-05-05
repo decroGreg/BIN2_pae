@@ -145,7 +145,12 @@ function afficherDetailsDevis(response){
 		let data={};
 		data.idDevis = response.devisData.idDevis;
 		data.etatDevis = "V";
-		postData("/changementEtatDevis", data, token, afficherDetailsDevis, onError);
+		if (confirm("Etes vous sur de vouloir rendre la realisation visible?")) {
+			postData("/changementEtatDevis", data, token, afficherDetailsDevis, onError);
+
+	    } else {
+	           return false;
+	    }
 	});
 }
 
