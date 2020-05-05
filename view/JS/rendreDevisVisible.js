@@ -82,6 +82,7 @@ function encodeImagetoBase64(element) {
 }
 
 function onPostPhoto(response){
+	console.log("PHOTO PREF");
     if(response.success=="true"){
             $("#success-notification").fadeIn('slow').delay(1000).fadeOut('slow');
             $("#success-notification").text(response.message);
