@@ -59,15 +59,7 @@ public class DevisDaoImpl implements DevisDao {
     try {
       try (ResultSet rs = ps.executeQuery()) {
         while (rs.next()) {
-          DevisDto devis = bizfactory.getDevisDto();
-          devis.setIdDevis(rs.getInt(1));
-          devis.setIdClient(rs.getInt(2));
-          devis.setDate(rs.getTimestamp(3));
-          devis.setMontant(rs.getDouble(4));
-          devis.setIdPhotoPreferee(rs.getInt(5));
-          devis.setDureeTravaux(rs.getString(6));
-          devis.setEtat(Etat.valueOf(rs.getString(7)));
-          devis.setDateDebutTravaux(rs.getTimestamp(8));
+          DevisDto devis = getDevisDto(rs);
           listeDevis.add(devis);
         }
         return listeDevis;
@@ -146,15 +138,7 @@ public class DevisDaoImpl implements DevisDao {
 
       try (ResultSet rs = ps.executeQuery()) {
         while (rs.next()) {
-          DevisDto devis = bizfactory.getDevisDto();
-          devis.setIdDevis(rs.getInt(1));
-          devis.setIdClient(rs.getInt(2));
-          devis.setDate(rs.getTimestamp(3));
-          devis.setMontant(rs.getDouble(4));
-          devis.setIdPhotoPreferee(rs.getInt(5));
-          devis.setDureeTravaux(rs.getString(6));
-          devis.setEtat(Etat.valueOf(rs.getString(7)));
-          devis.setDateDebutTravaux(rs.getTimestamp(8));
+          DevisDto devis = getDevisDto(rs);
           listeDevis.add(devis);
         }
         return listeDevis;
@@ -174,15 +158,7 @@ public class DevisDaoImpl implements DevisDao {
       ps.setInt(1, idClient);
       try (ResultSet rs = ps.executeQuery()) {
         while (rs.next()) {
-          DevisDto devis = bizfactory.getDevisDto();
-          devis.setIdDevis(rs.getInt(1));
-          devis.setIdClient(rs.getInt(2));
-          devis.setDate(rs.getTimestamp(3));
-          devis.setMontant(rs.getDouble(4));
-          devis.setIdPhotoPreferee(rs.getInt(5));
-          devis.setDureeTravaux(rs.getString(6));
-          devis.setEtat(Etat.valueOf(rs.getString(7)));
-          devis.setDateDebutTravaux(rs.getTimestamp(8));
+          DevisDto devis = getDevisDto(rs);
           listeDevis.add(devis);
         }
         return listeDevis;
@@ -247,14 +223,7 @@ public class DevisDaoImpl implements DevisDao {
       ps.setInt(1, idDevis);
       try (ResultSet rs = ps.executeQuery()) {
         while (rs.next()) {
-          devisDto.setIdDevis(rs.getInt(1));
-          devisDto.setIdClient(rs.getInt(2));
-          devisDto.setDate(rs.getTimestamp(3));
-          devisDto.setMontant(rs.getDouble(4));
-          devisDto.setIdPhotoPreferee(rs.getInt(5));
-          devisDto.setDureeTravaux(rs.getString(6));
-          devisDto.setEtat(Etat.valueOf(rs.getString(7)));
-          devisDto.setDateDebutTravaux(rs.getTimestamp(8));
+          devisDto = getDevisDto(rs);
         }
       } catch (SQLException sql) {
         sql.printStackTrace();
@@ -264,6 +233,20 @@ public class DevisDaoImpl implements DevisDao {
       System.exit(1);
     }
     return devisDto;
+  }
+
+  private DevisDto getDevisDto(ResultSet rs) throws SQLException {
+    DevisDto devisDto = bizfactory.getDevisDto();
+    devisDto.setIdDevis(rs.getInt(1));
+    devisDto.setIdClient(rs.getInt(2));
+    devisDto.setDate(rs.getTimestamp(3));
+    devisDto.setMontant(rs.getDouble(4));
+    devisDto.setIdPhotoPreferee(rs.getInt(5));
+    devisDto.setDureeTravaux(rs.getString(6));
+    devisDto.setEtat(Etat.valueOf(rs.getString(7)));
+    devisDto.setDateDebutTravaux(rs.getTimestamp(8));
+    return devisDto;
+
   }
 
   @Override

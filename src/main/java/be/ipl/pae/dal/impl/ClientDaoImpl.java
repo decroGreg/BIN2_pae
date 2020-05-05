@@ -36,18 +36,7 @@ public class ClientDaoImpl implements ClientDao {
     try {
       try (ResultSet rs = ps.executeQuery()) {
         while (rs.next()) {
-          ClientDto client = factory.getClientDto();
-          client.setIdClient(rs.getInt(1));
-          client.setNom(rs.getString(2));
-          client.setPrenom(rs.getString(3));
-          client.setRue(rs.getString(4));
-          client.setNumero(rs.getString(5));
-          client.setBoite(rs.getString(6));
-          client.setCodePostal(rs.getInt(7));
-          client.setVille(rs.getString(8));
-          client.setEmail(rs.getString(9));
-          client.setTelephone(rs.getString(10));
-          client.setIdUtilisateur(rs.getInt(11));
+          ClientDto client = getClientDto(rs);
           listeClient.add(client);
         }
         return listeClient;
@@ -123,18 +112,7 @@ public class ClientDaoImpl implements ClientDao {
       }
       try (ResultSet rs = ps.executeQuery()) {
         while (rs.next()) {
-          ClientDto client = factory.getClientDto();
-          client.setIdClient(rs.getInt(1));
-          client.setNom(rs.getString(2));
-          client.setPrenom(rs.getString(3));
-          client.setRue(rs.getString(4));
-          client.setNumero(rs.getString(5));
-          client.setBoite(rs.getString(6));
-          client.setCodePostal(rs.getInt(7));
-          client.setVille(rs.getString(8));
-          client.setEmail(rs.getString(9));
-          client.setTelephone(rs.getString(10));
-          client.setIdUtilisateur(rs.getInt(11));
+          ClientDto client = getClientDto(rs);
           listeClient.add(client);
         }
         return listeClient;
@@ -154,17 +132,7 @@ public class ClientDaoImpl implements ClientDao {
       ps.setString(1, email);
       try (ResultSet rs = ps.executeQuery()) {
         while (rs.next()) {
-          clientDto.setIdClient(rs.getInt(1));
-          clientDto.setNom(rs.getString(2));
-          clientDto.setPrenom(rs.getString(3));
-          clientDto.setRue(rs.getString(4));
-          clientDto.setNumero(rs.getString(5));
-          clientDto.setBoite(rs.getString(6));
-          clientDto.setCodePostal(rs.getInt(7));
-          clientDto.setVille(rs.getString(8));
-          clientDto.setEmail(rs.getString(9));
-          clientDto.setTelephone(rs.getString(10));
-          clientDto.setIdUtilisateur(rs.getInt(11));
+          clientDto = getClientDto(rs);
         }
       } catch (SQLException ex) {
         throw new DalException(ex.getMessage());
@@ -187,17 +155,7 @@ public class ClientDaoImpl implements ClientDao {
       ps.setInt(1, id);
       try (ResultSet rs = ps.executeQuery()) {
         while (rs.next()) {
-          clientDto.setIdClient(rs.getInt(1));
-          clientDto.setNom(rs.getString(2));
-          clientDto.setPrenom(rs.getString(3));
-          clientDto.setRue(rs.getString(4));
-          clientDto.setNumero(rs.getString(5));
-          clientDto.setBoite(rs.getString(6));
-          clientDto.setCodePostal(rs.getInt(7));
-          clientDto.setVille(rs.getString(8));
-          clientDto.setEmail(rs.getString(9));
-          clientDto.setTelephone(rs.getString(10));
-          clientDto.setIdUtilisateur(rs.getInt(11));
+          clientDto = getClientDto(rs);
         }
       } catch (SQLException ex) {
         throw new DalException(ex.getMessage());
@@ -244,5 +202,21 @@ public class ClientDaoImpl implements ClientDao {
       throw new DalException("Erreur dans la recherche du dernier devis : " + ex.getMessage());
     }
     return idClient;
+  }
+
+  private ClientDto getClientDto(ResultSet rs) throws SQLException {
+    ClientDto client = factory.getClientDto();
+    client.setIdClient(rs.getInt(1));
+    client.setNom(rs.getString(2));
+    client.setPrenom(rs.getString(3));
+    client.setRue(rs.getString(4));
+    client.setNumero(rs.getString(5));
+    client.setBoite(rs.getString(6));
+    client.setCodePostal(rs.getInt(7));
+    client.setVille(rs.getString(8));
+    client.setEmail(rs.getString(9));
+    client.setTelephone(rs.getString(10));
+    client.setIdUtilisateur(rs.getInt(11));
+    return client;
   }
 }

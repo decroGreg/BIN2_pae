@@ -37,16 +37,7 @@ public class UserDaoImpl implements UserDao {
       ps.setInt(1, id);
       try (ResultSet rs = ps.executeQuery()) {
         while (rs.next()) {
-          userD.setIdUser(rs.getInt(1));
-          userD.setPseudo(rs.getString(2));
-          userD.setNom(rs.getString(3));
-          userD.setPrenom(rs.getString(4));
-          userD.setVille(rs.getString(5));
-          userD.setEmail(rs.getString(6));
-          String status = rs.getString(9);
-          if (status != null) {
-            userD.setStatut(status.charAt(0));
-          }
+          userD = getUserDto(rs, false);
         }
       } catch (SQLException ex) {
         throw new DalException(ex.getMessage());
@@ -59,25 +50,14 @@ public class UserDaoImpl implements UserDao {
 
   @Override
   public UserDto getUserConnexion(String email) {
-    UserDto userD = factory.getUserDto();
+    UserDto user = factory.getUserDto();
     String requeteSql = "SELECT * FROM init.utilisateurs WHERE email = ? AND statut IS NOT NULL";
     ps = services.getPreparedSatement(requeteSql);
     try {
       ps.setString(1, email);
       try (ResultSet rs = ps.executeQuery()) {
         while (rs.next()) {
-
-          userD.setIdUser(rs.getInt(1));
-          userD.setPseudo(rs.getString(2));
-          userD.setNom(rs.getString(3));
-          userD.setPrenom(rs.getString(4));
-          userD.setVille(rs.getString(5));
-          userD.setEmail(rs.getString(6));
-          userD.setMotDePasse(rs.getString(8));
-          String status = rs.getString(9);
-          if (status != null) {
-            userD.setStatut(status.charAt(0));
-          }
+          user = getUserDto(rs, true);
         }
       } catch (SQLException ex) {
         throw new DalException(ex.getMessage());
@@ -85,10 +65,10 @@ public class UserDaoImpl implements UserDao {
     } catch (SQLException ex) {
       throw new DalException(ex.getMessage());
     }
-    if (userD.getEmail() == null) {
+    if (user.getEmail() == null) {
       return null;
     }
-    return userD;
+    return user;
   }
 
   @Override
@@ -138,19 +118,7 @@ public class UserDaoImpl implements UserDao {
     try {
       try (ResultSet rs = ps.executeQuery()) {
         while (rs.next()) {
-          UserDto user = factory.getUserDto();
-          user.setIdUser(rs.getInt(1));
-          user.setPseudo(rs.getString(2));
-          user.setNom(rs.getString(3));
-          user.setPrenom(rs.getString(4));
-          user.setVille(rs.getString(5));
-          user.setEmail(rs.getString(6));
-          user.setDateInscription(rs.getTimestamp(7));
-          user.setMotDePasse(null);
-          String status = rs.getString(9);
-          if (status != null) {
-            user.setStatut(status.charAt(0));
-          }
+          UserDto user = getUserDto(rs, false);
           listeUser.add(user);
         }
         return listeUser;
@@ -204,15 +172,7 @@ public class UserDaoImpl implements UserDao {
     try {
       try (ResultSet rs = ps.executeQuery()) {
         while (rs.next()) {
-          UserDto user = factory.getUserDto();
-          user.setIdUser(rs.getInt(1));
-          user.setPseudo(rs.getString(2));
-          user.setNom(rs.getString(3));
-          user.setPrenom(rs.getString(4));
-          user.setVille(rs.getString(5));
-          user.setEmail(rs.getString(6));
-          user.setDateInscription(rs.getTimestamp(7));
-          user.setMotDePasse(null);
+          UserDto user = getUserDto(rs, false);
           listeUser.add(user);
         }
         return listeUser;
@@ -243,15 +203,7 @@ public class UserDaoImpl implements UserDao {
       ps.setString(2, villeSql);
       try (ResultSet rs = ps.executeQuery()) {
         while (rs.next()) {
-          UserDto user = factory.getUserDto();
-          user.setIdUser(rs.getInt(1));
-          user.setPseudo(rs.getString(2));
-          user.setNom(rs.getString(3));
-          user.setPrenom(rs.getString(4));
-          user.setVille(rs.getString(5));
-          user.setEmail(rs.getString(6));
-          user.setDateInscription(rs.getTimestamp(7));
-          user.setMotDePasse(null);
+          UserDto user = getUserDto(rs, false);
           listeUser.add(user);
         }
         return listeUser;
@@ -260,5 +212,26 @@ public class UserDaoImpl implements UserDao {
       throw new DalException(
           "Erreur lors de la prise des utilisateurs avec criteres : " + ex.getMessage());
     }
+  }
+
+  private UserDto getUserDto(ResultSet rs, boolean mdp) throws SQLException {
+    UserDto user = factory.getUserDto();
+    user.setIdUser(rs.getInt(1));
+    user.setPseudo(rs.getString(2));
+    user.setNom(rs.getString(3));
+    user.setPrenom(rs.getString(4));
+    user.setVille(rs.getString(5));
+    user.setEmail(rs.getString(6));
+    user.setDateInscription(rs.getTimestamp(7));
+    if (mdp) {
+      user.setMotDePasse(rs.getString(8));
+    } else {
+      user.setMotDePasse(null);
+    }
+    String status = rs.getString(9);
+    if (status != null) {
+      user.setStatut(status.charAt(0));
+    }
+    return user;
   }
 }

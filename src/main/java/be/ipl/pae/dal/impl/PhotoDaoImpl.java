@@ -65,12 +65,7 @@ public class PhotoDaoImpl implements PhotoDao {
     try {
       try (ResultSet rs = ps.executeQuery()) {
         while (rs.next()) {
-          PhotoDto photo = factory.getPhotoDto();
-          photo.setIdPhoto(rs.getInt(1));
-          photo.setUrlPhoto(rs.getString(2));
-          photo.setIdAmenagement(rs.getInt(3));
-          photo.setIdDevis(rs.getInt(4));
-          photo.setVisible(rs.getBoolean(5));
+          PhotoDto photo = getPhotoDto(rs);
           listePhoto.add(photo);
         }
         return listePhoto;
@@ -90,12 +85,7 @@ public class PhotoDaoImpl implements PhotoDao {
       ps.setInt(1, idClient);
       try (ResultSet rs = ps.executeQuery()) {
         while (rs.next()) {
-          PhotoDto photo = factory.getPhotoDto();
-          photo.setIdPhoto(rs.getInt(1));
-          photo.setUrlPhoto(rs.getString(2));
-          photo.setIdAmenagement(rs.getInt(3));
-          photo.setIdDevis(rs.getInt(4));
-          photo.setVisible(rs.getBoolean(5));
+          PhotoDto photo = getPhotoDto(rs);
           listePhoto.add(photo);
         }
         return listePhoto;
@@ -116,12 +106,7 @@ public class PhotoDaoImpl implements PhotoDao {
       ps.setInt(1, idTypeAmenagement);
       try (ResultSet rs = ps.executeQuery()) {
         while (rs.next()) {
-          PhotoDto photo = factory.getPhotoDto();
-          photo.setIdPhoto(rs.getInt(1));
-          photo.setUrlPhoto(rs.getString(2));
-          photo.setIdAmenagement(rs.getInt(3));
-          photo.setIdDevis(rs.getInt(4));
-          photo.setVisible(rs.getBoolean(5));
+          PhotoDto photo = getPhotoDto(rs);
           listePhoto.add(photo);
         }
         return listePhoto;
@@ -140,16 +125,22 @@ public class PhotoDaoImpl implements PhotoDao {
       ps.setInt(1, idPhoto);
       try (ResultSet rs = ps.executeQuery()) {
         while (rs.next()) {
-          photo.setIdPhoto(rs.getInt(1));
-          photo.setUrlPhoto(rs.getString(2));
-          photo.setIdAmenagement(rs.getInt(3));
-          photo.setIdDevis(rs.getInt(4));
-          photo.setVisible(rs.getBoolean(5));
+          photo = getPhotoDto(rs);
         }
       }
     } catch (SQLException ex) {
       throw new DalException(ex.getMessage());
     }
+    return photo;
+  }
+
+  private PhotoDto getPhotoDto(ResultSet rs) throws SQLException {
+    PhotoDto photo = factory.getPhotoDto();
+    photo.setIdPhoto(rs.getInt(1));
+    photo.setUrlPhoto(rs.getString(2));
+    photo.setIdAmenagement(rs.getInt(3));
+    photo.setIdDevis(rs.getInt(4));
+    photo.setVisible(rs.getBoolean(5));
     return photo;
   }
 
