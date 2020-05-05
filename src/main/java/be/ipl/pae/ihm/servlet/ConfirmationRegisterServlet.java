@@ -20,12 +20,11 @@ public class ConfirmationRegisterServlet extends HttpServlet {
   private UserDto userDto;
   private ClientDto clientDto;
 
-  /*
-   * @param userUcc
-   * 
-   * @param clientDto
-   * 
-   * @param userDto
+  /**
+   *
+   * @param userUcc l'user ucc
+   * @param clientDto l' client dto
+   * @param userDto l'userDto
    */
   public ConfirmationRegisterServlet(UserUcc userUcc, UserDto userDto, ClientDto clientDto) {
     // TODO Auto-generated constructor stub

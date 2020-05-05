@@ -27,7 +27,7 @@ public class RechercheDevisServlet extends HttpServlet {
   private DevisDto devisDto;
   private ClientUcc clientUcc;
 
-  /*
+  /**
    * @param devisUcc
    * 
    * @param devisDto

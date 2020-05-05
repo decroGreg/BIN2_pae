@@ -18,10 +18,9 @@ public class RegisterServlet extends HttpServlet {
   private UserUcc userUcc;
   private UserDto userDto;
 
-  /*
-   * @param userUcc
-   * 
-   * @param userDto
+  /**
+   * @param userDto l"user dto
+   * @param userUcc l'user ucc
    */
   public RegisterServlet(UserUcc userUcc, UserDto userDto) {
     super();

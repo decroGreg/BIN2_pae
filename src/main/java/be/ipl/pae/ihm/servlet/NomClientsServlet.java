@@ -17,6 +17,10 @@ public class NomClientsServlet extends HttpServlet {
 
   private UserUcc userUcc;
 
+  /**
+   * 
+   * @param userUcc l'user Ucc
+   */
   public NomClientsServlet(UserUcc userUcc) {
     this.userUcc = userUcc;
   }

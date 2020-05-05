@@ -15,8 +15,11 @@ import javax.servlet.http.HttpServletResponse;
 public class VilleServlet extends HttpServlet {
   private ClientUcc clientUcc;
 
-  /* {@inheritDoc} */
 
+  /**
+   * @param clientUcc le client ucc
+   * 
+   */
   public VilleServlet(ClientUcc clientUcc) {
     // TODO Auto-generated constructor stub
     this.clientUcc = clientUcc;
