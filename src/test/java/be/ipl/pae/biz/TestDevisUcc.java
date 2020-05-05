@@ -83,13 +83,13 @@ class TestDevisUcc {
 
     userDaoConstruct = Class.forName(Config.getConfigPropertyAttribute(UserDao.class.getName()))
         .getConstructor(boolean.class, boolean.class, boolean.class, boolean.class, boolean.class,
-            boolean.class, boolean.class, boolean.class, boolean.class);
+            boolean.class, boolean.class, boolean.class, boolean.class, boolean.class);
     amenagementDaoConstruct =
         Class.forName(Config.getConfigPropertyAttribute(AmenagementDao.class.getName()))
             .getConstructor(boolean.class, boolean.class, boolean.class);
     clientDaoConstruct = Class.forName(Config.getConfigPropertyAttribute(ClientDao.class.getName()))
         .getConstructor(boolean.class, boolean.class, boolean.class, boolean.class, boolean.class,
-            boolean.class, boolean.class, boolean.class);
+            boolean.class, boolean.class, boolean.class, boolean.class);
     devisDaoConstruct = Class.forName(Config.getConfigPropertyAttribute(DevisDao.class.getName()))
         .getConstructor(boolean.class, boolean.class, boolean.class, boolean.class, boolean.class,
             boolean.class, boolean.class, boolean.class, boolean.class, boolean.class,
@@ -209,6 +209,7 @@ class TestDevisUcc {
         false, false, false, false, true);
     devisUcc = (DevisUcc) devisUccConstruct.newInstance(bizFactory, devisDao, userDao, clientDao,
         amenagementDao, dalServices);
+    devisDto.setEtat(Etat.FD);
     assertThrows(FatalException.class, () -> devisUcc.modifierDateDevis(devisDto));
   }
 
@@ -317,6 +318,7 @@ class TestDevisUcc {
         false, false, true, false, false);
     devisUcc = (DevisUcc) devisUccConstruct.newInstance(bizFactory, devisDao, userDao, clientDao,
         amenagementDao, dalServices);
+    devisDto.setEtat(Etat.FD);
     devisUcc.repousserDateDebut(devisDto);
   }
 
@@ -378,9 +380,9 @@ class TestDevisUcc {
     devisDao = (DevisDao) devisDaoConstruct.newInstance(false, false, false, false, false, false,
         false, false, false, false, false);
     clientDao = (ClientDao) clientDaoConstruct.newInstance(false, false, false, false, false, false,
-        false, false);
-    userDao = (UserDao) userDaoConstruct.newInstance(false, false, false, false, false, false,
         false, false, false);
+    userDao = (UserDao) userDaoConstruct.newInstance(false, false, false, false, false, false,
+        false, false, false, false);
     devisUcc = (DevisUcc) devisUccConstruct.newInstance(bizFactory, devisDao, userDao, clientDao,
         amenagementDao, dalServices);
     assertThrows(NullPointerException.class,
@@ -394,9 +396,9 @@ class TestDevisUcc {
     devisDao = (DevisDao) devisDaoConstruct.newInstance(false, false, false, false, false, false,
         false, false, false, false, false);
     clientDao = (ClientDao) clientDaoConstruct.newInstance(false, false, true, false, false, false,
-        false, false);
-    userDao = (UserDao) userDaoConstruct.newInstance(false, false, false, false, false, false,
         false, false, false);
+    userDao = (UserDao) userDaoConstruct.newInstance(false, false, false, false, false, false,
+        false, false, false, false);
     devisUcc = (DevisUcc) devisUccConstruct.newInstance(bizFactory, devisDao, userDao, clientDao,
         amenagementDao, dalServices);
     assertThrows(BizException.class,
@@ -410,9 +412,9 @@ class TestDevisUcc {
     devisDao = (DevisDao) devisDaoConstruct.newInstance(false, false, false, false, false, false,
         false, false, false, false, false);
     clientDao = (ClientDao) clientDaoConstruct.newInstance(false, false, false, false, false, false,
-        false, false);
-    userDao = (UserDao) userDaoConstruct.newInstance(false, false, false, false, false, false,
         false, false, false);
+    userDao = (UserDao) userDaoConstruct.newInstance(false, false, false, false, false, false,
+        false, false, false, false);
     devisUcc = (DevisUcc) devisUccConstruct.newInstance(bizFactory, devisDao, userDao, clientDao,
         amenagementDao, dalServices);
     assertThrows(BizException.class,
@@ -426,9 +428,9 @@ class TestDevisUcc {
     devisDao = (DevisDao) devisDaoConstruct.newInstance(true, false, false, false, false, false,
         false, false, false, false, false);
     clientDao = (ClientDao) clientDaoConstruct.newInstance(false, true, false, false, false, false,
-        true, false);
+        true, false, false);
     userDao = (UserDao) userDaoConstruct.newInstance(false, false, false, false, false, false,
-        false, false, false);
+        false, false, false, false);
     devisUcc = (DevisUcc) devisUccConstruct.newInstance(bizFactory, devisDao, userDao, clientDao,
         amenagementDao, dalServices);
     devisUcc.creerDevisNouveauClient(bizFactory.getClientDto(), devisDto, 0);
@@ -441,9 +443,9 @@ class TestDevisUcc {
     devisDao = (DevisDao) devisDaoConstruct.newInstance(true, false, false, false, false, false,
         false, false, false, false, false);
     clientDao = (ClientDao) clientDaoConstruct.newInstance(false, true, false, false, false, false,
-        true, false);
+        true, false, false);
     userDao = (UserDao) userDaoConstruct.newInstance(false, false, false, false, true, false, false,
-        false, false);
+        false, false, false);
     devisUcc = (DevisUcc) devisUccConstruct.newInstance(bizFactory, devisDao, userDao, clientDao,
         amenagementDao, dalServices);
     devisUcc.creerDevisNouveauClient(bizFactory.getClientDto(), devisDto,
@@ -457,9 +459,9 @@ class TestDevisUcc {
     devisDao = (DevisDao) devisDaoConstruct.newInstance(true, false, false, false, false, false,
         false, false, false, false, false);
     clientDao = (ClientDao) clientDaoConstruct.newInstance(false, true, true, false, false, false,
-        true, true);
+        true, false, true);
     userDao = (UserDao) userDaoConstruct.newInstance(false, false, false, false, true, false, false,
-        false, false);
+        false, false, false);
     devisUcc = (DevisUcc) devisUccConstruct.newInstance(bizFactory, devisDao, userDao, clientDao,
         amenagementDao, dalServices);
     assertThrows(FatalException.class,
@@ -474,9 +476,9 @@ class TestDevisUcc {
     devisDao = (DevisDao) devisDaoConstruct.newInstance(false, false, false, false, false, false,
         false, false, false, false, false);
     clientDao = (ClientDao) clientDaoConstruct.newInstance(false, false, false, false, false, false,
-        false, false);
-    userDao = (UserDao) userDaoConstruct.newInstance(false, false, false, false, false, false,
         false, false, false);
+    userDao = (UserDao) userDaoConstruct.newInstance(false, false, false, false, false, false,
+        false, false, false, false);
     devisUcc = (DevisUcc) devisUccConstruct.newInstance(bizFactory, devisDao, userDao, clientDao,
         amenagementDao, dalServices);
     ClientDto clientDto = bizFactory.getClientDto();
@@ -492,9 +494,9 @@ class TestDevisUcc {
     devisDao = (DevisDao) devisDaoConstruct.newInstance(false, false, false, false, false, false,
         false, false, false, false, false);
     clientDao = (ClientDao) clientDaoConstruct.newInstance(false, false, false, false, false, false,
-        false, false);
-    userDao = (UserDao) userDaoConstruct.newInstance(false, false, false, false, false, false,
         false, false, false);
+    userDao = (UserDao) userDaoConstruct.newInstance(false, false, false, false, false, false,
+        false, false, false, false);
     devisUcc = (DevisUcc) devisUccConstruct.newInstance(bizFactory, devisDao, userDao, clientDao,
         amenagementDao, dalServices);
     assertThrows(NullPointerException.class,
@@ -508,9 +510,9 @@ class TestDevisUcc {
     devisDao = (DevisDao) devisDaoConstruct.newInstance(true, false, false, false, true, false,
         false, false, false, false, false);
     clientDao = (ClientDao) clientDaoConstruct.newInstance(false, false, false, false, false, false,
-        false, false);
-    userDao = (UserDao) userDaoConstruct.newInstance(false, false, false, false, false, false,
         false, false, false);
+    userDao = (UserDao) userDaoConstruct.newInstance(false, false, false, false, false, false,
+        false, false, false, false);
     devisUcc = (DevisUcc) devisUccConstruct.newInstance(bizFactory, devisDao, userDao, clientDao,
         amenagementDao, dalServices);
     ClientDto clientDto = bizFactory.getClientDto();
@@ -526,9 +528,9 @@ class TestDevisUcc {
     devisDao = (DevisDao) devisDaoConstruct.newInstance(true, false, false, false, true, false,
         false, false, false, false, false);
     clientDao = (ClientDao) clientDaoConstruct.newInstance(false, false, false, false, false, false,
-        false, false);
-    userDao = (UserDao) userDaoConstruct.newInstance(false, false, false, false, false, false,
         false, false, false);
+    userDao = (UserDao) userDaoConstruct.newInstance(false, false, false, false, false, false,
+        false, false, false, false);
     devisUcc = (DevisUcc) devisUccConstruct.newInstance(bizFactory, devisDao, userDao, clientDao,
         amenagementDao, dalServices);
     ClientDto clientDto = bizFactory.getClientDto();
@@ -547,9 +549,9 @@ class TestDevisUcc {
     devisDao = (DevisDao) devisDaoConstruct.newInstance(true, false, false, false, true, false,
         false, false, false, false, false);
     clientDao = (ClientDao) clientDaoConstruct.newInstance(false, true, false, false, false, false,
-        true, false);
+        true, false, false);
     userDao = (UserDao) userDaoConstruct.newInstance(false, false, false, false, true, false, false,
-        false, false);
+        false, false, false);
     devisUcc = (DevisUcc) devisUccConstruct.newInstance(bizFactory, devisDao, userDao, clientDao,
         amenagementDao, dalServices);
     ClientDto clientDto = bizFactory.getClientDto();
@@ -567,9 +569,9 @@ class TestDevisUcc {
     devisDao = (DevisDao) devisDaoConstruct.newInstance(false, false, false, false, true, false,
         false, false, false, false, true);
     clientDao = (ClientDao) clientDaoConstruct.newInstance(false, true, true, false, false, false,
-        true, false);
+        true, false, false);
     userDao = (UserDao) userDaoConstruct.newInstance(false, false, false, false, true, false, false,
-        false, false);
+        false, false, false);
     devisUcc = (DevisUcc) devisUccConstruct.newInstance(bizFactory, devisDao, userDao, clientDao,
         amenagementDao, dalServices);
     ClientDto clientDto = bizFactory.getClientDto();

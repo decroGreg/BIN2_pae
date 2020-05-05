@@ -9,7 +9,6 @@ import be.ipl.pae.biz.interfaces.Factory;
 import be.ipl.pae.biz.interfaces.Photo;
 import be.ipl.pae.biz.interfaces.PhotoUcc;
 import be.ipl.pae.dal.daoservices.DaoServicesUcc;
-import be.ipl.pae.dal.interfaces.AmenagementDao;
 import be.ipl.pae.dal.interfaces.DevisDao;
 import be.ipl.pae.dal.interfaces.PhotoDao;
 import be.ipl.pae.exceptions.BizException;
@@ -23,7 +22,6 @@ public class PhotoUccImpl implements PhotoUcc {
 
   private PhotoDao photoDao;
   private DevisDao devisDao;
-  private AmenagementDao amenagementDao;
   private Factory bizFactory;
   private DaoServicesUcc daoServicesUcc;
 
@@ -36,12 +34,11 @@ public class PhotoUccImpl implements PhotoUcc {
    * @param bizFactory la biz factory.
    * @param daoServicesUcc le daoServices.
    */
-  public PhotoUccImpl(PhotoDao photoDao, DevisDao devisDao, AmenagementDao amenagementDao,
-      Factory bizFactory, DaoServicesUcc daoServicesUcc) {
+  public PhotoUccImpl(PhotoDao photoDao, DevisDao devisDao, Factory bizFactory,
+      DaoServicesUcc daoServicesUcc) {
     super();
     this.photoDao = photoDao;
     this.devisDao = devisDao;
-    this.amenagementDao = amenagementDao;
     this.bizFactory = bizFactory;
     this.daoServicesUcc = daoServicesUcc;
   }
@@ -106,7 +103,7 @@ public class PhotoUccImpl implements PhotoUcc {
 
   @Override
   public List<PhotoDto> voirPhotoParTypeAmenagement(TypeDAmenagementDto typeAmenagementDto) {
-    List<PhotoDto> photoParTypeAmenagement = null;
+    List<PhotoDto> photoParTypeAmenagement;
     try {
       daoServicesUcc.demarrerTransaction();
       photoParTypeAmenagement = photoDao.voirPhotoTypeDAmenagement(typeAmenagementDto.getId());

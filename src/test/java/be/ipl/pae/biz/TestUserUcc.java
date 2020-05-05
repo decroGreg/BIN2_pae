@@ -52,7 +52,7 @@ class TestUserUcc {
 
     userDaoConstruct = Class.forName(Config.getConfigPropertyAttribute(UserDao.class.getName()))
         .getConstructor(boolean.class, boolean.class, boolean.class, boolean.class, boolean.class,
-            boolean.class, boolean.class, boolean.class, boolean.class);
+            boolean.class, boolean.class, boolean.class, boolean.class, boolean.class);
     userUccConstruct = Class.forName(Config.getConfigPropertyAttribute(UserUcc.class.getName()))
         .getConstructor(Factory.class, UserDao.class, DaoServicesUcc.class);
   }
@@ -63,7 +63,7 @@ class TestUserUcc {
   void testLogin() throws InstantiationException, IllegalAccessException, IllegalArgumentException,
       InvocationTargetException {
     userDao = (UserDao) userDaoConstruct.newInstance(false, false, false, false, false, false,
-        false, false, false);
+        false, false, false, false);
     userUcc = (UserUcc) userUccConstruct.newInstance(bizFactory, userDao, dalServices);
     assertThrows(BizException.class, () -> userUcc.login(null, "test"));
   }
@@ -73,7 +73,7 @@ class TestUserUcc {
   void testLogin2() throws InstantiationException, IllegalAccessException, IllegalArgumentException,
       InvocationTargetException {
     userDao = (UserDao) userDaoConstruct.newInstance(false, false, false, false, false, false,
-        false, false, false);
+        false, false, false, false);
     userUcc = (UserUcc) userUccConstruct.newInstance(bizFactory, userDao, dalServices);
     assertThrows(BizException.class, () -> userUcc.login("test@gmail.com", null));
   }
@@ -83,7 +83,7 @@ class TestUserUcc {
   void testLogin3() throws InstantiationException, IllegalAccessException, IllegalArgumentException,
       InvocationTargetException {
     userDao = (UserDao) userDaoConstruct.newInstance(false, false, false, false, false, false,
-        false, false, false);
+        false, false, false, false);
     userUcc = (UserUcc) userUccConstruct.newInstance(bizFactory, userDao, dalServices);
     assertThrows(BizException.class, () -> userUcc.login(null, null));
   }
@@ -93,7 +93,7 @@ class TestUserUcc {
   void testLogin4() throws InstantiationException, IllegalAccessException, IllegalArgumentException,
       InvocationTargetException {
     userDao = (UserDao) userDaoConstruct.newInstance(false, false, false, false, false, false,
-        false, false, true);
+        false, false, false, true);
     userUcc = (UserUcc) userUccConstruct.newInstance(bizFactory, userDao, dalServices);
     assertThrows(FatalException.class,
         () -> userUcc.login(userDto.getEmail(), userDto.getMotDePasse()));
@@ -104,7 +104,7 @@ class TestUserUcc {
   void testLogin5() throws InstantiationException, IllegalAccessException, IllegalArgumentException,
       InvocationTargetException {
     userDao = (UserDao) userDaoConstruct.newInstance(false, false, false, false, false, false,
-        false, false, false);
+        false, false, false, false);
     userUcc = (UserUcc) userUccConstruct.newInstance(bizFactory, userDao, dalServices);
     assertThrows(BizException.class,
         () -> userUcc.login(userDto.getEmail(), userDto.getMotDePasse()));
@@ -115,7 +115,7 @@ class TestUserUcc {
   void testLogin6() throws InstantiationException, IllegalAccessException, IllegalArgumentException,
       InvocationTargetException {
     userDao = (UserDao) userDaoConstruct.newInstance(true, false, false, false, false, false, false,
-        false, false);
+        false, false, false);
     userUcc = (UserUcc) userUccConstruct.newInstance(bizFactory, userDao, dalServices);
     assertNull(userUcc.login(userDto.getEmail(), "test"));
   }
@@ -125,7 +125,7 @@ class TestUserUcc {
   void testLogin7() throws InstantiationException, IllegalAccessException, IllegalArgumentException,
       InvocationTargetException {
     userDao = (UserDao) userDaoConstruct.newInstance(true, false, false, false, false, false, false,
-        false, false);
+        false, false, false);
     userUcc = (UserUcc) userUccConstruct.newInstance(bizFactory, userDao, dalServices);
     userUcc.login(userDto.getEmail(), "Jaune;10.");
   }
@@ -135,7 +135,7 @@ class TestUserUcc {
   void testLogin8() throws InstantiationException, IllegalAccessException, IllegalArgumentException,
       InvocationTargetException {
     userDao = (UserDao) userDaoConstruct.newInstance(true, false, false, false, false, false, false,
-        false, true);
+        false, false, true);
     userUcc = (UserUcc) userUccConstruct.newInstance(bizFactory, userDao, dalServices);
     assertThrows(FatalException.class, () -> userUcc.login(userDto.getEmail(), "Jaune;10."));
   }
@@ -146,7 +146,7 @@ class TestUserUcc {
   void testSinscrire() throws InstantiationException, IllegalAccessException,
       IllegalArgumentException, InvocationTargetException {
     userDao = (UserDao) userDaoConstruct.newInstance(false, true, false, false, false, false, false,
-        false, false);
+        false, false, false);
     userUcc = (UserUcc) userUccConstruct.newInstance(bizFactory, userDao, dalServices);
     assertThrows(NullPointerException.class, () -> userUcc.sinscrire(null));
   }
@@ -156,7 +156,7 @@ class TestUserUcc {
   void testSinscrire2() throws InstantiationException, IllegalAccessException,
       IllegalArgumentException, InvocationTargetException {
     userDao = (UserDao) userDaoConstruct.newInstance(false, true, false, false, false, false, false,
-        false, false);
+        false, false, false);
     userUcc = (UserUcc) userUccConstruct.newInstance(bizFactory, userDao, dalServices);
     assertThrows(BizException.class, () -> userUcc.sinscrire(userDto));
   }
@@ -166,7 +166,7 @@ class TestUserUcc {
   void testSinscrire3() throws InstantiationException, IllegalAccessException,
       IllegalArgumentException, InvocationTargetException {
     userDao = (UserDao) userDaoConstruct.newInstance(false, true, false, false, false, false, false,
-        false, false);
+        false, false, false);
     userUcc = (UserUcc) userUccConstruct.newInstance(bizFactory, userDao, dalServices);
     userDto.setEmail("test78@gmail.com");
     userDto.setMotDePasse(" ");
@@ -178,7 +178,7 @@ class TestUserUcc {
   void testSinscrire4() throws InstantiationException, IllegalAccessException,
       IllegalArgumentException, InvocationTargetException {
     userDao = (UserDao) userDaoConstruct.newInstance(true, true, false, false, false, false, false,
-        false, false);
+        false, false, false);
     userUcc = (UserUcc) userUccConstruct.newInstance(bizFactory, userDao, dalServices);
     userDto.setEmail("test78@gmail.com");
     assertThrows(BizException.class, () -> userUcc.sinscrire(userDto));
@@ -189,7 +189,7 @@ class TestUserUcc {
   void testSinscrire5() throws InstantiationException, IllegalAccessException,
       IllegalArgumentException, InvocationTargetException {
     userDao = (UserDao) userDaoConstruct.newInstance(false, true, false, false, false, false, false,
-        false, false);
+        false, false, false);
     userUcc = (UserUcc) userUccConstruct.newInstance(bizFactory, userDao, dalServices);
     userDto.setEmail("samuel.vancampenhout@student.vinci.be");
     userUcc.sinscrire(userDto);
@@ -200,7 +200,7 @@ class TestUserUcc {
   void testSinscrire6() throws InstantiationException, IllegalAccessException,
       IllegalArgumentException, InvocationTargetException {
     userDao = (UserDao) userDaoConstruct.newInstance(false, true, false, false, false, false, false,
-        false, false);
+        false, false, false);
     userUcc = (UserUcc) userUccConstruct.newInstance(bizFactory, userDao, dalServices);
     userDto.setEmail("samuel.vancampenhout@student.vinci.be");
     userDto.setMotDePasse(null);
@@ -212,7 +212,7 @@ class TestUserUcc {
   void testSinscrire7() throws InstantiationException, IllegalAccessException,
       IllegalArgumentException, InvocationTargetException {
     userDao = (UserDao) userDaoConstruct.newInstance(false, true, false, false, false, false, false,
-        false, true);
+        false, false, true);
     userUcc = (UserUcc) userUccConstruct.newInstance(bizFactory, userDao, dalServices);
     userDto.setEmail("samuel.vancampenhout@student.vinci.be");
     assertThrows(FatalException.class, () -> userUcc.sinscrire(userDto));
@@ -223,7 +223,7 @@ class TestUserUcc {
   void testConfirmerInscription() throws InstantiationException, IllegalAccessException,
       IllegalArgumentException, InvocationTargetException {
     userDao = (UserDao) userDaoConstruct.newInstance(false, false, false, false, true, true, false,
-        false, false);
+        false, false, false);
     userUcc = (UserUcc) userUccConstruct.newInstance(bizFactory, userDao, dalServices);
     assertThrows(NullPointerException.class,
         () -> userUcc.confirmerInscription(null, bizFactory.getClientDto(), 'C'));
@@ -234,7 +234,7 @@ class TestUserUcc {
   void testConfirmerInscription2() throws InstantiationException, IllegalAccessException,
       IllegalArgumentException, InvocationTargetException {
     userDao = (UserDao) userDaoConstruct.newInstance(false, false, false, false, true, true, false,
-        false, false);
+        false, false, false);
     userUcc = (UserUcc) userUccConstruct.newInstance(bizFactory, userDao, dalServices);
     assertThrows(NullPointerException.class,
         () -> userUcc.confirmerInscription(userDto, null, 'C'));
@@ -245,7 +245,7 @@ class TestUserUcc {
   void testConfirmerInscription3() throws InstantiationException, IllegalAccessException,
       IllegalArgumentException, InvocationTargetException {
     userDao = (UserDao) userDaoConstruct.newInstance(false, false, false, false, true, true, false,
-        false, false);
+        false, false, false);
     userUcc = (UserUcc) userUccConstruct.newInstance(bizFactory, userDao, dalServices);
     assertThrows(BizException.class,
         () -> userUcc.confirmerInscription(userDto, bizFactory.getClientDto(), 'M'));
@@ -256,7 +256,7 @@ class TestUserUcc {
   void testConfirmerInscription4() throws InstantiationException, IllegalAccessException,
       IllegalArgumentException, InvocationTargetException {
     userDao = (UserDao) userDaoConstruct.newInstance(false, false, false, false, true, true, false,
-        false, false);
+        false, false, false);
     userUcc = (UserUcc) userUccConstruct.newInstance(bizFactory, userDao, dalServices);
     userUcc.confirmerInscription(userDto, bizFactory.getClientDto(), 'C');
   }
@@ -266,7 +266,7 @@ class TestUserUcc {
   void testConfirmerInscription5() throws InstantiationException, IllegalAccessException,
       IllegalArgumentException, InvocationTargetException {
     userDao = (UserDao) userDaoConstruct.newInstance(false, false, false, false, false, false,
-        false, false, true);
+        false, false, false, true);
     userUcc = (UserUcc) userUccConstruct.newInstance(bizFactory, userDao, dalServices);
     assertThrows(FatalException.class,
         () -> userUcc.confirmerInscription(userDto, bizFactory.getClientDto(), 'C'));
@@ -277,7 +277,7 @@ class TestUserUcc {
   void testGetUtilisateurs() throws InstantiationException, IllegalAccessException,
       IllegalArgumentException, InvocationTargetException {
     userDao = (UserDao) userDaoConstruct.newInstance(false, false, false, false, false, false,
-        false, false, false);
+        false, false, false, false);
     userUcc = (UserUcc) userUccConstruct.newInstance(bizFactory, userDao, dalServices);
     assertThrows(NullPointerException.class, () -> userUcc.getUtilisateurs());
   }
@@ -287,7 +287,7 @@ class TestUserUcc {
   void testGetUtilisateurs2() throws InstantiationException, IllegalAccessException,
       IllegalArgumentException, InvocationTargetException {
     userDao = (UserDao) userDaoConstruct.newInstance(false, false, true, false, false, false, false,
-        false, false);
+        false, false, false);
     userUcc = (UserUcc) userUccConstruct.newInstance(bizFactory, userDao, dalServices);
     assertEquals(userUcc.getUtilisateurs().get(0).getIdUser(), userDto.getIdUser());
   }
@@ -297,7 +297,7 @@ class TestUserUcc {
   void testGetUtilisateurs3() throws InstantiationException, IllegalAccessException,
       IllegalArgumentException, InvocationTargetException {
     userDao = (UserDao) userDaoConstruct.newInstance(false, false, false, false, false, false,
-        false, false, true);
+        false, false, false, true);
     userUcc = (UserUcc) userUccConstruct.newInstance(bizFactory, userDao, dalServices);
     assertThrows(FatalException.class, () -> userUcc.getUtilisateurs());
   }
@@ -307,7 +307,7 @@ class TestUserUcc {
   void testVoirUtilisateurEnAttente() throws InstantiationException, IllegalAccessException,
       IllegalArgumentException, InvocationTargetException {
     userDao = (UserDao) userDaoConstruct.newInstance(false, false, false, false, false, false,
-        false, false, false);
+        false, false, false, false);
     userUcc = (UserUcc) userUccConstruct.newInstance(bizFactory, userDao, dalServices);
     assertThrows(NullPointerException.class, () -> userUcc.voirUtilisateurEnAttente());
   }
@@ -317,7 +317,7 @@ class TestUserUcc {
   void testVoirUtilisateurEnAttente2() throws InstantiationException, IllegalAccessException,
       IllegalArgumentException, InvocationTargetException {
     userDao = (UserDao) userDaoConstruct.newInstance(false, false, false, true, false, false, false,
-        false, false);
+        false, false, false);
     userUcc = (UserUcc) userUccConstruct.newInstance(bizFactory, userDao, dalServices);
     userDto.setStatut(' ');
     assertEquals(userUcc.voirUtilisateurEnAttente().get(0).getIdUser(), userDto.getIdUser());
@@ -328,7 +328,7 @@ class TestUserUcc {
   void testVoirUtilisateurEnAttente3() throws InstantiationException, IllegalAccessException,
       IllegalArgumentException, InvocationTargetException {
     userDao = (UserDao) userDaoConstruct.newInstance(false, false, false, false, false, false,
-        false, false, true);
+        false, false, false, true);
     userUcc = (UserUcc) userUccConstruct.newInstance(bizFactory, userDao, dalServices);
     userDto.setStatut(' ');
     assertThrows(FatalException.class, () -> userUcc.voirUtilisateurEnAttente());
@@ -339,7 +339,7 @@ class TestUserUcc {
   void testLoginViaToken() throws InstantiationException, IllegalAccessException,
       IllegalArgumentException, InvocationTargetException {
     userDao = (UserDao) userDaoConstruct.newInstance(false, false, false, false, false, false, true,
-        false, false);
+        false, false, false);
     userUcc = (UserUcc) userUccConstruct.newInstance(bizFactory, userDao, dalServices);
     userDto.setIdUser(0);
     assertThrows(BizException.class, () -> userUcc.loginViaToken(userDto.getIdUser()));
@@ -350,7 +350,7 @@ class TestUserUcc {
   void testLoginViaToken2() throws InstantiationException, IllegalAccessException,
       IllegalArgumentException, InvocationTargetException {
     userDao = (UserDao) userDaoConstruct.newInstance(false, false, false, false, false, false,
-        false, false, false);
+        false, false, false, false);
     userUcc = (UserUcc) userUccConstruct.newInstance(bizFactory, userDao, dalServices);
     assertThrows(BizException.class, () -> userUcc.loginViaToken(userDto.getIdUser()));
   }
@@ -360,7 +360,7 @@ class TestUserUcc {
   void testLoginViaToken3() throws InstantiationException, IllegalAccessException,
       IllegalArgumentException, InvocationTargetException {
     userDao = (UserDao) userDaoConstruct.newInstance(false, false, false, false, false, false, true,
-        false, false);
+        false, false, false);
     userUcc = (UserUcc) userUccConstruct.newInstance(bizFactory, userDao, dalServices);
     assertEquals(userUcc.loginViaToken(userDto.getIdUser()).getIdUser(), userDto.getIdUser());
   }
@@ -370,7 +370,7 @@ class TestUserUcc {
   void testLoginViaToken4() throws InstantiationException, IllegalAccessException,
       IllegalArgumentException, InvocationTargetException {
     userDao = (UserDao) userDaoConstruct.newInstance(false, false, false, false, false, false,
-        false, false, true);
+        false, false, false, true);
     userUcc = (UserUcc) userUccConstruct.newInstance(bizFactory, userDao, dalServices);
     assertThrows(FatalException.class, () -> userUcc.loginViaToken(userDto.getIdUser()));
   }
@@ -380,7 +380,7 @@ class TestUserUcc {
   void testRechercherUtilisateurs() throws InstantiationException, IllegalAccessException,
       IllegalArgumentException, InvocationTargetException {
     userDao = (UserDao) userDaoConstruct.newInstance(false, false, false, false, false, false,
-        false, true, false);
+        false, true, false, false);
     userUcc = (UserUcc) userUccConstruct.newInstance(bizFactory, userDao, dalServices);
     assertEquals(userUcc.rechercherUtilisateurs("testNom", "testVille").get(0).getIdUser(),
         userDto.getIdUser());
@@ -391,7 +391,7 @@ class TestUserUcc {
   void testRechercherUtilisateurs2() throws InstantiationException, IllegalAccessException,
       IllegalArgumentException, InvocationTargetException {
     userDao = (UserDao) userDaoConstruct.newInstance(false, false, false, false, false, false,
-        false, true, false);
+        false, true, false, false);
     userUcc = (UserUcc) userUccConstruct.newInstance(bizFactory, userDao, dalServices);
     assertEquals(userUcc.rechercherUtilisateurs(null, null).get(0).getIdUser(),
         userDto.getIdUser());
@@ -402,7 +402,7 @@ class TestUserUcc {
   void testRechercherUtilisateurs3() throws InstantiationException, IllegalAccessException,
       IllegalArgumentException, InvocationTargetException {
     userDao = (UserDao) userDaoConstruct.newInstance(false, false, false, false, false, false,
-        false, true, false);
+        false, true, false, false);
     userUcc = (UserUcc) userUccConstruct.newInstance(bizFactory, userDao, dalServices);
     assertEquals(userUcc.rechercherUtilisateurs(null, "testVille").get(0).getIdUser(),
         userDto.getIdUser());
@@ -413,9 +413,42 @@ class TestUserUcc {
   void testRechercherUtilisateurs4() throws InstantiationException, IllegalAccessException,
       IllegalArgumentException, InvocationTargetException {
     userDao = (UserDao) userDaoConstruct.newInstance(false, false, false, false, false, false,
-        false, true, true);
+        false, true, false, true);
     userUcc = (UserUcc) userUccConstruct.newInstance(bizFactory, userDao, dalServices);
     assertThrows(FatalException.class,
         () -> userUcc.rechercherUtilisateurs(null, "testVille").get(0).getIdUser());
+  }
+
+  @Test
+  @DisplayName("erreur methode pour recuperer les noms")
+  void getNomUtilisateurs() throws InstantiationException, IllegalAccessException,
+      IllegalArgumentException, InvocationTargetException {
+
+    userDao = (UserDao) userDaoConstruct.newInstance(false, false, false, false, false, false,
+        false, true, false, false);
+    userUcc = (UserUcc) userUccConstruct.newInstance(bizFactory, userDao, dalServices);
+    assertThrows(NullPointerException.class, () -> userUcc.getNomUtilisateurs());
+  }
+
+  @Test
+  @DisplayName("test ok")
+  void getNomUtilisateurs2() throws InstantiationException, IllegalAccessException,
+      IllegalArgumentException, InvocationTargetException {
+
+    userDao = (UserDao) userDaoConstruct.newInstance(false, false, false, false, false, false,
+        false, false, true, false);
+    userUcc = (UserUcc) userUccConstruct.newInstance(bizFactory, userDao, dalServices);
+    assertEquals(userUcc.getNomUtilisateurs().get(0), userDto.getNom());
+  }
+
+  @Test
+  @DisplayName("test dalException")
+  void getNomUtilisateurs3() throws InstantiationException, IllegalAccessException,
+      IllegalArgumentException, InvocationTargetException {
+
+    userDao = (UserDao) userDaoConstruct.newInstance(false, false, false, false, false, false,
+        false, false, true, true);
+    userUcc = (UserUcc) userUccConstruct.newInstance(bizFactory, userDao, dalServices);
+    assertThrows(FatalException.class, () -> userUcc.getNomUtilisateurs());
   }
 }
