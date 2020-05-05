@@ -310,12 +310,21 @@ class TestPhotoUcc {
   @DisplayName("test dalException")
   void recupererPhotoPreferee4() throws InstantiationException, IllegalAccessException,
       IllegalArgumentException, InvocationTargetException {
+    photoDao = (PhotoDao) photoDaoConstruct.newInstance(false, false, false, false, false, false);
+    photoUcc =
+        (PhotoUcc) photoUccConstruct.newInstance(photoDao, devisDao, bizFactory, dalServices);
+    assertThrows(BizException.class,
+        () -> photoUcc.recupererPhotoPreferee(bizFactory.getDevisDto()).getIdPhoto());
+  }
+
+  @Test
+  @DisplayName("test dalException")
+  void recupererPhotoPreferee5() throws InstantiationException, IllegalAccessException,
+      IllegalArgumentException, InvocationTargetException {
     photoDao = (PhotoDao) photoDaoConstruct.newInstance(false, false, false, false, true, true);
     photoUcc =
         (PhotoUcc) photoUccConstruct.newInstance(photoDao, devisDao, bizFactory, dalServices);
     assertThrows(FatalException.class,
         () -> photoUcc.recupererPhotoPreferee(bizFactory.getDevisDto()).getIdPhoto());
   }
-
-
 }

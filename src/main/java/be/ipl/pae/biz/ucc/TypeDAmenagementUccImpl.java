@@ -1,7 +1,6 @@
 package be.ipl.pae.biz.ucc;
 
 import be.ipl.pae.biz.dto.TypeDAmenagementDto;
-import be.ipl.pae.biz.interfaces.Factory;
 import be.ipl.pae.biz.interfaces.TypeDAmenagementUcc;
 import be.ipl.pae.dal.daoservices.DaoServicesUcc;
 import be.ipl.pae.dal.interfaces.TypeDAmenagementDao;
@@ -14,21 +13,18 @@ import java.util.List;
 
 public class TypeDAmenagementUccImpl implements TypeDAmenagementUcc {
 
-  private Factory bizFactory;
   private DaoServicesUcc daoServicesUcc;
   private TypeDAmenagementDao typeDAmenagementDao;
 
   /**
    * Cree un objet TypeDAmenagementUccImpl.
    * 
-   * @param bizFactory la factory.
    * @param typeDAmenagementDao le dao de type d'amenagement.
    * @param daoServicesUcc le dao services.
    */
-  public TypeDAmenagementUccImpl(Factory bizFactory, TypeDAmenagementDao typeDAmenagementDao,
+  public TypeDAmenagementUccImpl(TypeDAmenagementDao typeDAmenagementDao,
       DaoServicesUcc daoServicesUcc) {
     super();
-    this.bizFactory = bizFactory;
     this.daoServicesUcc = daoServicesUcc;
     this.typeDAmenagementDao = typeDAmenagementDao;
   }

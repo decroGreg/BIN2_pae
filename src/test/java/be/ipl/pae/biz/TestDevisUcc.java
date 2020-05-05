@@ -95,8 +95,8 @@ class TestDevisUcc {
             boolean.class, boolean.class, boolean.class, boolean.class, boolean.class,
             boolean.class);
     devisUccConstruct = Class.forName(Config.getConfigPropertyAttribute(DevisUcc.class.getName()))
-        .getConstructor(Factory.class, DevisDao.class, UserDao.class, ClientDao.class,
-            AmenagementDao.class, DaoServicesUcc.class);
+        .getConstructor(DevisDao.class, UserDao.class, ClientDao.class, AmenagementDao.class,
+            DaoServicesUcc.class);
   }
 
 
@@ -106,7 +106,7 @@ class TestDevisUcc {
       IllegalArgumentException, InvocationTargetException {
     devisDao = (DevisDao) devisDaoConstruct.newInstance(false, false, false, false, false, false,
         false, false, false, false, false);
-    devisUcc = (DevisUcc) devisUccConstruct.newInstance(bizFactory, devisDao, userDao, clientDao,
+    devisUcc = (DevisUcc) devisUccConstruct.newInstance(devisDao, userDao, clientDao,
         amenagementDao, dalServices);
     assertThrows(NullPointerException.class, () -> devisUcc.voirDevis(null));
   }
@@ -117,7 +117,7 @@ class TestDevisUcc {
       IllegalArgumentException, InvocationTargetException {
     devisDao = (DevisDao) devisDaoConstruct.newInstance(false, false, false, false, false, false,
         false, false, false, false, true);
-    devisUcc = (DevisUcc) devisUccConstruct.newInstance(bizFactory, devisDao, userDao, clientDao,
+    devisUcc = (DevisUcc) devisUccConstruct.newInstance(devisDao, userDao, clientDao,
         amenagementDao, dalServices);
     assertThrows(FatalException.class, () -> devisUcc.voirDevis(bizFactory.getClientDto()));
   }
@@ -128,7 +128,7 @@ class TestDevisUcc {
       IllegalArgumentException, InvocationTargetException {
     devisDao = (DevisDao) devisDaoConstruct.newInstance(false, false, true, false, false, false,
         false, false, false, false, false);
-    devisUcc = (DevisUcc) devisUccConstruct.newInstance(bizFactory, devisDao, userDao, clientDao,
+    devisUcc = (DevisUcc) devisUccConstruct.newInstance(devisDao, userDao, clientDao,
         amenagementDao, dalServices);
     assertEquals(devisUcc.voirDevis(bizFactory.getClientDto()).get(0).getIdDevis(),
         devisDto.getIdDevis());
@@ -140,7 +140,7 @@ class TestDevisUcc {
       IllegalArgumentException, InvocationTargetException {
     devisDao = (DevisDao) devisDaoConstruct.newInstance(false, false, false, false, false, false,
         false, false, false, false, false);
-    devisUcc = (DevisUcc) devisUccConstruct.newInstance(bizFactory, devisDao, userDao, clientDao,
+    devisUcc = (DevisUcc) devisUccConstruct.newInstance(devisDao, userDao, clientDao,
         amenagementDao, dalServices);
     assertThrows(NullPointerException.class, () -> devisUcc.voirDevis());
   }
@@ -151,7 +151,7 @@ class TestDevisUcc {
       IllegalArgumentException, InvocationTargetException {
     devisDao = (DevisDao) devisDaoConstruct.newInstance(false, false, false, false, false, false,
         false, false, false, false, true);
-    devisUcc = (DevisUcc) devisUccConstruct.newInstance(bizFactory, devisDao, userDao, clientDao,
+    devisUcc = (DevisUcc) devisUccConstruct.newInstance(devisDao, userDao, clientDao,
         amenagementDao, dalServices);
     assertThrows(FatalException.class, () -> devisUcc.voirDevis());
   }
@@ -162,7 +162,7 @@ class TestDevisUcc {
       IllegalArgumentException, InvocationTargetException {
     devisDao = (DevisDao) devisDaoConstruct.newInstance(false, true, false, false, false, false,
         false, false, false, false, false);
-    devisUcc = (DevisUcc) devisUccConstruct.newInstance(bizFactory, devisDao, userDao, clientDao,
+    devisUcc = (DevisUcc) devisUccConstruct.newInstance(devisDao, userDao, clientDao,
         amenagementDao, dalServices);
     assertEquals(devisUcc.voirDevis().get(0).getIdDevis(), devisDto.getIdDevis());
   }
@@ -173,7 +173,7 @@ class TestDevisUcc {
       IllegalArgumentException, InvocationTargetException {
     devisDao = (DevisDao) devisDaoConstruct.newInstance(false, false, false, true, false, false,
         false, false, false, false, false);
-    devisUcc = (DevisUcc) devisUccConstruct.newInstance(bizFactory, devisDao, userDao, clientDao,
+    devisUcc = (DevisUcc) devisUccConstruct.newInstance(devisDao, userDao, clientDao,
         amenagementDao, dalServices);
     assertThrows(NullPointerException.class, () -> devisUcc.modifierDateDevis(null));
   }
@@ -184,7 +184,7 @@ class TestDevisUcc {
       IllegalArgumentException, InvocationTargetException {
     devisDao = (DevisDao) devisDaoConstruct.newInstance(false, false, false, true, false, false,
         false, false, false, false, false);
-    devisUcc = (DevisUcc) devisUccConstruct.newInstance(bizFactory, devisDao, userDao, clientDao,
+    devisUcc = (DevisUcc) devisUccConstruct.newInstance(devisDao, userDao, clientDao,
         amenagementDao, dalServices);
     devisUcc.modifierDateDevis(devisDto);
   }
@@ -195,7 +195,7 @@ class TestDevisUcc {
       IllegalArgumentException, InvocationTargetException {
     devisDao = (DevisDao) devisDaoConstruct.newInstance(false, false, false, true, false, false,
         false, false, false, false, false);
-    devisUcc = (DevisUcc) devisUccConstruct.newInstance(bizFactory, devisDao, userDao, clientDao,
+    devisUcc = (DevisUcc) devisUccConstruct.newInstance(devisDao, userDao, clientDao,
         amenagementDao, dalServices);
     devisDto.setEtat(Etat.DC);
     devisUcc.modifierDateDevis(devisDto);
@@ -207,7 +207,7 @@ class TestDevisUcc {
       IllegalArgumentException, InvocationTargetException {
     devisDao = (DevisDao) devisDaoConstruct.newInstance(false, false, false, false, false, false,
         false, false, false, false, true);
-    devisUcc = (DevisUcc) devisUccConstruct.newInstance(bizFactory, devisDao, userDao, clientDao,
+    devisUcc = (DevisUcc) devisUccConstruct.newInstance(devisDao, userDao, clientDao,
         amenagementDao, dalServices);
     devisDto.setEtat(Etat.FD);
     assertThrows(FatalException.class, () -> devisUcc.modifierDateDevis(devisDto));
@@ -219,7 +219,7 @@ class TestDevisUcc {
       IllegalArgumentException, InvocationTargetException {
     devisDao = (DevisDao) devisDaoConstruct.newInstance(false, false, false, false, false, false,
         false, false, false, false, false);
-    devisUcc = (DevisUcc) devisUccConstruct.newInstance(bizFactory, devisDao, userDao, clientDao,
+    devisUcc = (DevisUcc) devisUccConstruct.newInstance(devisDao, userDao, clientDao,
         amenagementDao, dalServices);
     assertThrows(NullPointerException.class, () -> devisUcc.changerEtat(null));
   }
@@ -230,7 +230,7 @@ class TestDevisUcc {
       IllegalArgumentException, InvocationTargetException {
     devisDao = (DevisDao) devisDaoConstruct.newInstance(false, false, false, false, false, true,
         false, false, false, false, false);
-    devisUcc = (DevisUcc) devisUccConstruct.newInstance(bizFactory, devisDao, userDao, clientDao,
+    devisUcc = (DevisUcc) devisUccConstruct.newInstance(devisDao, userDao, clientDao,
         amenagementDao, dalServices);
     devisUcc.changerEtat(devisDto);
   }
@@ -241,7 +241,7 @@ class TestDevisUcc {
       IllegalArgumentException, InvocationTargetException {
     devisDao = (DevisDao) devisDaoConstruct.newInstance(false, false, false, false, false, false,
         false, false, false, false, true);
-    devisUcc = (DevisUcc) devisUccConstruct.newInstance(bizFactory, devisDao, userDao, clientDao,
+    devisUcc = (DevisUcc) devisUccConstruct.newInstance(devisDao, userDao, clientDao,
         amenagementDao, dalServices);
     assertThrows(FatalException.class, () -> devisUcc.changerEtat(devisDto));
   }
@@ -252,7 +252,7 @@ class TestDevisUcc {
       IllegalArgumentException, InvocationTargetException {
     devisDao = (DevisDao) devisDaoConstruct.newInstance(false, false, false, false, false, false,
         false, false, false, false, false);
-    devisUcc = (DevisUcc) devisUccConstruct.newInstance(bizFactory, devisDao, userDao, clientDao,
+    devisUcc = (DevisUcc) devisUccConstruct.newInstance(devisDao, userDao, clientDao,
         amenagementDao, dalServices);
     PhotoDto photoDto = bizFactory.getPhotoDto();
     assertThrows(NullPointerException.class,
@@ -265,7 +265,7 @@ class TestDevisUcc {
       IllegalArgumentException, InvocationTargetException {
     devisDao = (DevisDao) devisDaoConstruct.newInstance(false, false, false, false, false, false,
         false, true, false, false, false);
-    devisUcc = (DevisUcc) devisUccConstruct.newInstance(bizFactory, devisDao, userDao, clientDao,
+    devisUcc = (DevisUcc) devisUccConstruct.newInstance(devisDao, userDao, clientDao,
         amenagementDao, dalServices);
     devisDto.setEtat(Etat.FF);
     PhotoDto photoDto = bizFactory.getPhotoDto();
@@ -279,7 +279,7 @@ class TestDevisUcc {
       IllegalArgumentException, InvocationTargetException {
     devisDao = (DevisDao) devisDaoConstruct.newInstance(false, false, false, false, false, false,
         false, false, false, false, true);
-    devisUcc = (DevisUcc) devisUccConstruct.newInstance(bizFactory, devisDao, userDao, clientDao,
+    devisUcc = (DevisUcc) devisUccConstruct.newInstance(devisDao, userDao, clientDao,
         amenagementDao, dalServices);
     devisDto.setEtat(Etat.FF);
     PhotoDto photoDto = bizFactory.getPhotoDto();
@@ -293,7 +293,7 @@ class TestDevisUcc {
       IllegalArgumentException, InvocationTargetException {
     devisDao = (DevisDao) devisDaoConstruct.newInstance(false, false, false, false, false, false,
         false, false, false, false, false);
-    devisUcc = (DevisUcc) devisUccConstruct.newInstance(bizFactory, devisDao, userDao, clientDao,
+    devisUcc = (DevisUcc) devisUccConstruct.newInstance(devisDao, userDao, clientDao,
         amenagementDao, dalServices);
     assertThrows(NullPointerException.class, () -> devisUcc.repousserDateDebut(null));
   }
@@ -304,7 +304,7 @@ class TestDevisUcc {
       IllegalArgumentException, InvocationTargetException {
     devisDao = (DevisDao) devisDaoConstruct.newInstance(false, false, false, false, false, false,
         false, false, false, false, false);
-    devisUcc = (DevisUcc) devisUccConstruct.newInstance(bizFactory, devisDao, userDao, clientDao,
+    devisUcc = (DevisUcc) devisUccConstruct.newInstance(devisDao, userDao, clientDao,
         amenagementDao, dalServices);
     devisDto.setEtat(Etat.FF);
     assertThrows(BizException.class, () -> devisUcc.repousserDateDebut(devisDto));
@@ -316,7 +316,7 @@ class TestDevisUcc {
       IllegalArgumentException, InvocationTargetException {
     devisDao = (DevisDao) devisDaoConstruct.newInstance(false, false, false, false, false, false,
         false, false, true, false, false);
-    devisUcc = (DevisUcc) devisUccConstruct.newInstance(bizFactory, devisDao, userDao, clientDao,
+    devisUcc = (DevisUcc) devisUccConstruct.newInstance(devisDao, userDao, clientDao,
         amenagementDao, dalServices);
     devisDto.setEtat(Etat.FD);
     devisUcc.repousserDateDebut(devisDto);
@@ -328,7 +328,7 @@ class TestDevisUcc {
       IllegalArgumentException, InvocationTargetException {
     devisDao = (DevisDao) devisDaoConstruct.newInstance(false, false, false, false, false, false,
         false, false, true, false, true);
-    devisUcc = (DevisUcc) devisUccConstruct.newInstance(bizFactory, devisDao, userDao, clientDao,
+    devisUcc = (DevisUcc) devisUccConstruct.newInstance(devisDao, userDao, clientDao,
         amenagementDao, dalServices);
     devisDto.setEtat(Etat.FD);
     assertThrows(FatalException.class, () -> devisUcc.repousserDateDebut(devisDto));
@@ -339,7 +339,7 @@ class TestDevisUcc {
   void creerAmenagementPourDevis() throws InstantiationException, IllegalAccessException,
       IllegalArgumentException, InvocationTargetException {
     amenagementDao = (AmenagementDao) amenagementDaoConstruct.newInstance(false, false, false);
-    devisUcc = (DevisUcc) devisUccConstruct.newInstance(bizFactory, devisDao, userDao, clientDao,
+    devisUcc = (DevisUcc) devisUccConstruct.newInstance(devisDao, userDao, clientDao,
         amenagementDao, dalServices);
     devisDto.setIdDevis(0);
     assertThrows(BizException.class,
@@ -351,7 +351,7 @@ class TestDevisUcc {
   void creerAmenagementPourDevis2() throws InstantiationException, IllegalAccessException,
       IllegalArgumentException, InvocationTargetException {
     amenagementDao = (AmenagementDao) amenagementDaoConstruct.newInstance(true, false, false);
-    devisUcc = (DevisUcc) devisUccConstruct.newInstance(bizFactory, devisDao, userDao, clientDao,
+    devisUcc = (DevisUcc) devisUccConstruct.newInstance(devisDao, userDao, clientDao,
         amenagementDao, dalServices);
     List<String> idTypeAmenagement = new ArrayList<String>();
     String idTypeAm = Integer.toString(bizFactory.getAmenagementDto().getIdTypeAmenagement());
@@ -364,7 +364,7 @@ class TestDevisUcc {
   void creerAmenagementPourDevis3() throws InstantiationException, IllegalAccessException,
       IllegalArgumentException, InvocationTargetException {
     amenagementDao = (AmenagementDao) amenagementDaoConstruct.newInstance(true, false, true);
-    devisUcc = (DevisUcc) devisUccConstruct.newInstance(bizFactory, devisDao, userDao, clientDao,
+    devisUcc = (DevisUcc) devisUccConstruct.newInstance(devisDao, userDao, clientDao,
         amenagementDao, dalServices);
     List<String> idTypeAmenagement = new ArrayList<String>();
     String idTypeAm = Integer.toString(bizFactory.getAmenagementDto().getIdTypeAmenagement());
@@ -383,7 +383,7 @@ class TestDevisUcc {
         false, false, false);
     userDao = (UserDao) userDaoConstruct.newInstance(false, false, false, false, false, false,
         false, false, false, false);
-    devisUcc = (DevisUcc) devisUccConstruct.newInstance(bizFactory, devisDao, userDao, clientDao,
+    devisUcc = (DevisUcc) devisUccConstruct.newInstance(devisDao, userDao, clientDao,
         amenagementDao, dalServices);
     assertThrows(NullPointerException.class,
         () -> devisUcc.creerDevisNouveauClient(null, devisDto, 0));
@@ -399,7 +399,7 @@ class TestDevisUcc {
         false, false, false);
     userDao = (UserDao) userDaoConstruct.newInstance(false, false, false, false, false, false,
         false, false, false, false);
-    devisUcc = (DevisUcc) devisUccConstruct.newInstance(bizFactory, devisDao, userDao, clientDao,
+    devisUcc = (DevisUcc) devisUccConstruct.newInstance(devisDao, userDao, clientDao,
         amenagementDao, dalServices);
     assertThrows(BizException.class,
         () -> devisUcc.creerDevisNouveauClient(bizFactory.getClientDto(), devisDto, 0));
@@ -415,7 +415,7 @@ class TestDevisUcc {
         false, false, false);
     userDao = (UserDao) userDaoConstruct.newInstance(false, false, false, false, false, false,
         false, false, false, false);
-    devisUcc = (DevisUcc) devisUccConstruct.newInstance(bizFactory, devisDao, userDao, clientDao,
+    devisUcc = (DevisUcc) devisUccConstruct.newInstance(devisDao, userDao, clientDao,
         amenagementDao, dalServices);
     assertThrows(BizException.class,
         () -> devisUcc.creerDevisNouveauClient(bizFactory.getClientDto(), devisDto, 0));
@@ -431,7 +431,7 @@ class TestDevisUcc {
         true, false, false);
     userDao = (UserDao) userDaoConstruct.newInstance(false, false, false, false, false, false,
         false, false, false, false);
-    devisUcc = (DevisUcc) devisUccConstruct.newInstance(bizFactory, devisDao, userDao, clientDao,
+    devisUcc = (DevisUcc) devisUccConstruct.newInstance(devisDao, userDao, clientDao,
         amenagementDao, dalServices);
     devisUcc.creerDevisNouveauClient(bizFactory.getClientDto(), devisDto, 0);
   }
@@ -446,7 +446,7 @@ class TestDevisUcc {
         true, false, false);
     userDao = (UserDao) userDaoConstruct.newInstance(false, false, false, false, true, false, false,
         false, false, false);
-    devisUcc = (DevisUcc) devisUccConstruct.newInstance(bizFactory, devisDao, userDao, clientDao,
+    devisUcc = (DevisUcc) devisUccConstruct.newInstance(devisDao, userDao, clientDao,
         amenagementDao, dalServices);
     devisUcc.creerDevisNouveauClient(bizFactory.getClientDto(), devisDto,
         bizFactory.getUserDto().getIdUser());
@@ -462,7 +462,7 @@ class TestDevisUcc {
         true, false, true);
     userDao = (UserDao) userDaoConstruct.newInstance(false, false, false, false, true, false, false,
         false, false, false);
-    devisUcc = (DevisUcc) devisUccConstruct.newInstance(bizFactory, devisDao, userDao, clientDao,
+    devisUcc = (DevisUcc) devisUccConstruct.newInstance(devisDao, userDao, clientDao,
         amenagementDao, dalServices);
     assertThrows(FatalException.class,
         () -> devisUcc.creerDevisNouveauClient(bizFactory.getClientDto(), devisDto,
@@ -479,7 +479,7 @@ class TestDevisUcc {
         false, false, false);
     userDao = (UserDao) userDaoConstruct.newInstance(false, false, false, false, false, false,
         false, false, false, false);
-    devisUcc = (DevisUcc) devisUccConstruct.newInstance(bizFactory, devisDao, userDao, clientDao,
+    devisUcc = (DevisUcc) devisUccConstruct.newInstance(devisDao, userDao, clientDao,
         amenagementDao, dalServices);
     ClientDto clientDto = bizFactory.getClientDto();
     clientDto.setNom(null);
@@ -497,7 +497,7 @@ class TestDevisUcc {
         false, false, false);
     userDao = (UserDao) userDaoConstruct.newInstance(false, false, false, false, false, false,
         false, false, false, false);
-    devisUcc = (DevisUcc) devisUccConstruct.newInstance(bizFactory, devisDao, userDao, clientDao,
+    devisUcc = (DevisUcc) devisUccConstruct.newInstance(devisDao, userDao, clientDao,
         amenagementDao, dalServices);
     assertThrows(NullPointerException.class,
         () -> devisUcc.introduireDevis(null, 0, devisDto, null));
@@ -513,7 +513,7 @@ class TestDevisUcc {
         false, false, false);
     userDao = (UserDao) userDaoConstruct.newInstance(false, false, false, false, false, false,
         false, false, false, false);
-    devisUcc = (DevisUcc) devisUccConstruct.newInstance(bizFactory, devisDao, userDao, clientDao,
+    devisUcc = (DevisUcc) devisUccConstruct.newInstance(devisDao, userDao, clientDao,
         amenagementDao, dalServices);
     ClientDto clientDto = bizFactory.getClientDto();
     clientDto.setNom(null);
@@ -531,7 +531,7 @@ class TestDevisUcc {
         false, false, false);
     userDao = (UserDao) userDaoConstruct.newInstance(false, false, false, false, false, false,
         false, false, false, false);
-    devisUcc = (DevisUcc) devisUccConstruct.newInstance(bizFactory, devisDao, userDao, clientDao,
+    devisUcc = (DevisUcc) devisUccConstruct.newInstance(devisDao, userDao, clientDao,
         amenagementDao, dalServices);
     ClientDto clientDto = bizFactory.getClientDto();
     clientDto.setNom(null);
@@ -552,7 +552,7 @@ class TestDevisUcc {
         true, false, false);
     userDao = (UserDao) userDaoConstruct.newInstance(false, false, false, false, true, false, false,
         false, false, false);
-    devisUcc = (DevisUcc) devisUccConstruct.newInstance(bizFactory, devisDao, userDao, clientDao,
+    devisUcc = (DevisUcc) devisUccConstruct.newInstance(devisDao, userDao, clientDao,
         amenagementDao, dalServices);
     ClientDto clientDto = bizFactory.getClientDto();
     List<String> idTypeAmenagement = new ArrayList<String>();
@@ -572,7 +572,7 @@ class TestDevisUcc {
         true, false, false);
     userDao = (UserDao) userDaoConstruct.newInstance(false, false, false, false, true, false, false,
         false, false, false);
-    devisUcc = (DevisUcc) devisUccConstruct.newInstance(bizFactory, devisDao, userDao, clientDao,
+    devisUcc = (DevisUcc) devisUccConstruct.newInstance(devisDao, userDao, clientDao,
         amenagementDao, dalServices);
     ClientDto clientDto = bizFactory.getClientDto();
     clientDto.setNom(null);
@@ -586,7 +586,7 @@ class TestDevisUcc {
       IllegalArgumentException, InvocationTargetException {
     devisDao = (DevisDao) devisDaoConstruct.newInstance(false, false, false, false, true, false,
         false, false, false, false, false);
-    devisUcc = (DevisUcc) devisUccConstruct.newInstance(bizFactory, devisDao, userDao, clientDao,
+    devisUcc = (DevisUcc) devisUccConstruct.newInstance(devisDao, userDao, clientDao,
         amenagementDao, dalServices);
     assertThrows(NullPointerException.class,
         () -> devisUcc.rechercheSurDevis(null, 0.0, 0.0, null, null));
@@ -598,7 +598,7 @@ class TestDevisUcc {
       IllegalArgumentException, InvocationTargetException {
     devisDao = (DevisDao) devisDaoConstruct.newInstance(false, false, false, false, true, false,
         false, false, false, true, false);
-    devisUcc = (DevisUcc) devisUccConstruct.newInstance(bizFactory, devisDao, userDao, clientDao,
+    devisUcc = (DevisUcc) devisUccConstruct.newInstance(devisDao, userDao, clientDao,
         amenagementDao, dalServices);
     devisDto.setDate(null);
     devisDto.setIdClient(0);
@@ -612,7 +612,7 @@ class TestDevisUcc {
       IllegalArgumentException, InvocationTargetException {
     devisDao = (DevisDao) devisDaoConstruct.newInstance(false, false, false, false, true, false,
         false, false, false, true, true);
-    devisUcc = (DevisUcc) devisUccConstruct.newInstance(bizFactory, devisDao, userDao, clientDao,
+    devisUcc = (DevisUcc) devisUccConstruct.newInstance(devisDao, userDao, clientDao,
         amenagementDao, dalServices);
     assertThrows(FatalException.class,
         () -> devisUcc.rechercheSurDevis(devisDto, 0.0, 0.0, null, null));

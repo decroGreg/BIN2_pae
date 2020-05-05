@@ -82,17 +82,16 @@ public class Main {
 
     UserUcc userUcc = new UserUccImpl(factory, userDao, daoServices);
     PhotoDto photoDto = factory.getPhotoDto();
-    AmenagementUcc amenagementUcc = new AmenagementUccImpl(amenagementDao, factory, daoServices);
+    AmenagementUcc amenagementUcc = new AmenagementUccImpl(amenagementDao, daoServices);
     PhotoUcc photoUcc = new PhotoUccImpl(photoDao, devisDao, factory, daoServices);
 
     UserDto userDto = factory.getUserDto();
     ClientDto clientDto = factory.getClientDto();
-    ClientUcc clientUcc = new ClientUccImpl(factory, clientDao, daoServices);
-    DevisUcc devisUcc =
-        new DevisUccImpl(factory, devisDao, userDao, clientDao, amenagementDao, daoServices);
+    ClientUcc clientUcc = new ClientUccImpl(clientDao, daoServices);
+    DevisUcc devisUcc = new DevisUccImpl(devisDao, userDao, clientDao, amenagementDao, daoServices);
     DevisDto devisDto = factory.getDevisDto();
     TypeDAmenagementUcc typeAmenagmentUcc =
-        new TypeDAmenagementUccImpl(factory, typeAmenagementDao, daoServices);
+        new TypeDAmenagementUccImpl(typeAmenagementDao, daoServices);
     Server server = new Server(8080);
     WebAppContext context = new WebAppContext();
 

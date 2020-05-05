@@ -54,7 +54,7 @@ class TestAmenagementUcc {
             .getConstructor(boolean.class, boolean.class, boolean.class);
     amenagementUccConstruct =
         Class.forName(Config.getConfigPropertyAttribute(AmenagementUcc.class.getName()))
-            .getConstructor(AmenagementDao.class, Factory.class, DaoServicesUcc.class);
+            .getConstructor(AmenagementDao.class, DaoServicesUcc.class);
   }
 
   @Test
@@ -62,8 +62,8 @@ class TestAmenagementUcc {
   void testVoirAmenagement() throws InstantiationException, IllegalAccessException,
       IllegalArgumentException, InvocationTargetException {
     amenagementDao = (AmenagementDao) amenagementDaoConstruct.newInstance(false, false, false);
-    amenagementUcc = (AmenagementUcc) amenagementUccConstruct.newInstance(amenagementDao,
-        bizFactory, dalServices);
+    amenagementUcc =
+        (AmenagementUcc) amenagementUccConstruct.newInstance(amenagementDao, dalServices);
     assertThrows(NullPointerException.class, () -> amenagementUcc.voirAmenagement());
   }
 
@@ -72,8 +72,8 @@ class TestAmenagementUcc {
   void testVoirAmenagement2() throws InstantiationException, IllegalAccessException,
       IllegalArgumentException, InvocationTargetException {
     amenagementDao = (AmenagementDao) amenagementDaoConstruct.newInstance(false, false, true);
-    amenagementUcc = (AmenagementUcc) amenagementUccConstruct.newInstance(amenagementDao,
-        bizFactory, dalServices);
+    amenagementUcc =
+        (AmenagementUcc) amenagementUccConstruct.newInstance(amenagementDao, dalServices);
     assertThrows(FatalException.class, () -> amenagementUcc.voirAmenagement());
   }
 
@@ -82,8 +82,8 @@ class TestAmenagementUcc {
   void testVoirAmenagement3() throws InstantiationException, IllegalAccessException,
       IllegalArgumentException, InvocationTargetException {
     amenagementDao = (AmenagementDao) amenagementDaoConstruct.newInstance(false, true, false);
-    amenagementUcc = (AmenagementUcc) amenagementUccConstruct.newInstance(amenagementDao,
-        bizFactory, dalServices);
+    amenagementUcc =
+        (AmenagementUcc) amenagementUccConstruct.newInstance(amenagementDao, dalServices);
     assertEquals(amenagementUcc.voirAmenagement().get(0).getIdDevis(), amenagementDto.getIdDevis());
   }
 
@@ -92,8 +92,8 @@ class TestAmenagementUcc {
   void testAjouterAmenagement() throws InstantiationException, IllegalAccessException,
       IllegalArgumentException, InvocationTargetException {
     amenagementDao = (AmenagementDao) amenagementDaoConstruct.newInstance(false, false, false);
-    amenagementUcc = (AmenagementUcc) amenagementUccConstruct.newInstance(amenagementDao,
-        bizFactory, dalServices);
+    amenagementUcc =
+        (AmenagementUcc) amenagementUccConstruct.newInstance(amenagementDao, dalServices);
     assertThrows(NullPointerException.class,
         () -> amenagementUcc.ajouterAmenagement(null, amenagementDto.getIdDevis()));
   }
@@ -105,8 +105,8 @@ class TestAmenagementUcc {
     List<String> idTypeAmenagement = new ArrayList<String>();
     idTypeAmenagement.add("1");
     amenagementDao = (AmenagementDao) amenagementDaoConstruct.newInstance(true, false, false);
-    amenagementUcc = (AmenagementUcc) amenagementUccConstruct.newInstance(amenagementDao,
-        bizFactory, dalServices);
+    amenagementUcc =
+        (AmenagementUcc) amenagementUccConstruct.newInstance(amenagementDao, dalServices);
     assertThrows(BizException.class, () -> amenagementUcc.ajouterAmenagement(idTypeAmenagement, 0));
   }
 
@@ -117,8 +117,8 @@ class TestAmenagementUcc {
     List<String> idTypeAmenagement = new ArrayList<String>();
     idTypeAmenagement.add("1");
     amenagementDao = (AmenagementDao) amenagementDaoConstruct.newInstance(true, false, false);
-    amenagementUcc = (AmenagementUcc) amenagementUccConstruct.newInstance(amenagementDao,
-        bizFactory, dalServices);
+    amenagementUcc =
+        (AmenagementUcc) amenagementUccConstruct.newInstance(amenagementDao, dalServices);
     amenagementUcc.ajouterAmenagement(idTypeAmenagement, 1);
   }
 
@@ -129,8 +129,8 @@ class TestAmenagementUcc {
     List<String> idTypeAmenagement = new ArrayList<String>();
     idTypeAmenagement.add("1");
     amenagementDao = (AmenagementDao) amenagementDaoConstruct.newInstance(false, false, true);
-    amenagementUcc = (AmenagementUcc) amenagementUccConstruct.newInstance(amenagementDao,
-        bizFactory, dalServices);
+    amenagementUcc =
+        (AmenagementUcc) amenagementUccConstruct.newInstance(amenagementDao, dalServices);
     assertThrows(FatalException.class,
         () -> amenagementUcc.ajouterAmenagement(idTypeAmenagement, 1));
   }

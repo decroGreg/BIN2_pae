@@ -5,7 +5,6 @@ import be.ipl.pae.biz.dto.DevisDto;
 import be.ipl.pae.biz.impl.DevisImpl.Etat;
 import be.ipl.pae.biz.interfaces.Devis;
 import be.ipl.pae.biz.interfaces.DevisUcc;
-import be.ipl.pae.biz.interfaces.Factory;
 import be.ipl.pae.dal.daoservices.DaoServicesUcc;
 import be.ipl.pae.dal.interfaces.AmenagementDao;
 import be.ipl.pae.dal.interfaces.ClientDao;
@@ -24,21 +23,21 @@ public class DevisUccImpl implements DevisUcc {
   private ClientDao clientDao;
   private UserDao userDao;
   private AmenagementDao amenagementDao;
-  private Factory bizFactory;
   private DaoServicesUcc daoServicesUcc;
 
 
   /**
    * Cree un objet DevisUccImpl.
    * 
-   * @param bizFactory la factory.
    * @param devisDao le dao du devis.
-   * @param daoServicesUcc le dao services.
+   * @param userDao le dao du user.
+   * @param clientDao le dao du client.
+   * @param amenagementDao le dao de l'amenagement.
+   * @param daoServicesUcc le daoServiceUcc.
    */
-  public DevisUccImpl(Factory bizFactory, DevisDao devisDao, UserDao userDao, ClientDao clientDao,
+  public DevisUccImpl(DevisDao devisDao, UserDao userDao, ClientDao clientDao,
       AmenagementDao amenagementDao, DaoServicesUcc daoServicesUcc) {
     super();
-    this.bizFactory = bizFactory;
     this.devisDao = devisDao;
     this.clientDao = clientDao;
     this.userDao = userDao;

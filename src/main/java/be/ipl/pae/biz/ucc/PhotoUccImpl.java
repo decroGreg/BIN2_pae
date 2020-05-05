@@ -30,7 +30,6 @@ public class PhotoUccImpl implements PhotoUcc {
    * 
    * @param photoDao le dao de photo.
    * @param devisDao le dao de devis.
-   * @param amenagementDao le dao d'amanagement.
    * @param bizFactory la biz factory.
    * @param daoServicesUcc le daoServices.
    */
