@@ -109,7 +109,7 @@ public class IntroduireDevisServlet extends HttpServlet {
         }
 
         int idUser = 0;
-        Map<String, String> images = data.get("images");
+
         if (!dataQuote.get("user").toString().equals("")) {
           idUser = Integer.parseInt(dataQuote.get("user").toString());
         }
@@ -123,6 +123,7 @@ public class IntroduireDevisServlet extends HttpServlet {
           throw new IhmException("veuillez introduire lie un client ou un nouveau client");
         }
 
+        Map<String, String> images = data.get("images");
         int idDevis =
             devisUcc.introduireDevis(clientDto, idUser, devisDto, (List<String>) data.get("type"));
 
