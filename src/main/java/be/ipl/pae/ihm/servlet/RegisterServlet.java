@@ -51,7 +51,7 @@ public class RegisterServlet extends HttpServlet {
         ResponseImpl.success(resp, json);
       } catch (Exception exce) {
         exce.printStackTrace();
-        String json = "{\"success\":\"false\",\"message\":\"" + exce.getMessage() + "\"}";
+        // String json = "{\"success\":\"false\",\"message\":\"" + exce.getMessage() + "\"}";
         ResponseImpl.raterRequete(resp, exce.getMessage());
 
       }

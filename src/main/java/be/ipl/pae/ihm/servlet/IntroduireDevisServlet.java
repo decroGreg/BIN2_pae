@@ -137,8 +137,8 @@ public class IntroduireDevisServlet extends HttpServlet {
 
       } catch (Exception exce) {
         exce.printStackTrace();
-        String json = "{\"success\":\"false\",\"message\":\"" + "echec de l introduction du devis: "
-            + exce.getMessage() + "\"}";
+        // String json = "{\"success\":\"false\",\"message\":\"" + "echec de l introduction du
+        // devis: "+ exce.getMessage() + "\"}";
         ResponseImpl.raterRequete(resp, "echec de l introduction du devis: " + exce.getMessage());
         return;
       }

@@ -133,7 +133,7 @@ public class RechercheDevisServlet extends HttpServlet {
 
         } catch (Exception exc) {
           exc.printStackTrace();
-          String json = "{\"success\":\"false\", \"message\":\"" + exc.getMessage() + "\"}";
+          // String json = "{\"success\":\"false\", \"message\":\"" + exc.getMessage() + "\"}";
           ResponseImpl.raterRequete(resp, exc.getMessage());
           return;
         }

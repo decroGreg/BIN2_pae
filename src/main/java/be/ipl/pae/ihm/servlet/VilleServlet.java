@@ -15,6 +15,8 @@ import javax.servlet.http.HttpServletResponse;
 public class VilleServlet extends HttpServlet {
   private ClientUcc clientUcc;
 
+  /* {@inheritDoc} */
+
   public VilleServlet(ClientUcc clientUcc) {
     // TODO Auto-generated constructor stub
     this.clientUcc = clientUcc;
@@ -35,7 +37,7 @@ public class VilleServlet extends HttpServlet {
             "{\"success\":\"true\", \"token\":\"" + token + "\", \"villes\":" + villes + "}";
         ResponseImpl.success(resp, json);
       } else {
-        String json = "{\"success\":\"false\", \"message\":\"non connecte\"}";
+        // String json = "{\"success\":\"false\", \"message\":\"non connecte\"}";
         ResponseImpl.raterRequete(resp, "token est null");
       }
     } catch (Exception exc) {
