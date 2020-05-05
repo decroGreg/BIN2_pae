@@ -114,7 +114,7 @@ function searchDevis(dropdown,idUser){
 	if(idUser){
 		data["idUser"]=idUser+"";
 	}
-
+    console.log(idUser);
 	console.log(amenagements);
 	console.log(data);
 	var send={
