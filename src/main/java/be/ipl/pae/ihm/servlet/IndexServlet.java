@@ -1,6 +1,6 @@
 package be.ipl.pae.ihm.servlet;
 
-import be.ipl.pae.ihm.response.ResponseImpl;
+import be.ipl.pae.ihm.response.Response;
 
 import org.eclipse.jetty.servlet.DefaultServlet;
 
@@ -60,7 +60,7 @@ public class IndexServlet extends DefaultServlet {
 
       } catch (Exception exce) {
         exce.printStackTrace();
-        ResponseImpl.errorServer(resp, exce);
+        Response.errorServer(resp, exce);
       }
     }
 

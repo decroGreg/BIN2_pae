@@ -7,7 +7,7 @@ import be.ipl.pae.biz.interfaces.AmenagementUcc;
 import be.ipl.pae.biz.interfaces.DevisUcc;
 import be.ipl.pae.biz.interfaces.PhotoUcc;
 import be.ipl.pae.biz.interfaces.TypeDAmenagementUcc;
-import be.ipl.pae.ihm.response.ResponseImpl;
+import be.ipl.pae.ihm.response.Response;
 
 import com.owlike.genson.Genson;
 
@@ -80,13 +80,13 @@ public class AjouterPhotoDevisServlet extends HttpServlet {
         String typesAmenagementData = genson.serialize(descriptionsTypeAmenagement);
         String json = "{\"success\":\"true\", \"amenagementsData\":" + amenagementsData
             + ", \"typesAmenagementData\":" + typesAmenagementData + "}";
-        ResponseImpl.success(resp, json);
+        Response.success(resp, json);
 
       }
 
     } catch (Exception ex) {
       ex.printStackTrace();
-      ResponseImpl.errorServer(resp, ex);
+      Response.errorServer(resp, ex);
 
     }
   }
@@ -117,7 +117,7 @@ public class AjouterPhotoDevisServlet extends HttpServlet {
 
 
       } catch (Exception ex) {
-        ResponseImpl.errorServer(resp, ex);
+        Response.errorServer(resp, ex);
 
       }
 
@@ -139,13 +139,13 @@ public class AjouterPhotoDevisServlet extends HttpServlet {
         String json = "{\"success\":\"true\", \"message\":\"" + "Photo ajoutee"
             + "\", \"devisData\":" + devisData + "}";
         System.out.println("JSON generated :" + json);
-        ResponseImpl.success(resp, json);
+        Response.success(resp, json);
 
       }
 
     } catch (Exception ex) {
       ex.printStackTrace();
-      ResponseImpl.errorServer(resp, ex);
+      Response.errorServer(resp, ex);
 
     }
   }

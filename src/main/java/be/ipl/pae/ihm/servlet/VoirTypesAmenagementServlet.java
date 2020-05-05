@@ -6,7 +6,7 @@ import be.ipl.pae.biz.dto.TypeDAmenagementDto;
 import be.ipl.pae.biz.interfaces.AmenagementUcc;
 import be.ipl.pae.biz.interfaces.PhotoUcc;
 import be.ipl.pae.biz.interfaces.TypeDAmenagementUcc;
-import be.ipl.pae.ihm.response.ResponseImpl;
+import be.ipl.pae.ihm.response.Response;
 
 import com.owlike.genson.Genson;
 
@@ -65,12 +65,12 @@ public class VoirTypesAmenagementServlet extends HttpServlet {
       String json = "{\"success\":\"true\", \"photosData\":" + photosData
           + ", \"typesAmenagementData\":" + typesAmenagementData
           + ", \"typesAmenagementPhotosData\":" + typesAmenagementPhotosData + "}";
-      ResponseImpl.success(resp, json);
+      Response.success(resp, json);
 
 
     } catch (Exception ex) {
       ex.printStackTrace();
-      ResponseImpl.errorServer(resp, ex);
+      Response.errorServer(resp, ex);
     }
   }
 
@@ -117,13 +117,13 @@ public class VoirTypesAmenagementServlet extends HttpServlet {
         String photosData = genson.serialize(photos);
         String json = "{\"success\":\"true\", \"photosData\":" + photosData
             + ", \"typesAmenagementPhotosData\":" + typesAmenagementPhotosData + "}";
-        ResponseImpl.success(resp, json);
+        Response.success(resp, json);
       }
 
 
     } catch (Exception ex) {
       ex.printStackTrace();
-      ResponseImpl.errorServer(resp, ex);
+      Response.errorServer(resp, ex);
     }
 
   }

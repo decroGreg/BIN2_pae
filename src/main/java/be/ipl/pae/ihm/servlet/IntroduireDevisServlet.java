@@ -5,8 +5,8 @@ import be.ipl.pae.biz.dto.DevisDto;
 import be.ipl.pae.biz.interfaces.DevisUcc;
 import be.ipl.pae.biz.interfaces.PhotoUcc;
 import be.ipl.pae.biz.interfaces.TypeDAmenagementUcc;
-import be.ipl.pae.exceptions.IHMException;
-import be.ipl.pae.ihm.response.ResponseImpl;
+import be.ipl.pae.exceptions.IhmException;
+import be.ipl.pae.ihm.response.Response;
 
 import com.owlike.genson.Genson;
 
@@ -62,14 +62,14 @@ public class IntroduireDevisServlet extends HttpServlet {
 
         String json = "{\"success\":\"true\", \"token\":\"" + token + "\", \"typeAmenagements\":"
             + typeAmenagements + "}";
-        ResponseImpl.success(resp, json);
+        Response.success(resp, json);
       }
 
 
     } catch (Exception exce) {
       exce.printStackTrace();
 
-      ResponseImpl.raterRequete(resp, exce.getMessage());
+      Response.raterRequete(resp, exce.getMessage());
 
     }
   }
@@ -107,7 +107,7 @@ public class IntroduireDevisServlet extends HttpServlet {
           devisDto.setDureeTravaux(dataQuote.get("duration"));
         } catch (Exception exc) {
           exc.printStackTrace();
-          throw new IHMException("veuillez introduire une date");
+          throw new IhmException("veuillez introduire une date");
         }
 
         int idUser = 0;
@@ -121,7 +121,7 @@ public class IntroduireDevisServlet extends HttpServlet {
 
         // si aucun client est lier et si il n'y a pas de nouvaux client introduit
         if (devisDto.getIdClient() == 0 && dataUser == null) {
-          throw new IHMException("veuillez introduire lie un client ou un nouveau client");
+          throw new IhmException("veuillez introduire lie un client ou un nouveau client");
         }
 
         int idDevis =
@@ -137,17 +137,17 @@ public class IntroduireDevisServlet extends HttpServlet {
         exce.printStackTrace();
         // String json = "{\"success\":\"false\",\"message\":\"" + "echec de l introduction du
         // devis: "+ exce.getMessage() + "\"}";
-        ResponseImpl.raterRequete(resp, "echec de l introduction du devis: " + exce.getMessage());
+        Response.raterRequete(resp, "echec de l introduction du devis: " + exce.getMessage());
         return;
       }
       String json =
           "{\"success\":\"true\",\"message\":\"" + "l introduction du devis reussit" + "\"}";
-      ResponseImpl.success(resp, json);
+      Response.success(resp, json);
 
     } catch (Exception exce) {
       exce.printStackTrace();
 
-      ResponseImpl.errorServer(resp, exce);
+      Response.errorServer(resp, exce);
 
 
     }

@@ -4,7 +4,7 @@ import be.ipl.pae.biz.config.Config;
 import be.ipl.pae.biz.dto.UserDto;
 import be.ipl.pae.biz.interfaces.UserUcc;
 import be.ipl.pae.exceptions.BizException;
-import be.ipl.pae.ihm.response.ResponseImpl;
+import be.ipl.pae.ihm.response.Response;
 
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
@@ -112,20 +112,20 @@ public class LoginServlet extends HttpServlet {
 
           String json = "{\"success\":\"true\", \"token\":\"" + ltoken + "\", \"userData\":"
               + userData + ",\"message\":\"" + "login reussit" + "\"}";
-          ResponseImpl.success(resp, json);
+          Response.success(resp, json);
 
         }
       } catch (BizException biz) {
         // TODO: handle exception
         biz.printStackTrace();
-        ResponseImpl.raterRequete(resp, "\"mdp incorrecte\"");
+        Response.raterRequete(resp, "\"mdp incorrecte\"");
 
 
       }
 
     } catch (Exception exc) {
       exc.printStackTrace();
-      ResponseImpl.errorServer(resp, exc);
+      Response.errorServer(resp, exc);
     }
 
 

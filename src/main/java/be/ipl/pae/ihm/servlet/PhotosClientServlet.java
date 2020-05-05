@@ -6,7 +6,7 @@ import be.ipl.pae.biz.dto.PhotoDto;
 import be.ipl.pae.biz.interfaces.ClientUcc;
 import be.ipl.pae.biz.interfaces.DevisUcc;
 import be.ipl.pae.biz.interfaces.PhotoUcc;
-import be.ipl.pae.ihm.response.ResponseImpl;
+import be.ipl.pae.ihm.response.Response;
 
 import com.owlike.genson.Genson;
 
@@ -69,13 +69,13 @@ public class PhotosClientServlet extends HttpServlet {
       if (listeDevis != null) {
         String photosData = genson.serialize(listePhotos);
         String json = "{\"success\":\"true\", \"photosData\":" + photosData + "}";
-        ResponseImpl.success(resp, json);
+        Response.success(resp, json);
 
       }
 
     } catch (Exception ex) {
       ex.printStackTrace();
-      ResponseImpl.errorServer(resp, ex);
+      Response.errorServer(resp, ex);
     }
   }
 

@@ -3,7 +3,7 @@ package be.ipl.pae.ihm.servlet;
 import be.ipl.pae.biz.dto.ClientDto;
 import be.ipl.pae.biz.dto.UserDto;
 import be.ipl.pae.biz.interfaces.UserUcc;
-import be.ipl.pae.ihm.response.ResponseImpl;
+import be.ipl.pae.ihm.response.Response;
 
 import com.owlike.genson.Genson;
 
@@ -49,14 +49,14 @@ public class ConfirmationRegisterServlet extends HttpServlet {
         usersJson = genson.serialize(userUcc.voirUtilisateurEnAttente());
         // TO DO js-> tableau
         String json = "{\"success\":\"true\", \"usersData\":" + usersJson + "}";
-        ResponseImpl.success(resp, json);
+        Response.success(resp, json);
       } else {
         System.err.println("token est NULL");
-        ResponseImpl.raterRequete(resp, "token est Null");
+        Response.raterRequete(resp, "token est Null");
       }
     } catch (Exception exce) {
       exce.printStackTrace();
-      ResponseImpl.errorServer(resp, exce);
+      Response.errorServer(resp, exce);
     }
 
   }
@@ -92,17 +92,17 @@ public class ConfirmationRegisterServlet extends HttpServlet {
 
 
           String json = "{\"success\":\"true\",\"message\":\"" + "Enregistrement confirmer" + "\"}";
-          ResponseImpl.success(resp, json);
+          Response.success(resp, json);
 
         }
       } catch (Exception exc) {
         System.err.println("token est NULL");
-        ResponseImpl.raterRequete(resp, "echec de la confirmation" + exc.getMessage());
+        Response.raterRequete(resp, "echec de la confirmation" + exc.getMessage());
       }
 
     } catch (Exception exce) {
       exce.printStackTrace();
-      ResponseImpl.errorServer(resp, exce);
+      Response.errorServer(resp, exce);
     }
   }
 

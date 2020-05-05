@@ -1,7 +1,7 @@
 package be.ipl.pae.ihm.servlet;
 
 import be.ipl.pae.biz.interfaces.ClientUcc;
-import be.ipl.pae.ihm.response.ResponseImpl;
+import be.ipl.pae.ihm.response.Response;
 
 import com.owlike.genson.Genson;
 
@@ -40,14 +40,14 @@ public class VilleServlet extends HttpServlet {
         String villes = genson.serialize(clientUcc.getVilles());
         String json =
             "{\"success\":\"true\", \"token\":\"" + token + "\", \"villes\":" + villes + "}";
-        ResponseImpl.success(resp, json);
+        Response.success(resp, json);
       } else {
         // String json = "{\"success\":\"false\", \"message\":\"non connecte\"}";
-        ResponseImpl.raterRequete(resp, "token est null");
+        Response.raterRequete(resp, "token est null");
       }
     } catch (Exception exc) {
       exc.printStackTrace();
-      ResponseImpl.errorServer(resp, exc);
+      Response.errorServer(resp, exc);
     }
 
   }

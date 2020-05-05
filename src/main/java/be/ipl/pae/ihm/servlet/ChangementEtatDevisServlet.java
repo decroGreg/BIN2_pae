@@ -9,7 +9,7 @@ import be.ipl.pae.biz.interfaces.AmenagementUcc;
 import be.ipl.pae.biz.interfaces.ClientUcc;
 import be.ipl.pae.biz.interfaces.DevisUcc;
 import be.ipl.pae.biz.interfaces.TypeDAmenagementUcc;
-import be.ipl.pae.ihm.response.ResponseImpl;
+import be.ipl.pae.ihm.response.Response;
 
 import com.owlike.genson.Genson;
 
@@ -91,7 +91,7 @@ public class ChangementEtatDevisServlet extends HttpServlet {
           }
         }
       } catch (Exception ex) {
-        ResponseImpl.errorServer(resp, ex);
+        Response.errorServer(resp, ex);
       }
 
       if (devis != null && clientDto != null) {
@@ -155,12 +155,12 @@ public class ChangementEtatDevisServlet extends HttpServlet {
         String json = "{\"success\":\"true\", \"token\":\"" + token + "\", \"devisData\":"
             + devisData + ", \"clientData\":" + clientData + ", \"typesAmenagementData\":"
             + typesAmenagementData + "}";
-        ResponseImpl.success(resp, json);
+        Response.success(resp, json);
       }
 
     } catch (Exception ex) {
       ex.printStackTrace();
-      ResponseImpl.errorServer(resp, ex);
+      Response.errorServer(resp, ex);
 
     }
 

@@ -4,7 +4,7 @@ import be.ipl.pae.biz.dto.ClientDto;
 import be.ipl.pae.biz.dto.DevisDto;
 import be.ipl.pae.biz.interfaces.ClientUcc;
 import be.ipl.pae.biz.interfaces.DevisUcc;
-import be.ipl.pae.ihm.response.ResponseImpl;
+import be.ipl.pae.ihm.response.Response;
 
 import com.owlike.genson.Genson;
 
@@ -55,14 +55,14 @@ public class RechercheDevisServlet extends HttpServlet {
         System.err.println("************************************");
         String json =
             "{\"success\":\"true\", \"token\":\"" + token + "\", \"noms\":" + nomsString + "}";
-        ResponseImpl.success(resp, json);
+        Response.success(resp, json);
         return;
       } else {
-        ResponseImpl.raterRequete(resp, "token est null");
+        Response.raterRequete(resp, "token est null");
       }
     } catch (Exception exc) {
       exc.printStackTrace();
-      ResponseImpl.errorServer(resp, exc);
+      Response.errorServer(resp, exc);
     }
   }
 
@@ -134,7 +134,7 @@ public class RechercheDevisServlet extends HttpServlet {
         } catch (Exception exc) {
           exc.printStackTrace();
           // String json = "{\"success\":\"false\", \"message\":\"" + exc.getMessage() + "\"}";
-          ResponseImpl.raterRequete(resp, exc.getMessage());
+          Response.raterRequete(resp, exc.getMessage());
           return;
         }
 
@@ -143,13 +143,13 @@ public class RechercheDevisServlet extends HttpServlet {
         String json = "{\"success\":\"true\", \"token\":\"" + token + "\", \"devisData\":"
             + devisData + ", \"clientsData\":" + genson.serialize(listeClientsDto) + "}";
         devisDto.setDate(null);
-        ResponseImpl.success(resp, json);
+        Response.success(resp, json);
 
 
       }
     } catch (Exception exc) {
       exc.printStackTrace();
-      ResponseImpl.errorServer(resp, exc);
+      Response.errorServer(resp, exc);
     }
   }
 

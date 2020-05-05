@@ -1,7 +1,7 @@
 package be.ipl.pae.ihm.servlet;
 
 import be.ipl.pae.biz.interfaces.UserUcc;
-import be.ipl.pae.ihm.response.ResponseImpl;
+import be.ipl.pae.ihm.response.Response;
 
 import com.owlike.genson.Genson;
 
@@ -39,14 +39,14 @@ public class NomClientsServlet extends HttpServlet {
         System.err.println("************************************");
         String json =
             "{\"success\":\"true\", \"token\":\"" + token + "\", \"noms\":" + nomsString + "}";
-        ResponseImpl.success(resp, json);
+        Response.success(resp, json);
         return;
       } else {
-        ResponseImpl.raterRequete(resp, "token est null");
+        Response.raterRequete(resp, "token est null");
       }
     } catch (Exception exc) {
       exc.printStackTrace();
-      ResponseImpl.errorServer(resp, exc);
+      Response.errorServer(resp, exc);
     }
   }
 

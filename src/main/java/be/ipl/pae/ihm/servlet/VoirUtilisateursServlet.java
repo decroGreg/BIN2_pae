@@ -2,7 +2,7 @@ package be.ipl.pae.ihm.servlet;
 
 import be.ipl.pae.biz.dto.UserDto;
 import be.ipl.pae.biz.interfaces.UserUcc;
-import be.ipl.pae.ihm.response.ResponseImpl;
+import be.ipl.pae.ihm.response.Response;
 
 import com.owlike.genson.Genson;
 
@@ -47,13 +47,13 @@ public class VoirUtilisateursServlet extends HttpServlet {
         String usersData = genson.serialize(utilisateursDto);
         String json = "{\"success\":\"true\", \"usersData\":" + usersData + "}";
         System.out.println("UsersData : " + usersData);
-        ResponseImpl.success(resp, json);
+        Response.success(resp, json);
 
       }
 
     } catch (Exception ex) {
       ex.printStackTrace();
-      ResponseImpl.errorServer(resp, ex);
+      Response.errorServer(resp, ex);
     }
 
   }
@@ -78,17 +78,17 @@ public class VoirUtilisateursServlet extends HttpServlet {
         String usersData = genson.serialize(utilisateursDto);
         String json = "{\"success\":\"true\", \"usersData\":" + usersData + "}";
         System.out.println("UsersData : " + usersData);
-        ResponseImpl.success(resp, json);
+        Response.success(resp, json);
 
       } else {
         String json = "{\"success\":\"false\", \"token\":\"" + token
             + "\", \"message\":\"vous devez etre connecte pour pouvoir effectuer cette action\"}";
-        ResponseImpl.raterRequete(resp, json);
+        Response.raterRequete(resp, json);
       }
 
     } catch (Exception exce) {
       exce.printStackTrace();
-      ResponseImpl.errorServer(resp, exce);
+      Response.errorServer(resp, exce);
 
 
     }

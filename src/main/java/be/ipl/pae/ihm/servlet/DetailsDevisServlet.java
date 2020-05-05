@@ -11,7 +11,7 @@ import be.ipl.pae.biz.interfaces.ClientUcc;
 import be.ipl.pae.biz.interfaces.DevisUcc;
 import be.ipl.pae.biz.interfaces.PhotoUcc;
 import be.ipl.pae.biz.interfaces.TypeDAmenagementUcc;
-import be.ipl.pae.ihm.response.ResponseImpl;
+import be.ipl.pae.ihm.response.Response;
 
 import com.owlike.genson.Genson;
 
@@ -117,7 +117,7 @@ public class DetailsDevisServlet extends HttpServlet {
 
       } catch (Exception ex) {
         ex.printStackTrace();
-        ResponseImpl.errorServer(resp, ex);
+        Response.errorServer(resp, ex);
       }
 
 
@@ -140,12 +140,12 @@ public class DetailsDevisServlet extends HttpServlet {
               + typesAmenagementData + "}";
         }
 
-        ResponseImpl.success(resp, json);
+        Response.success(resp, json);
       }
 
     } catch (Exception ex) {
       ex.printStackTrace();
-      ResponseImpl.errorServer(resp, ex);
+      Response.errorServer(resp, ex);
     }
   }
 
@@ -187,7 +187,7 @@ public class DetailsDevisServlet extends HttpServlet {
 
         String json = "{\"success\":\"true\", \"token\":\"" + token
             + "\",\"message\":\"la date a ete repoussee\"}";
-        ResponseImpl.success(resp, json);
+        Response.success(resp, json);
 
       } catch (Exception exce) {
 
@@ -195,14 +195,14 @@ public class DetailsDevisServlet extends HttpServlet {
         exce.printStackTrace();
         // String json = "{\"success\":\"false\", \"token\":\"" + token
         // + "\", \"message\":\"message d'erreur\"}";
-        ResponseImpl.raterRequete(resp, "erreur");
+        Response.raterRequete(resp, "erreur");
 
 
       }
 
     } catch (Exception exc) {
       exc.printStackTrace();
-      ResponseImpl.errorServer(resp, exc);
+      Response.errorServer(resp, exc);
     }
 
   }

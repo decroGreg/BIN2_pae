@@ -2,7 +2,7 @@ package be.ipl.pae.ihm.servlet;
 
 import be.ipl.pae.biz.dto.UserDto;
 import be.ipl.pae.biz.interfaces.UserUcc;
-import be.ipl.pae.ihm.response.ResponseImpl;
+import be.ipl.pae.ihm.response.Response;
 
 import com.owlike.genson.Genson;
 
@@ -49,16 +49,16 @@ public class RegisterServlet extends HttpServlet {
         this.userUcc.sinscrire(userDto);
 
         String json = "{\"success\":\"true\",\"message\":\"" + "inscription reussit" + "\"}";
-        ResponseImpl.success(resp, json);
+        Response.success(resp, json);
       } catch (Exception exce) {
         exce.printStackTrace();
         // String json = "{\"success\":\"false\",\"message\":\"" + exce.getMessage() + "\"}";
-        ResponseImpl.raterRequete(resp, exce.getMessage());
+        Response.raterRequete(resp, exce.getMessage());
 
       }
     } catch (Exception exce) {
       exce.printStackTrace();
-      ResponseImpl.errorServer(resp, exce);
+      Response.errorServer(resp, exce);
     }
   }
 
