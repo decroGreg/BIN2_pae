@@ -90,7 +90,6 @@ function onPostPhoto(response){
             $("#error-notification").fadeIn('slow').delay(1000).fadeOut('slow');
             $("#error-notification").text(response.message);
     }
-    afficherDetailsDevis(response);
 }
 
 
