@@ -89,10 +89,9 @@ public class Main {
     ClientDto clientDto = factory.getClientDto();
     ClientUcc clientUcc = new ClientUccImpl(clientDao, daoServices);
     DevisUcc devisUcc = new DevisUccImpl(devisDao, userDao, clientDao, amenagementDao, daoServices);
-    DevisDto devisDto = factory.getDevisDto();
-    TypeDAmenagementUcc typeAmenagmentUcc =
-        new TypeDAmenagementUccImpl(typeAmenagementDao, daoServices);
-    Server server = new Server(8080);
+
+
+
     WebAppContext context = new WebAppContext();
 
     System.out.println(context.getContextPath());
@@ -123,6 +122,9 @@ public class Main {
     HttpServlet listeClientsServlet = new VoirClientsServlet(clientUcc, userDto);
     context.addServlet(new ServletHolder(listeClientsServlet), "/listeClients");
 
+    DevisDto devisDto = factory.getDevisDto();
+    TypeDAmenagementUcc typeAmenagmentUcc =
+        new TypeDAmenagementUccImpl(typeAmenagementDao, daoServices);
     HttpServlet introDevisServlet =
         new IntroduireDevisServlet(devisUcc, clientDto, devisDto, typeAmenagmentUcc, photoUcc);
     context.addServlet(new ServletHolder(introDevisServlet), "/introduireServlet");
@@ -165,6 +167,7 @@ public class Main {
     HttpServlet nomClientsServlet = new NomClientsServlet(userUcc);
     context.addServlet(new ServletHolder(nomClientsServlet), "/nomUtilisateurs");
 
+    Server server = new Server(8080);
     context.setWelcomeFiles(new String[] {"index.html"});
     context.setResourceBase("view");
     server.setHandler(context);
