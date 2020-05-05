@@ -25,7 +25,7 @@ public class VoirUtilisateursServlet extends HttpServlet {
   /**
    * Cree un VoirUtilisateursServlet.
    * 
-   * @param userUCC un userUcc
+   * @param userUcc un userUcc
    * 
    */
   public VoirUtilisateursServlet(UserUcc userUcc) {

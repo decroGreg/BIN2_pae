@@ -26,6 +26,13 @@ public class VoirTypesAmenagementServlet extends HttpServlet {
   private PhotoUcc photoUcc;
   private AmenagementUcc amenagementUcc;
 
+  /**
+   * Cree un VoirTypesAmenagementServlet.
+   * 
+   * @param typeDAmenagementUcc
+   * @param photoUcc
+   * @param amenagementUcc
+   */
   public VoirTypesAmenagementServlet(TypeDAmenagementUcc typeDAmenagementUcc, PhotoUcc photoUcc,
       AmenagementUcc amenagementUcc) {
     super();
@@ -121,6 +128,12 @@ public class VoirTypesAmenagementServlet extends HttpServlet {
 
   }
 
+  /**
+   * Renvoie une liste des types d'amenagement correspondant a une liste de photos.
+   * 
+   * @param photos la liste de photos
+   * @return la liste de types d'amenagement
+   */
   public List<TypeDAmenagementDto> typesAmenagementPhotos(List<PhotoDto> photos) {
     List<TypeDAmenagementDto> typesAmenagements = new ArrayList<>();
     for (PhotoDto ph : photos) {
