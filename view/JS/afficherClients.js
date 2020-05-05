@@ -111,7 +111,6 @@ function afficherClients(response){
 
 function viewListeClients(){
 	$("#login").hide();
-    $("#btn-deconnexion").hide();
     $("#wrong_passwd").hide();
     $("#test1").hide();
     $("#carousel").hide();

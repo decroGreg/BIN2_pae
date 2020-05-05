@@ -183,7 +183,6 @@ function afficherDevisClient(response){
 
 function viewListeDevis(){
 	$("#login").hide();
-    $("#btn-deconnexion").hide();
     $("#wrong_passwd").hide();
     $("#test1").hide();
     $("#carousel").hide();
