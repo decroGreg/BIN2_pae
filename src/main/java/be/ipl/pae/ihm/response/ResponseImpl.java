@@ -48,7 +48,7 @@ public class ResponseImpl implements Response {
    * errroServer ecrit dans la requete resp lors d'une erreur Server
    * 
    * @param resp l httpServletRexponse
-   * @param exc l exception qui a été lance
+   * @param exc l exception qui a ete lance
    */
   public static void errorServer(HttpServletResponse resp, Exception exc) {
     resp.setContentType("application/json");
