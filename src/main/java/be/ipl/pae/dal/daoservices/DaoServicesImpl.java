@@ -12,11 +12,8 @@ import java.sql.SQLException;
 
 public class DaoServicesImpl implements DaoServices, DaoServicesUcc {
 
-  // private String url = "jdbc:postgresql://127.0.0.1/Projet";
-  // private String url = "jdbc:postgresql://172.24.2.6:5432/dbmariabouraga";
-  // private String url = "jdbc:postgresql://127.0.0.1/init";
 
-  private BasicDataSource ds;
+  private BasicDataSource ds; // C'est la connection pool
   private ThreadLocal<Connection> connections;
 
 
@@ -38,21 +35,27 @@ public class DaoServicesImpl implements DaoServices, DaoServicesUcc {
     }
   }
 
+  /*
+   * Creer une connexion afin d'effectuer une requete sql
+   */
   @Override
   public void demarrerTransaction() {
-    if (connections.get() != null) {
+    if (connections.get() != null) { // Verifie si il existe deja un thread courant
       throw new DalException("Transaction déja ouverte");
     }
     try {
-      Connection conn = this.ds.getConnection();
+      Connection conn = this.ds.getConnection(); // etablit une connection
       connections.set(conn);
       System.out.println(connections.get());
-      conn.setAutoCommit(false);
+      conn.setAutoCommit(false); // Considere toutes les requetes SQL comme une transaction
     } catch (SQLException ex) {
       throw new DalException("Erreur dans le demarrage de la transaction ");
     }
   }
 
+  /*
+   * Commit la transaction et supprime la connection
+   */
   @Override
   public void commit() {
     try (Connection conn = connections.get()) {
@@ -68,6 +71,10 @@ public class DaoServicesImpl implements DaoServices, DaoServicesUcc {
     }
   }
 
+  /**
+   * Annule les modifications faites par la transaction en cas d'erreur pour pas garder de fausses
+   * valeurs dans la db
+   */
   @Override
   public void rollback() {
     try (Connection conn = connections.get()) {
@@ -83,6 +90,12 @@ public class DaoServicesImpl implements DaoServices, DaoServicesUcc {
     }
   }
 
+  /**
+   * prepare une requete sql
+   * 
+   * @param requeteSql la requete en question.
+   * @return le resultat du query.
+   */
   @Override
   public PreparedStatement getPreparedSatement(String requeteSql) {
     try {
