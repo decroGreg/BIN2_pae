@@ -25,7 +25,7 @@ public class VoirClientsServlet extends HttpServlet {
    * Cree un VoirClientsServlet.
    * 
    * @param clientUcc un clientUcc
-   * @param userDto un userDto
+   *
    */
   public VoirClientsServlet(ClientUcc clientUcc) {
     super();
@@ -74,9 +74,9 @@ public class VoirClientsServlet extends HttpServlet {
         String nom = data.get("name");
         String ville = data.get("city");
         int codePostal = 0;
-        if (!data.get("postalCode").contentEquals(""))
+        if (!data.get("postalCode").contentEquals("")) {
           codePostal = Integer.parseInt(data.get("postalCode"));
-
+        }
         System.out.println(nom);
         clientsDto = clientUcc.rechercherClients(nom, ville, codePostal);
         System.out.println("passage = " + clientsDto);

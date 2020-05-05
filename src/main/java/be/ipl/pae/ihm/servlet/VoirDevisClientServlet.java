@@ -42,11 +42,8 @@ public class VoirDevisClientServlet extends HttpServlet {
   protected void doPost(HttpServletRequest req, HttpServletResponse resp)
       throws ServletException, IOException {
     try {
-      List<DevisDto> listeDevisDto = new ArrayList<>();
-
       Genson genson = new Genson();
       Map<String, Object> data = genson.deserialize(req.getReader(), Map.class);
-      String token = req.getHeader("Authorization");
       int idUtilisateur = -1;
       int idClient = -1;
       if (data.get("idUser") != null) {
@@ -67,6 +64,7 @@ public class VoirDevisClientServlet extends HttpServlet {
           break;
         }
       }
+      List<DevisDto> listeDevisDto = new ArrayList<>();
 
       listeDevisDto = devisUcc.voirDevis(clientDto);
       System.out.println(clientDto.getPrenom());
@@ -77,11 +75,11 @@ public class VoirDevisClientServlet extends HttpServlet {
       }
 
 
-      if (token != null) {
+      if (listeDevisDto != null) {
         String devisData = genson.serialize(listeDevisDto);
         String clientsData = genson.serialize(listeClientsDto);
-        String json = "{\"success\":\"true\", \"token\":\"" + token + "\", \"devisData\":"
-            + devisData + ", \"clientsData\":" + clientsData + "}";
+        String json = "{\"success\":\"true\", \"devisData\":" + devisData + ", \"clientsData\":"
+            + clientsData + "}";
         ResponseImpl.success(resp, json);
 
       }

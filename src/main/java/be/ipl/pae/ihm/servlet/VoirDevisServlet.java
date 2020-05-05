@@ -27,7 +27,7 @@ public class VoirDevisServlet extends HttpServlet {
    * Cree un VoirDevisServlet.
    * 
    * @param devisUcc un devisUcc
-   * @param userDto un userDto
+   * @param clientUcc un clientUcc
    */
   public VoirDevisServlet(DevisUcc devisUcc, ClientUcc clientUcc) {
     super();

@@ -7,7 +7,7 @@ import javax.servlet.http.HttpServletResponse;
 public class ResponseImpl implements Response {
 
   /**
-   * success ecrit dans la requete resp en cas de succes
+   * success ecrit dans la requete resp en cas de succes.
    * 
    * @param resp l httpServletRexponse
    * @param json le json des donnees a renvoyer
@@ -28,7 +28,7 @@ public class ResponseImpl implements Response {
   }
 
   /**
-   * raterRequete ecrit dans la requete resp lorsque le resultat
+   * raterRequete ecrit dans la requete resp lorsque le resultat.
    * 
    * @param resp l httpServletRexponse
    * @param message le message a afficher
@@ -45,7 +45,7 @@ public class ResponseImpl implements Response {
   }
 
   /**
-   * errroServer ecrit dans la requete resp lors d'une erreur Server
+   * errroServer ecrit dans la requete resp lors d'une erreur Server.
    * 
    * @param resp l httpServletRexponse
    * @param exc l exception qui a ete lance

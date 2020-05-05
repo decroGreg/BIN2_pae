@@ -26,6 +26,13 @@ public class PhotosClientServlet extends HttpServlet {
   private DevisUcc devisUcc;
   private PhotoUcc photoUcc;
 
+  /**
+   * Cree un PhotosClientServlet.
+   * 
+   * @param clientUcc un clientUcc
+   * @param devisUcc un devisUcc
+   * @param photoUcc une photoUcc
+   */
   public PhotosClientServlet(ClientUcc clientUcc, DevisUcc devisUcc, PhotoUcc photoUcc) {
     super();
     this.clientUcc = clientUcc;
@@ -39,9 +46,7 @@ public class PhotosClientServlet extends HttpServlet {
     try {
       Genson genson = new Genson();
       Map<String, Object> data = genson.deserialize(req.getReader(), Map.class);
-      String token = req.getHeader("Authorization");
       int idUtilisateur = Integer.parseInt(data.get("idUser").toString());
-      System.out.println("ID UTIL = " + idUtilisateur);
       ClientDto clientDto = null;
       List<PhotoDto> listePhotos = new ArrayList<>();
 
@@ -61,7 +66,7 @@ public class PhotosClientServlet extends HttpServlet {
       }
 
 
-      if (token != null) {
+      if (listeDevis != null) {
         String photosData = genson.serialize(listePhotos);
         String json = "{\"success\":\"true\", \"photosData\":" + photosData + "}";
         ResponseImpl.success(resp, json);

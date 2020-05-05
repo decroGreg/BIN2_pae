@@ -23,6 +23,13 @@ public class ChoisirPhotoPrefereeServlet extends HttpServlet {
   private DevisDto devisDto;
   private PhotoUcc photoUcc;
 
+  /**
+   * Cree un ChoisirPhotoPrefereeServlet.
+   * 
+   * @param devisUcc un devisUcc
+   * @param devisDto un devisDto
+   * @param photoUcc une photoUcc
+   */
   public ChoisirPhotoPrefereeServlet(DevisUcc devisUcc, DevisDto devisDto, PhotoUcc photoUcc) {
     super();
     this.devisUcc = devisUcc;

@@ -35,7 +35,6 @@ public class ChangementEtatDevisServlet extends HttpServlet {
   /**
    * Cree un objet ChangementEtatDevisServlet.
    * 
-   * @param devisDto un devisDto
    * @param devisUcc un devisUcc
    */
   public ChangementEtatDevisServlet(DevisUcc devisUcc, ClientUcc clientUcc,

@@ -27,6 +27,14 @@ public class AjouterPhotoDevisServlet extends HttpServlet {
   private TypeDAmenagementUcc typeDAmenagementUcc;
   private DevisUcc devisUcc;
 
+  /**
+   * Cree un AjouterPhotoDevisServlet.
+   * 
+   * @param photoUcc une photoUcc
+   * @param amenagementUcc un amenagementUcc
+   * @param typeDAmenagementUcc un typeDAmenagementUcc
+   * @param devisUcc un devisUcc
+   */
   public AjouterPhotoDevisServlet(PhotoUcc photoUcc, AmenagementUcc amenagementUcc,
       TypeDAmenagementUcc typeDAmenagementUcc, DevisUcc devisUcc) {
     super();

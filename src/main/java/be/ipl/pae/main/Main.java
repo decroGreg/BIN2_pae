@@ -3,7 +3,6 @@ package be.ipl.pae.main;
 import be.ipl.pae.biz.config.Config;
 import be.ipl.pae.biz.dto.ClientDto;
 import be.ipl.pae.biz.dto.DevisDto;
-import be.ipl.pae.biz.dto.PhotoDto;
 import be.ipl.pae.biz.dto.UserDto;
 import be.ipl.pae.biz.interfaces.AmenagementUcc;
 import be.ipl.pae.biz.interfaces.ClientUcc;
@@ -70,6 +69,7 @@ public class Main {
     Config conf = new Config();
 
     // Creation de la dépendance
+
     Factory factory = (Factory) conf.getConfigPropertyClass("factory.Factory");
     DaoServicesImpl daoServices = new DaoServicesImpl();
 
@@ -77,11 +77,9 @@ public class Main {
     AmenagementDao amenagementDao = new AmenagementDaoImpl(daoServices, factory);
     ClientDao clientDao = new ClientDaoImpl(daoServices, factory);
     DevisDao devisDao = new DevisDaoImpl(daoServices, factory);
-
     PhotoDao photoDao = new PhotoDaoImpl(daoServices, factory);
 
     UserUcc userUcc = new UserUccImpl(factory, userDao, daoServices);
-    PhotoDto photoDto = factory.getPhotoDto();
     AmenagementUcc amenagementUcc = new AmenagementUccImpl(amenagementDao, daoServices);
     PhotoUcc photoUcc = new PhotoUccImpl(photoDao, devisDao, factory, daoServices);
 
@@ -124,8 +122,10 @@ public class Main {
 
     TypeDAmenagementDao typeAmenagementDao = new TypeDAmenagementDaoImpl(daoServices, factory);
     DevisDto devisDto = factory.getDevisDto();
+
     TypeDAmenagementUcc typeAmenagmentUcc =
         new TypeDAmenagementUccImpl(typeAmenagementDao, daoServices);
+
     HttpServlet introDevisServlet =
         new IntroduireDevisServlet(devisUcc, clientDto, devisDto, typeAmenagmentUcc, photoUcc);
     context.addServlet(new ServletHolder(introDevisServlet), "/introduireServlet");
