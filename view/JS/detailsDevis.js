@@ -10,8 +10,7 @@ $(document).ready(function(){
                 "idDevis":$("#btn-devis-repousserDate").attr("idDevis"),
                 "etat":$("#btn-devis-repousserDate").attr("etat")
         };
-        console.log("id devis-->"+$("#btn-devis-repousserDate").attr("idDevis"));
-        console.log(data);
+       
         putData("/detailsDevis",token,data,onPutRepousserDate,onError);
 
     });
@@ -76,7 +75,7 @@ function afficherDetailsDevis(response){
 		$("#btn-devis-repousserDate").show();
 		$("#voir-details-devis #dateDebutTravaux").attr("value", response.devisData.dateDebutTravaux.substring(0,10));
 		$("#btn-devis-repousserDate").attr("idDevis", response.devisData.idDevis);
-		console.log("afficher***********************"+response.devisData.idDevis);
+		
 		$("#btn-devis-repousserDate").attr("etat",response.devisData.etat);
 		$("#voir-details-devis #dateDebutTravaux").prop("disabled", false);
 
@@ -85,7 +84,7 @@ function afficherDetailsDevis(response){
 		$("#btn-devis-repousserDate").show();
 		$("#voir-details-devis #dateDebutTravaux").attr("value", response.devisData.dateDebutTravaux.substring(0,10));
 		$("#btn-devis-repousserDate").attr("idDevis", response.devisData.idDevis);
-		console.log("afficher***********************"+response.devisData.idDevis);
+		
 		$("#btn-devis-repousserDate").attr("etat",response.devisData.etat);
 		$("#voir-details-devis #dateDebutTravaux").prop("disabled", false);
 	}

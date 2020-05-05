@@ -6,10 +6,10 @@ var photo={};
 var nbPhoto=0;
 function checkInput(data,message){
         var element;
-        console.log(data);
+       
         
         for(element in data){
-                console.log(data[element])
+                
                 if(!data[element]){
                         
                         $("#error-notification").fadeIn('slow').delay(1000).fadeOut('slow');
@@ -22,8 +22,6 @@ function checkInput(data,message){
 
 function encodeImagetoBase64(element) {
         var file = element.files[0];
-        console.log(element);
-        console.log(file);
         var reader = new FileReader();
 
         reader.onloadend = function() {
@@ -41,8 +39,9 @@ $(document).ready(function () {
                         "description":$("#Modal-Form-Description").val()
                 };
                 if(!checkInput(data,"la description est vide")) return;
-                console.log(data);
+
                 postData("/amenagements",data,token,viewIntroductionQuote,onError);
+                getData("/voirTypesAmenagement", token, remplirListeTypesAmenagement, onError);
         });
 
         $(".introductionQuote").click(e=>{
@@ -58,7 +57,7 @@ $(document).ready(function () {
               encodeImagetoBase64(e.target);
       })
         $("#bnt-IntroductionQuote").click(e=>{
-                console.log($("#imageQuote").attr("src"));
+                
             
             
             if($("#Quote-Form-firstName").val()||$("#Quote-Form-email").val()){//changer ne prends pas tous les cas en considération
@@ -74,10 +73,10 @@ $(document).ready(function () {
                             phone:$("#Quote-Form-phoneNumber").val()
                     };
                     if(!checkInput(dataUser,"veuillez remplir tous les champs pour le nouveau client")) {
-                            console.log("ne passe pas la methode");
+                            
                             return;
                     }
-                    console.log(dataUser);
+                    
             
             }
             
@@ -95,7 +94,7 @@ $(document).ready(function () {
                     "duration":$("#Quote-Form-duration").val()
             };
             if(!checkInput(dataQuote,"veuillez remplir tous les champs du devis")){
-                 console.log("PAS de Passage");
+                
                  return;//à voir si image peut être null;
             }
             dataQuote.client=$("#Quote-Form-Client-items").val();
@@ -106,7 +105,6 @@ $(document).ready(function () {
                     return;
             }
             if(photo<0){
-                    console.log("il faut introduire une photo");
                     return;
             }
             var data={
@@ -115,11 +113,7 @@ $(document).ready(function () {
                     "dataQuote":dataQuote,
                     "type":type
             }
-            console.log(data);
-            console.log(data.images);
             postData("/introduireServlet",data,token,onPostIntroductionQuote,onError);
-           
-            onPostIntroductionQuote();
             photo={};
             
             
@@ -171,7 +165,7 @@ function onGetClientQuoteForm(response){
                         
                         $("#Quote-Form-Client-items").val(e.target.val);
                         $("#Quote-Form-Client-dropdown").text(e.target.innerText);
-                        console.log($("#Quote-Form-Client-items").val());
+                       
 
                 });
                 li.appendChild(a);
@@ -204,7 +198,7 @@ function onGetUserQuoteForm(response){
                 
                 $("#Quote-Form-User-items").val(e.target.val);
                 $("#Quote-Form-User-dropdown").text(e.target.innerText);
-                console.log($("#Quote-Form-User-items").val());
+               
 
         });
         li.appendChild(a);
@@ -215,9 +209,9 @@ function onGetUserQuoteForm(response){
 
 function onGetAmenagements(response){
  $("#Quote-Form-layoutType").text("");
- console.log(response.typeAmenagements);
+
     response.typeAmenagements.forEach(element => {//changer les donnees hanger le i par l'id
-            console.log(element.id);
+         
             var checkbox=creatHTMLFromString('<div class="form-check col-sm-3 col-form-label" >'
             +'<input  type="checkbox" id="'+element.id+'" value="option1">'
             +'<label for="#'+element.id+'">'+element.description+'</label>'

@@ -111,7 +111,7 @@ public class LoginServlet extends HttpServlet {
           // *********************************************
 
           String json = "{\"success\":\"true\", \"token\":\"" + ltoken + "\", \"userData\":"
-              + userData + ",\"message\":\"" + "login reussit" + "\"}";
+              + userData + ",\"message\":\"" + "login reussi" + "\"}";
           Response.success(resp, json);
 
         }

@@ -11,7 +11,6 @@ $(document).ready(function () {
 			};
 			if(data.name==="")
 				data.name=document.getElementById("inputUtilisateursNameSearch").value;
-			console.log(data);
 			postData("/listeUsers",data,token,afficherUtilisateurs,onError);
 			
 			$("#utilisateursNameSearch").val("");
@@ -36,19 +35,19 @@ function afficherVilleDropdown(response){
 	var input=document.getElementById("inputUtilisateursCitySearch");
 	$("#utilisateursCitySearch").html("");
 	input.addEventListener("keyup",function(){
-		console.log(this.value);
+
 		$("#searchUtilisateursCityDropdown").text(this.value);
 		filterDropdown(this);
 	});
 
 	$("#utilisateursCitySearch").append(input);
-	console.log(response.villes);
+
 	response.villes.forEach(e=>{
 		var li=document.createElement("li");
 		var a=document.createElement("a");
 		a.innerHTML=e;
 		a.addEventListener("click",function(){
-			console.log(a.innerHTML);
+
 			$("#searchUtilisateursCityDropdown").text(a.innerHTML);
 			input.value=a.innerHTML;
 			
@@ -60,7 +59,7 @@ function afficherVilleDropdown(response){
 }
 
 function afficherUtilisateursDropdown(response){ //(response,balise ul,id input,balise dropdown)
-	console.log("passage");
+
 	$("#utilisateursNameSearch").html("");
 	var input=document.createElement("input");
 	input.id="inputUtilisateursNameSearch";

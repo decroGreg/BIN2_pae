@@ -1,7 +1,7 @@
 function postData(url="",data={},token,onSuccess,onError){
-  console.log("passage");
+ 
     let headers;
-    console.log("Bearer " +token);
+   
       if (token)
         headers = {
          "Content-Type": "application/json",
@@ -70,7 +70,7 @@ function deleteData(url="",token,data={},onGet,onError){
 }
 function putData(url="",token,data={},onGet,onError){
   let headers;
-  console.log("Bearer " +token);
+ 
   if(token)
       headers ={
         "Content-Type": "application/json",
@@ -92,7 +92,7 @@ function putData(url="",token,data={},onGet,onError){
 }
 
 function onError(response){
-  console.log("Erreur : " + JSON.stringify(response));
+
   $("#error-notification").fadeIn('slow').delay(1000).fadeOut('slow');
   $("#error-notification").text(response.message);
 }
@@ -116,10 +116,9 @@ function filterDropdown(element){
 }
 function checkInput(data,message){
   var element;
-  console.log(data);
+
   
   for(element in data){
-          console.log(data[element])
           if(!data[element]){
                   
                   $("#error-notification").fadeIn('slow').delay(1000).fadeOut('slow');

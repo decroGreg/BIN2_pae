@@ -36,15 +36,14 @@ function onPostLogin(response){
     if(response.success==="true"){
             $("#success-notification").fadeIn('slow').delay(1000).fadeOut('slow');
             $("#success-notification").text(response.message);
-            console.log(response)
             var token=response.token;
             localStorage.setItem("token",token);
             var user=response.userData;
             setTokenUser(token,user);
-            console.log("user"+user.idUser);
+            
             viewAuthentification(user);
     }else{ 
-            console.log(response.message);
+
             $("#error-notification").fadeIn('slow').delay(1000).fadeOut('slow');
             $("#error-notification").text(response.message);
             
@@ -98,7 +97,6 @@ function viewAuthentification(user){
 
 function viewLogin(){
     allHide();
-    console.log($("#login-form").target);
     $("#login-form").show();
     $("#btn-deconnexion").hide();
     $("#wrong_passwd").hide();
@@ -110,7 +108,7 @@ function onPostRegister(response){
             $("#success-notification").fadeIn('slow').delay(1000).fadeOut('slow');
             $("#success-notification").text(response.message);
     }else{ 
-            console.log(response.message);
+            
             $("#error-notification").fadeIn('slow').delay(1000).fadeOut('slow');
             $("#error-notification").text(response.message);
     }
