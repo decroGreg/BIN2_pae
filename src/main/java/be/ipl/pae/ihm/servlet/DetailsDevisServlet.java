@@ -66,7 +66,7 @@ public class DetailsDevisServlet extends HttpServlet {
       throws ServletException, IOException {
 
     try {
-
+      devisDto.setDateDebutTravaux(null);
       Genson genson = new Genson();
       Map<String, Object> data = genson.deserialize(req.getReader(), Map.class);
       String token = req.getHeader("Authorization");
@@ -159,7 +159,6 @@ public class DetailsDevisServlet extends HttpServlet {
     try {
       Genson genson = new Genson();
       String token = req.getHeader("Authorization");
-
       Map<String, String> data = genson.deserialize(req.getReader(), Map.class);
       try {
         System.out.println(data.get("idDevis"));
@@ -187,6 +186,7 @@ public class DetailsDevisServlet extends HttpServlet {
 
         String json = "{\"success\":\"true\", \"token\":\"" + token
             + "\",\"message\":\"la date a ete repoussee\"}";
+        System.out.println(json);
         Response.success(resp, json);
 
       } catch (Exception exce) {
