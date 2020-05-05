@@ -37,7 +37,7 @@ function afficherDetailsDevis(response){
 	$("#choisirPhotoPreferee").hide();
 	$("#btn-devis-repousserDate").hide();
 	$("#photoPrefereeDevis").hide();
-	$("#voir-details-devis #dateDebutTravaux").attr("value", " ");
+	$("#voir-details-devis #dateDebutTravaux").attr("value", "");
 
 	//Remplir donnees client
 	$("#voir-details-devis #nomClient").attr("value", response.clientData.nom);
@@ -68,7 +68,7 @@ function afficherDetailsDevis(response){
 	//Pour voir si on peut changer la value de dateDebutTravaux
 
 	if(response.devisData.etat=="I" || response.devisData.etat=="A"){
-		$("#voir-details-devis #dateDebutTravaux").attr("value", " ");
+		$("#voir-details-devis #dateDebutTravaux").attr("value", "");
 		$("#voir-details-devis #dateDebutTravaux").prop("disabled", false);
 	}
 	else if(response.devisData.etat=="FD"){

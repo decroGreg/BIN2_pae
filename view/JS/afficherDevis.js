@@ -62,7 +62,7 @@ function afficherNomClientDropdown(response,dropdown){
 		li.appendChild(a);
 		dropdown.appendChild(li);
 	});
-	
+	console.log(document.getElementById('search-devisClient'));
 }
 
 

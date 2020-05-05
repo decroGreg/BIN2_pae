@@ -39,7 +39,9 @@ $(document).ready(function () {
                         "description":$("#Modal-Form-Description").val()
                 };
                 if(!checkInput(data,"la description est vide")) return;
+
                 postData("/amenagements",data,token,viewIntroductionQuote,onError);
+                getData("/voirTypesAmenagement", token, remplirListeTypesAmenagement, onError);
         });
 
         $(".introductionQuote").click(e=>{
@@ -112,8 +114,6 @@ $(document).ready(function () {
                     "type":type
             }
             postData("/introduireServlet",data,token,onPostIntroductionQuote,onError);
-           
-            onPostIntroductionQuote();
             photo={};
             
             

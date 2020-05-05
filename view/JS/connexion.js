@@ -108,7 +108,7 @@ function onPostRegister(response){
             $("#success-notification").fadeIn('slow').delay(1000).fadeOut('slow');
             $("#success-notification").text(response.message);
     }else{ 
-            console.log(response.message);
+            
             $("#error-notification").fadeIn('slow').delay(1000).fadeOut('slow');
             $("#error-notification").text(response.message);
     }

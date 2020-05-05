@@ -74,6 +74,7 @@ public class RechercheDevisServlet extends HttpServlet {
     // TODO Auto-generated method stub
 
     try {
+      devisDto.setIdClient(0);
       Genson genson = new Genson();
       Map<String, Map<String, String>> send = genson.deserialize(req.getReader(), Map.class);
       System.out.println(send.toString());
@@ -110,6 +111,7 @@ public class RechercheDevisServlet extends HttpServlet {
           idTypeAmenagement.add(idType);
         }
         try {
+          System.out.println(devisDto.getIdClient());
           if (data.containsKey("idUser")) {
             int idClient = Integer.parseInt(data.get("idUser"));
             devisDto.setIdClient(idClient);
