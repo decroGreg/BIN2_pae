@@ -65,11 +65,6 @@ public class Main {
    * @throws Exception une exception
    */
   public static void main(String[] args) throws Exception {
-    // Lecture du fichier properties
-    Config conf = new Config();
-
-    // Creation de la dépendance
-
 
     WebAppContext context = new WebAppContext();
 
@@ -82,6 +77,7 @@ public class Main {
     HttpServlet index = new IndexServlet();
     context.addServlet(new ServletHolder(index), "/");
 
+    Config conf = new Config();
     Factory factory = (Factory) conf.getConfigPropertyClass("factory.Factory");
     DaoServicesImpl daoServices = new DaoServicesImpl();
     UserDao userDao = new UserDaoImpl(daoServices, factory);
