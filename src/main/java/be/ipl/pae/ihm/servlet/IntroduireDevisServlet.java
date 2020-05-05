@@ -80,10 +80,8 @@ public class IntroduireDevisServlet extends HttpServlet {
     try {
       Genson genson = new Genson();
       Map<String, Map<String, String>> data = genson.deserialize(req.getReader(), Map.class);
-      System.out.println(data.toString());
       try {
         Map<String, String> images = data.get("images");
-        System.out.println(images);
         Map<String, String> dataUser = data.get("dataUser");
         Map<String, String> dataQuote = data.get("dataQuote");
         if (dataUser != null) {
