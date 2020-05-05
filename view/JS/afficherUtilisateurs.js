@@ -99,8 +99,8 @@ function afficherUtilisateurs(response){
 	    var html = "<tr>";
 	    html+="<td><a href='#' class='reference-util' id='"+ response.usersData[data].idUser + "'>"
 	    	+ response.usersData[data].pseudo + "</a></td>\n<td>" 
-	    	+ response.usersData[data].nom + "</td>\n<td>" 
 	    	+ response.usersData[data].prenom + "</td>\n<td>" 
+	    	+ response.usersData[data].nom + "</td>\n<td>" 
 	    	+ response.usersData[data].ville + "</td>\n<td>" 
 	    	+ response.usersData[data].email + "</td>\n<td>" 
 	    	+ response.usersData[data].statut + "</td></tr>";
