@@ -77,7 +77,7 @@ public class Main {
     AmenagementDao amenagementDao = new AmenagementDaoImpl(daoServices, factory);
     ClientDao clientDao = new ClientDaoImpl(daoServices, factory);
     DevisDao devisDao = new DevisDaoImpl(daoServices, factory);
-    TypeDAmenagementDao typeAmenagementDao = new TypeDAmenagementDaoImpl(daoServices, factory);
+
     PhotoDao photoDao = new PhotoDaoImpl(daoServices, factory);
 
     UserUcc userUcc = new UserUccImpl(factory, userDao, daoServices);
@@ -122,6 +122,7 @@ public class Main {
     HttpServlet listeClientsServlet = new VoirClientsServlet(clientUcc, userDto);
     context.addServlet(new ServletHolder(listeClientsServlet), "/listeClients");
 
+    TypeDAmenagementDao typeAmenagementDao = new TypeDAmenagementDaoImpl(daoServices, factory);
     DevisDto devisDto = factory.getDevisDto();
     TypeDAmenagementUcc typeAmenagmentUcc =
         new TypeDAmenagementUccImpl(typeAmenagementDao, daoServices);
