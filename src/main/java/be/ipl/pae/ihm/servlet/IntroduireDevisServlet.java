@@ -81,7 +81,7 @@ public class IntroduireDevisServlet extends HttpServlet {
       Genson genson = new Genson();
       Map<String, Map<String, String>> data = genson.deserialize(req.getReader(), Map.class);
       try {
-        Map<String, String> images = data.get("images");
+
         Map<String, String> dataUser = data.get("dataUser");
         Map<String, String> dataQuote = data.get("dataQuote");
         if (dataUser != null) {
@@ -109,6 +109,7 @@ public class IntroduireDevisServlet extends HttpServlet {
         }
 
         int idUser = 0;
+        Map<String, String> images = data.get("images");
         if (!dataQuote.get("user").toString().equals("")) {
           idUser = Integer.parseInt(dataQuote.get("user").toString());
         }
