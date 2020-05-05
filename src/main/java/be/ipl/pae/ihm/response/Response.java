@@ -13,7 +13,7 @@ public interface Response {
    * @param json le json des donnees a renvoyer
    * @throws IOException exception lance par la methode write
    */
-  public static void success(HttpServletResponse resp, String json) throws IOException {
+  static void success(HttpServletResponse resp, String json) throws IOException {
     System.out.println("JSON generated : success");
 
     resp.setContentType("application/json");
@@ -33,7 +33,7 @@ public interface Response {
    * @throws IOException exception lance par la methode write
    */
 
-  public static void raterRequete(HttpServletResponse resp, String message) throws IOException {
+  static void raterRequete(HttpServletResponse resp, String message) throws IOException {
     resp.setContentType("application/json");
     resp.setCharacterEncoding("UTF-8");
     resp.setStatus(HttpServletResponse.SC_OK);
@@ -48,7 +48,7 @@ public interface Response {
    * @param resp l httpServletRexponse
    * @param exc l exception qui a ete lance
    */
-  public static void errorServer(HttpServletResponse resp, Exception exc) {
+  static void errorServer(HttpServletResponse resp, Exception exc) {
     resp.setContentType("application/json");
     resp.setCharacterEncoding("UTF-8");
     resp.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);

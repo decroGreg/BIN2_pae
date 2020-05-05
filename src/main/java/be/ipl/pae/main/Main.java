@@ -65,30 +65,6 @@ public class Main {
    * @throws Exception une exception
    */
   public static void main(String[] args) throws Exception {
-    // Lecture du fichier properties
-    Config conf = new Config();
-
-    // Creation de la dépendance
-
-    Factory factory = (Factory) conf.getConfigPropertyClass("factory.Factory");
-    DaoServicesImpl daoServices = new DaoServicesImpl();
-
-    UserDao userDao = new UserDaoImpl(daoServices, factory);
-    AmenagementDao amenagementDao = new AmenagementDaoImpl(daoServices, factory);
-    ClientDao clientDao = new ClientDaoImpl(daoServices, factory);
-    DevisDao devisDao = new DevisDaoImpl(daoServices, factory);
-    PhotoDao photoDao = new PhotoDaoImpl(daoServices, factory);
-
-    UserUcc userUcc = new UserUccImpl(factory, userDao, daoServices);
-    AmenagementUcc amenagementUcc = new AmenagementUccImpl(amenagementDao, daoServices);
-    PhotoUcc photoUcc = new PhotoUccImpl(photoDao, devisDao, factory, daoServices);
-
-    UserDto userDto = factory.getUserDto();
-    ClientDto clientDto = factory.getClientDto();
-    ClientUcc clientUcc = new ClientUccImpl(clientDao, daoServices);
-    DevisUcc devisUcc = new DevisUccImpl(devisDao, userDao, clientDao, amenagementDao, daoServices);
-
-
 
     WebAppContext context = new WebAppContext();
 
@@ -101,6 +77,12 @@ public class Main {
     HttpServlet index = new IndexServlet();
     context.addServlet(new ServletHolder(index), "/");
 
+    Config conf = new Config();
+    Factory factory = (Factory) conf.getConfigPropertyClass("factory.Factory");
+    DaoServicesImpl daoServices = new DaoServicesImpl();
+    UserDao userDao = new UserDaoImpl(daoServices, factory);
+    UserDto userDto = factory.getUserDto();
+    UserUcc userUcc = new UserUccImpl(factory, userDao, daoServices);
     HttpServlet serv = new LoginServlet(userUcc, userDto);
     context.addServlet(new ServletHolder(serv), "/login");
 
@@ -110,9 +92,15 @@ public class Main {
     HttpServlet listeUsersServlet = new VoirUtilisateursServlet(userUcc);
     context.addServlet(new ServletHolder(listeUsersServlet), "/listeUsers");
 
+    DevisDao devisDao = new DevisDaoImpl(daoServices, factory);
+    ClientDao clientDao = new ClientDaoImpl(daoServices, factory);
+    AmenagementDao amenagementDao = new AmenagementDaoImpl(daoServices, factory);
+    DevisUcc devisUcc = new DevisUccImpl(devisDao, userDao, clientDao, amenagementDao, daoServices);
+    ClientUcc clientUcc = new ClientUccImpl(clientDao, daoServices);
     HttpServlet listeDevisServlet = new VoirDevisServlet(devisUcc, clientUcc);
     context.addServlet(new ServletHolder(listeDevisServlet), "/listeDevis");
 
+    ClientDto clientDto = factory.getClientDto();
     HttpServlet listeDevisClientServlet =
         new VoirDevisClientServlet(clientUcc, devisUcc, clientDto);
     context.addServlet(new ServletHolder(listeDevisClientServlet), "/listeDevisClient");
@@ -126,6 +114,8 @@ public class Main {
     TypeDAmenagementUcc typeAmenagmentUcc =
         new TypeDAmenagementUccImpl(typeAmenagementDao, daoServices);
 
+    PhotoDao photoDao = new PhotoDaoImpl(daoServices, factory);
+    PhotoUcc photoUcc = new PhotoUccImpl(photoDao, devisDao, factory, daoServices);
     HttpServlet introDevisServlet =
         new IntroduireDevisServlet(devisUcc, clientDto, devisDto, typeAmenagmentUcc, photoUcc);
     context.addServlet(new ServletHolder(introDevisServlet), "/introduireServlet");
@@ -133,7 +123,7 @@ public class Main {
     HttpServlet confirmationServlet = new ConfirmationRegisterServlet(userUcc, userDto, clientDto);
     context.addServlet(new ServletHolder(confirmationServlet), "/confirmation");
 
-
+    AmenagementUcc amenagementUcc = new AmenagementUccImpl(amenagementDao, daoServices);
     HttpServlet detailsDevis = new DetailsDevisServlet(devisUcc, clientUcc, amenagementUcc,
         typeAmenagmentUcc, devisDto, photoUcc);
     context.addServlet(new ServletHolder(detailsDevis), "/detailsDevis");
@@ -174,7 +164,5 @@ public class Main {
     server.setHandler(context);
 
     server.start();
-
   }
-
 }
