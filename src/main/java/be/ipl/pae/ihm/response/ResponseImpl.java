@@ -7,10 +7,11 @@ import javax.servlet.http.HttpServletResponse;
 public class ResponseImpl implements Response {
 
   /**
+   * success ecrit dans la requete resp en cas de succes
    * 
    * @param resp l httpServletRexponse
    * @param json le json des donnees a renvoyer
-   * @throws IOException
+   * @throws IOException exception lance par la methode write
    */
   public static void success(HttpServletResponse resp, String json) throws IOException {
     System.out.println("JSON generated : success");
@@ -27,10 +28,11 @@ public class ResponseImpl implements Response {
   }
 
   /**
+   * raterRequete ecrit dans la requete resp lorsque le resultat
    * 
    * @param resp l httpServletRexponse
    * @param message le message a afficher
-   * @throws IOException
+   * @throws IOException exception lance par la methode write
    */
 
   public static void raterRequete(HttpServletResponse resp, String message) throws IOException {
@@ -43,10 +45,10 @@ public class ResponseImpl implements Response {
   }
 
   /**
+   * errroServer ecrit dans la requete resp lors d'une erreur Server
    * 
    * @param resp l httpServletRexponse
-   * @param excl'exception
-   * @throws IOException
+   * @param exc l'exception qui a été lancé
    */
   public static void errorServer(HttpServletResponse resp, Exception exc) {
     resp.setContentType("application/json");
