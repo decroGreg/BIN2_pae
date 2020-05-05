@@ -11,6 +11,7 @@ import be.ipl.pae.biz.interfaces.ClientUcc;
 import be.ipl.pae.biz.interfaces.DevisUcc;
 import be.ipl.pae.biz.interfaces.PhotoUcc;
 import be.ipl.pae.biz.interfaces.TypeDAmenagementUcc;
+import be.ipl.pae.exceptions.IhmException;
 import be.ipl.pae.ihm.response.Response;
 
 import com.owlike.genson.Genson;
@@ -171,8 +172,7 @@ public class DetailsDevisServlet extends HttpServlet {
           case DC:
             break;
           default:
-            throw new IllegalArgumentException(
-                "l etat du devis ne permet pas d efectuer cette action");
+            throw new IhmException("l etat du devis ne permet pas d efectuer cette action");
         }
         devisDto.setIdDevis(idDevis);
         devisDto.setEtat(etat);

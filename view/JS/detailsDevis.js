@@ -12,12 +12,12 @@ $(document).ready(function(){
         };
        
         putData("/detailsDevis",token,data,onPutRepousserDate,onError);
-
+		$("#dateDebutTravaux").val("");
     });
 });
 
 function onPutRepousserDate(response){
-	if(response.success==true){
+	if(response.success=="true"){
 		$("#success-notification").fadeIn('slow').delay(1000).fadeOut('slow');
 		$("#success-notification").text(response.message);
 	}else{
@@ -151,6 +151,7 @@ function afficherDetailsDevis(response){
 	           return false;
 	    }
 	});
+	console.log($("#voir-details-devis #dateDebutTravaux").attr("value"));
 }
 
 
