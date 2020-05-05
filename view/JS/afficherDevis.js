@@ -62,7 +62,7 @@ function afficherNomClientDropdown(response,dropdown){
 		li.appendChild(a);
 		dropdown.appendChild(li);
 	});
-	console.log(document.getElementById('search-devisClient'));
+	
 }
 
 
@@ -78,7 +78,7 @@ function onGetAmenagementDevisClient(response){
 function afficherAmenagementDropDown(response,dropdown,idInput){	
 		var input=document.getElementById(idInput);
 		input.addEventListener("keyup",function(){
-			console.log($(this).val());
+			
 			filterDropdown(this);
 		});
 		dropdown.innerHTML="";
@@ -102,7 +102,7 @@ function searchDevis(dropdown,idUser){
 	})
 	var data={}
 	dropdown.parentNode.parentNode.childNodes.forEach(e=>{
-		console.log(e);
+	
 		if(e.name){
 			data[e.name]=e.value;
 			e.value="";
@@ -115,8 +115,7 @@ function searchDevis(dropdown,idUser){
 		data["idUser"]=idUser+"";
 	}
 
-	console.log(amenagements);
-	console.log(data);
+
 	var send={
 		"data":data,
 		"amenagements":amenagements
@@ -153,7 +152,7 @@ function afficherDevis(response){
 	$("a.reference-devis").click(e=>{
     	let data={};
         data.idDevis=$(e.target).text();
-        console.log("Reference devis : " + data.idDevis);
+   
         postData("/detailsDevis",data,token, afficherDetailsDevis, onError);
     });
 }
@@ -176,7 +175,7 @@ function afficherDevisClient(response){
 	$("a.reference-devis").click(e=>{
     	let data={};
         data.idDevis=$(e.target).text();
-        console.log("Reference devis : " + data.idDevis);
+
         postData("/detailsDevis",data,token, afficherDetailsDevisClient, onError);
     });
 }
@@ -200,7 +199,7 @@ function viewListeDevis(){
 function mesDevis(){
 	$("#voir-devis-client").show();	
 	let data={};
-	console.log("user = " + JSON.stringify(user));
+
 	data = user;
 	postData("/listeDevisClient",data,token,afficherDevisClient,onError);
 }

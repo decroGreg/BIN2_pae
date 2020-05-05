@@ -46,14 +46,12 @@ $(document).ready(e=>{
                 user=undefined;
                 token=undefined;
                 localStorage.removeItem("token");
-                console.log(token);
-                console.log(localStorage.getItem("token"));
                 $("#userName").html("");
                 viewHomePage();
         });
 	$(".mesPhotos").click(e=>{
         e.preventDefault();
-    	console.log("Mes photos");
+    	
     	let data=user;
     	postData("/mesPhotos", data, token, afficherPhotos, onError);
     });
@@ -102,7 +100,7 @@ function viewHomePage(){
 
 }
 function authentificationToken(token){
-        console.log("test"+token)
+       
         if(token){
                 if(user==undefined){
                       getData("/login",token,onPostLoginToken,onError);
@@ -129,7 +127,6 @@ function onPostLoginToken(response){
                 viewAuthentification(user);
         }
         else{
-                console.log(response.message);
                 $("#error-notification").fadeIn('slow').delay(1000).fadeOut('slow');
                 $("#error-notification").text(response.message);
                 localStorage.removeItem("token");

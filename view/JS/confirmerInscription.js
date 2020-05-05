@@ -25,7 +25,6 @@ function onGetRegisterConfirmation(response){
                 var prenom=document.createElement("td");
                 prenom.innerHTML=element.prenom;
                 prenom.value=element.idUser;
-                console.log(element.idUser);
                 prenom.setAttribute("valueof","id");
                 var nom=document.createElement("td");
                 nom.innerHTML=element.nom;
@@ -71,7 +70,6 @@ function onGetRegisterConfirmation(response){
                 button.setAttribute("data-toggle","dropdown");
                 button["data-toggle"]="dropdown";
                 button.innerText="lie a l'utilisateur";
-                console.log(button);
                 var ul=document.createElement("ul");
                 ul.className="dropdown-menu";
                 ul.id="RegisterConfirmation-Form-Client-items"+i;
@@ -121,11 +119,10 @@ function onGetRegisterConfirmation(response){
 
 }
 function onGetClientRegisterConfirmationForm(response){
-        console.log(document.getElementById("RegisterConfirmation-Form-Client-items"+i))
-        console.log($("#RegisterConfirmation-Form-Client-items"+i));
+        
 
         response.clientsData.forEach(element => {
-                console.log(element);
+               
                 var li=document.createElement("li");
                 var a=document.createElement("a");
                 a.href="#";
@@ -137,7 +134,6 @@ function onGetClientRegisterConfirmationForm(response){
                         $("#ClientLink"+e.target.getAttribute("valueofI")).val(e.target.val);
                         $("#RegisterConfirmation-Form-Client-dropdown"+e.target.getAttribute("valueofI")).text(e.target.innerText);
                         
-                        console.log($("#ClientLink"+e.target.getAttribute("valueofI")));
 
                 });
                 li.appendChild(a);
@@ -151,8 +147,6 @@ function onClickRegisterConfirmation(element){
         var btn=element.target;
         var data={};
         btn.parentNode.parentNode.childNodes.forEach(e => {
-                console.log(e.getAttribute("valueof")+":"+e.value);
-                console.log(e);
                 if(e.getAttribute("valueof")!=null)
                 data[e.getAttribute("valueof")]=e.value+"";
         });
@@ -180,7 +174,6 @@ function onClickStatusItem(element){
         
         var btn=element.target;
         if(btn.tagName=="A"){//vérifie si c'est un element <a>
-                console.log($(btn).attr("value"));
                 btn.parentNode.parentNode.parentNode.value=$(btn).attr("value");
                 btn.parentNode.parentNode.firstChild.innerHTML=btn.innerHTML;
         }

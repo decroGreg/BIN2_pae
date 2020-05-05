@@ -18,14 +18,14 @@ function remplirListeTypesAmenagement(response){
 	changerCarrousel(response);
 	$("#navBarTypesAmenagements a").click(e=>{
 		e.preventDefault();
-		console.log("ID type amenagement = " + $(e.target).attr("id"));
+		
 		let data={};
 		data.idTypeAmenagement = $(e.target).attr("id");
 		postData("/voirTypesAmenagement", data, token, changerCarrousel, onError);
 	});
 	$("#navBarStaticTypesAmenagements a").click(e=>{
 		e.preventDefault();
-		console.log("ID type amenagement = " + $(e.target).attr("id"));
+		
 		let data={};
 		data.idTypeAmenagement = $(e.target).attr("id");
 		postData("/voirTypesAmenagement", data, token, changerCarrousel, onError);
@@ -58,27 +58,6 @@ function changerCarrousel(response){
     $('.carousel-indicators > li').first().addClass('active');
     $(".carousel slide").attr("data-ride","carousel");
     $(".carousel slide").attr("data-interval", "2000");
-    /*$("#myCarousel").carousel();
-
-    $('#myCarousel').carousel({
-        interval: 2000
-    });
-    //$("#myCarousel").carousel();
-
-    $('.carousel slide').carousel('cycle');
-    // Enable Carousel Controls
-    $(".carousel-control-prev").click(e=>{
-    	e.stopPropagation();
-    	console.log("PREV");
-    	$("#myCarousel").carousel('prev');
-    });
-    
-	$(".carousel-control-next").click(e=> {
-		e.stopPropagation();
-    	console.log("NEXT");
-		$("#myCarousel").carousel('next');
-	});*/
-
 }
 
 export{remplirListeTypesAmenagement};
