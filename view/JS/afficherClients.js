@@ -25,7 +25,7 @@ $(document).ready(function () {
     $("#btn-search-category").click(e=>{
     	if($("#search-option-category").val()=="client"){
     	    allHide();
-            getData("/listeClients",token,afficherClientsDropdown,onError);
+            getData("/rechercheDevis",token,afficherClientsDropdown,onError);
             getData("/listeClients",token,afficherClients,onError);
         }
     });
@@ -60,8 +60,6 @@ function afficherVilleDropdown(response){
 }
 
 function afficherClientsDropdown(response){
-
-	//afficherNomDropdown(response,document.getElementById("clientsNameSearch"),"inputClientsNameSearch",document.getElementById("searchClientsNameDropdown"),"clientsData");
 	$("#clientsNameSearch").html("");
 	var input=document.createElement("input");
 	input.id="inputClientsNameSearch";
@@ -75,13 +73,13 @@ function afficherClientsDropdown(response){
 
 	$("#clientsNameSearch").append(input);
 
-	response.clientsData.forEach(e=>{
+	response.noms.forEach(e=>{
 		var li=document.createElement("li");
 		var a=document.createElement("a");
-		a.innerHTML=e.nom+" "+e.prenom;
+		a.innerHTML=e;
 		a.addEventListener("click",function(){
 			$("#searchClientsNameDropdown").text(a.innerHTML);
-			$("#clientsNameSearch").val(e.nom);
+			$("#clientsNameSearch").val(e);
 		});
 		li.appendChild(a);
 		$("#clientsNameSearch").append(li);

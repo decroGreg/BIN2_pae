@@ -9,6 +9,7 @@ import be.ipl.pae.biz.interfaces.AmenagementUcc;
 import be.ipl.pae.biz.interfaces.ClientUcc;
 import be.ipl.pae.biz.interfaces.DevisUcc;
 import be.ipl.pae.biz.interfaces.TypeDAmenagementUcc;
+import be.ipl.pae.ihm.response.ResponseImpl;
 
 import com.owlike.genson.Genson;
 
@@ -93,12 +94,7 @@ public class ChangementEtatDevisServlet extends HttpServlet {
           }
         }
       } catch (Exception ex) {
-        ex.printStackTrace();
-        resp.setContentType("application/json");
-        resp.setCharacterEncoding("UTF-8");
-        resp.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
-        String json = "{\"error\":\"false\"}";
-        resp.getWriter().write(json);
+        ResponseImpl.errorServer(resp, ex);
       }
 
       if (devis != null && clientDto != null) {
@@ -149,40 +145,26 @@ public class ChangementEtatDevisServlet extends HttpServlet {
         for (DevisDto e : devisUcc.voirDevis()) {
           if (e.getIdDevis() == idDevis) {
             devis = e;
-            // requete pour avoir tous les types d'amenagements
           }
         }
 
         String devisData;
         String clientData;
-        // if (etatDevis != "A") {
         devisData = genson.serialize(devis);
         clientData = genson.serialize(clientDto);
-        // } else {
-        // List<DevisDto> listeDevis = devisUcc.voirDevis();
-        // devisData = genson.serialize(listeDevis);
         String typesAmenagementData = genson.serialize(descriptionsTypeAmenagement);
 
-        // }
+
         String json = "{\"success\":\"true\", \"token\":\"" + token + "\", \"devisData\":"
             + devisData + ", \"clientData\":" + clientData + ", \"typesAmenagementData\":"
             + typesAmenagementData + "}";
-        System.out.println("JSON generated :" + json);
-        resp.setContentType("application/json");
-
-        resp.setCharacterEncoding("UTF-8");
-
-        resp.setStatus(HttpServletResponse.SC_OK);
-        resp.getWriter().write(json);
+        ResponseImpl.success(resp, json);
       }
 
     } catch (Exception ex) {
       ex.printStackTrace();
-      resp.setContentType("application/json");
-      resp.setCharacterEncoding("UTF-8");
-      resp.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
-      String json = "{\"error\":\"false\"}";
-      resp.getWriter().write(json);
+      ResponseImpl.errorServer(resp, ex);
+
     }
 
   }

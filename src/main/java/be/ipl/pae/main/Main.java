@@ -40,6 +40,7 @@ import be.ipl.pae.ihm.servlet.DetailsDevisServlet;
 import be.ipl.pae.ihm.servlet.IndexServlet;
 import be.ipl.pae.ihm.servlet.IntroduireDevisServlet;
 import be.ipl.pae.ihm.servlet.LoginServlet;
+import be.ipl.pae.ihm.servlet.NomClientsServlet;
 import be.ipl.pae.ihm.servlet.PhotosClientServlet;
 import be.ipl.pae.ihm.servlet.RechercheDevisServlet;
 import be.ipl.pae.ihm.servlet.RegisterServlet;
@@ -161,6 +162,9 @@ public class Main {
 
     HttpServlet villesServlet = new VilleServlet(clientUcc);
     context.addServlet(new ServletHolder(villesServlet), "/villes");
+
+    HttpServlet nomClientsServlet = new NomClientsServlet(userUcc);
+    context.addServlet(new ServletHolder(nomClientsServlet), "/nomUtilisateurs");
 
     context.setWelcomeFiles(new String[] {"index.html"});
     context.setResourceBase("view");
