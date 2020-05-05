@@ -18,20 +18,26 @@ public class ClientDaoMock implements ClientDao {
   private boolean getClientById;
   private boolean getVilles;
   private boolean getIdDernierClient;
+  private boolean nomClient;
   private boolean testDalException;
   private Factory factory;
 
   /**
-   * Constructeur Client Mock.
-   * 
-   * @param voirTousClient methode boolean.
-   * @param createClient methode boolean.
-   * @param getClientMail methode boolean.
-   * @param testDalException methode boolean.
+   * Cree un objet ClientDaoMock.
+   *
+   * @param voirTousClient attribut boolean.
+   * @param createClient attribut boolean.
+   * @param getClientMail attribut boolean.
+   * @param getClientById attribut boolean.
+   * @param getVilles attribut boolean.
+   * @param voirClientAvecCritere attribut boolean.
+   * @param getIdDernierClient attribut boolean.
+   * @param nomClient attribut boolean.
+   * @param testDalException attribut boolean.
    */
   public ClientDaoMock(boolean voirTousClient, boolean createClient, boolean getClientMail,
       boolean getClientById, boolean getVilles, boolean voirClientAvecCritere,
-      boolean getIdDernierClient, boolean testDalException) {
+      boolean getIdDernierClient, boolean nomClient, boolean testDalException) {
     this.voirTousClient = voirTousClient;
     this.createClient = createClient;
     this.getClientMail = getClientMail;
@@ -39,6 +45,7 @@ public class ClientDaoMock implements ClientDao {
     this.getClientById = getClientById;
     this.getVilles = getVilles;
     this.getIdDernierClient = getIdDernierClient;
+    this.nomClient = nomClient;
     this.testDalException = testDalException;
     this.factory = new FactoryStub();
   }
@@ -117,7 +124,12 @@ public class ClientDaoMock implements ClientDao {
 
   @Override
   public List<String> nomClient() {
-    // TODO Auto-generated method stub
+    testDalException();
+    if (nomClient) {
+      List<String> noms = new ArrayList<String>();
+      noms.add(factory.getClientDto().getNom());
+      return noms;
+    }
     return null;
   }
 }

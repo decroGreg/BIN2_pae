@@ -13,6 +13,9 @@ public class PhotoDaoMock implements PhotoDao {
 
   private boolean introduirePhoto;
   private boolean voirTousPhotos;
+  private boolean voirPhotoTypeDAmenagement;
+  private boolean voirPhotoSonJardin;
+  private boolean getPhotoById;
   private boolean testDalException;
   private Factory factory;
 
@@ -24,10 +27,15 @@ public class PhotoDaoMock implements PhotoDao {
    * @param voirTousPhotos liste de photos;
    * @param testDalException boolean.
    */
-  public PhotoDaoMock(boolean introduirePhoto, boolean voirTousPhotos, boolean testDalException) {
+  public PhotoDaoMock(boolean introduirePhoto, boolean voirTousPhotos,
+      boolean voirPhotoTypeDAmenagement, boolean voirPhotoSonJardin, boolean getPhotoById,
+      boolean testDalException) {
     super();
     this.introduirePhoto = introduirePhoto;
     this.voirTousPhotos = voirTousPhotos;
+    this.voirPhotoTypeDAmenagement = voirPhotoTypeDAmenagement;
+    this.voirPhotoSonJardin = voirPhotoSonJardin;
+    this.getPhotoById = getPhotoById;
     this.testDalException = testDalException;
     this.factory = new FactoryStub();
   }
@@ -57,19 +65,32 @@ public class PhotoDaoMock implements PhotoDao {
 
   @Override
   public List<PhotoDto> voirPhotoTypeDAmenagement(int idTypeAmenagement) {
-    // TODO Auto-generated method stub
+    testDalException();
+    if (voirPhotoTypeDAmenagement) {
+      List<PhotoDto> photos = new ArrayList<PhotoDto>();
+      photos.add(factory.getPhotoDto());
+      return photos;
+    }
     return null;
   }
 
   @Override
   public List<PhotoDto> voirPhotoSonJardin(int idClient) {
-    // TODO Auto-generated method stub
+    testDalException();
+    if (voirPhotoSonJardin) {
+      List<PhotoDto> photosJardin = new ArrayList<PhotoDto>();
+      photosJardin.add(factory.getPhotoDto());
+      return photosJardin;
+    }
     return null;
   }
 
   @Override
   public PhotoDto getPhotoById(int idPhoto) {
-    // TODO Auto-generated method stub
+    testDalException();
+    if (getPhotoById) {
+      return factory.getPhotoDto();
+    }
     return null;
   }
 }

@@ -2,7 +2,6 @@ package be.ipl.pae.biz.ucc;
 
 import be.ipl.pae.biz.dto.AmenagementDto;
 import be.ipl.pae.biz.interfaces.AmenagementUcc;
-import be.ipl.pae.biz.interfaces.Factory;
 import be.ipl.pae.dal.daoservices.DaoServicesUcc;
 import be.ipl.pae.dal.interfaces.AmenagementDao;
 import be.ipl.pae.exceptions.BizException;
@@ -14,21 +13,17 @@ import java.util.List;
 
 public class AmenagementUccImpl implements AmenagementUcc {
   private AmenagementDao amenagementDao;
-  private Factory bizFactory;
   private DaoServicesUcc daoServicesUcc;
 
   /**
    * Cree un objet AmenagementUccImpl.
    * 
    * @param amenagementDao l amenagement dao.
-   * @param bizFactory la factory.
    * @param daoServicesUcc le dal services.
    */
-  public AmenagementUccImpl(AmenagementDao amenagementDao, Factory bizFactory,
-      DaoServicesUcc daoServicesUcc) {
+  public AmenagementUccImpl(AmenagementDao amenagementDao, DaoServicesUcc daoServicesUcc) {
     super();
     this.amenagementDao = amenagementDao;
-    this.bizFactory = bizFactory;
     this.daoServicesUcc = daoServicesUcc;
   }
 

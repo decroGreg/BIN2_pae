@@ -145,6 +145,17 @@ body{
   		margin: 1rem auto;
   		left: 1;
 	}
+	
+ /*************************************Img gallery***************************************************/
+	
+	
+	.grid{
+		display: grid;
+		justify-content: center;
+		align-content: center;
+		grid-gap: 10px;
+	}
+
 
 
  

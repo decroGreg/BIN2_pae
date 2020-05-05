@@ -40,6 +40,7 @@ import be.ipl.pae.ihm.servlet.DetailsDevisServlet;
 import be.ipl.pae.ihm.servlet.IndexServlet;
 import be.ipl.pae.ihm.servlet.IntroduireDevisServlet;
 import be.ipl.pae.ihm.servlet.LoginServlet;
+import be.ipl.pae.ihm.servlet.NomClientsServlet;
 import be.ipl.pae.ihm.servlet.PhotosClientServlet;
 import be.ipl.pae.ihm.servlet.RechercheDevisServlet;
 import be.ipl.pae.ihm.servlet.RegisterServlet;
@@ -76,23 +77,21 @@ public class Main {
     AmenagementDao amenagementDao = new AmenagementDaoImpl(daoServices, factory);
     ClientDao clientDao = new ClientDaoImpl(daoServices, factory);
     DevisDao devisDao = new DevisDaoImpl(daoServices, factory);
-    TypeDAmenagementDao typeAmenagementDao = new TypeDAmenagementDaoImpl(daoServices, factory);
+
     PhotoDao photoDao = new PhotoDaoImpl(daoServices, factory);
 
     UserUcc userUcc = new UserUccImpl(factory, userDao, daoServices);
     PhotoDto photoDto = factory.getPhotoDto();
-    AmenagementUcc amenagementUcc = new AmenagementUccImpl(amenagementDao, factory, daoServices);
-    PhotoUcc photoUcc = new PhotoUccImpl(photoDao, devisDao, amenagementDao, factory, daoServices);
+    AmenagementUcc amenagementUcc = new AmenagementUccImpl(amenagementDao, daoServices);
+    PhotoUcc photoUcc = new PhotoUccImpl(photoDao, devisDao, factory, daoServices);
 
     UserDto userDto = factory.getUserDto();
     ClientDto clientDto = factory.getClientDto();
-    ClientUcc clientUcc = new ClientUccImpl(factory, clientDao, daoServices);
-    DevisUcc devisUcc =
-        new DevisUccImpl(factory, devisDao, userDao, clientDao, amenagementDao, daoServices);
-    DevisDto devisDto = factory.getDevisDto();
-    TypeDAmenagementUcc typeAmenagmentUcc =
-        new TypeDAmenagementUccImpl(factory, typeAmenagementDao, daoServices);
-    Server server = new Server(8080);
+    ClientUcc clientUcc = new ClientUccImpl(clientDao, daoServices);
+    DevisUcc devisUcc = new DevisUccImpl(devisDao, userDao, clientDao, amenagementDao, daoServices);
+
+
+
     WebAppContext context = new WebAppContext();
 
     System.out.println(context.getContextPath());
@@ -123,6 +122,10 @@ public class Main {
     HttpServlet listeClientsServlet = new VoirClientsServlet(clientUcc, userDto);
     context.addServlet(new ServletHolder(listeClientsServlet), "/listeClients");
 
+    TypeDAmenagementDao typeAmenagementDao = new TypeDAmenagementDaoImpl(daoServices, factory);
+    DevisDto devisDto = factory.getDevisDto();
+    TypeDAmenagementUcc typeAmenagmentUcc =
+        new TypeDAmenagementUccImpl(typeAmenagementDao, daoServices);
     HttpServlet introDevisServlet =
         new IntroduireDevisServlet(devisUcc, clientDto, devisDto, typeAmenagmentUcc, photoUcc);
     context.addServlet(new ServletHolder(introDevisServlet), "/introduireServlet");
@@ -162,6 +165,10 @@ public class Main {
     HttpServlet villesServlet = new VilleServlet(clientUcc);
     context.addServlet(new ServletHolder(villesServlet), "/villes");
 
+    HttpServlet nomClientsServlet = new NomClientsServlet(userUcc);
+    context.addServlet(new ServletHolder(nomClientsServlet), "/nomUtilisateurs");
+
+    Server server = new Server(8080);
     context.setWelcomeFiles(new String[] {"index.html"});
     context.setResourceBase("view");
     server.setHandler(context);

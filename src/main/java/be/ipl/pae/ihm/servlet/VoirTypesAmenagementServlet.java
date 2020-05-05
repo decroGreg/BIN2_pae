@@ -6,6 +6,7 @@ import be.ipl.pae.biz.dto.TypeDAmenagementDto;
 import be.ipl.pae.biz.interfaces.AmenagementUcc;
 import be.ipl.pae.biz.interfaces.PhotoUcc;
 import be.ipl.pae.biz.interfaces.TypeDAmenagementUcc;
+import be.ipl.pae.ihm.response.ResponseImpl;
 
 import com.owlike.genson.Genson;
 
@@ -57,26 +58,12 @@ public class VoirTypesAmenagementServlet extends HttpServlet {
       String json = "{\"success\":\"true\", \"photosData\":" + photosData
           + ", \"typesAmenagementData\":" + typesAmenagementData
           + ", \"typesAmenagementPhotosData\":" + typesAmenagementPhotosData + "}";
-      // String json = "{\"success\":\"true\", \"typesAmenagementData\":" + typesAmenagementData +
-      // "}";
-      // System.out.println("JSON generated :" + json);
-
-      resp.setContentType("application/json");
-
-      resp.setCharacterEncoding("UTF-8");
-
-      resp.setStatus(HttpServletResponse.SC_OK);
-      resp.getWriter().write(json);
+      ResponseImpl.success(resp, json);
 
 
     } catch (Exception ex) {
       ex.printStackTrace();
-      String json = "{\"error\":\"false\"}";
-      System.out.println(json);
-      resp.setContentType("application/json");
-      resp.setCharacterEncoding("UTF-8");
-      resp.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
-      resp.getWriter().write(json);
+      ResponseImpl.errorServer(resp, ex);
     }
   }
 
@@ -125,22 +112,13 @@ public class VoirTypesAmenagementServlet extends HttpServlet {
         String photosData = genson.serialize(photos);
         String json = "{\"success\":\"true\", \"photosData\":" + photosData
             + ", \"typesAmenagementPhotosData\":" + typesAmenagementPhotosData + "}";
-        // System.out.println("JSON generated : success");
-        resp.setContentType("application/json");
-        resp.setCharacterEncoding("UTF-8");
-        resp.setStatus(HttpServletResponse.SC_OK);
-        resp.getWriter().write(json);
+        ResponseImpl.success(resp, json);
       }
 
 
     } catch (Exception ex) {
       ex.printStackTrace();
-      String json = "{\"error\":\"false\"}";
-      System.out.println(json);
-      resp.setContentType("application/json");
-      resp.setCharacterEncoding("UTF-8");
-      resp.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
-      resp.getWriter().write(json);
+      ResponseImpl.errorServer(resp, ex);
     }
 
   }

@@ -54,7 +54,7 @@ class TestTypeDAmenagementUcc {
             .getConstructor(boolean.class, boolean.class, boolean.class);
     typeDAmenagementUccConstruct =
         Class.forName(Config.getConfigPropertyAttribute(TypeDAmenagementUcc.class.getName()))
-            .getConstructor(Factory.class, TypeDAmenagementDao.class, DaoServicesUcc.class);
+            .getConstructor(TypeDAmenagementDao.class, DaoServicesUcc.class);
   }
 
 
@@ -64,8 +64,8 @@ class TestTypeDAmenagementUcc {
       IllegalArgumentException, InvocationTargetException {
     typeDAmenagementDao =
         (TypeDAmenagementDao) typeDAmenagementDaoConstruct.newInstance(false, false, false);
-    typeDAmenagementUcc = (TypeDAmenagementUcc) typeDAmenagementUccConstruct.newInstance(bizFactory,
-        typeDAmenagementDao, dalServices);
+    typeDAmenagementUcc = (TypeDAmenagementUcc) typeDAmenagementUccConstruct
+        .newInstance(typeDAmenagementDao, dalServices);
     assertThrows(NullPointerException.class, () -> typeDAmenagementUcc.voirTypeDAmenagement());
   }
 
@@ -75,8 +75,8 @@ class TestTypeDAmenagementUcc {
       IllegalArgumentException, InvocationTargetException {
     typeDAmenagementDao =
         (TypeDAmenagementDao) typeDAmenagementDaoConstruct.newInstance(true, false, false);
-    typeDAmenagementUcc = (TypeDAmenagementUcc) typeDAmenagementUccConstruct.newInstance(bizFactory,
-        typeDAmenagementDao, dalServices);
+    typeDAmenagementUcc = (TypeDAmenagementUcc) typeDAmenagementUccConstruct
+        .newInstance(typeDAmenagementDao, dalServices);
     assertEquals(typeDAmenagementUcc.voirTypeDAmenagement().get(0).getId(),
         typeDAmenagementDto.getId());
   }
@@ -87,8 +87,8 @@ class TestTypeDAmenagementUcc {
       IllegalArgumentException, InvocationTargetException {
     typeDAmenagementDao =
         (TypeDAmenagementDao) typeDAmenagementDaoConstruct.newInstance(false, false, true);
-    typeDAmenagementUcc = (TypeDAmenagementUcc) typeDAmenagementUccConstruct.newInstance(bizFactory,
-        typeDAmenagementDao, dalServices);
+    typeDAmenagementUcc = (TypeDAmenagementUcc) typeDAmenagementUccConstruct
+        .newInstance(typeDAmenagementDao, dalServices);
     assertThrows(FatalException.class, () -> typeDAmenagementUcc.voirTypeDAmenagement());
   }
 
@@ -98,8 +98,8 @@ class TestTypeDAmenagementUcc {
       IllegalArgumentException, InvocationTargetException {
     typeDAmenagementDao =
         (TypeDAmenagementDao) typeDAmenagementDaoConstruct.newInstance(false, false, false);
-    typeDAmenagementUcc = (TypeDAmenagementUcc) typeDAmenagementUccConstruct.newInstance(bizFactory,
-        typeDAmenagementDao, dalServices);
+    typeDAmenagementUcc = (TypeDAmenagementUcc) typeDAmenagementUccConstruct
+        .newInstance(typeDAmenagementDao, dalServices);
     assertThrows(BizException.class, () -> typeDAmenagementUcc.ajouterTypeAmenagement(null));
   }
 
@@ -109,8 +109,8 @@ class TestTypeDAmenagementUcc {
       IllegalArgumentException, InvocationTargetException {
     typeDAmenagementDao =
         (TypeDAmenagementDao) typeDAmenagementDaoConstruct.newInstance(false, false, false);
-    typeDAmenagementUcc = (TypeDAmenagementUcc) typeDAmenagementUccConstruct.newInstance(bizFactory,
-        typeDAmenagementDao, dalServices);
+    typeDAmenagementUcc = (TypeDAmenagementUcc) typeDAmenagementUccConstruct
+        .newInstance(typeDAmenagementDao, dalServices);
     assertThrows(BizException.class,
         () -> typeDAmenagementUcc.ajouterTypeAmenagement(typeDAmenagementDto.getDescription()));
   }
@@ -121,8 +121,8 @@ class TestTypeDAmenagementUcc {
       IllegalArgumentException, InvocationTargetException {
     typeDAmenagementDao =
         (TypeDAmenagementDao) typeDAmenagementDaoConstruct.newInstance(false, true, false);
-    typeDAmenagementUcc = (TypeDAmenagementUcc) typeDAmenagementUccConstruct.newInstance(bizFactory,
-        typeDAmenagementDao, dalServices);
+    typeDAmenagementUcc = (TypeDAmenagementUcc) typeDAmenagementUccConstruct
+        .newInstance(typeDAmenagementDao, dalServices);
     typeDAmenagementUcc.ajouterTypeAmenagement(typeDAmenagementDto.getDescription());
   }
 
@@ -132,8 +132,8 @@ class TestTypeDAmenagementUcc {
       IllegalArgumentException, InvocationTargetException {
     typeDAmenagementDao =
         (TypeDAmenagementDao) typeDAmenagementDaoConstruct.newInstance(false, true, true);
-    typeDAmenagementUcc = (TypeDAmenagementUcc) typeDAmenagementUccConstruct.newInstance(bizFactory,
-        typeDAmenagementDao, dalServices);
+    typeDAmenagementUcc = (TypeDAmenagementUcc) typeDAmenagementUccConstruct
+        .newInstance(typeDAmenagementDao, dalServices);
     assertThrows(FatalException.class,
         () -> typeDAmenagementUcc.ajouterTypeAmenagement(typeDAmenagementDto.getDescription()));
   }

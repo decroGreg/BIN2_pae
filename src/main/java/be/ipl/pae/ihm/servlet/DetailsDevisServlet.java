@@ -11,6 +11,7 @@ import be.ipl.pae.biz.interfaces.ClientUcc;
 import be.ipl.pae.biz.interfaces.DevisUcc;
 import be.ipl.pae.biz.interfaces.PhotoUcc;
 import be.ipl.pae.biz.interfaces.TypeDAmenagementUcc;
+import be.ipl.pae.ihm.response.ResponseImpl;
 
 import com.owlike.genson.Genson;
 
@@ -112,11 +113,7 @@ public class DetailsDevisServlet extends HttpServlet {
 
       } catch (Exception ex) {
         ex.printStackTrace();
-        resp.setContentType("application/json");
-        resp.setCharacterEncoding("UTF-8");
-        resp.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
-        String json = "{\"error\":\"false\"}";
-        resp.getWriter().write(json);
+        ResponseImpl.errorServer(resp, ex);
       }
 
 
@@ -139,22 +136,12 @@ public class DetailsDevisServlet extends HttpServlet {
               + typesAmenagementData + "}";
         }
 
-        System.out.println("JSON generated : success");
-        resp.setContentType("application/json");
-
-        resp.setCharacterEncoding("UTF-8");
-
-        resp.setStatus(HttpServletResponse.SC_OK);
-        resp.getWriter().write(json);
+        ResponseImpl.success(resp, json);
       }
 
     } catch (Exception ex) {
       ex.printStackTrace();
-      resp.setContentType("application/json");
-      resp.setCharacterEncoding("UTF-8");
-      resp.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
-      String json = "{\"error\":\"false\"}";
-      resp.getWriter().write(json);
+      ResponseImpl.errorServer(resp, ex);
     }
   }
 
@@ -173,7 +160,7 @@ public class DetailsDevisServlet extends HttpServlet {
         System.out.println(data.get("idDevis"));
         int idDevis = Integer.parseInt(data.get("idDevis"));
         Etat etat = Etat.valueOf(data.get("etat"));
-        System.err.println(etat.toString() + "******************************************");
+        System.err.println(etat.toString());
         switch (etat) {
           case FD:
             break;
@@ -194,37 +181,24 @@ public class DetailsDevisServlet extends HttpServlet {
           devisUcc.repousserDateDebut(devisDto);
         }
 
-        String json = "{\"success\":\"true\", \"token\":\"" + token + "\"}";
-        System.out.println("JSON generated :" + json);
-        resp.setContentType("application/json");
-
-        resp.setCharacterEncoding("UTF-8");
-
-        resp.setStatus(HttpServletResponse.SC_OK);
-        resp.getWriter().write(json);
+        String json = "{\"success\":\"true\", \"token\":\"" + token
+            + "\",\"message\":\"la date a ete repoussee\"}";
+        ResponseImpl.success(resp, json);
 
       } catch (Exception exce) {
 
 
         exce.printStackTrace();
-        String json = "{\"success\":\"false\", \"token\":\"" + token
-            + "\", \"message\":\"message d'erreur\"}";
-        System.out.println("JSON generated :" + json);
-        resp.setContentType("application/json");
-        resp.setCharacterEncoding("UTF-8");
-        resp.setStatus(HttpServletResponse.SC_OK);
-        resp.getWriter().write(json);
+        // String json = "{\"success\":\"false\", \"token\":\"" + token
+        // + "\", \"message\":\"message d'erreur\"}";
+        ResponseImpl.raterRequete(resp, "erreur");
 
 
       }
 
     } catch (Exception exc) {
       exc.printStackTrace();
-      resp.setContentType("application/json");
-      resp.setCharacterEncoding("UTF-8");
-      resp.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
-      String json = "{\"error\":\"false\"}";
-      resp.getWriter().write(json);
+      ResponseImpl.errorServer(resp, exc);
     }
 
   }

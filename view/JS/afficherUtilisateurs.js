@@ -74,13 +74,13 @@ function afficherUtilisateursDropdown(response){ //(response,balise ul,id input,
 
 	$("#utilisateursNameSearch").append(input);
 
-	response.usersData.forEach(e=>{
+	response.noms.forEach(e=>{
 		var li=document.createElement("li");
 		var a=document.createElement("a");
-		a.innerHTML=e.nom+" "+e.prenom;
+		a.innerHTML=e;
 		a.addEventListener("click",function(){
 			$("#searchUtilisateursNameDropdown").text(a.innerHTML);
-			$("#utilisateursNameSearch").val(e.nom);
+			$("#utilisateursNameSearch").val(e);
 		});
 		li.appendChild(a);
 		$("#utilisateursNameSearch").append(li);
@@ -91,7 +91,7 @@ function afficherUtilisateursDropdown(response){ //(response,balise ul,id input,
 
 function afficherUtilisateurs(response){
 	getData("/villes",token,afficherVilleDropdown,onError);
-	getData("/listeUsers",token,afficherUtilisateursDropdown,onError);
+	getData("/nomUtilisateurs",token,afficherUtilisateursDropdown,onError);
 	allHide();
 	viewListeUtilisateurs();
 	$("#voir-utilisateurs tbody").html("");

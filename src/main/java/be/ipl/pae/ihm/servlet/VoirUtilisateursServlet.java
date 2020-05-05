@@ -2,6 +2,7 @@ package be.ipl.pae.ihm.servlet;
 
 import be.ipl.pae.biz.dto.UserDto;
 import be.ipl.pae.biz.interfaces.UserUcc;
+import be.ipl.pae.ihm.response.ResponseImpl;
 
 import com.owlike.genson.Genson;
 
@@ -48,25 +49,13 @@ public class VoirUtilisateursServlet extends HttpServlet {
         String usersData = genson.serialize(utilisateursDto);
         String json = "{\"success\":\"true\", \"usersData\":" + usersData + "}";
         System.out.println("UsersData : " + usersData);
-        System.out.println("JSON generated :" + json);
-
-        resp.setContentType("application/json");
-
-        resp.setCharacterEncoding("UTF-8");
-
-        resp.setStatus(HttpServletResponse.SC_OK);
-        resp.getWriter().write(json);
+        ResponseImpl.success(resp, json);
 
       }
 
     } catch (Exception ex) {
       ex.printStackTrace();
-      String json = "{\"error\":\"false\"}";
-      System.out.println(json);
-      resp.setContentType("application/json");
-      resp.setCharacterEncoding("UTF-8");
-      resp.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
-      resp.getWriter().write(json);
+      ResponseImpl.errorServer(resp, ex);
     }
 
   }
@@ -91,33 +80,17 @@ public class VoirUtilisateursServlet extends HttpServlet {
         String usersData = genson.serialize(utilisateursDto);
         String json = "{\"success\":\"true\", \"usersData\":" + usersData + "}";
         System.out.println("UsersData : " + usersData);
-        System.out.println("JSON generated :" + json);
-
-        resp.setContentType("application/json");
-
-        resp.setCharacterEncoding("UTF-8");
-
-        resp.setStatus(HttpServletResponse.SC_OK);
-        resp.getWriter().write(json);
+        ResponseImpl.success(resp, json);
 
       } else {
         String json = "{\"success\":\"false\", \"token\":\"" + token
             + "\", \"message\":\"vous devez etre connecte pour pouvoir effectuer cette action\"}";
-        System.out.println("JSON generated :" + json);
-        resp.setContentType("application/json");
-        resp.setCharacterEncoding("UTF-8");
-        resp.setStatus(HttpServletResponse.SC_OK);
-        resp.getWriter().write(json);
+        ResponseImpl.raterRequete(resp, json);
       }
 
     } catch (Exception exce) {
       exce.printStackTrace();
-      String json = "{\"error\":\"false\"}";
-      System.out.println(json);
-      resp.setContentType("application/json");
-      resp.setCharacterEncoding("UTF-8");
-      resp.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
-      resp.getWriter().write(json);
+      ResponseImpl.errorServer(resp, exce);
 
 
     }

@@ -44,7 +44,7 @@ public class FactoryStub implements Factory {
     }
     Long time = parsedDate.getTime();
     Timestamp timestamp = new Timestamp(time);
-    return new DevisImpl(1, 1, timestamp, timestamp, 850, "1 jours", 1, Etat.FD);
+    return new DevisImpl(1, 1, timestamp, timestamp, 850, "1 jours", 1, Etat.FF);
   }
 
   @Override
@@ -60,7 +60,7 @@ public class FactoryStub implements Factory {
 
   @Override
   public PhotoDto getPhotoDto() {
-    return new PhotosImpl(1, " ", false, 1, 1);
+    return new PhotosImpl(1, "test.gif", false, 1, 1);
   }
 
   @Override

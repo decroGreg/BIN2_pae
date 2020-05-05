@@ -20,6 +20,7 @@ public class UserDaoMock implements UserDao {
   private boolean confirmerUtilisateur;
   private boolean getUserViaId;
   private boolean voirUserAvecCritere;
+  private boolean nomUser;
   private Factory factory;
 
   /**
@@ -33,11 +34,13 @@ public class UserDaoMock implements UserDao {
    * @param confirmerUtilisateur attribut boolean.
    * @param getUserViaId attribut boolean.
    * @param voirUserAvecCritere attribut boolean.
+   * @param nomUser attribut boolean.
    * @param testDalException attribut boolean.
    */
   public UserDaoMock(boolean getUserConnexion, boolean createInscription, boolean voirTousUser,
       boolean voirUserPasConfirmer, boolean lierClientUser, boolean confirmerUtilisateur,
-      boolean getUserViaId, boolean voirUserAvecCritere, boolean testDalException) {
+      boolean getUserViaId, boolean voirUserAvecCritere, boolean nomUser,
+      boolean testDalException) {
     this.getUserConnexion = getUserConnexion;
     this.createInscription = createInscription;
     this.voirTousUser = voirTousUser;
@@ -47,6 +50,7 @@ public class UserDaoMock implements UserDao {
     this.confirmerUtilisateur = confirmerUtilisateur;
     this.getUserViaId = getUserViaId;
     this.voirUserAvecCritere = voirUserAvecCritere;
+    this.nomUser = nomUser;
     this.factory = new FactoryStub();
   }
 
@@ -127,7 +131,12 @@ public class UserDaoMock implements UserDao {
 
   @Override
   public List<String> nomUser() {
-    // TODO Auto-generated method stub
+    testDalException();
+    if (nomUser) {
+      List<String> noms = new ArrayList<String>();
+      noms.add(factory.getUserDto().getNom());
+      return noms;
+    }
     return null;
   }
 }

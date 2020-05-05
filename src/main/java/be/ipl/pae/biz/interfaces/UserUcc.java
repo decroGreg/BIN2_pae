@@ -22,4 +22,6 @@ public interface UserUcc {
 
   List<UserDto> rechercherUtilisateurs(String nom, String ville);
 
+  List<String> getNomUtilisateurs();
+
 }

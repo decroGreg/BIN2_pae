@@ -183,4 +183,18 @@ public class UserUccImpl implements UserUcc {
     daoServicesUcc.commit();
     return Collections.unmodifiableList(utilisateursCorrespondants);
   }
+
+  @Override
+  public List<String> getNomUtilisateurs() {
+    List<String> noms;
+    try {
+      daoServicesUcc.demarrerTransaction();
+      noms = userDao.nomUser();
+    } catch (DalException de) {
+      daoServicesUcc.rollback();
+      throw new FatalException(de.getMessage());
+    }
+    daoServicesUcc.commit();
+    return Collections.unmodifiableList(noms);
+  }
 }
