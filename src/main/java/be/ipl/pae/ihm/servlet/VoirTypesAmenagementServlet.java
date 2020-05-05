@@ -29,9 +29,9 @@ public class VoirTypesAmenagementServlet extends HttpServlet {
   /**
    * Cree un VoirTypesAmenagementServlet.
    * 
-   * @param typeDAmenagementUcc
-   * @param photoUcc
-   * @param amenagementUcc
+   * @param typeDAmenagementUcc un typeDAmenagementUcc
+   * @param photoUcc une photoUcc
+   * @param amenagementUcc un amenagementUcc
    */
   public VoirTypesAmenagementServlet(TypeDAmenagementUcc typeDAmenagementUcc, PhotoUcc photoUcc,
       AmenagementUcc amenagementUcc) {
