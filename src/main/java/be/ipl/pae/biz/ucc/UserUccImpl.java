@@ -43,6 +43,7 @@ public class UserUccImpl implements UserUcc {
     LocalDate now = LocalDate.now();
     Timestamp timestamp = Timestamp.valueOf(now.atStartOfDay());
     user.setDateInscription(timestamp);
+    // Verifie que les donnees de l'utlisateur sont remplies
     if (user.checkUser()) {
       if (!user.checkEmail()) {
         throw new BizException("Format de l'email incorrect");
@@ -60,6 +61,7 @@ public class UserUccImpl implements UserUcc {
           throw new BizException("Email deja utilise");
         }
 
+        // Ajoute le user et le renvoie
         userDao.createInscription(user);
         UserDto userAjoute = userDao.getUserConnexion(user.getEmail());
         daoServicesUcc.commit();
