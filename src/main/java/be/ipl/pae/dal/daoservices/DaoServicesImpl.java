@@ -71,10 +71,9 @@ public class DaoServicesImpl implements DaoServices, DaoServicesUcc {
     }
   }
 
-  /**
-   * Annule les modifications faites par la transaction en cas d'erreur pour pas garder de fausses
-   * valeurs dans la db
-   */
+  // Annule les modifications faites par la transaction en cas d'erreur pour pas garder de fausses
+  // valeurs dans la db.
+
   @Override
   public void rollback() {
     try (Connection conn = connections.get()) {
