@@ -7,7 +7,7 @@ function remplirListeTypesAmenagement(response){
 	$("#navBarStaticTypesAmenagements").html("");
 	$("#myCarousel #carousel-indicators").html("");
 	$("#myCarousel #carousel-inner").html("");
-
+	console.log("passage");
 	
 	//Remplit la liste des types d'amenagement
 	Object.keys(response.typesAmenagementData).forEach(data=>{

@@ -48,12 +48,14 @@ $(document).ready(e=>{
                 localStorage.removeItem("token");
                 $("#userName").html("");
                 viewHomePage();
+                
         });
 	$(".mesPhotos").click(e=>{
         e.preventDefault();
     	
     	let data=user;
-    	postData("/mesPhotos", data, token, afficherPhotos, onError);
+            postData("/mesPhotos", data, token, afficherPhotos, onError);
+            
     });
     
 
@@ -81,6 +83,7 @@ function allHide(){
 }
 //Home page non-connecté
 function viewHomePage(){
+        getData("/voirTypesAmenagement", token, remplirListeTypesAmenagement, onError);
         allHide();
         $(".mesPhotos").hide();
         $(".mesDevis").hide();
