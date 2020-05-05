@@ -70,8 +70,7 @@ public class Main {
 
     // Creation de la dépendance
 
-    Factory factory = (Factory) conf.getConfigPropertyClass("factory.Factory");
-    DaoServicesImpl daoServices = new DaoServicesImpl();
+
     WebAppContext context = new WebAppContext();
 
     System.out.println(context.getContextPath());
@@ -83,6 +82,8 @@ public class Main {
     HttpServlet index = new IndexServlet();
     context.addServlet(new ServletHolder(index), "/");
 
+    Factory factory = (Factory) conf.getConfigPropertyClass("factory.Factory");
+    DaoServicesImpl daoServices = new DaoServicesImpl();
     UserDao userDao = new UserDaoImpl(daoServices, factory);
     UserDto userDto = factory.getUserDto();
     UserUcc userUcc = new UserUccImpl(factory, userDao, daoServices);
