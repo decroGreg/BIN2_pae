@@ -28,11 +28,11 @@ public class RechercheDevisServlet extends HttpServlet {
   private ClientUcc clientUcc;
 
   /**
-   * @param devisUcc
+   * Cree un objet RechercheDevisServlet.
    * 
-   * @param devisDto
-   * 
-   * @param clientUcc
+   * @param devisUcc le devis ucc.
+   * @param devisDto le devis dto.
+   * @param clientUcc le client ucc.
    */
   public RechercheDevisServlet(DevisUcc devisUcc, DevisDto devisDto, ClientUcc clientUcc) {
     // TODO Auto-generated constructor stub

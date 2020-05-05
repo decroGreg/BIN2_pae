@@ -19,6 +19,8 @@ public class RegisterServlet extends HttpServlet {
   private UserDto userDto;
 
   /**
+   * Cree un objet RegisterServlet.
+   * 
    * @param userDto l"user dto
    * @param userUcc l'user ucc
    */

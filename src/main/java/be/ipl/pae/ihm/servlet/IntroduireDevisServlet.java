@@ -30,11 +30,13 @@ public class IntroduireDevisServlet extends HttpServlet {
   private PhotoUcc photoUcc;
 
   /**
-   * @param devisUcc le devis ucc
-   * @param clientDto le clientDto
-   * @param devisDto le devisDto
-   * @param type le type d'amenagement ucc
-   * @param photoUcc photoUcc
+   * Cree un objet IntroduireDevisServlet.
+   * 
+   * @param devisUcc le devis ucc.
+   * @param clientDto le clientDto.
+   * @param devisDto le devisDto.
+   * @param type le type d'amenagement ucc.
+   * @param photoUcc photoUcc.
    * 
    */
   public IntroduireDevisServlet(DevisUcc devisUcc, ClientDto clientDto, DevisDto devisDto,

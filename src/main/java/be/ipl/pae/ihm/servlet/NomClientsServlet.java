@@ -18,6 +18,7 @@ public class NomClientsServlet extends HttpServlet {
   private UserUcc userUcc;
 
   /**
+   * Cree un objet NomClientsServlet.
    * 
    * @param userUcc l'user Ucc
    */

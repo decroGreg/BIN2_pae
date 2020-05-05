@@ -28,10 +28,10 @@ public class LoginServlet extends HttpServlet {
   private UserDto userDto;
 
   /**
-   * constructeur
+   * Cree un objet LoginServlet.
    * 
-   * @param UserUcc l'user ucc
-   * @param UserDto l'userDto
+   * @param userUcc l'user ucc.
+   * @param userDto l'userDto.
    */
   public LoginServlet(UserUcc userUcc, UserDto userDto) {
     super();
