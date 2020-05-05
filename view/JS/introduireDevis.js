@@ -51,7 +51,6 @@ $(document).ready(function () {
             });
         $("#enregistrer-photo").click(e=>{
                 photo[nbPhoto]=$("#imageQuote").attr("src");
-                console.log(photo);
                 nbPhoto++;
         });
 

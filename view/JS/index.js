@@ -42,7 +42,8 @@ $(document).ready(e=>{
         });
  
         $("#btn-deconnexion").click(e=>{
-                e.preventDefault()
+                e.preventDefault();
+                user=undefined;
                 token=undefined;
                 localStorage.removeItem("token");
                 console.log(token);
