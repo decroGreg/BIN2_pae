@@ -37,12 +37,16 @@ public class DetailsDevisServlet extends HttpServlet {
   private DevisDto devisDto;
   private PhotoUcc photoUcc;
 
+
   /**
    * Cree un objet DetailsDevisServlet.
    * 
-   * @param userUcc un userUcc
-   * @param userDto un userDto
-   * @param devisUcc un devisUcc
+   * @param devisUcc le devis ucc.
+   * @param clientUcc le client ucc.
+   * @param amenagementUcc l'amenagement ucc.
+   * @param typeDAmenagementUcc le type d'amenagement ucc.
+   * @param devisDto le devis dto.
+   * @param photoUcc le photo ucc.
    */
   public DetailsDevisServlet(DevisUcc devisUcc, ClientUcc clientUcc, AmenagementUcc amenagementUcc,
       TypeDAmenagementUcc typeDAmenagementUcc, DevisDto devisDto, PhotoUcc photoUcc) {

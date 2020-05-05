@@ -17,6 +17,8 @@ public class VilleServlet extends HttpServlet {
 
 
   /**
+   * Cree un objet VilleServlet.
+   * 
    * @param clientUcc le client ucc
    * 
    */

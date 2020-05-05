@@ -1,5 +1,4 @@
 import {postData,getData,deleteData, putData, onError} from "./util.js" ;
-import{afficherDevis} from "./afficherDevis.js";
 import {allHide, token} from "./index.js";
 import{afficherDetailsDevis} from "./detailsDevis.js";
 
